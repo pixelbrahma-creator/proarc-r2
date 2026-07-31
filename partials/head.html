@@ -1,0 +1,23 @@
+<meta charset="UTF-8">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<link rel="canonical" href="{{canonical}}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:image" content="{{ogImage}}">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="shortcut icon" href="{{assetPrefix}}images/ui/favicon.ico">
+
+<link rel="stylesheet" href="{{assetPrefix}}src/styles/tokens.css">
+<link rel="preload" href="{{assetPrefix}}assets/fonts/general-sans/GeneralSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{assetPrefix}}assets/fonts/general-sans/GeneralSans-Semibold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{assetPrefix}}src/styles/fonts.css">
+<link rel="stylesheet" href="{{assetPrefix}}src/styles/tokens-layout.css">
+<link rel="stylesheet" href="{{assetPrefix}}src/styles/base.css">
+<link rel="stylesheet" href="{{assetPrefix}}src/styles/layout.css">
+<link rel="stylesheet" href="{{assetPrefix}}src/styles/components.css">
+<link rel="stylesheet" href="{{assetPrefix}}src/styles/animations.css">
+{{#if pageStylesheet}}<link rel="stylesheet" href="{{assetPrefix}}src/styles/pages/{{pageStylesheet}}.css">{{/if}}

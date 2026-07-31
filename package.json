@@ -1,0 +1,19 @@
+{
+  "name": "proarc-r2",
+  "private": true,
+  "version": "2.0.0",
+  "description": "ProArc website, R2 — static output, no runtime dependencies",
+  "scripts": {
+    "build:images": "node build/process-images.js",
+    "build:manifest": "node build/manifest-from-outputs.js",
+    "build:manifest:check": "node build/manifest-from-outputs.js --check",
+    "build:pages": "node build/generate-projects.js",
+    "build": "npm run build:manifest && npm run build:pages",
+    "check:links": "node build/check-links.js",
+    "lint:css": "stylelint \"src/**/*.css\""
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5",
+    "stylelint": "^16.26.1"
+  }
+}

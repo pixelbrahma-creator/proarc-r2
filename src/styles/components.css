@@ -1,0 +1,32 @@
+/* =========================================================================
+   Components — authored fresh for R2.
+
+   v1's components.css (1,263 lines) was deliberately NOT carried across.
+   It encoded v1's card, slider, filter-bar, testimonial and nav patterns,
+   none of which survive the R2 structure change. Carrying it would have
+   meant building R2 out of v1's vocabulary while calling it a redesign.
+
+   What DID carry, and what this file may therefore rely on:
+
+     tokens.css         the v1.2 type scale, weights, letter-spacing,
+                        measures (E11-corrected) and the neutral colour
+                        ramp, plus the .t-* type-role classes
+     tokens-layout.css  spacing (--gap- and --pad- aliases), radius,
+                        motion, z-index
+     base.css           reset + element defaults + .eyebrow / .lead
+     layout.css         .container, .section, .grid, .split, aspect ratios
+
+   Rules for anything written here:
+
+     - No raw colour. stylelint's color-no-hex allows hex only in
+       tokens.css. If a component needs a colour, it needs a token, and a
+       new token needs a guideline revision — not a local literal.
+     - No px font-sizes. rem/em only.
+     - No physical direction properties (left/right/margin-left/…) and no
+       text-align: left|right. Use logical properties throughout; the site
+       has to flip to dir="rtl" without a second stylesheet.
+     - Prose columns take --measure-body / --measure-body-lg. Do not
+       hand-set a max-width on running text.
+     - Hierarchy comes from size, weight and space — never from opacity
+       (v1.2 §9.16).
+   ========================================================================= */

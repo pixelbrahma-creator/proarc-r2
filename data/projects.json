@@ -1,0 +1,796 @@
+{
+  "categories": [
+    "Commercial",
+    "Educational",
+    "Residential",
+    "Retail & Mixed-Use",
+    "Religious"
+  ],
+  "locations": [
+    "Ajman",
+    "Al Zorah",
+    "Umm Al Quwain",
+    "Emirates City"
+  ],
+  "projects": [
+    {
+      "slug": "edu-cityuniversity",
+      "legacySlug": "edu-cityuniversity",
+      "title": "City University",
+      "category": "Educational",
+      "location": "Ajman",
+      "locationFilter": "Ajman",
+      "summary": "City University is an educational development delivered by Proarc in Ajman, spanning a built-up area of 62,000 sqm.",
+      "description": [
+        "City University is an educational development delivered by Proarc in Ajman, spanning a built-up area of 62,000 sqm. Designed to support a modern learning environment, the project balances functional academic spaces with thoughtful architecture, reflecting Proarc's commitment to quality construction and timely delivery across the Emirates' education sector."
+      ],
+      "builtUpArea": "62,000 sqm",
+      "status": "Completed",
+      "year": "29/08/2017",
+      "startDate": "05/09/2016",
+      "imagePrefix": "eduuni"
+    },
+    {
+      "slug": "edu-woodlemparkaljurf",
+      "legacySlug": "edu-woodlemparkaljurf",
+      "title": "Woodlem Park School, Al Jurf",
+      "category": "Educational",
+      "location": "Al Jurf, Ajman",
+      "locationFilter": "Ajman",
+      "summary": "Woodlempark Al Jurf School is an educational development delivered by Proarc in Al Jurf, Ajman, spanning a built-up area of 25,000 sqm.",
+      "description": [
+        "Woodlempark Al Jurf School is an educational development delivered by Proarc in Al Jurf, Ajman, spanning a built-up area of 25,000 sqm. Designed to support a modern learning environment, the project balances functional academic spaces with thoughtful architecture, reflecting Proarc's commitment to quality construction and timely delivery across the Emirates' education sector."
+      ],
+      "builtUpArea": "25,000 sqm",
+      "status": "Completed",
+      "year": "14/03/2017",
+      "startDate": "18/10/2016",
+      "imagePrefix": "eduwoodaljurf"
+    },
+    {
+      "slug": "edu-ajmanamerican",
+      "legacySlug": "edu-ajmanamerican",
+      "title": "Ajman American School",
+      "category": "Educational",
+      "location": "Ajman",
+      "locationFilter": "Ajman",
+      "summary": "Ajman American School is an educational development delivered by Proarc in Ajman, spanning a built-up area of 11,000 sqm.",
+      "description": [
+        "Ajman American School is an educational development delivered by Proarc in Ajman, spanning a built-up area of 11,000 sqm. Designed to support a modern learning environment, the project balances functional academic spaces with thoughtful architecture, reflecting Proarc's commitment to quality construction and timely delivery across the Emirates' education sector."
+      ],
+      "builtUpArea": "11,000 sqm",
+      "status": "Completed",
+      "year": "01/07/2017",
+      "startDate": "17/08/2016",
+      "imagePrefix": "eduajmanamerican"
+    },
+    {
+      "slug": "edu-habitataltallah",
+      "legacySlug": "edu-habitataltallah",
+      "title": "Habitat School, Al Tallah",
+      "category": "Educational",
+      "location": "Al Tallah, Ajman",
+      "locationFilter": "Ajman",
+      "summary": "Habitat Al Tallah is an educational development delivered by Proarc in Al Tallah, Ajman, spanning a built-up area of 21,000 sqm.",
+      "description": [
+        "Habitat Al Tallah is an educational development delivered by Proarc in Al Tallah, Ajman, spanning a built-up area of 21,000 sqm. Designed to support a modern learning environment, the project balances functional academic spaces with thoughtful architecture, reflecting Proarc's commitment to quality construction and timely delivery across the Emirates' education sector."
+      ],
+      "builtUpArea": "21,000 sqm",
+      "status": "Completed",
+      "year": "26/03/2017",
+      "startDate": "11/11/2013",
+      "imagePrefix": "eduhabitat"
+    },
+    {
+      "slug": "edu-delhiprivate",
+      "legacySlug": "edu-delhiprivate",
+      "title": "Delhi Private School",
+      "category": "Educational",
+      "location": "Ajman",
+      "locationFilter": "Ajman",
+      "summary": "Delhi Private School is an educational development delivered by Proarc in Ajman, spanning a built-up area of 31,000 sqm.",
+      "description": [
+        "Delhi Private School is an educational development delivered by Proarc in Ajman, spanning a built-up area of 31,000 sqm. Designed to support a modern learning environment, the project balances functional academic spaces with thoughtful architecture, reflecting Proarc's commitment to quality construction and timely delivery across the Emirates' education sector."
+      ],
+      "builtUpArea": "31,000 sqm",
+      "status": "Completed",
+      "year": "11/04/2017",
+      "startDate": "22/09/2016",
+      "imagePrefix": "edudelhi"
+    },
+    {
+      "slug": "edu-woodlemparkhamidiya",
+      "legacySlug": "edu-woodlemparkhamidiya",
+      "title": "Woodlem Park School, Hamidiya",
+      "category": "Educational",
+      "location": "Hamidiya, Ajman",
+      "locationFilter": "Ajman",
+      "summary": "Woodlempark Hamidiya School is an educational development delivered by Proarc in Hamidiya, Ajman, spanning a built-up area of 26,000 sqm.",
+      "description": [
+        "Woodlempark Hamidiya School is an educational development delivered by Proarc in Hamidiya, Ajman, spanning a built-up area of 26,000 sqm. Designed to support a modern learning environment, the project balances functional academic spaces with thoughtful architecture, reflecting Proarc's commitment to quality construction and timely delivery across the Emirates' education sector."
+      ],
+      "builtUpArea": "26,000 sqm",
+      "status": "Completed",
+      "year": "28/07/2021",
+      "startDate": "05/02/2020",
+      "imagePrefix": "eduwoodhamidiya"
+    },
+    {
+      "slug": "edu-northgatebritish",
+      "legacySlug": "edu-northgatebritish",
+      "title": "North Gate British School",
+      "category": "Educational",
+      "location": "Ajman",
+      "locationFilter": "Ajman",
+      "summary": "North Gate British School is an educational development delivered by Proarc in Ajman, spanning a built-up area of 24,000 sqm.",
+      "description": [
+        "North Gate British School is an educational development delivered by Proarc in Ajman, spanning a built-up area of 24,000 sqm. Designed to support a modern learning environment, the project balances functional academic spaces with thoughtful architecture, reflecting Proarc's commitment to quality construction and timely delivery across the Emirates' education sector."
+      ],
+      "builtUpArea": "24,000 sqm",
+      "status": "Completed",
+      "year": "31/07/2024",
+      "startDate": "13/02/2024",
+      "imagePrefix": "edunorthgate"
+    },
+    {
+      "slug": "edu-metropolitan",
+      "legacySlug": "edu-metropolitan",
+      "title": "Metropolitan School",
+      "category": "Educational",
+      "location": "Ajman",
+      "locationFilter": "Ajman",
+      "summary": "Metropolitan School is an educational development delivered by Proarc in Ajman, spanning a built-up area of 22,000 sqm.",
+      "description": [
+        "Metropolitan School is an educational development delivered by Proarc in Ajman, spanning a built-up area of 22,000 sqm. Designed to support a modern learning environment, the project balances functional academic spaces with thoughtful architecture, reflecting Proarc's commitment to quality construction and timely delivery across the Emirates' education sector."
+      ],
+      "builtUpArea": "22,000 sqm",
+      "status": "Completed",
+      "year": "01/03/2024",
+      "startDate": "11/10/2023",
+      "imagePrefix": "edumetro"
+    },
+    {
+      "slug": "edu-crownbritish",
+      "legacySlug": "edu-crownbritish",
+      "title": "Crown British School",
+      "category": "Educational",
+      "location": "Ajman",
+      "locationFilter": "Ajman",
+      "summary": "Crown British School is an educational development delivered by Proarc in Ajman, spanning a built-up area of 12,000 sqm.",
+      "description": [
+        "Crown British School is an educational development delivered by Proarc in Ajman, spanning a built-up area of 12,000 sqm. Designed to support a modern learning environment, the project balances functional academic spaces with thoughtful architecture, reflecting Proarc's commitment to quality construction and timely delivery across the Emirates' education sector."
+      ],
+      "builtUpArea": "12,000 sqm",
+      "status": "Completed",
+      "year": "19/08/2021",
+      "startDate": "14/01/2021",
+      "imagePrefix": "educrown"
+    },
+    {
+      "slug": "edu-cityamerican",
+      "legacySlug": "edu-cityamerican",
+      "title": "City American School",
+      "category": "Educational",
+      "location": "Ajman",
+      "locationFilter": "Ajman",
+      "summary": "City American School is an educational development delivered by Proarc in Ajman, spanning a built-up area of 16,000 sqm.",
+      "description": [
+        "City American School is an educational development delivered by Proarc in Ajman, spanning a built-up area of 16,000 sqm. Designed to support a modern learning environment, the project balances functional academic spaces with thoughtful architecture, reflecting Proarc's commitment to quality construction and timely delivery across the Emirates' education sector."
+      ],
+      "builtUpArea": "16,000 sqm",
+      "status": "Completed",
+      "year": "21/12/2020",
+      "startDate": "07/11/2019",
+      "imagePrefix": "educityamerican"
+    },
+    {
+      "slug": "marksaverashdiya",
+      "legacySlug": "marksaverashdiya",
+      "title": "Mark & Save, Rashdiya",
+      "category": "Commercial",
+      "location": "Rashdiya, Ajman",
+      "locationFilter": "Ajman",
+      "summary": "Rising as a hallmark of architectural vision and structural grace, Mark and Save emerges across three strategic landscapes in Ajman, redefining the city’s retail horizon.",
+      "description": [
+        "Rising as a hallmark of architectural vision and structural grace, Mark and Save emerges across three strategic landscapes in Ajman, redefining the city’s retail horizon. The crown jewel of these is a monumental 25,000 sqm masterpiece, a triumph of design where form and function dance in perfect harmony. Across its soaring Ground and First floors, the layout invites a sense of fluid exploration, while two dedicated levels of integrated parking and a vast roof structure complete a silhouette of modern grandeur. From the initial blueprint to the final finishing touch, this flagship destination stands as a testament to meticulous planning and superior craftsmanship, offering a sprawling, multi-level lifestyle mall that elevates the shopping experience to an art form."
+      ],
+      "builtUpArea": "25,000 sqm",
+      "status": "Completed",
+      "configuration": "Ground + First + 2 Parking + Roof"
+    },
+    {
+      "slug": "marksavealtallah",
+      "legacySlug": "marksavealtallah",
+      "title": "Mark & Save, Al Tallah",
+      "category": "Commercial",
+      "location": "Al Tallah, Ajman",
+      "locationFilter": "Ajman",
+      "summary": "Rising as a hallmark of architectural vision and structural grace, Mark and Save emerges across three strategic landscapes in Ajman, redefining the city’s retail horizon.",
+      "description": [
+        "Rising as a hallmark of architectural vision and structural grace, Mark and Save emerges across three strategic landscapes in Ajman, redefining the city’s retail horizon. The crown jewel of these is a monumental 25,000 sqm masterpiece, a triumph of design where form and function dance in perfect harmony. Across its soaring Ground and First floors, the layout invites a sense of fluid exploration, while two dedicated levels of integrated parking and a vast roof structure complete a silhouette of modern grandeur. From the initial blueprint to the final finishing touch, this flagship destination stands as a testament to meticulous planning and superior craftsmanship, offering a sprawling, multi-level lifestyle mall that elevates the shopping experience to an art form."
+      ],
+      "builtUpArea": "25,000 sqm",
+      "status": "Completed",
+      "configuration": "Ground + First + 2 Parking + Roof"
+    },
+    {
+      "slug": "marksavealjurf",
+      "legacySlug": "marksavealjurf",
+      "title": "Mark & Save, Al Jurf",
+      "category": "Commercial",
+      "location": "Al Jurf, Ajman",
+      "locationFilter": "Ajman",
+      "summary": "Rising as a hallmark of architectural vision and structural grace, Mark and Save emerges across three strategic landscapes in Ajman, redefining the city’s retail horizon.",
+      "description": [
+        "Rising as a hallmark of architectural vision and structural grace, Mark and Save emerges across three strategic landscapes in Ajman, redefining the city’s retail horizon. The crown jewel of these is a monumental 25,000 sqm masterpiece, a triumph of design where form and function dance in perfect harmony. Across its soaring Ground and First floors, the layout invites a sense of fluid exploration, while two dedicated levels of integrated parking and a vast roof structure complete a silhouette of modern grandeur. From the initial blueprint to the final finishing touch, this flagship destination stands as a testament to meticulous planning and superior craftsmanship, offering a sprawling, multi-level lifestyle mall that elevates the shopping experience to an art form."
+      ],
+      "builtUpArea": "25,000 sqm",
+      "status": "Completed",
+      "configuration": "Ground + First + 2 Parking + Roof"
+    },
+    {
+      "slug": "homesrus",
+      "legacySlug": "homesrus",
+      "title": "Homes R Us",
+      "category": "Commercial",
+      "location": "Ajman, U.A.E",
+      "locationFilter": "Ajman",
+      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "description": [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      ],
+      "status": "Completed"
+    },
+    {
+      "slug": "citylifealtallah",
+      "legacySlug": "citylifealtallah",
+      "title": "City Life, Al Tallah",
+      "category": "Retail & Mixed-Use",
+      "location": "Al Tallah, Ajman",
+      "locationFilter": "Ajman",
+      "summary": "City Life is located within the City University Campus in Al-Tallah, Ajman on Sheikh Mohammed Bin Zayed Road.",
+      "description": [
+        "City Life is located within the City University Campus in Al-Tallah, Ajman on Sheikh Mohammed Bin Zayed Road. This G+1 shopping mall uses a plethora of material to make a well-integrated building with a simple form. The use of exposed concrete panels, corten steel texture finish, off white Portuguese limestone and Aluminum louvers explores the various materials along the elevation. The project planned with simple and understated forms, yet through the treatment of material colors succeed in transmitting with subtlety, the building's overall complexity. The complex includes many retail stores, a games center, food court, a hypermarket and ground parking spaces."
+      ],
+      "client": "R Select",
+      "builtUpArea": "230,191.37 sq. ft.",
+      "status": "Completed",
+      "imagePrefix": "citylifecomm"
+    },
+    {
+      "slug": "carsouq",
+      "legacySlug": "carsouq",
+      "title": "Car Souq",
+      "category": "Commercial",
+      "location": "Ajman, U.A.E",
+      "locationFilter": "Ajman",
+      "summary": "Nestled at the intersection of innovation and ambition, this premier Car Souq serves as a majestic theater for the automotive world, housing an elite collection of more than 50 professional showrooms across a sprawling 21,000 square-meter landscape.",
+      "description": [
+        "Nestled at the intersection of innovation and ambition, this premier Car Souq serves as a majestic theater for the automotive world, housing an elite collection of more than 50 professional showrooms across a sprawling 21,000 square-meter landscape. It is a meticulously crafted ecosystem where the prestige of world-class retail meets the precision of essential on-site services, weaving together a seamless tapestry of convenience for dealers and enthusiasts alike. Designed with a visionary focus on fluid efficiency, the project transcends the traditional marketplace to become a sophisticated automotive sanctuary of grand proportions. Every architectural detail within this comprehensive hub has been polished to perfection, establishing it as the definitive landmark for the industry in Ajman, a place where the passion for the road finds its true home."
+      ],
+      "builtUpArea": "21,000 sqm",
+      "status": "Completed"
+    },
+    {
+      "slug": "royalfurniture",
+      "legacySlug": "royalfurniture",
+      "title": "Royal Furniture",
+      "category": "Commercial",
+      "location": "Al Jurf, Ajman",
+      "locationFilter": "Ajman",
+      "summary": "Spanning a palatial 4,000 square meters of architectural grace, the Royal Furniture showroom stands as a luminous beacon of interior inspiration.",
+      "description": [
+        "Spanning a palatial 4,000 square meters of architectural grace, the Royal Furniture showroom stands as a luminous beacon of interior inspiration. This sophisticated Ground plus First Floor masterpiece is a symphony of light and space, designed to showcase the finest artistry in home décor across two expansive levels. Every corner of the gallery reflects a commitment to aesthetic excellence, offering a grand, multi-story journey through elegance and comfort. From its commanding street presence to its meticulously curated interiors, the project serves as a premier destination where visionary design meets the pinnacle of luxury living."
+      ],
+      "builtUpArea": "4,000 sqm",
+      "status": "Completed",
+      "configuration": "Ground + First Floor"
+    },
+    {
+      "slug": "rosetower",
+      "legacySlug": "rosetower",
+      "title": "Rose Tower",
+      "category": "Residential",
+      "location": "Ajman, UAE",
+      "locationFilter": "Ajman",
+      "summary": "This landmark development features a complex structural design consisting of a Ground Floor, six levels of Podium parking, and an expansive 40-floor residential tower with a built up area of 12,250 sqm.",
+      "description": [
+        "This landmark development features a complex structural design consisting of a Ground Floor, six levels of Podium parking, and an expansive 40-floor residential tower with a built up area of 12,250 sqm. The Health Club level is designed to provide residents with premium recreational facilities and integrated lifestyle amenities."
+      ],
+      "builtUpArea": "12,250 sqm",
+      "status": "Completed",
+      "configuration": "G + 6P + Podium + 40 Floors"
+    },
+    {
+      "slug": "azhagarden",
+      "legacySlug": "azhagarden",
+      "title": "Azha Garden Residence",
+      "category": "Residential",
+      "location": "Aamra, Ajman",
+      "locationFilter": "Ajman",
+      "featured": true,
+      "summary": "Azha Garden Residence is a residential tower featuring a Ground Floor and four levels of dedicated parking.",
+      "description": [
+        "Azha Garden Residence is a residential tower featuring a Ground Floor and four levels of dedicated parking. The development rises across 15 floors of high-quality living space with a built up area of 44,020 sqm, designed to meet the growing demand for modern housing in the region. Residents enjoy premium amenities, including a fully equipped Health Club and a versatile Roof area for recreation and community activities."
+      ],
+      "builtUpArea": "44,020 sqm",
+      "status": "Completed",
+      "configuration": "G + 4P + 15 Floors"
+    },
+    {
+      "slug": "seasidehills",
+      "legacySlug": "seasidehills",
+      "title": "Seaside Hills Residence",
+      "category": "Residential",
+      "location": "Al Zorah, Ajman",
+      "locationFilter": "Al Zorah",
+      "summary": "Seaside Hills Residence is a project located in the beachfront district of Al Zorah, which is part of the Emirate of Ajman.",
+      "description": [
+        "Seaside Hills Residence is a project located in the beachfront district of Al Zorah, which is part of the Emirate of Ajman. Among the residences on offer in Seaside Hills are 1â€“3 bedroom apartments and 4-bedroom penthouses. Luxurious finishing and maximum comfort, as well as views of the Arabian Gulf and the surrounding landscaped gardens."
+      ],
+      "builtUpArea": "26,267 sqm",
+      "status": "Completed"
+    },
+    {
+      "slug": "greenbuildings",
+      "legacySlug": "greenbuildings",
+      "title": "Green Buildings",
+      "category": "Residential",
+      "location": "Ajman, UAE",
+      "locationFilter": "Ajman",
+      "summary": "This project features a series of five buildings (with built up area 9,383.36 sqm, 12,250 sqm, 6,841 sqm, 7,154 sqm, and 7,030 sqm), each designed with a ground floor dedicated to commercial use and a mezzanine plus two residential floors above.",
+      "description": [
+        "This project features a series of five buildings (with built up area 9,383.36 sqm, 12,250 sqm, 6,841 sqm, 7,154 sqm, and 7,030 sqm), each designed with a ground floor dedicated to commercial use and a mezzanine plus two residential floors above. The ground-level commercial spaces are strategically planned to support a variety of businesses, providing convenient services to the local community. With around 74,000 square feet built up area."
+      ],
+      "client": "Emirates Properties",
+      "builtUpArea": "~74,000 sq. ft.",
+      "status": "Completed",
+      "configuration": "G + M + 2 Floors"
+    },
+    {
+      "slug": "gfloorpenthouse",
+      "legacySlug": "gfloorpenthouse",
+      "title": "G+8 Floor + Penthouse",
+      "category": "Residential",
+      "location": "Al Zorah, Ajman",
+      "locationFilter": "Al Zorah",
+      "summary": "This premier residential development in Al Zorah features a modern G+8 floor structure topped with a sophisticated penthouse with a built up area of 3,995 sqm.",
+      "description": [
+        "This premier residential development in Al Zorah features a modern G+8 floor structure topped with a sophisticated penthouse with a built up area of 3,995 sqm. Located in the serene Al Zorah community, this building offers a perfect balance of luxury, comfort, and breathtaking views."
+      ],
+      "builtUpArea": "3,995 sqm",
+      "status": "Completed",
+      "configuration": "G + 8 Floors + Penthouse",
+      "imagePrefix": "G-"
+    },
+    {
+      "slug": "exclusivevillas",
+      "legacySlug": "exclusivevillas",
+      "title": "Exclusive Villas",
+      "category": "Residential",
+      "location": "Al Zorah, Ajman",
+      "locationFilter": "Al Zorah",
+      "summary": "Situated within the prestigious Al Zorah development in Ajman, this private luxury beach resort offers a refined gated community experience across a sprawling 16,283 square meter built-up area.",
+      "description": [
+        "Situated within the prestigious Al Zorah development in Ajman, this private luxury beach resort offers a refined gated community experience across a sprawling 16,283 square meter built-up area. The exclusive enclave features thirty one meticulously designed villas, providing a harmonious blend of coastal serenity and modern sophistication. Designed for those who value privacy and high-end living, this established destination stands as a premier residential retreat in the heart of one of the UAE's most sought-after coastal landscapes."
+      ],
+      "builtUpArea": "16,283 sqm",
+      "status": "Completed",
+      "imagePrefix": "Exclusive-villas"
+    },
+    {
+      "slug": "gateway",
+      "legacySlug": "gateway",
+      "title": "Gateway Residences",
+      "category": "Residential",
+      "location": "Marina &amp; Creek, Ajman",
+      "locationFilter": "Ajman",
+      "summary": "Currently under construction between the Marina and the Creek, Gateway apartment building is set to redefine waterfront living in Ajman.",
+      "description": [
+        "Currently under construction between the Marina and the Creek, Gateway apartment building is set to redefine waterfront living in Ajman. This G+8Floor residential landmark will offer a curated selection of studios and spacious apartments, capped by exclusive three-bedroom duplexes featuring private gardens."
+      ],
+      "builtUpArea": "44,976 sqm",
+      "status": "Under Construction",
+      "configuration": "G + 8 Floors"
+    },
+    {
+      "slug": "sealine",
+      "legacySlug": "sealine",
+      "title": "Sealine Residences",
+      "category": "Residential",
+      "location": "Al Zorah, Ajman",
+      "locationFilter": "Al Zorah",
+      "summary": "Currently rising in the heart of Al Zorah, Ajman, Sealine Residence is an upcoming architectural landmark located within Row 5 of the prestigious Beach Village Development.",
+      "description": [
+        "Currently rising in the heart of Al Zorah, Ajman, Sealine Residence is an upcoming architectural landmark located within Row 5 of the prestigious Beach Village Development. This sophisticated project spans over 28,000 square meters of meticulously planned built-up area, soaring nine floors above versatile lower ground levels. Once complete, the development will feature 99 exclusive apartments distributed across four distinct residential blocks, harmoniously integrated with over 500 square meters of premium commercial retail space. Designed to blend serene coastal beauty with modern urban convenience, Sealine Residence is set to redefine the skyline of Al Zorah."
+      ],
+      "builtUpArea": "28,370 sqm",
+      "status": "Under Construction",
+      "imagePrefix": "Under-Construction"
+    },
+    {
+      "slug": "ajmanbank",
+      "legacySlug": "ajmanbank",
+      "title": "Ajman Bank Headquarters",
+      "category": "Commercial",
+      "location": "Ajman, UAE",
+      "locationFilter": "Ajman",
+      "featured": true,
+      "summary": "Ajman Bank headquarters is a G+M+7-storied iconic corporate complex located on Al-Ittihad Street adjacent to the Etisalat building.",
+      "description": [
+        "Ajman Bank headquarters is a G+M+7-storied iconic corporate complex located on Al-Ittihad Street adjacent to the Etisalat building. This HQ is responsible for entire transactions across the globe. The buildings bold, striking, reflective inclined glass façade creates many interlocking shapes and volumes which transcends the simple need of generating workspaces to become an Urban landmark."
+      ],
+      "client": "Ajman Bank",
+      "builtUpArea": "73,071 sq. ft.",
+      "status": "Completed",
+      "year": "2015"
+    },
+    {
+      "slug": "citymalluaq",
+      "legacySlug": "citymalluaq",
+      "title": "City Mall, Umm Al Quwain",
+      "category": "Retail & Mixed-Use",
+      "location": "Umm Al Quwain, UAE",
+      "locationFilter": "Umm Al Quwain",
+      "featured": true,
+      "summary": "City Life Mall has the reputation of the very first shopping mall ever built in Umm-Al-Quwain, U.A.E.",
+      "description": [
+        "City Life Mall has the reputation of the very first shopping mall ever built in Umm-Al-Quwain, U.A.E. The ground with mezzanine mall is equipped with a supermarket at the center and surrounded with several retails shops that further opens out to outdoor cafes, with exterior seating facilities along the edge. Several, colorful, eye-catching volumes interlock with each other to create a contemporary design all on a grand architectural scale. The two primary entrance portals are projected volumes with a metal canopy suspended with steel rods which leads to the main circulation spine, perpendicular to the entry. The spine connects the supermarket to the shops along the periphery. The overall faÃ§ade is divided hierarchically into volumes that visually defines the functions. Ground parking spaces are given in the front and back of the mall which is the connected through a service road via the main road."
+      ],
+      "client": "Sheikh Ahmed Bin Khalid Al Mullah",
+      "builtUpArea": "98,943 sq.ft.",
+      "status": "Completed",
+      "year": "2016"
+    },
+    {
+      "slug": "citylifekhor",
+      "legacySlug": "citylifekhor",
+      "title": "City Life, Al Khor",
+      "category": "Retail & Mixed-Use",
+      "location": "Al Khor, Ajman",
+      "locationFilter": "Ajman",
+      "summary": "City Life, is located adjacent to the local fish market and overlooking the Ajman Creek.",
+      "description": [
+        "City Life, is located adjacent to the local fish market and overlooking the Ajman Creek. This G+1 shopping mall caters to the public, equipped with many retail stores and a supermarket. Monotonous use of materials and proportions, makes for an overall simplistic design with many overlapping volumes, to create an interesting play of spaces. The shopping mall faces the creek on one side where dining and seating facilities are provided to enjoy the view during the evenings. Ground parking spaces are given in the front and side of the mall which is the connected through a service road via the main road."
+      ],
+      "client": "R select",
+      "builtUpArea": "138,272.41 sq.ft.",
+      "status": "Completed",
+      "year": "2016"
+    },
+    {
+      "slug": "citylifetallah",
+      "legacySlug": "citylifetallah",
+      "title": "City Life, Al Tallah II",
+      "category": "Retail & Mixed-Use",
+      "location": "Al Tallah, Ajman",
+      "locationFilter": "Ajman",
+      "summary": "City life is located within the city University Campus in Al-Tallah, Ajman on Sheikh Mohammed Bin Zayed Road.",
+      "description": [
+        "City life is located within the city University Campus in Al-Tallah, Ajman on Sheikh Mohammed Bin Zayed Road. This G+1 shopping mall uses a plethora of material to make a well-integrated building with a simple form. The use of exposed concrete panels, corten steel texture finish, off white Portuguese limestone and Aluminum louvers explores the various materials along the elevation.  The project planned with simple and understated forms, yet through the treatment of material colors succeed in transmitting with subtlety, the building's overall complexity. The complex includes many retail stores, a games center, food court, a hypermarket and ground parking spaces."
+      ],
+      "client": "R select",
+      "builtUpArea": "230,191.37 sq. ft.",
+      "status": "Completed",
+      "year": "2016"
+    },
+    {
+      "slug": "frontlineschool",
+      "legacySlug": "frontlineschool",
+      "title": "Frontline International School",
+      "category": "Educational",
+      "location": "Al Tallah, Ajman",
+      "locationFilter": "Ajman",
+      "summary": "Frontline School is in Al-Tallah, Ajman adjacent to Ajman Academy, this British Curriculum school accommodates students from KG1 to 13th Grade.",
+      "description": [
+        "Frontline School is in Al-Tallah, Ajman adjacent to Ajman Academy, this British Curriculum school accommodates students from KG1 to 13th Grade. The overall design of this school, uses the elements from Islamic and Persian Architecture. The structure features neutral color tones which is reflective of its exterior environment. Also, elements like the domes, arches, jaali wall, pergolas adopted for this project clearly depicts this."
+      ],
+      "client": "Frontline Int. Ltd.",
+      "builtUpArea": "200,442 sq. ft.",
+      "status": "Completed",
+      "year": "2016"
+    },
+    {
+      "slug": "rholding",
+      "legacySlug": "rholding",
+      "title": "R Holding Head Office",
+      "category": "Commercial",
+      "location": "Ajman, UAE",
+      "locationFilter": "Ajman",
+      "summary": "This is a proposal of a head office for R holding.",
+      "description": [
+        "This is a proposal of a head office for R holding. The large iconic, bold cube design of this head office adds to the emerging skyline of Ajman city. The grand entrance is well defined by two large columns protecting the glass faÃ§ade from the hot climate of the region at the same time creating an impressive front along the main road."
+      ],
+      "client": "R Holding",
+      "builtUpArea": "XXXXX sq. ft.",
+      "status": "Completed",
+      "year": "Under Proposal"
+    },
+    {
+      "slug": "cityschool",
+      "legacySlug": "cityschool",
+      "title": "City School",
+      "category": "Educational",
+      "location": "Al Tallah, Ajman",
+      "locationFilter": "Ajman",
+      "summary": "City School is part of the City University campus in Al-Tallah, Ajman.",
+      "description": [
+        "City School is part of the City University campus in Al-Tallah, Ajman. This school equipped with the latest amenities has two wings.  The playful and colorful nature of this project is seen through the color scheme used in the overall built form. The numerous geometric volumes add to the playfulness and create an interesting form. The faÃ§ade mimics exposed concrete panels to give it a rustic finish. The main entry is clearly defined using a projected volume in the center of the building."
+      ],
+      "client": "READ (R Education and Academic Development)",
+      "builtUpArea": "230,191.37 sq. ft.",
+      "status": "Completed",
+      "year": "2016"
+    },
+    {
+      "slug": "blacksquare",
+      "legacySlug": "blacksquare",
+      "title": "The Black Square",
+      "category": "Commercial",
+      "location": "Ajman, UAE",
+      "locationFilter": "Ajman",
+      "featured": true,
+      "summary": "As its name suggest the Black square is a large cuboid located at the commercial center of Ajman.",
+      "description": [
+        "As its name suggest the Black square is a large cuboid located at the commercial center of Ajman. This building has many store front restaurants and retail shops that open out into the main road. It also houses many main offices that function within the UAE, making it a landmark building in the city."
+      ],
+      "client": "R Holding",
+      "builtUpArea": "335,834 sq. ft",
+      "status": "Completed",
+      "year": "2011"
+    },
+    {
+      "slug": "habitatschool",
+      "legacySlug": "habitatschool",
+      "title": "Habitat School",
+      "category": "Educational",
+      "location": "Al Jurf, Ajman",
+      "locationFilter": "Ajman",
+      "summary": "Habitat Private School is a private school situated in the Al Jurf area of Ajman.",
+      "description": [
+        "Habitat Private School is a private school situated in the Al Jurf area of Ajman. This school teaches its students pedagogy, technology along with the possibilities of space thereby introducing a new method of learning experience for them. Set in 10 acres of land and including a 500,000-square meter organic farm with a greenhouse, students can actively interact and learn about nature, plants and farming. The structure features neutral color tones and is reflective of its exterior environment.  The projected volumes create an interesting faÃ§ade on the exterior."
+      ],
+      "client": "Sheikh Humaid bin rashid al nuaimi",
+      "builtUpArea": "281,755 sq.ft",
+      "status": "Completed",
+      "year": "2014"
+    },
+    {
+      "slug": "cityuniversity",
+      "legacySlug": "cityuniversity",
+      "title": "City University Campus",
+      "category": "Educational",
+      "location": "Ajman, UAE",
+      "locationFilter": "Ajman",
+      "featured": true,
+      "summary": "Located at the junction of Sheikh Ammar Road and Sheikh Mohammed bin Zayed road, Ajman.",
+      "description": [
+        "Located at the junction of Sheikh Ammar Road and Sheikh Mohammed bin Zayed road, Ajman. Built in seven phases, this massive university campus is spread across an area of 1miliion square feet accommodating 11,000 students. The university consists of the state of the art auditorium, indoor play, swimming pool along with staff and student accommodation facilities, to be built in the later phases. Set over 3 floors, this purpose built educational facility will be built to house approximately 11,000 students from all fields of study and be a safe hub of learning and personal growth for them. Aesthetically engaging, regular geometric forms are utilized to create balance and convey a sense of effortless grace along the exterior faÃ§ade of the project. The exterior wall mimics exposed concrete panels which gives the overall built form a raw, rustic edge to it. The structure features neutral color tones and is reflective of its exterior environment. The use of natural lighting is abundant throughout the premises and strategically placed large openings provide ample light into the classrooms. Ample parking is provided on the ground and basement levels for ease of access."
+      ],
+      "client": "READ (R Education and Academic Development)",
+      "builtUpArea": "1,415,681.28 sq. ft",
+      "status": "Completed",
+      "year": "2017"
+    },
+    {
+      "slug": "citylifejurf",
+      "legacySlug": "citylifejurf",
+      "title": "City Life Mall, Jurf",
+      "category": "Retail & Mixed-Use",
+      "location": "Jurf, Hamidiya, Al Zohrah, Ajman",
+      "locationFilter": "Ajman",
+      "summary": "City Life Mall located in 1,2, 3 Ajman, is a community mall that primarily caters to the residents of that area.",
+      "description": [
+        "City Life Mall located in 1,2, 3 Ajman, is a community mall that primarily caters to the residents of that area. This ground structure mall is equipped with a supermarket at the center and surrounded with several retails shops that further opens out to outdoor cafes, with exterior seating facilities along the edge. The primary entrance portal is a glass cube enclosed within rectilinear frames, which leads to a linear, main circulation spine that connects the supermarket to the shops along the periphery. The overall faÃ§ade is divided hierarchically into volumes that visually defines the functions. Ground parking spaces are given in the front and back of the mall which is the connected through a service road via the main road."
+      ],
+      "client": "R. select",
+      "builtUpArea": "55,866 sq. ft.",
+      "status": "Completed",
+      "year": "2013"
+    },
+    {
+      "slug": "souksalah",
+      "legacySlug": "souksalah",
+      "title": "Souk Salah",
+      "category": "Retail & Mixed-Use",
+      "location": "Ajman, UAE",
+      "locationFilter": "Ajman",
+      "summary": "The recently expanded and refurbished Souk Salah adopts the traditional Arab architecture using wooden finish concrete columns and palm leaf ceiling to give a charming ambience with a blend of past and present.",
+      "description": [
+        "The recently expanded and refurbished Souk Salah adopts the traditional Arab architecture using wooden finish concrete columns and palm leaf ceiling to give a charming ambience with a blend of past and present. The souq is part of a heritage path leading from the Corniche to Ajman Museum. This busy commercial centre known for its traditional-styled buildings make it an ideal shopping stop for all local products and tailoring. The finer elements like the lighting, furniture and flooring add to the setting of this covered space taking you back to the enchanting old Arab souks, which was popular during that time."
+      ],
+      "client": "Ajman Municipality",
+      "builtUpArea": "756 sq.m",
+      "status": "Completed",
+      "year": "2015"
+    },
+    {
+      "slug": "woodlem",
+      "legacySlug": "woodlem",
+      "title": "Woodlem Park Private School",
+      "category": "Educational",
+      "location": "Al Jurf, Ajman",
+      "locationFilter": "Ajman",
+      "summary": "Woodlem Park Private School is situated in Al-Jurf 3, Ajman, there are many neighboring ongoing developments that surrounds the school, making it an area envisioned for the future.",
+      "description": [
+        "Woodlem Park Private School is situated in Al-Jurf 3, Ajman, there are many neighboring ongoing developments that surrounds the school, making it an area envisioned for the future. Set over 2 floors, this school is designed to house a total of 4,230 students from KG to 12th standard. Equipped with state of the art auditorium, labs and library, this facility aims to be a safe hub for learning and growth for young students. Large, covered and open play areas separate for boys and girls, develops physical coordination, strength, and flexibility, as well as provides recreation and enjoyment for the children. \r\nThe outer faÃ§ade of the school mimics brick cladding reminiscent of the long-standing schools of the past giving an old school charm to the building. The school is built in many phases for ease of construction. The overall design of the school uses, regular geometric forms to create balance and convey a sense of effortless grace along the exterior faÃ§ade of the project. Natural light is brought into the classrooms using strategically placed large openings at the same time tents assembled in the playgrounds diffuse and refract the harsh sunlight entering the classrooms."
+      ],
+      "client": "READ",
+      "builtUpArea": "24214.27 sq.m.",
+      "status": "Completed",
+      "year": "2017"
+    },
+    {
+      "slug": "jeddahheights",
+      "legacySlug": "jeddahheights",
+      "title": "Jeddah Heights",
+      "category": "Residential",
+      "location": "Ajman, UAE",
+      "locationFilter": "Ajman",
+      "summary": "Jeddah Heights located in the cityâ€™s finest commercial areas, next to Ajman City center offers invigorating uninterrupted view of the extensive mall and Ajman skyline.",
+      "description": [
+        "Jeddah Heights located in the cityâ€™s finest commercial areas, next to Ajman City center offers invigorating uninterrupted view of the extensive mall and Ajman skyline. A total of 180 apartments are set to be the center of this landmark development which is positioned to become one of the areaâ€™s most sought after addresses in the city. Jeddah Heights comprises of 15 typical floors with one, two and three-bedroom apartments, served by five levels of podium parking and ground floor commercial spaces. The tower strategically uses screens with geometric patterns to protect the parking levels at the same time create a visual treat for the passersby and residents. A sense of balance is created using solid and translucent materials on the facade. The solid materials reflect the exterior environment through the use of neutral and earthy tones. The geometric design gives the building a metropolitan vibe in both massing and elevational treatments."
+      ],
+      "client": "Jeddah Heights",
+      "builtUpArea": "33,634 sq.m.",
+      "status": "Completed",
+      "year": "2018"
+    },
+    {
+      "slug": "emiratescity",
+      "legacySlug": "emiratescity",
+      "title": "Emirates City D1 Tower",
+      "category": "Residential",
+      "location": "Emirates City, UAE",
+      "locationFilter": "Emirates City",
+      "summary": "Emirates City D1 Towers also known as Lavender towers is a 30-story high building part of the Emirates City layout plan.",
+      "description": [
+        "Emirates City D1 Towers also known as Lavender towers is a 30-story high building part of the Emirates City layout plan. Located in Ajmanâ€™s most elite residential neighborhoods making it a prime location to reside. The freehold property set strategically between two major highways makes it easily accessible for commuters. The tower consists of G+ 5 Parking+33 Typical Floors and health Club and swimming pool on the top floors. It consists of One bedroom, Two bedroom, Three bedroom and Four-bedroom apartments with different types of arrangements and configurations. The design of the building maximizes its area to provide luxurious and spacious space for the residents."
+      ],
+      "client": "R Holding",
+      "status": "Completed"
+    },
+    {
+      "slug": "alghalamosque",
+      "legacySlug": "alghalamosque",
+      "title": "Al Ghala Mosque",
+      "category": "Religious",
+      "location": "Ajman, UAE",
+      "locationFilter": "Ajman",
+      "summary": "Located in Al-Jurf this mosque takes inspiration from the traditional forms and elements of Islamic architecture, where colonnades and arches dominate creating a pleasing form.",
+      "description": [
+        "Located in Al-Jurf this mosque takes inspiration from the traditional forms and elements of Islamic architecture, where colonnades and arches dominate creating a pleasing form. The structure uses natural and neutral color tones which is reflective of its exterior environment. This G+ mezzanine mosque located at the junction of a busy area creates a focal point for all worshippers to meet."
+      ],
+      "client": "Ministry of Awqaf and Islamic Affairs",
+      "status": "Completed",
+      "year": "2009"
+    },
+    {
+      "slug": "bluebell-residence",
+      "code": "P-1299",
+      "title": "Bluebell Residence",
+      "category": "Residential",
+      "location": "Al Aamra, Ajman, UAE",
+      "locationFilter": "Ajman",
+      "client": "GJ Properties",
+      "builtUpArea": "80,897.97 sqm (870,785.74 sq. ft.)",
+      "status": "Under Construction",
+      "configuration": "2B+G+6P+42F",
+      "summary": "A landmark high-rise residential development in Al Aamra, Ajman, combining modern urban living with architectural elegance.",
+      "description": [
+        "Set in the rapidly developing community of Al Aamra, Ajman, Bluebell Residence is a contemporary high-rise residential development designed to provide modern urban living with exceptional comfort, functionality, and architectural elegance. Developed for GJ Properties, the project reflects a commitment to quality construction, efficient planning, and an enhanced residential lifestyle.",
+        "The development features a striking modern façade with a balanced composition of glass, textured cladding, and warm neutral finishes that create a distinctive identity within Ajman's growing skyline. The podium incorporates an elegant architectural screen, providing both aesthetic appeal and practical shading while accommodating ample parking facilities.",
+        "Currently under construction, Bluebell Residence has been thoughtfully planned to meet the demands of today's residents by combining spacious living environments with premium amenities. The project consists of a Ground Floor, six podium parking levels, twenty typical residential floors, a dedicated health club floor, and a roof level, offering residents a complete and convenient lifestyle within a single integrated development.",
+        "With a total built-up area of 80,897.97 square meters, the project is designed to maximize space efficiency while ensuring natural lighting, ventilation, and panoramic views of the surrounding cityscape."
+      ],
+      "isNew": true,
+      "source": "zip:P-1299"
+    },
+    {
+      "slug": "azha-park-residences",
+      "code": "P-1336",
+      "title": "Azha Park Residences",
+      "category": "Residential",
+      "location": "Eastern Sector, Aamra, Ajman",
+      "locationFilter": "Ajman",
+      "client": "Azha Park Residences",
+      "builtUpArea": "113,173.50 sqm",
+      "status": "Design Development",
+      "configuration": "G+3P+Podium Amenities+12 Typical Floors (4 Towers)+Roof",
+      "summary": "A proposed mixed-use commercial and residential development of four residential towers in the Eastern Sector of Aamra, Ajman.",
+      "description": [
+        "Azha Park Residences is a proposed mixed-use commercial and residential development located in the Eastern Sector, Aamra, Ajman. The project consists of four residential towers configured as Ground Floor + 3 Parking Levels + Podium Amenities + 12 Typical Floors + Roof.",
+        "The development is thoughtfully planned to provide modern residential units integrated with commercial facilities, multi-level parking, and premium podium amenities. The architectural design focuses on functional efficiency, contemporary aesthetics, and optimised space planning while ensuring compliance with authority regulations and developer requirements.",
+        "The project aims to create a high-quality living environment by combining comfortable residential spaces, well-planned community facilities, and a sustainable approach to modern urban living."
+      ],
+      "isNew": true,
+      "source": "zip:P-1336"
+    },
+    {
+      "slug": "one-678",
+      "code": "P-1414",
+      "title": "One 678",
+      "category": "Residential",
+      "location": "Aamra, Ajman, UAE",
+      "locationFilter": "Ajman",
+      "client": "GJ Properties",
+      "builtUpArea": "117,771 sqm",
+      "status": "Under Construction",
+      "configuration": "2B+G+6P+42F",
+      "summary": "An ultra-tall organic tower in Aamra, Ajman, with a fluid, wave-like silhouette of continuous wraparound balconies.",
+      "description": [
+        "This tower is located in Aamra, Ajman. The building features a striking, contemporary organic design characterized by a dynamic, fluid silhouette. The tower's form relies on a rhythmic, undulating pattern that mimics natural wave formations, giving the ultra-tall structure a sense of movement and lightness.",
+        "The main body of the tower is defined by continuous, wraparound balconies. Each floor plate's slab edge shifts slightly or curves uniquely, creating a highly textured, self-shading facade. This sinuous rhythm breaks up the massive vertical surface, softening the tower's footprint against the skyline.",
+        "The lower levels form a distinct rectangular base that anchors the tower to its corner plot, using a crisp, geometric language with alternating horizontal bands that transition the scale from the streetscape to the massive tower above.",
+        "The prominent wave-like projecting balconies feature a smooth, matte white architectural concrete finish, maximizing sunlight reflection and providing a stark, clean contrast to the recessed elements."
+      ],
+      "isNew": true,
+      "source": "zip:P-1414",
+      "featured": true
+    },
+    {
+      "slug": "deca-035",
+      "code": "P-1478",
+      "title": "DECA 035 — Al Zorah Marina Residences",
+      "category": "Residential",
+      "location": "Marina Boardwalk, Al Zorah, Ajman",
+      "locationFilter": "Al Zorah",
+      "client": "DECA Properties",
+      "builtUpArea": "19,206.41 sqm",
+      "status": "Design Stage",
+      "configuration": "2B+G+9F",
+      "summary": "A minimalist contemporary waterfront development along the Marina Boardwalk in Al Zorah, opening toward expansive marina views.",
+      "description": [
+        "This 2B+G+9-floor contemporary waterfront development stands along the Marina Boardwalk in Al Zorah, featuring a minimalist architectural language of soft neutral tones, glass façades, and curved balcony edges that open toward expansive marina views.",
+        "The building integrates modern residential living with active retail frontage, complemented by a central courtyard pool and a gym overlooking the water-inspired amenity space. Designed to blend comfort, lifestyle, and refined coastal aesthetics, the development contributes a modern landmark presence within the growing Al Zorah community."
+      ],
+      "isNew": true,
+      "source": "zip:P-1478",
+      "note": "Project name inferred from render filenames (\"DECA 035\") — details.txt did not include a formal project title; confirm with DECA Properties before publishing."
+    },
+    {
+      "slug": "star-giga-tower",
+      "code": "P-1490",
+      "title": "Star Giga Tower",
+      "category": "Residential",
+      "location": "Emirates City, Aamra, Ajman",
+      "locationFilter": "Emirates City",
+      "client": "Star Giga",
+      "builtUpArea": "51,843 sqm",
+      "status": "Under Design",
+      "configuration": "G+6P+25F",
+      "summary": "A fluid, ribbon-balconied residential tower in Emirates City with a louvered podium and rooftop amenity deck.",
+      "description": [
+        "This tower is located in Emirates City, Aamra, Ajman, near Sheikh Mohammed Bin Zayed Road. The tower features a striking, fluid exterior characterized by continuous undulating, ribbon-like balconies. The slab edges curve smoothly inward and outward, shifting slightly across the floors to create a dynamic, ocean-wave or ripple effect across the entire surface.",
+        "The podium uses a dense, rhythmic screen composed of vertical and horizontal architectural louvers, creating a textured, semi-permeable skin that cleverly conceals the internal parking levels while allowing natural ventilation.",
+        "Sitting directly atop the 6th podium level, the elevation steps back slightly to introduce a prominent horizontal band of lush landscaping. The crest of the elevation features prominent, illuminated \"Star Giga\" branding with a star emblem, acting as a glowing architectural landmark visible from a distance against the twilight sky.",
+        "The building includes retail stores and rooftop amenities including a swimming pool, gym, sauna, yoga deck and walking track."
+      ],
+      "isNew": true,
+      "source": "zip:P-1490"
+    },
+    {
+      "slug": "zamzam-tower",
+      "code": "P-1473",
+      "title": "Zamzam Tower",
+      "category": "Residential",
+      "location": "Global City, Aalia, Ajman",
+      "locationFilter": "Ajman",
+      "client": "Zam Zam Brothers",
+      "builtUpArea": "35,684 sqm",
+      "status": "Design Stage",
+      "year": "Expected completion 2029",
+      "configuration": "G+6P+15F+Health Club+Helipad",
+      "summary": "A high-contrast urban tower in Global City, Aalia, Ajman, anchored by gold vertical fins and a glazed corner bay.",
+      "description": [
+        "Zamzam Tower is a G+6P+15F+Health Club+Helipad residential building in Global City, Aalia, Ajman, near Sheikh Mohammed Bin Zayed Road, developed for Zam Zam Brothers with an expected completion of 2029.",
+        "The building exhibits a contemporary, high-contrast urban design that balances strong vertical geometry with soft, rounded corner elements. The lower levels form a massive, grounding podium clad in dark, vertical textures, punctuated by sharp, full-height vertical gold fins that visually anchor the tower and draw the eye upward. The ground floor is dedicated to pedestrian-friendly retail spaces with continuous glazing.",
+        "The most defining architectural feature is the prominent, semi-circular glazed bay on the corner, running continuously up the entire height of the building — softening the sharp edges of the intersection and acting as a transparent, glowing beacon.",
+        "The building terminates with an elegant, curved canopy and parapet finished in a signature mustard-yellow, echoing the rounded corner of the tower and framing the illuminated \"Zamzam Tower\" signage on the roof parapet walls."
+      ],
+      "isNew": true,
+      "source": "docx:P-1473",
+      "featured": true
+    }
+  ]
+}

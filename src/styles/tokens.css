@@ -1,0 +1,482 @@
+/* =========================================================================
+   ProArc — Design Tokens
+   Authority: docs/ProArc-Typography-Guideline-v1.2.md (LOCKED, 28 Jul 2026)
+              docs/ProArc-Typography-Guideline-v1.3.md (SIGNED, 31 Jul 2026)
+
+   This file is the ONLY place a raw colour or size value may appear.
+   Everything else in the codebase references these custom properties.
+
+   Do not edit values here without a version bump of the guideline.
+
+   R2 note: v1.3's headline is that the dark ground needs NO new colour.
+   Every ratio it requires is already in the neutral ramp below (#000000
+   surface-dark, #ffffff / #ededed / #a6a6a6 on dark, #595959 structural,
+   #333333 decorative). A dark site that needs new greys is a dark site
+   building hierarchy from opacity, which v1.2 §9.16 bans.
+   ========================================================================= */
+
+:root {
+  /* ---------------------------------------------------------------------
+     Families
+     General Sans — Indian Type Foundry, ITF Free Font License
+     IBM Plex Sans Arabic — IBM / Bold Monday, SIL OFL 1.1
+     Inter is deliberately absent from the fallback chain.
+     --------------------------------------------------------------------- */
+  --font-latin:
+    "General Sans",
+    -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto,
+    "Helvetica Neue", Arial,
+    sans-serif;
+
+  --font-arabic:
+    "IBM Plex Sans Arabic",
+    "Noto Sans Arabic",
+    "Geeza Pro", "Segoe UI",
+    "Tahoma",
+    sans-serif;
+
+  /* Arabic runs 5% larger than Latin. Confirm with a 16/17px proof. */
+  --arabic-scale: 1.05;
+
+  /* ---------------------------------------------------------------------
+     Weights
+     --------------------------------------------------------------------- */
+  --fw-light:    300; /* Latin only — Arabic maps this to 400 */
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* ---------------------------------------------------------------------
+     Scale — desktop, Latin. Base 16px = 1rem.
+     --------------------------------------------------------------------- */
+  --fs-caption:  0.75rem;  /* 12px */
+  --fs-metadata: 0.875rem; /* 14px */
+  --fs-body:     1rem;     /* 16px */
+  --fs-body-lg:  1.25rem;  /* 20px */
+  --fs-h3:       1.5rem;   /* 24px */
+  --fs-h2:       2rem;     /* 32px */
+  --fs-h1:       3.25rem;  /* 52px */
+  --fs-mega:     5.25rem;  /* 84px */
+
+  /* ---------------------------------------------------------------------
+     Line-height — Latin
+     --------------------------------------------------------------------- */
+  --lh-mega:      1;
+  --lh-hero:      1.05;
+  --lh-editorial: 1.15;
+  --lh-h2:        1.2;
+  --lh-h3:        1.3;
+  --lh-body-lg:   1.5;
+  --lh-body:      1.6;
+  --lh-metadata:  1.65;
+  --lh-caption:   1.5;
+  --lh-nav:       1;
+
+  /* ---------------------------------------------------------------------
+     Tracking — Latin. Arabic is always 0, enforced below.
+     --------------------------------------------------------------------- */
+  --ls-hero:       -0.03em;
+  --ls-editorial:  -0.005em;
+  --ls-h2:         -0.02em;
+  --ls-h3:         -0.015em;
+  --ls-body-lg:    -0.005em;
+  --ls-body:        0em;
+  --ls-caption:     0.04em;
+  --ls-meta-label:  0.02em;
+  --ls-nav:         0.06em;
+
+  /* ---------------------------------------------------------------------
+     Measure
+     ch units are unreliable for Arabic — Arabic measures are px.
+
+     E11 (v1.3) — the measure token is not the measure.
+
+     v1.2 §4.4 and §9 rule 3 require running prose to sit between 45 and
+     68 characters. The tokens implemented that literally as 68ch / 60ch —
+     but a `ch` is the advance width of the digit zero, 9.31px at 16px in
+     General Sans, against ~7.5px for an average character in running
+     English. Measured with Range.getClientRects() across seven widths,
+     counting real line boxes rather than dividing height by line-height:
+     1.245 real characters per `ch`, stable from 400px to 720px.
+
+       --measure-body     68ch -> 633px -> 80-85 chars   corrected to 55ch
+       --measure-body-lg  60ch -> 698px -> ~75 chars     corrected to 48ch
+
+     Only the two prose maxima move. The floors over-deliver and are safe,
+     and the display measures below them (h3/h2/hero/editorial/overlay)
+     are short-line measures, not prose maxima — E11 leaves them alone.
+     Narrows every prose column by about 19%.
+     --------------------------------------------------------------------- */
+  --measure-body:      55ch;
+  --measure-body-lg:   48ch;
+  --measure-h3:        45ch;
+  --measure-h2:        28ch;
+  --measure-hero:      20ch;
+  --measure-editorial: 24ch;
+  --measure-overlay:   18ch;
+  --measure-body-ar:   620px;
+
+  /* ---------------------------------------------------------------------
+     Colour — neutral ramp. Ratios measured, WCAG relative luminance.
+     --------------------------------------------------------------------- */
+  --color-ink:               #111111; /* 18.88:1 on white  */
+  --color-ink-secondary:     #595959; /*  7.00:1 on white  */
+  --color-surface:           #ffffff;
+  --color-surface-dark:      #000000; /* the wordmark's own field */
+  --color-on-dark:           #ffffff; /* 21.00:1 — display type   */
+  --color-on-dark-body:      #ededed; /* 17.94:1 — body, no halation */
+  --color-on-dark-secondary: #a6a6a6; /*  8.63:1 on black  */
+  --color-hairline:          #d6d6d6; /* non-text */
+  --color-hairline-dark:     #333333; /* non-text */
+
+  /* ---------------------------------------------------------------------
+     Colour — validation signal ONLY. Never editorial, never decorative.
+     The two are NOT interchangeable; each fails on the other's surface.
+     --------------------------------------------------------------------- */
+  --color-signal:         #b3261e; /* 6.54:1 on white. FAILS on black (3.21:1) */
+  --color-signal-on-dark: #f2695c; /* 6.95:1 on black. FAILS on white (3.02:1) */
+
+  /* ---------------------------------------------------------------------
+     Overlay
+     --------------------------------------------------------------------- */
+  --scrim-min-opacity: 0.6; /* minimum across the WHOLE text box + 24px bleed */
+
+  /* ---------------------------------------------------------------------
+     Brand
+     --------------------------------------------------------------------- */
+  --logo-min-width-desktop: 96px;
+  --logo-min-width-mobile:  80px;
+  --logo-clear-space:       24px;
+}
+
+/* =========================================================================
+   Arabic overrides
+   ========================================================================= */
+
+html:lang(ar),
+[dir="rtl"] {
+  font-family: var(--font-arabic);
+  font-size: calc(1rem * var(--arabic-scale));
+
+  --lh-mega:      1.2;
+  --lh-hero:      1.25;
+  --lh-editorial: 1.3;
+  --lh-h2:        1.35;
+  --lh-h3:        1.45;
+  --lh-body-lg:   1.65;
+  --lh-body:      1.75;
+  --lh-metadata:  1.8;
+  --lh-caption:   1.65;
+
+  --fw-light: 400; /* Light is never used in Arabic */
+}
+
+/* letter-spacing on Arabic severs the connecting strokes.
+   The !important is deliberate and is the only one in this system:
+   a single inherited tracking value from a Latin component breaks
+   Arabic sitewide, and the failure looks like a font bug. */
+html:lang(ar) *,
+[dir="rtl"] * {
+  letter-spacing: 0 !important;
+  text-transform: none;
+  font-style: normal;
+}
+
+/* =========================================================================
+   Tablet — 768 to 1023px
+   ========================================================================= */
+
+@media (max-width: 1023px) {
+  :root {
+    --fs-mega:      3.75rem;  /* 60px */
+    --fs-h1:        2.5rem;   /* 40px */
+    --fs-h2:        1.75rem;  /* 28px */
+    --fs-h3:        1.375rem; /* 22px */
+
+    --lh-mega:      1.05;
+    --lh-hero:      1.1;
+    --lh-editorial: 1.18;
+    --lh-h2:        1.22;
+
+    --ls-hero:     -0.025em;
+  }
+}
+
+/* =========================================================================
+   Mobile — 767px and below
+   Two intentional collapses. Do not "fix" them.
+   ========================================================================= */
+
+@media (max-width: 767px) {
+  :root {
+    --fs-mega:      2.125rem; /* 34px — Mega collapses into H1        */
+    --fs-h1:        2.125rem; /* 34px                                  */
+    --fs-h2:        1.625rem; /* 26px                                  */
+    --fs-h3:        1.25rem;  /* 20px — collapses with Body Large      */
+
+    --lh-mega:      1.15;
+    --lh-hero:      1.15;
+    --lh-editorial: 1.25;
+    --lh-h2:        1.25;
+
+    --ls-hero:     -0.02em;
+    --ls-editorial: 0em;
+    --ls-h2:       -0.015em;
+    --ls-h3:       -0.01em;
+    --ls-body-lg:   0em;
+  }
+}
+
+/* =========================================================================
+   Role classes
+   Apply these rather than re-declaring size/weight/tracking per component.
+   ========================================================================= */
+
+.t-hero {
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-hero);
+  line-height: var(--lh-hero);
+  max-inline-size: var(--measure-hero);
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+.t-editorial {
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-light);
+  letter-spacing: var(--ls-editorial);
+  line-height: var(--lh-editorial);
+  max-inline-size: var(--measure-editorial);
+  color: var(--color-ink);
+}
+
+.t-h2 {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-h2);
+  line-height: var(--lh-h2);
+  max-inline-size: var(--measure-h2);
+  color: var(--color-ink);
+}
+
+.t-h3 {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-h3);
+  line-height: var(--lh-h3);
+  max-inline-size: var(--measure-h3);
+  color: var(--color-ink);
+}
+
+.t-body-lg {
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-light);
+  letter-spacing: var(--ls-body-lg);
+  line-height: var(--lh-body-lg);
+  max-inline-size: var(--measure-body-lg);
+  color: var(--color-ink);
+}
+
+.t-body {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  letter-spacing: var(--ls-body);
+  line-height: var(--lh-body);
+  max-inline-size: var(--measure-body);
+  text-align: start;
+  color: var(--color-ink);
+}
+
+/* Inline emphasis is WEIGHT ONLY. No colour. */
+.t-body b,
+.t-body strong {
+  font-weight: var(--fw-semibold);
+  color: inherit;
+}
+
+.t-caption {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-caption);
+  line-height: var(--lh-caption);
+  color: var(--color-ink-secondary);
+}
+
+/* Eyebrow: rule mark replaces the accent colour. Never a pill. */
+.t-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-caption);
+  line-height: var(--lh-caption);
+  text-transform: uppercase;
+  color: var(--color-ink-secondary);
+}
+
+.t-eyebrow::before {
+  content: "";
+  inline-size: 24px;
+  block-size: 1px;
+  flex: none;
+  background: var(--color-ink);
+}
+
+.t-meta-label {
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-meta-label);
+  line-height: var(--lh-metadata);
+  text-align: start;
+  color: var(--color-ink-secondary);
+}
+
+.t-meta-value {
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-metadata);
+  text-align: start;
+  color: var(--color-ink);
+}
+
+.t-nav {
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-nav);
+  line-height: var(--lh-nav);
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+/* Active state = weight + underline. No colour. */
+.t-nav[aria-current] {
+  font-weight: var(--fw-bold);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+html:lang(ar) .t-nav {
+  font-weight: var(--fw-semibold); /* compensates for no uppercase */
+  text-transform: none;
+}
+
+/* =========================================================================
+   Dark surfaces
+   ========================================================================= */
+
+.surface-dark {
+  background: var(--color-surface-dark);
+  color: var(--color-on-dark-body);
+}
+
+.surface-dark .t-hero,
+.surface-dark .t-editorial,
+.surface-dark .t-h2,
+.surface-dark .t-h3 {
+  color: var(--color-on-dark);
+}
+
+.surface-dark .t-body,
+.surface-dark .t-meta-value {
+  color: var(--color-on-dark-body);
+}
+
+.surface-dark .t-caption,
+.surface-dark .t-eyebrow,
+.surface-dark .t-meta-label {
+  color: var(--color-on-dark-secondary);
+}
+
+.surface-dark .t-eyebrow::before {
+  background: var(--color-on-dark-secondary);
+}
+
+/* =========================================================================
+   Text over imagery
+   Default is the solid panel. Scrim is the fallback only.
+   ========================================================================= */
+
+.overlay-panel {
+  background: var(--color-surface-dark);
+  color: var(--color-on-dark);
+  padding: 48px;
+  max-inline-size: var(--measure-overlay);
+}
+
+@media (max-width: 1023px) { .overlay-panel { padding: 32px; } }
+@media (max-width:  767px) { .overlay-panel { padding: 24px; } }
+
+/* Scrim must hold >=60% black across the WHOLE text box plus 24px bleed.
+   A gradient that fades to nothing behind the words fails WCAG. */
+.overlay-scrim {
+  position: relative;
+  color: #fff; /* pure white only — never --color-on-dark-body over a scrim */
+}
+
+.overlay-scrim::before {
+  content: "";
+  position: absolute;
+  inset: -24px;
+  background: linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 0%) 0%,
+    rgb(0 0 0 / var(--scrim-min-opacity)) 18%,
+    rgb(0 0 0 / var(--scrim-min-opacity)) 100%
+  );
+  z-index: 0;
+}
+
+.overlay-scrim > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================================================================
+   Form validation — the ONLY place colour appears
+   Colour is never the sole signal: text string + rule accompany it.
+   ========================================================================= */
+
+.field-error {
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-metadata);
+  color: var(--color-signal);
+}
+
+.field-invalid {
+  border-inline-start: 2px solid var(--color-signal);
+}
+
+.surface-dark .field-error { color: var(--color-signal-on-dark); }
+.surface-dark .field-invalid { border-inline-start-color: var(--color-signal-on-dark); }
+
+/* =========================================================================
+   Global guards
+   ========================================================================= */
+
+body {
+  font-family: var(--font-latin);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-ink);
+  background: var(--color-surface);
+  text-align: start;
+}
+
+/* Content type is never italic. The oblique belongs to the wordmark. */
+h1, h2, h3, h4, h5, h6, p, li, td, th, figcaption, label, a {
+  font-style: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

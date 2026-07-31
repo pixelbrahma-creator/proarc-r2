@@ -1,0 +1,48 @@
+/* ===========================================================
+   Animation base states — reveals.js animates elements FROM
+   these states TO their resting (visible) state on scroll.
+   Kept in CSS (not inline styles) so no-JS / reduced-motion
+   users still see fully visible content.
+   =========================================================== */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(36px);
+  will-change: opacity, transform;
+}
+
+[data-reveal="fade"] { transform: none; }
+
+[data-reveal="image"] {
+  opacity: 1;
+  transform: none;
+}
+
+[data-reveal="scale"] { transform: scale(1.08); }
+
+[data-reveal="left"]  { transform: translateX(-48px); }
+[data-reveal="right"] { transform: translateX(48px); }
+
+.js-ready [data-reveal] {
+  transition: opacity var(--dur-reveal) var(--ease-lux),
+              transform var(--dur-reveal) var(--ease-lux),
+              clip-path var(--dur-reveal) var(--ease-lux);
+}
+
+.is-revealed {
+  opacity: 1 !important;
+  transform: none !important;
+  /* clip-path: inset(0 0 0% 0) !important; */
+}
+
+/* Hero-scale reveals get a touch more duration for gravitas */
+[data-reveal-scale="hero"] { transition-duration: 1.5s !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "rules": {
+    "color-no-hex": [
+      true,
+      {
+        "message": "ProArc: no raw colour values. Use a var(--color-*) token from tokens.css."
+      }
+    ],
+    "declaration-property-unit-allowed-list": {
+      "font-size": ["rem", "em"],
+      "letter-spacing": ["em"]
+    },
+    "property-disallowed-list": [
+      [
+        "margin-left",
+        "margin-right",
+        "padding-left",
+        "padding-right",
+        "border-left",
+        "border-right",
+        "border-left-width",
+        "border-right-width",
+        "border-left-color",
+        "border-right-color"
+      ],
+      {
+        "message": "ProArc: the site is bilingual EN/AR. Use the logical equivalent (margin-inline-start, border-inline-end, etc.)."
+      }
+    ],
+    "declaration-property-value-disallowed-list": {
+      "text-align": ["left", "right"],
+      "font-style": ["italic", "oblique"],
+      "text-shadow": ["/.+/"]
+    }
+  },
+  "overrides": [
+    {
+      "files": ["**/tokens.css"],
+      "rules": {
+        "color-no-hex": null,
+        "declaration-property-value-disallowed-list": {
+          "font-style": ["italic", "oblique"],
+          "text-shadow": ["/.+/"]
+        }
+      }
+    }
+  ]
+}

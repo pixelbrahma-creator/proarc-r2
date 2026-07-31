@@ -1,0 +1,93 @@
+/* ===========================================================
+   Layout tokens — spacing, radius, motion, z-index.
+   Outside the scope of the Typography Guideline (v1.2 covers type +
+   colour only), so these live in their own file rather than inside
+   src/styles/tokens.css.
+   =========================================================== */
+
+:root {
+  /* ---- Spacing / layout ------------------------------------ */
+  --container: 1440px;
+  --container-narrow: 900px;
+  --gutter: clamp(1.25rem, 4vw, 5rem);
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs:  0.875rem;
+  --space-sm:  1.25rem;
+  --space-md:  2rem;
+  --space-lg:  3.5rem;
+  --space-xl: clamp(3.5rem, 6vw, 6.5rem);
+  --space-2xl: clamp(5rem, 9vw, 9.5rem);
+  --space-section: 96px;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  /* ---- Motion -------------------------------------------------- */
+  --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 0.4s;
+  --dur-reveal: 1.1s;
+  --dur-slow: 1.6s;
+
+  /* ---- Z-index scale ------------------------------------------ */
+  --z-nav: 210;
+  --z-overlay: 200;
+  --z-cursor: 300;
+
+  /* ---- v1.2 §2.2 semantic gaps — new code uses these, not the legacy
+     --space-* steps above. --space-xs/xl/2xl collide with v1.2's own
+     names at different values, so this block adds only the collision-free
+     v1.2 names. R2 authors against the --gap- and --pad- aliases; the legacy
+     --space-* steps survive only for the carried base/layout primitives
+     and must not appear in new R2 CSS. ---- */
+  --gap-inline:        12px;
+  --gap-tight:         16px;
+  --gap-block:         24px;
+  --gap-heading:       64px;
+  --gap-component:     64px;
+  --gap-section:      200px;
+  --gap-section-major:280px;
+
+  /* ---- v1.2 §2.4 layout frame ----
+     1120px is the locked value. Ravi's v1 branch carries 1250px from a
+     client request (commit b8ea7a7, "1250px content width, centered
+     hero") — that request contradicts v1.2 §2.4 and §9 rule 1, and it was
+     made against the v1 track. It does not cross into R2. If ProArc
+     restates the request at the R2 walkthrough it gets decided on the
+     record and the guideline is revised; it does not arrive by import. */
+  --container-max:  1120px;
+  --gutter-desktop:   80px;
+  --gutter-tablet:    40px;
+  --gutter-mobile:    20px;
+
+  /* ---- v1.2 §2.6 component padding ---- */
+  --pad-card:          40px;
+  --pad-overlay-panel: 48px;
+  --pad-table-row:     12px;
+}
+
+/* v1.2 §2.3 responsive spacing — same breakpoints as tokens.css's own
+   tablet/mobile steps. Only the --gap- and --pad- aliases move; the
+   legacy --space-* scale above is untouched in this pass. */
+@media (max-width: 1023px) {
+  :root {
+    --gap-section:       144px;
+    --gap-section-major: 200px;
+    --gap-heading:        40px;
+    --gap-component:      40px;
+    --pad-card:           32px;
+    --pad-overlay-panel:  32px;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --gap-section:        96px;
+    --gap-section-major: 144px;
+    --gap-heading:        24px;
+    --gap-component:      40px;
+    --pad-card:           24px;
+    --pad-overlay-panel:  24px;
+  }
+}

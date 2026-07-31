@@ -1,0 +1,104 @@
+/* ===========================================================
+   Layout — containers, section rhythm, grid utilities.
+   =========================================================== */
+
+/* v1.2 §2.4: container narrowed from 1440px/clamp gutters to a fixed
+   1120px max-width with explicit gutter minimums — the build measured
+   1301px/177px gutters, the tightest thing on the page. Full-bleed
+   sections (heroes, sliders, dark bands) stay 100% width; only inner
+   text wrappers use .container. */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter-desktop);
+}
+
+.container--narrow {
+  max-width: var(--container-narrow);
+}
+
+/* v1.2 §2.2: section separation now comes from the semantic --gap-section
+   alias (200px total between two sections) rather than the old flat
+   --space-section (96px each side, ~192px measured total — already
+   close; this just standardises on the token). */
+.section {
+  padding-block: calc(var(--gap-section) / 2);
+}
+
+/* Statement sections only (guideline §2.2): mission/vision, closing
+   CTAs. --last-child sections (the closing CTAs, which sit directly
+   against the footer) get their bottom padding solved so the CTA's own
+   padding plus the footer's own top padding nets exactly --gap-section
+   (200px) — the review measured ~250px of dead space here. */
+.section--major { padding-block: calc(var(--gap-section-major) / 2); }
+.section--major:last-child { padding-bottom: calc(var(--gap-section) - var(--space-2xl)); }
+
+.section--tight { padding-block: var(--space-xl); }
+/* Repeated inline on three "trust strip" sections directly under a page
+   hero (contact/services/testimonials) — task 4.6 inline-style cleanup. */
+.section--flush-bottom { padding-bottom: 0; }
+.section--dark { background: var(--color-surface-dark); color: var(--color-on-dark-body); }
+/* base.css pins h1-h6 to the light-page heading color; an explicit
+   override here is required to win back on-dark headings inside a
+   dark panel (inherited color never beats an explicit rule). */
+.section--dark h1, .section--dark h2, .section--dark h3,
+.section--dark h4, .section--dark h5, .section--dark h6 { color: var(--color-on-dark); }
+.section--panel { background: var(--color-surface); }
+
+.section-head {
+  display: flex;
+  align-items: normal;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.section-head h2 { max-width: 40ch; }
+.section-head .lead { margin: 0; }
+
+.grid {
+  display: grid;
+  gap: var(--gutter);
+}
+
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.split--reverse { direction: rtl; }
+.split--reverse > * { direction: ltr; }
+
+.stack-sm > * + * { margin-top: var(--space-sm); }
+.stack-md > * + * { margin-top: var(--space-md); }
+.stack-lg > * + * { margin-top: var(--space-lg); }
+
+.aspect-hero  { aspect-ratio: 16 / 10; overflow: hidden; }
+.aspect-card  { aspect-ratio: 4 / 5; overflow: hidden; }
+.aspect-wide  { aspect-ratio: 16 / 7; overflow: hidden; }
+.aspect-square{ aspect-ratio: 1 / 1; overflow: hidden; }
+
+.img-cover { width: 100%; height: 100%; object-fit: cover; }
+
+@media (max-width: 1024px) {
+  .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .container { padding-inline: var(--gutter-tablet); }
+}
+
+@media (max-width: 780px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .split, .split--reverse {
+    grid-template-columns: 1fr;
+    direction: ltr;
+  }
+  .section-head { align-items: flex-start; }
+  .container { padding-inline: var(--gutter-mobile); }
+}
