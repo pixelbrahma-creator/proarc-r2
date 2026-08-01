@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Frontline International School — Proarc</title>
+<meta name="description" content="Frontline School is in Al-Tallah, Ajman adjacent to Ajman Academy, this British Curriculum school accommodates students from KG1 to 13th Grade.">
+<link rel="canonical" href="https://proarc.ae/projects/frontlineschool">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Frontline International School — Proarc">
+<meta property="og:description" content="Frontline School is in Al-Tallah, Ajman adjacent to Ajman Academy, this British Curriculum school accommodates students from KG1 to 13th Grade.">
+<meta property="og:image" content="../images/projects/frontlineschool/hero-md.webp">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="shortcut icon" href="../images/ui/favicon.ico">
+
+<link rel="stylesheet" href="../src/styles/tokens.css">
+<link rel="preload" href="../assets/fonts/general-sans/GeneralSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/general-sans/GeneralSans-Semibold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../src/styles/fonts.css">
+<link rel="stylesheet" href="../src/styles/tokens-layout.css">
+<link rel="stylesheet" href="../src/styles/base.css">
+<link rel="stylesheet" href="../src/styles/layout.css">
+<link rel="stylesheet" href="../src/styles/components.css">
+<link rel="stylesheet" href="../src/styles/pages/project.css">
+
+</head>
+<body>
+<!--
+  The site's chrome and its one navigation surface. Spec: 09-menu.md.
+
+  Three things sit here, and the order below is the tab order: the trigger
+  (top inline-start), the wordmark plate (top inline-end), and the overlay
+  they open. C-1 is the decided arrangement — "the logo on one side and the
+  three lines on the other" — and both corners flip in RTL by logical
+  properties alone; the artwork never mirrors (§8).
+
+  The chrome is NOT duplicated inside the overlay. It is one set of elements
+  painted above it, which is what makes the identity-chrome field rule
+  (E13.2) free: the plate and the pill carry a permanent #000000 field, so
+  paper reveals the field and the overlay's own black dissolves it. No scroll
+  listener, no threshold, no colour swap, nothing to desync.
+-->
+
+<button class="chrome-trigger" type="button"
+        data-menu-trigger
+        aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
+  <span class="chrome-trigger__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+</button>
+
+<a class="chrome-plate" href="../index.html">
+  <img class="chrome-plate__mark"
+       src="../images/ui/logo-mark.webp"
+       alt="Proarc — home"
+       width="330" height="117" decoding="async">
+</a>
+
+<!-- The nib: the white hairline that leads the wipe. Decoration, and it
+     leaves the flow entirely when it is not running. -->
+<span class="menu-nib" data-menu-nib aria-hidden="true"></span>
+
+<div class="menu-overlay" id="site-menu" data-menu-overlay inert>
+  <div class="menu-overlay__regions">
+
+    <nav class="menu-nav" aria-label="Main">
+      <ul class="menu-nav__list">
+        <li class="menu-nav__row"><a class="menu-nav__item is-lit" href="../projects.html" data-menu-work>Work</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="../services.html">Services</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="../about.html">About</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!--
+      The centre holds one idea at a time (G-4, "the swap"): the
+      constellation at rest, the preview while WORK is hovered or focused,
+      never both. The swap is instant and has no animation of its own — a
+      transition here would compete with the open.
+    -->
+    <div class="menu-centre" data-menu-centre>
+      <svg class="menu-constellation" viewBox="0 0 560 440" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><circle class="menu-dot" style="--dot-index:0" cx="380" cy="146" r="3.5"></circle><circle class="menu-dot" style="--dot-index:1" cx="377" cy="145" r="3.5"></circle><circle class="menu-dot" style="--dot-index:2" cx="411" cy="138" r="3.5"></circle><circle class="menu-dot" style="--dot-index:3" cx="384" cy="150" r="3.5"></circle><circle class="menu-dot" style="--dot-index:4" cx="376" cy="135" r="3.5"></circle><circle class="menu-dot" style="--dot-index:5" cx="410" cy="133" r="3.5"></circle><circle class="menu-dot" style="--dot-index:6" cx="439" cy="319" r="3.5"></circle><circle class="menu-dot" style="--dot-index:7" cx="439" cy="308" r="3.5"></circle><circle class="menu-dot" style="--dot-index:8" cx="461" cy="289" r="3.5"></circle><circle class="menu-dot" style="--dot-index:9" cx="454" cy="317" r="3.5"></circle><circle class="menu-dot" style="--dot-index:10" cx="474" cy="294" r="3.5"></circle><circle class="menu-dot" style="--dot-index:11" cx="474" cy="280" r="3.5"></circle><circle class="menu-dot" style="--dot-index:12" cx="187" cy="75" r="3.5"></circle><circle class="menu-dot" style="--dot-index:13" cx="149" cy="104" r="3.5"></circle><circle class="menu-dot" style="--dot-index:14" cx="158" cy="85" r="3.5"></circle><circle class="menu-dot" style="--dot-index:15" cx="176" cy="62" r="3.5"></circle><circle class="menu-dot" style="--dot-index:16" cx="196" cy="95" r="3.5"></circle><circle class="menu-dot" style="--dot-index:17" cx="350" cy="350" r="3.5"></circle><circle class="menu-dot" style="--dot-index:18" cx="367" cy="362" r="3.5"></circle><circle class="menu-dot" style="--dot-index:19" cx="378" cy="361" r="3.5"></circle><circle class="menu-dot" style="--dot-index:20" cx="371" cy="396" r="3.5"></circle><circle class="menu-dot" style="--dot-index:21" cx="242" cy="366" r="3.5"></circle><circle class="menu-dot" style="--dot-index:22" cx="239" cy="375" r="3.5"></circle><circle class="menu-dot" style="--dot-index:23" cx="320" cy="346" r="3.5"></circle><circle class="menu-dot" style="--dot-index:24" cx="133" cy="174" r="3.5"></circle><circle class="menu-dot" style="--dot-index:25" cx="332" cy="130" r="3.5"></circle><circle class="menu-dot" style="--dot-index:26" cx="96" cy="209" r="3.5"></circle><circle class="menu-dot" style="--dot-index:27" cx="308" cy="201" r="3.5"></circle></svg>
+      <div class="menu-preview" data-menu-preview><div class="menu-preview__grid"><a class="menu-preview__item" href="../projects/seasidehills.html"><img class="menu-preview__thumb" src="../images/projects/seasidehills/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Seaside Hills Residence</span></a><a class="menu-preview__item" href="../projects/habitatschool.html"><img class="menu-preview__thumb" src="../images/projects/habitatschool/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Habitat School</span></a><a class="menu-preview__item" href="../projects/souksalah.html"><img class="menu-preview__thumb" src="../images/projects/souksalah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Souk Salah</span></a><a class="menu-preview__item" href="../projects/ajmanbank.html"><img class="menu-preview__thumb" src="../images/projects/ajmanbank/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Ajman Bank Headquarters</span></a><a class="menu-preview__item" href="../projects/cityuniversity.html"><img class="menu-preview__thumb" src="../images/projects/cityuniversity/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">City University Campus</span></a><a class="menu-preview__item" href="../projects/alghalamosque.html"><img class="menu-preview__thumb" src="../images/projects/alghalamosque/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Al Ghala Mosque</span></a></div><a class="menu-preview__exit" href="../projects.html">All projects <span class="menu-preview__arrow" aria-hidden="true">&rarr;</span></a></div>
+    </div>
+
+    <div class="menu-contact">
+      <a class="menu-contact__item" href="tel:+97167446633"><span dir="ltr">+971 6 744 6633</span></a>
+      <a class="menu-contact__item" href="mailto:info@proarc.ae"><span dir="ltr">info@proarc.ae</span></a>
+      <!--
+        The AR switch is a reserved slot, not a control: the overlay is the
+        one site-wide chrome surface, so the language switch belongs here
+        when the bilingual build lands. Nothing renders until then, and an
+        empty box is not shipped in the meantime (§9 rule 4).
+
+        The address line is CUT and the cut is a decision (§8): v1's
+        "13003, Ajman, UAE" is a PO Box wearing an address label on every
+        page. Contact carries the full facts row. Restoring a line here is
+        a consolidation question, never a silent build decision.
+      -->
+    </div>
+
+  </div>
+</div>
+
+
+<!--
+  The project page — one layout, forty-seven times. Spec: 04-project.md.
+
+  The photograph bleeds to the page's inline-start edge across a 58% column
+  at its OWN aspect ratio, height-capped, never cropped; the back link, the
+  name, the statement and the facts sit in the column beside it. Nothing is
+  ever set on a photograph on this page type, so the page carries no scrim,
+  no panel and no photo-contrast measurement at all.
+
+  Everything below the lede runs full width inside the container, except the
+  gallery's lead image, which takes the hero column's width and edge so the
+  page has a single image column and the hero is never outranked by a later
+  image.
+-->
+<main id="main" class="pd">
+
+  <div class="pd-lede">
+    <figure class="pd-plate">
+      <img class="pd-plate__img" src="../images/projects/frontlineschool/hero.webp"
+           width="1600" height="1067" alt="Frontline International School" fetchpriority="high" decoding="async">
+      <figcaption class="pd-caption">
+        <span class="pd-caption__place t-caption">Al Tallah, Ajman</span>
+      </figcaption>
+    </figure>
+
+    <div class="pd-column">
+      <a class="pd-back t-meta-label" href="../projects/schools.html"><span class="pd-back__arrow" aria-hidden="true">&larr;</span> Schools</a>
+      <h1 class="pd-name t-editorial">Frontline International School</h1>
+      <p class="pd-statement t-body-lg">Frontline School is in Al-Tallah, Ajman adjacent to Ajman Academy, this British Curriculum school accommodates students from KG1 to 13th Grade.</p>
+
+      <table class="pd-specs">
+        <caption class="u-visually-hidden">Frontline International School — project facts</caption>
+        <tbody>
+          <tr class="pd-specs__row"><th class="pd-specs__label t-meta-label" scope="row">Client</th><td class="pd-specs__value t-meta-value">Frontline Int. Ltd.</td></tr><tr class="pd-specs__row"><th class="pd-specs__label t-meta-label" scope="row">Location</th><td class="pd-specs__value t-meta-value">Al Tallah, Ajman</td></tr><tr class="pd-specs__row"><th class="pd-specs__label t-meta-label" scope="row">Completed</th><td class="pd-specs__value t-meta-value">2016</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  
+  <div class="pd-prose container">
+    <p class="pd-prose__p t-body">The overall design of this school, uses the elements from Islamic and Persian Architecture. The structure features neutral color tones which is reflective of its exterior environment. Also, elements like the domes, arches, jaali wall, pergolas adopted for this project clearly depicts this.</p>
+  </div>
+  
+
+  
+  <section class="pd-gallery" aria-label="More images of Frontline International School">
+    <figure class="pd-plate pd-plate--gallery">
+      <img class="pd-plate__img" src="../images/projects/frontlineschool/gallery-02.webp" width="1920" height="817" alt="" loading="lazy" decoding="async">
+    </figure>
+    
+    <div class="pd-gallery__rest container">
+      <figure class="pd-gallery__cell"><img class="pd-gallery__img" src="../images/projects/frontlineschool/gallery-03.webp" width="1920" height="837" alt="" loading="lazy" decoding="async"></figure><figure class="pd-gallery__cell"><img class="pd-gallery__img" src="../images/projects/frontlineschool/gallery-04.webp" width="1920" height="835" alt="" loading="lazy" decoding="async"></figure>
+    </div>
+    
+    
+  </section>
+  
+
+  
+  <section class="pd-neighbours container" aria-labelledby="pd-neighbours-head">
+    <h2 class="pd-neighbours__head t-h3" id="pd-neighbours-head">Also in Al Tallah</h2>
+    <ul class="pd-neighbours__list">
+      <li class="pd-neighbours__item"><a class="pd-neighbours__link" href="edu-habitataltallah.html"><img class="pd-neighbours__thumb" src="../images/projects/edu-habitataltallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Habitat School, Al Tallah</span><span class="pd-neighbours__meta t-caption">Al Tallah, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="marksavealtallah.html"><img class="pd-neighbours__thumb" src="../images/projects/marksavealtallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Mark &amp; Save, Al Tallah</span><span class="pd-neighbours__meta t-caption">Al Tallah, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="citylifealtallah.html"><img class="pd-neighbours__thumb" src="../images/projects/citylifealtallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">City Life, Al Tallah</span><span class="pd-neighbours__meta t-caption">Al Tallah, Ajman</span></a></li>
+    </ul>
+  </section>
+  
+
+  <!--
+    The closing band. E1.2 — always the inverse of its page, and this page is
+    paper. E1.2a: nothing sits between the last paper section and the footer,
+    which share this ground; they are separated by structure and the footer's
+    own hairline, never by ground. Prev/next used to occupy this slot.
+  -->
+  <section class="pd-band surface-dark" aria-label="Enquire about this project">
+    <div class="container">
+      <p class="pd-band__line">Planning something similar? Talk to the team that delivered Frontline International School.</p>
+      <a class="pd-band__action" href="../contact.html?project=frontlineschool">Contact</a>
+    </div>
+  </section>
+
+</main>
+
+<!--
+  The footer. Black ground with its own #333333 top hairline — on a paper
+  page the closing band owns the switch and the footer shares the band's
+  ground, so the two are separated by structure and scale, never by colour
+  (E1.2a). On a page with no band the footer owns the switch itself (E1.2c).
+
+  The line is the decided site-wide copy. Skyline is retired everywhere,
+  the footer included (D-4): a skyline is towers, and it argues for the
+  three offices rather than the twenty-seven schools and shops. The second
+  sentence is X6-elastic — it names three disciplines, and ProArc's answer
+  on the discipline list changes this sentence and the Services blocks
+  together.
+
+  This footer is one of /ajman's three doors (the other two are Home's map
+  and About's story), so its Ajman link is the one link here that must never
+  break. It also carries the marketing route to /careers, which is why the
+  overlay refuses a careers item of its own.
+
+  Deliberately NOT here, each a live v1 fault this replaces: the wordmark
+  re-set as type in a <span class="brand">, a Testimonials item, "Projects"
+  where the decided label is Work, seven nav items where the nav is four,
+  the newsletter form posting to a contact.php that fatals on PHP 8, and six
+  dead href="#" links of which three were the social row.
+-->
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+
+    <p class="site-footer__line">The buildings a city grows up in. Architecture, engineering and project management from one Ajman office.</p>
+
+    <nav class="site-footer__nav" aria-label="Footer">
+      <ul class="site-footer__list">
+        <li><a class="site-footer__link" href="../projects.html">Work</a></li>
+        <li><a class="site-footer__link" href="../services.html">Services</a></li>
+        <li><a class="site-footer__link" href="../about.html">About</a></li>
+        <li><a class="site-footer__link" href="../contact.html">Contact</a></li>
+        <li><a class="site-footer__link" href="../ajman.html">Ajman</a></li>
+        <li><a class="site-footer__link" href="../careers.html">Careers</a></li>
+      </ul>
+    </nav>
+
+    <!-- Two socials, both verified live. Twitter/X is cut site-wide: the
+         handle is the CEO's personal account, not the practice's. -->
+    <ul class="site-footer__social">
+      <li><a class="site-footer__link" href="https://www.facebook.com/proarcarchitects/" rel="noopener">Facebook</a></li>
+      <li><a class="site-footer__link" href="https://www.instagram.com/proarchitects/" rel="noopener">Instagram</a></li>
+    </ul>
+
+    <p class="site-footer__legal">&copy; 2026 Proarc</p>
+
+  </div>
+</footer>
+
+<!--
+  R2 ships one script, and it is the menu.
+
+  What was here in v1 and is deliberately gone: GSAP, ScrollTrigger and
+  Lenis, pulled from three external CDNs, driving js/reveals.js (elements
+  fade and translate up as they scroll into view) and js/smooth-scroll.js
+  (scroll hijacking).
+
+  Three reasons, and any one of them is sufficient:
+
+  1. R2's motion language is decided and those are not it. "The site draws"
+     — all motion is line-work drawing itself: the scroll cue, the link
+     underlines, the Ajman map, this menu's wipe. No decorative fades, no
+     parallax, no sliders, no bounce.
+  2. Reduced motion must always show the finished state, and a reveal system
+     that starts every element at opacity 0 is one broken script away from a
+     blank page.
+  3. This repository is handed over as a whole, once. Three external CDN
+     dependencies in the chrome of a static site is a liability the handover
+     should not carry.
+
+  js/reveals.js, js/smooth-scroll.js and src/styles/animations.css are still
+  in the tree and still work; nothing loads them. If a screen turns out to
+  need one, it opts in through its own pageScript rather than every page
+  paying for it.
+-->
+
+<script src="../js/menu.js" defer></script>
+
+
+</body>
+</html>

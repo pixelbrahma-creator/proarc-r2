@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<!-- @include head -->
+</head>
+<body>
+<!-- @include header -->
+
+<!--
+  The project page — one layout, forty-seven times. Spec: 04-project.md.
+
+  The photograph bleeds to the page's inline-start edge across a 58% column
+  at its OWN aspect ratio, height-capped, never cropped; the back link, the
+  name, the statement and the facts sit in the column beside it. Nothing is
+  ever set on a photograph on this page type, so the page carries no scrim,
+  no panel and no photo-contrast measurement at all.
+
+  Everything below the lede runs full width inside the container, except the
+  gallery's lead image, which takes the hero column's width and edge so the
+  page has a single image column and the hero is never outranked by a later
+  image.
+-->
+<main id="main" class="pd">
+
+  <div class="pd-lede">
+    <figure class="pd-plate">
+      <img class="pd-plate__img" src="{{hero}}"{{#if heroSrcset}} srcset="{{heroSrcset}}" sizes="(max-width: 820px) 100vw, 58vw"{{/if}}
+           width="{{heroWidth}}" height="{{heroHeight}}" alt="{{heroAlt}}" fetchpriority="high" decoding="async">
+      <figcaption class="pd-caption">
+        <span class="pd-caption__place t-caption">{{place}}</span>{{#if provenance}}<span class="pd-caption__genre">{{provenance}}</span>{{/if}}
+      </figcaption>
+    </figure>
+
+    <div class="pd-column">
+      <a class="pd-back t-meta-label" href="{{backHref}}"><span class="pd-back__arrow" aria-hidden="true">&larr;</span> {{backLabel}}</a>
+      <h1 class="pd-name t-editorial">{{name}}</h1>
+      {{#if statement}}<p class="pd-statement t-body-lg">{{statement}}</p>{{/if}}
+
+      <table class="pd-specs">
+        <caption class="u-visually-hidden">{{name}} — project facts</caption>
+        <tbody>
+          {{#each specRows}}<tr class="pd-specs__row"><th class="pd-specs__label t-meta-label" scope="row">{{label}}</th><td class="pd-specs__value t-meta-value">{{value}}</td></tr>{{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {{#if hasProse}}
+  <div class="pd-prose container">
+    {{#each proseParagraphs}}<p class="pd-prose__p t-body">{{this}}</p>{{/each}}
+  </div>
+  {{/if}}
+
+  {{#if hasGallery}}
+  <section class="pd-gallery" aria-label="More images of {{name}}">
+    <figure class="pd-plate pd-plate--gallery">
+      <img class="pd-plate__img" src="{{galleryLead.src}}" width="{{galleryLead.width}}" height="{{galleryLead.height}}" alt="" loading="lazy" decoding="async">
+    </figure>
+    {{#if hasGalleryRest}}
+    <div class="pd-gallery__rest container">
+      {{#each galleryRest}}<figure class="pd-gallery__cell"><img class="pd-gallery__img" src="{{src}}" width="{{width}}" height="{{height}}" alt="" loading="lazy" decoding="async"></figure>{{/each}}
+    </div>
+    {{/if}}
+    {{#if provenanceLine}}
+    <div class="container"><p class="pd-gallery__provenance t-caption">{{provenanceLine}}</p></div>
+    {{/if}}
+  </section>
+  {{/if}}
+
+  {{#if hasNeighbours}}
+  <section class="pd-neighbours container" aria-labelledby="pd-neighbours-head">
+    <h2 class="pd-neighbours__head t-h3" id="pd-neighbours-head">{{neighboursHead}}</h2>
+    <ul class="pd-neighbours__list">
+      {{#each neighbours}}<li class="pd-neighbours__item"><a class="pd-neighbours__link" href="{{href}}"><img class="pd-neighbours__thumb" src="{{thumb}}" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">{{title}}</span><span class="pd-neighbours__meta t-caption">{{meta}}</span></a></li>{{/each}}
+    </ul>
+  </section>
+  {{/if}}
+
+  <!--
+    The closing band. E1.2 — always the inverse of its page, and this page is
+    paper. E1.2a: nothing sits between the last paper section and the footer,
+    which share this ground; they are separated by structure and the footer's
+    own hairline, never by ground. Prev/next used to occupy this slot.
+  -->
+  <section class="pd-band surface-dark" aria-label="Enquire about this project">
+    <div class="container">
+      <p class="pd-band__line">{{ctaSentence}}</p>
+      <a class="pd-band__action" href="{{contactHref}}">Contact</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- @include footer -->
+<!-- @include scripts -->
+</body>
+</html>

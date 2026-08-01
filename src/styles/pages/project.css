@@ -1,0 +1,398 @@
+/* ===========================================================
+   The project page (×47) — Screen 04, `04-project.md`.
+
+   One layout, forty-seven times. The only thing that varies
+   between records is the photograph's own proportion, which is
+   why there is no per-record rule anywhere in this file.
+
+   Ground: paper (E1). The single dark surface is the closing
+   band, which shares its ground with the footer (E1.2a) and is
+   separated from it by scale and the footer's own hairline —
+   never by a change of ground.
+   =========================================================== */
+
+/* -----------------------------------------------------------
+   The lede: the plate and the column
+   ----------------------------------------------------------- */
+
+/* The photograph bleeds to the page's inline-start edge — no
+   outer margin on that side — and the text column keeps the
+   page's normal margin. In RTL both follow the reading
+   direction by construction: this is a grid with logical
+   padding, so nothing is mirrored by hand. */
+/* The 58% is of the PAGE, so the padding that keeps the text column off the
+   page edge belongs to that column and not to the grid: a percentage
+   resolves against the grid's content box, so padding here would quietly
+   shrink the photograph — and shrink it by a different amount than the
+   gallery's lead image, which §6 requires to be exactly as wide and on
+   exactly the same edge. */
+.pd-lede {
+  display: grid;
+  grid-template-columns: 58% 1fr;
+  column-gap: var(--gutter-desktop);
+  align-items: start;
+  padding-block-start: var(--gap-component);
+}
+
+.pd-column {
+  padding-inline-end: var(--gutter-desktop);
+}
+
+/* E3.6, and the whole reason this layout exists: the image is
+   shown at its OWN aspect ratio, height-capped, never cropped.
+   No width/height is asserted here — the intrinsic size does
+   the work, so a wide record is wide-and-short in this box and
+   a tower is narrow-and-tall. `width: min(100%, cap × ratio)`
+   falls out of max-inline-size + max-block-size, which is what
+   keeps forty-seven proportions on one rule. */
+.pd-plate {
+  margin: 0;
+}
+
+.pd-plate__img {
+  max-inline-size: 100%;
+  max-block-size: 68vh;
+  inline-size: auto;
+  block-size: auto;
+}
+
+/* The caption is off-image, always (§2.2). Place, then genre —
+   and the genre reads as a fact rather than as a caption's
+   tail, which is why it is ink at weight 600 beside secondary
+   grey. E9's two labels only; no synonyms. */
+.pd-caption {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-inline);
+  margin-block-start: var(--gap-tight);
+  /* The photograph bleeds to the page edge; its caption must not. Type is
+     never set flush against the viewport. */
+  padding-inline-start: var(--gutter-desktop);
+}
+
+.pd-caption__place {
+  text-transform: uppercase;
+}
+
+.pd-caption__genre {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-caption);
+  line-height: var(--lh-caption);
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+.pd-column > * + * {
+  margin-block-start: var(--gap-block);
+}
+
+.pd-back {
+  display: inline-block;
+  text-transform: uppercase;
+}
+
+/* The site draws: the underline is drawn rather than switched
+   on. Link underlines are the one motion this page carries. */
+.pd-back::after {
+  content: "";
+  display: block;
+  block-size: 1px;
+  inline-size: 0;
+  margin-block-start: 4px;
+  background: var(--color-ink);
+  transition: inline-size var(--dur-fast) var(--ease-out);
+}
+
+.pd-back:hover::after,
+.pd-back:focus-visible::after {
+  inline-size: 100%;
+}
+
+.pd-name {
+  margin: 0;
+  max-inline-size: var(--measure-editorial);
+}
+
+.pd-statement {
+  margin: 0;
+  color: var(--color-ink-secondary);
+}
+
+/* -----------------------------------------------------------
+   The specification table — §4
+   Ruled rows, no frame, no heading. A border around three rows
+   is what makes three facts look like a form with fields
+   missing; 18 records hold only two.
+   ----------------------------------------------------------- */
+
+.pd-specs {
+  inline-size: 100%;
+  border-collapse: collapse;
+  margin-block-start: var(--gap-block);
+}
+
+.pd-specs__row + .pd-specs__row .pd-specs__label,
+.pd-specs__row + .pd-specs__row .pd-specs__value {
+  border-block-start: 1px solid var(--color-hairline);
+}
+
+.pd-specs__label,
+.pd-specs__value {
+  padding-block: var(--pad-table-row);
+  vertical-align: baseline;
+}
+
+.pd-specs__label {
+  inline-size: 40%;
+  padding-inline-end: var(--gap-tight);
+  text-transform: uppercase;
+  font-weight: var(--fw-medium);
+}
+
+/* -----------------------------------------------------------
+   The prose — §5. No heading: "Overview" is an invented
+   section label. The measure comes from the token (E11), not
+   from a number typed here.
+   ----------------------------------------------------------- */
+
+.pd-prose {
+  padding-block-start: var(--gap-component);
+}
+
+.pd-prose__p + .pd-prose__p {
+  margin-block-start: var(--gap-block);
+}
+
+.pd-prose__p:first-child {
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-body-lg);
+  max-inline-size: var(--measure-body-lg);
+}
+
+/* -----------------------------------------------------------
+   The gallery — §6. One treatment, from one image to twenty.
+   The lead takes the hero column's width and edge; the rest
+   run two-up with their aspect preserved and cells top-aligned,
+   because a forced ratio is what centre-crops the portrait
+   images in the library.
+   ----------------------------------------------------------- */
+
+.pd-gallery {
+  padding-block-start: var(--gap-component);
+}
+
+.pd-plate--gallery {
+  inline-size: 58%;
+}
+
+.pd-gallery__rest {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gutter-desktop);
+  align-items: start;
+  padding-block-start: var(--gap-block);
+}
+
+.pd-gallery__cell {
+  margin: 0;
+}
+
+.pd-gallery__img {
+  inline-size: 100%;
+  block-size: auto;
+}
+
+.pd-gallery__provenance {
+  padding-block-start: var(--gap-tight);
+}
+
+/* -----------------------------------------------------------
+   The neighbours — §7. One relation per page, named in the
+   block's head.
+   ----------------------------------------------------------- */
+
+.pd-neighbours {
+  padding-block-start: var(--gap-section);
+}
+
+.pd-neighbours__head {
+  margin: 0 0 var(--gap-heading);
+}
+
+.pd-neighbours__list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gutter-desktop);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pd-neighbours__thumb {
+  inline-size: 100%;
+  block-size: auto;
+  margin-block-end: var(--gap-tight);
+}
+
+/* §9.16 — hierarchy never comes from opacity, so a thumbnail is
+   never dimmed at rest and revealed on hover. The link's own
+   underline carries the state. */
+.pd-neighbours__name {
+  display: block;
+}
+
+.pd-neighbours__link:hover .pd-neighbours__name,
+.pd-neighbours__link:focus-visible .pd-neighbours__name {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.pd-neighbours__meta {
+  display: block;
+  margin-block-start: 4px;
+  text-transform: uppercase;
+}
+
+/* -----------------------------------------------------------
+   The closing band — §9. Rank 1 on the trigger map, and absent
+   from all 47 pages of the built site.
+   ----------------------------------------------------------- */
+
+/* The band's own padding follows layout.css's idiom for a statement section
+   (--gap-section-major halved). Its BOTTOM is smaller on purpose: E1.2a puts
+   the band and the footer on one ground, separated by structure and the
+   footer's own hairline — so a section-sized void here would recreate the
+   280px of dead black that removing prev/next was meant to close. */
+.pd-band {
+  margin-block-start: var(--gap-section);
+  padding-block: calc(var(--gap-section-major) / 2) var(--gap-component);
+}
+
+.pd-band__line {
+  margin: 0 0 var(--gap-block);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-light);
+  letter-spacing: var(--ls-h2);
+  line-height: var(--lh-h2);
+  max-inline-size: var(--measure-h2);
+  color: var(--color-on-dark);
+}
+
+.pd-band__action {
+  display: inline-block;
+  padding-block: var(--gap-tight);
+  padding-inline: var(--gap-heading);
+  border: 1px solid var(--color-on-dark);
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  color: var(--color-on-dark);
+  transition: background-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+
+.pd-band__action:hover,
+.pd-band__action:focus-visible {
+  background: var(--color-on-dark);
+  color: var(--color-surface-dark);
+}
+
+/* -----------------------------------------------------------
+   Utility
+   ----------------------------------------------------------- */
+
+.u-visually-hidden {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* -----------------------------------------------------------
+   Breakpoints. The two columns stack at 820px — photograph
+   first at its own proportion, then back link, name, statement,
+   facts. Nothing is cropped at any width.
+   ----------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .pd-lede {
+    column-gap: var(--gutter-tablet);
+    padding-inline-end: var(--gutter-tablet);
+  }
+
+  .pd-column {
+    padding-inline-end: var(--gutter-tablet);
+  }
+
+  .pd-caption {
+    padding-inline-start: var(--gutter-tablet);
+  }
+
+  .pd-gallery__rest {
+    gap: var(--gutter-tablet);
+  }
+
+  .pd-neighbours__list {
+    gap: var(--gutter-tablet);
+  }
+}
+
+@media (max-width: 820px) {
+  .pd-lede {
+    grid-template-columns: 1fr;
+    row-gap: var(--gap-block);
+    padding-inline-end: 0;
+  }
+
+  .pd-column {
+    padding-inline: var(--gutter-mobile);
+  }
+
+
+  .pd-plate--gallery {
+    inline-size: 100%;
+  }
+
+  .pd-caption {
+    padding-inline-start: var(--gutter-mobile);
+  }
+
+  .pd-gallery__rest {
+    grid-template-columns: 1fr;
+    gap: var(--gutter-mobile);
+  }
+
+  .pd-neighbours__list {
+    grid-template-columns: 1fr;
+    gap: var(--gap-component);
+  }
+
+  .pd-specs__label {
+    inline-size: 45%;
+  }
+}
+
+/* Every animation's finished state is the shipped state, so
+   reduced motion removes the transition and keeps the result.
+   Durations AND delays both go: a zero duration does not
+   cancel a delay. */
+@media (prefers-reduced-motion: reduce) {
+  .pd-back::after,
+  .pd-band__action {
+    transition-duration: 0s;
+    transition-delay: 0s;
+  }
+
+  .pd-back:hover::after,
+  .pd-back:focus-visible::after {
+    inline-size: 100%;
+  }
+}

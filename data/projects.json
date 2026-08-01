@@ -724,6 +724,7 @@
       "client": "GJ Properties",
       "builtUpArea": "80,897.97 sqm (870,785.74 sq. ft.)",
       "status": "Under Construction",
+      "provenance": "Visualisation",
       "configuration": "2B+G+6P+42F",
       "summary": "A landmark high-rise residential development in Al Aamra, Ajman, combining modern urban living with architectural elegance.",
       "description": [
@@ -746,6 +747,7 @@
       "client": "Azha Park Residences",
       "builtUpArea": "113,173.50 sqm",
       "status": "Design Development",
+      "provenance": "Visualisation",
       "configuration": "G+3P+Podium Amenities+12 Typical Floors (4 Towers)+Roof",
       "summary": "A proposed mixed-use commercial and residential development of four residential towers in the Eastern Sector of Aamra, Ajman.",
       "description": [
@@ -775,6 +777,7 @@
       "client": "GJ Properties",
       "builtUpArea": "117,771 sqm",
       "status": "Under Construction",
+      "provenance": "Visualisation",
       "configuration": "2B+G+6P+42F",
       "summary": "An ultra-tall organic tower in Aamra, Ajman, with a fluid, wave-like silhouette of continuous wraparound balconies.",
       "description": [
@@ -809,6 +812,7 @@
       "client": "DECA Properties",
       "builtUpArea": "19,206.41 sqm",
       "status": "Design Stage",
+      "provenance": "Visualisation",
       "configuration": "2B+G+9F",
       "summary": "A minimalist contemporary waterfront development along the Marina Boardwalk in Al Zorah, opening toward expansive marina views.",
       "description": [
@@ -830,6 +834,7 @@
       "client": "Star Giga",
       "builtUpArea": "51,843 sqm",
       "status": "Under Design",
+      "provenance": "Visualisation",
       "configuration": "G+6P+25F",
       "summary": "A fluid, ribbon-balconied residential tower in Emirates City with a louvered podium and rooftop amenity deck.",
       "description": [

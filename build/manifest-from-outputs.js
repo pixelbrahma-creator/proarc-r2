@@ -31,12 +31,17 @@ const MANIFEST_PATH = path.join(ROOT, 'images', 'manifest.json');
 const DATA_PATH = path.join(ROOT, 'data', 'projects.json');
 
 const { galleryIndices } = require('./lib/images');
+const { webpSize } = require('./lib/webp-size');
 
 const GALLERY_RE = /^gallery-(\d+)\.webp$/;
 
 function naturalSort(a, b) {
   return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
 }
+
+// Filled by buildProjectEntry as it walks each record; serialised into
+// the manifest as a flat path -> [w, h] map.
+const sizes = {};
 
 function buildProjectEntry(project) {
   const slug = project.slug;
@@ -62,6 +67,16 @@ function buildProjectEntry(project) {
     thumb: has('thumb.webp') ? `images/projects/${slug}/thumb.webp` : '',
     gallery,
   };
+
+  // Intrinsic sizes for everything this entry references, keyed by path in a
+  // flat map. The project page shows each photograph at its own proportion,
+  // so the markup must carry width/height or the page reflows as the hero
+  // decodes. A flat map keeps `hero`/`thumb`/`gallery` as plain strings, so
+  // no existing consumer changes.
+  [entry.hero, entry.heroMd, entry.thumb, ...gallery].filter(Boolean).forEach((rel) => {
+    const size = webpSize(path.join(ROOT, rel));
+    if (size) sizes[rel] = [size.width, size.height];
+  });
 
   // A record with no usable image is worse than absent: generate-projects.js
   // skips slugs that are missing from the manifest, but a slug present with an
@@ -90,6 +105,7 @@ function main() {
     generatedFrom: 'build/manifest-from-outputs.js',
     projects: {},
     logos: buildLogos(),
+    sizes,
   };
 
   const missing = [];
@@ -113,6 +129,11 @@ function main() {
         .filter((e) => e.isDirectory() && !db.projects.some((p) => p.slug === e.name))
         .map((e) => e.name)
     : [];
+
+  Object.values(manifest.logos).forEach((rel) => {
+    const size = webpSize(path.join(ROOT, rel));
+    if (size) sizes[rel] = [size.width, size.height];
+  });
 
   const count = Object.keys(manifest.projects).length;
   const galleryTotal = Object.values(manifest.projects).reduce((s, e) => s + e.gallery.length, 0);
