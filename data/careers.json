@@ -1,0 +1,28 @@
+{
+  "_readme": [
+    "/careers — the application route. Screen 07 §8.",
+    "",
+    "THE PRACTICE'S EMAIL IS NOT HERE. It is in data/contact.json, where Contact reads it,",
+    "and build/lib/careers.js reads the same value from the same place. The address appears",
+    "in this page's paragraph and (eventually) in its handler; one fact, one source. The",
+    "menu overlay in partials/header.html still hardcodes its own copy — that is a known",
+    "second source, watched by _bmad/tools/sweep-contact.js rather than fixed here.",
+    "",
+    "THE ROUTE DOES NOT EXIST YET, and that is stated rather than hidden. There is no",
+    "php/careers.php in the tree: php/contact.php is a five-field message handler that",
+    "would silently drop a CV, and it fatals on PHP 8 besides. The form is the forms",
+    "phase's to connect, and this file is where it will change the action. The build",
+    "prints the state every run and the paragraph carries a working address beside the",
+    "form so an applicant is never left with only a route that goes nowhere.",
+    "",
+    "accept is a machine constraint on the picker, not copy shown to a reader — the",
+    "spec's own distinction (08-contact.md §6, on the deleted \"Minimum 20 characters.\")."
+  ],
+
+  "form": {
+    "action": "php/careers.php",
+    "method": "post",
+    "enctype": "multipart/form-data",
+    "accept": ".pdf,.doc,.docx"
+  }
+}

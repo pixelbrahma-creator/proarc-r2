@@ -1,0 +1,82 @@
+/* ===========================================================
+   /careers — Screen 07 §8.
+
+   GROUND PAPER, on Contact's three rendered facts (08-contact
+   §2): the error state stays #B3261E instead of becoming a lit
+   salmon · the browser's unoverridable autofill paint is a
+   whisper on paper · and this page has no closing band, so the
+   footer's black is its one ground switch (E1.2c).
+
+   THE FORM GRAMMAR IS NOT IN THIS FILE. Labels, fields, the
+   file control, the focus indicator and the submit block all
+   live in components.css, shared with Contact. One grammar
+   serving both forms is the only way two pages built a day
+   apart stay one design. What is here is the page's layout,
+   and there is very little of it: a name, a paragraph and a
+   column.
+
+   IT IS THE SHORTEST PAGE ON THE SITE, by decision. §8 rebuilds
+   it to one paragraph plus the form, so the two sections that
+   made it long — Current Openings with its two "[ Job Title ]"
+   placeholders, and Why Work With Us — have no CSS here
+   because they have no markup anywhere.
+   =========================================================== */
+
+/* -----------------------------------------------------------
+   1 · The name and the paragraph (§8)
+   ----------------------------------------------------------- */
+
+/* The top padding clears the chrome at every width, the same duty every
+   arrival on the site carries and the same value they all use. */
+.cr-open {
+  padding-block: calc(var(--gap-component) + var(--gap-heading)) calc(var(--gap-section) / 2);
+}
+
+/* .t-editorial carries the register and the mobile collapse — 52px, 40px
+   at 1023, 34px at 767. "Working at Proarc" is the route's own name, which
+   is the phrase the two links into this page carry. */
+.cr-open__line {
+  margin: 0;
+}
+
+/* The heading gap, not the block gap: the paragraph is what the H1 opens,
+   not a second block after it. .t-body holds it at --measure-body. */
+.cr-open__prose {
+  margin: var(--gap-heading) 0 0;
+}
+
+/* THE INLINE REGISTER — the address sits inside a sentence, so it takes
+   Home's .hm-link-inline shape rather than the uppercase route register
+   that would break the line. Weight and the rule carry it, never colour. */
+.cr-link {
+  border-block-end: 1px solid currentcolor;
+  font-weight: var(--fw-semibold);
+  color: var(--color-ink);
+  transition: border-block-end-width var(--dur-fast) var(--ease-out);
+}
+
+.cr-link:hover,
+.cr-link:focus-visible {
+  border-block-end-width: 2px;
+}
+
+.cr-link:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 4px;
+}
+
+/* -----------------------------------------------------------
+   2 · The application form (§8)
+   ----------------------------------------------------------- */
+
+.cr-form {
+  padding-block-end: var(--gap-section);
+}
+
+/* 560px, the same column Contact's form takes. This form is longer by two
+   fields and a file control, and that is a reason to keep the width, not
+   to widen it: a reader typing down a column should not have to re-find
+   its inline start on every field. */
+.cr-form__form {
+  max-inline-size: 560px;
+}

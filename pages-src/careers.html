@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<!-- @include head -->
+</head>
+<body>
+<!-- @include header -->
+
+<!--
+  /careers — Screen 07 §8. Copy authority for the Join-us block that leads
+  here: ../_bmad/wds/E-Brand-Framework/04-copy-direction.md v3.2 §5.
+
+  The page in one line: the name → one paragraph → the application form.
+  That is the whole of §8's rebuild, and everything else the live page
+  carries is deleted.
+
+  OFF-NAV, AND NOT 301'd. The overlay's four items do not include it; About's
+  Join-us block and the footer are its two doors, and Contact's line under
+  its form is the third for the reader who arrived at the wrong form. A 301
+  would discard a working recruitment route to save a URL, and the forms
+  phase would have to rebuild the form anyway.
+
+  THREE DELETIONS, AND THEY ARE THE REASON THIS PAGE WAS REBUILT:
+
+    Current Openings — two "[ Job Title ]" placeholders with
+    "[ 2–3 line job description pending confirmation from Proarc ]" beneath
+    each, LIVE TO THE PUBLIC. The section is gone, and no listing exists
+    until a real opening does. This is the no-empty-headings rule applied to
+    the worst instance of it on the site.
+
+    Why Work With Us — the unsupportable claims again, in card form.
+
+    The X6 staffing register — "architects, engineers and site engineers" —
+    which appeared twice on the live page, once inside the form's own
+    placeholder, and a third time in this route's meta description until
+    this build. X9 bars a headcount permanently and X6 has not answered, so
+    no form of that sentence has a surface anywhere.
+
+  GROUND PAPER, on Contact's three rendered facts (08-contact.md §2): the
+  error state stays #B3261E rather than becoming a lit salmon on the page
+  where a reader is being told they got something wrong · the browser's
+  unoverridable autofill paint is a whisper on paper and glowing rectangles
+  on black · and this page has no closing band, so the footer's black is its
+  one ground switch (E1.2c). A closing band would be wrong here for a second
+  reason as well: "Have a project in mind?" is addressed to a client, and
+  the reader of this page is not one.
+
+  NO PHOTOGRAPH. No studio photograph exists — the live site's is Rose
+  Tower's gallery-02 wearing a caption (08-contact.md §7) — and a page about
+  joining a room cannot illustrate itself with a building it drew.
+
+  E12: the page carries no digit at all outside the form's own machine
+  constraints. No headcount, no years-of-experience, no counts of anything.
+-->
+<main id="main" class="cr">
+
+  <!-- 1 · The name and the paragraph (§8).
+
+       THE H1 IS THE ROUTE'S OWN NAME, which is the link About and the
+       footer both carry ("Working at Proarc →"). A reader who follows a
+       link should land on its words. Display scale, weight 300 —
+       .t-editorial, the arrival register on every page of the site.
+
+       THE PARAGRAPH DOES NOT REPEAT ABOUT'S. §5's Join-us block already
+       spent "we hire architects, engineers and project managers into the
+       same office as everyone else", one click away; saying it again here
+       would make the door and the room the same sentence. This paragraph
+       carries the next beat instead — why there is nothing to list, what is
+       worth sending, and where it goes.
+
+       IT EXPLAINS THE ABSENT LISTING AS A CONSEQUENCE, NOT A DEFENCE. The
+       31 Jul voice correction removed the defensive register site-wide, so
+       the sentence states the positive form first (the practice hires when
+       a project needs someone) and lets the absence follow from it.
+
+       NO ROLE IS NAMED AND NOTHING IS COUNTED — X9 bars a headcount
+       permanently and the X6 register is deleted from this page, so
+       "what you have built" carries the applicant's discipline instead of a
+       list that would omit someone. THE ADDRESS IS THE BUILD'S, not the
+       source's: it comes from data/contact.json through build/lib/careers.js
+       so that this page and Contact cannot disagree about it. -->
+  <section class="cr-open container">
+    <h1 class="cr-open__line t-editorial">Working at Proarc</h1>
+    <p class="cr-open__prose t-body">The practice hires when a project needs someone, which is why there is no list of openings on this page. What we read is a letter that says what you have built and where. Send it with your CV, either below or to <a class="cr-link" href="{{emailHref}}">{{email}}</a>.</p>
+  </section>
+
+  <!-- 2 · The application form (§8) — the live page's one piece of real,
+       working content, rebuilt in the site's grammar: visible 12px
+       uppercase labels above the field, border-bottom fields, no boxes, no
+       placeholders-as-labels. The grammar itself is in components.css,
+       shared with Contact, which is why it is not a page decision here.
+
+       THE FIELD SET IS §8's: name, email, phone, country, position, CV
+       upload, cover letter. Nothing is added and nothing is dropped.
+
+       WHAT IS REQUIRED IS WHAT THE PRACTICE CANNOT READ AN APPLICATION
+       WITHOUT: a name, an address to reply to, the position, the CV and the
+       letter the paragraph above asks for. Phone and country are marked
+       optional in lowercase beside their labels, the same way Contact marks
+       its one optional field; the required fields carry no asterisks,
+       because an asterisk is a legend the page would then have to print.
+
+       POSITION IS A TEXT FIELD, NOT A SELECT. A select would have to be
+       filled with a list of roles, and a list of roles on the page whose
+       whole argument is that there is no list is the deleted section coming
+       back through the form. Whether it ever becomes a select is the forms
+       phase's question, as it is on Contact.
+
+       THE ROUTE DOES NOT EXIST YET AND SAYS SO AT BUILD. There is no
+       php/careers.php in the tree; php/contact.php is a five-field message
+       handler that would drop a CV without reporting it, and it fatals on
+       PHP 8 besides. The action names the route the forms phase must build,
+       because a form with no action posts to this page and discards an
+       application in silence. The paragraph above carries the working
+       address beside it, so no applicant is left with only a dead route.
+
+       enctype IS multipart/form-data, checked at build: a file input posted
+       as urlencoded sends the filename and nothing else, which is the one
+       failure that looks exactly like success. -->
+  <section class="cr-form container">
+    <form class="cr-form__form" action="{{formAction}}" method="{{formMethod}}" enctype="{{formEnctype}}" aria-label="Application">
+      <div class="form-field">
+        <label class="form-field__label" for="cr-name">Name</label>
+        <input class="form-field__input" type="text" id="cr-name" name="name" autocomplete="name" required>
+      </div>
+
+      <div class="form-field">
+        <label class="form-field__label" for="cr-email">Email</label>
+        <input class="form-field__input" type="email" id="cr-email" name="email" autocomplete="email" required>
+      </div>
+
+      <div class="form-field">
+        <label class="form-field__label" for="cr-phone">Phone <span class="form-field__optional">optional</span></label>
+        <input class="form-field__input" type="tel" id="cr-phone" name="phone" autocomplete="tel">
+      </div>
+
+      <div class="form-field">
+        <label class="form-field__label" for="cr-country">Country <span class="form-field__optional">optional</span></label>
+        <input class="form-field__input" type="text" id="cr-country" name="country" autocomplete="country-name">
+      </div>
+
+      <div class="form-field">
+        <label class="form-field__label" for="cr-position">Position</label>
+        <input class="form-field__input" type="text" id="cr-position" name="position" required>
+      </div>
+
+      <div class="form-field">
+        <label class="form-field__label" for="cr-cv">CV</label>
+        <input class="form-field__file" type="file" id="cr-cv" name="cv" accept="{{cvAccept}}" required>
+      </div>
+
+      <div class="form-field">
+        <label class="form-field__label" for="cr-letter">Cover letter</label>
+        <textarea class="form-field__input form-field__area" id="cr-letter" name="letter" rows="8" required></textarea>
+      </div>
+
+      <button class="form-submit" type="submit">Send application</button>
+    </form>
+  </section>
+
+</main>
+
+<!-- @include footer -->
+<!-- @include scripts -->
+</body>
+</html>

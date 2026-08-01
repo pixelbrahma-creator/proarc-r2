@@ -731,11 +731,59 @@ html.is-menu-open { overflow: hidden; }
   min-block-size: 8em;
 }
 
+/* THE CV UPLOAD (/careers). A file input is the one control a browser
+   will not let a site draw: the "no file selected" text beside the button
+   is the user agent's, in its own words and its own language, and there is
+   no way to replace it that does not mean hiding the real input and
+   forwarding clicks to a fake one — which breaks the keyboard, the
+   accessible name and the form's own reset.
+
+   So the field takes the same rule under it as every other field, and the
+   BUTTON inside it is styled through ::file-selector-button into the
+   site's small action shape. What the browser writes beside it is left
+   alone, at --color-ink-secondary so it reads as the metadata it is. */
+.form-field__file {
+  display: block;
+  inline-size: 100%;
+  padding-block: var(--gap-inline);
+  padding-inline: 0;
+  border: 0;
+  border-block-end: 1px solid var(--color-ink-secondary);
+  border-radius: 0;
+  background: transparent;
+  font-size: var(--fs-metadata);
+  line-height: var(--lh-metadata);
+  color: var(--color-ink-secondary);
+}
+
+.form-field__file::file-selector-button {
+  margin-inline-end: var(--gap-tight);
+  padding-block: var(--space-2xs);
+  padding-inline: var(--gap-block);
+  border: 1px solid var(--color-ink);
+  border-radius: 0;
+  background: transparent;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+
+.form-field__file::file-selector-button:hover {
+  background: var(--color-ink);
+  color: var(--color-on-dark);
+}
+
 /* The site's focus grammar, unchanged from its links: a 2px ink outline at
    4px offset. The border darkens with it so the field reads as active in
    the same gesture, but the OUTLINE is what carries the indicator — a
    1px-to-2px rule change is not a focus indicator a reader can rely on. */
-.form-field__input:focus-visible {
+.form-field__input:focus-visible,
+.form-field__file:focus-visible {
   outline: 2px solid var(--color-ink);
   outline-offset: 4px;
   border-block-end-color: var(--color-ink);
@@ -776,14 +824,30 @@ html.is-menu-open { overflow: hidden; }
   color: var(--color-on-dark-secondary);
 }
 
-.surface-dark .form-field__input {
+.surface-dark .form-field__input,
+.surface-dark .form-field__file {
   border-block-end-color: var(--color-ink-secondary);
+  color: var(--color-on-dark-secondary);
+}
+
+.surface-dark .form-field__input {
   color: var(--color-on-dark-body);
 }
 
-.surface-dark .form-field__input:focus-visible {
+.surface-dark .form-field__input:focus-visible,
+.surface-dark .form-field__file:focus-visible {
   outline-color: var(--color-on-dark);
   border-block-end-color: var(--color-on-dark);
+}
+
+.surface-dark .form-field__file::file-selector-button {
+  border-color: var(--color-on-dark);
+  color: var(--color-on-dark);
+}
+
+.surface-dark .form-field__file::file-selector-button:hover {
+  background: var(--color-on-dark);
+  color: var(--color-surface-dark);
 }
 
 .surface-dark .form-submit {

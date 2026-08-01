@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Working at Proarc</title>
+<meta name="description" content="The practice hires when a project needs someone. Send a letter with your CV.">
+<link rel="canonical" href="https://proarc.ae/careers">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Working at Proarc">
+<meta property="og:description" content="The practice hires when a project needs someone. Send a letter with your CV.">
+<!-- Conditional: /ajman has no photograph, and content="" is a broken tag
+     rather than an absent one. The relative PATH is the SEO pass's to fix. -->
+
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="shortcut icon" href="images/ui/favicon.ico">
+
+<link rel="stylesheet" href="src/styles/tokens.css">
+<link rel="preload" href="assets/fonts/general-sans/GeneralSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/general-sans/GeneralSans-Semibold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="src/styles/fonts.css">
+<link rel="stylesheet" href="src/styles/tokens-layout.css">
+<link rel="stylesheet" href="src/styles/base.css">
+<link rel="stylesheet" href="src/styles/layout.css">
+<link rel="stylesheet" href="src/styles/components.css">
+<link rel="stylesheet" href="src/styles/pages/careers.css">
+
+</head>
+<body>
+<!--
+  The site's chrome and its one navigation surface. Spec: 09-menu.md.
+
+  Three things sit here, and the order below is the tab order: the trigger
+  (top inline-start), the wordmark plate (top inline-end), and the overlay
+  they open. C-1 is the decided arrangement — "the logo on one side and the
+  three lines on the other" — and both corners flip in RTL by logical
+  properties alone; the artwork never mirrors (§8).
+
+  The chrome is NOT duplicated inside the overlay. It is one set of elements
+  painted above it, which is what makes the identity-chrome field rule
+  (E13.2) free: the plate and the pill carry a permanent #000000 field, so
+  paper reveals the field and the overlay's own black dissolves it. No scroll
+  listener, no threshold, no colour swap, nothing to desync.
+-->
+
+<button class="chrome-trigger" type="button"
+        data-menu-trigger
+        aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
+  <span class="chrome-trigger__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+</button>
+
+<a class="chrome-plate" href="index.html">
+  <img class="chrome-plate__mark"
+       src="images/ui/logo-mark.webp"
+       alt="Proarc — home"
+       width="330" height="117" decoding="async">
+</a>
+
+<!-- The nib: the white hairline that leads the wipe. Decoration, and it
+     leaves the flow entirely when it is not running. -->
+<span class="menu-nib" data-menu-nib aria-hidden="true"></span>
+
+<div class="menu-overlay" id="site-menu" data-menu-overlay inert>
+  <div class="menu-overlay__regions">
+
+    <nav class="menu-nav" aria-label="Main">
+      <ul class="menu-nav__list">
+        <li class="menu-nav__row"><a class="menu-nav__item" href="projects.html" data-menu-work>Work</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="services.html">Services</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="about.html">About</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!--
+      The centre holds one idea at a time (G-4, "the swap"): the
+      constellation at rest, the preview while WORK is hovered or focused,
+      never both. The swap is instant and has no animation of its own — a
+      transition here would compete with the open.
+    -->
+    <div class="menu-centre" data-menu-centre>
+      <svg class="menu-constellation" viewBox="0 0 560 440" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><circle class="menu-dot" style="--dot-index:0" cx="380" cy="146" r="3.5"></circle><circle class="menu-dot" style="--dot-index:1" cx="377" cy="145" r="3.5"></circle><circle class="menu-dot" style="--dot-index:2" cx="411" cy="138" r="3.5"></circle><circle class="menu-dot" style="--dot-index:3" cx="384" cy="150" r="3.5"></circle><circle class="menu-dot" style="--dot-index:4" cx="376" cy="135" r="3.5"></circle><circle class="menu-dot" style="--dot-index:5" cx="410" cy="133" r="3.5"></circle><circle class="menu-dot" style="--dot-index:6" cx="439" cy="319" r="3.5"></circle><circle class="menu-dot" style="--dot-index:7" cx="439" cy="308" r="3.5"></circle><circle class="menu-dot" style="--dot-index:8" cx="461" cy="289" r="3.5"></circle><circle class="menu-dot" style="--dot-index:9" cx="454" cy="317" r="3.5"></circle><circle class="menu-dot" style="--dot-index:10" cx="474" cy="294" r="3.5"></circle><circle class="menu-dot" style="--dot-index:11" cx="474" cy="280" r="3.5"></circle><circle class="menu-dot" style="--dot-index:12" cx="187" cy="75" r="3.5"></circle><circle class="menu-dot" style="--dot-index:13" cx="149" cy="104" r="3.5"></circle><circle class="menu-dot" style="--dot-index:14" cx="158" cy="85" r="3.5"></circle><circle class="menu-dot" style="--dot-index:15" cx="176" cy="62" r="3.5"></circle><circle class="menu-dot" style="--dot-index:16" cx="196" cy="95" r="3.5"></circle><circle class="menu-dot" style="--dot-index:17" cx="350" cy="350" r="3.5"></circle><circle class="menu-dot" style="--dot-index:18" cx="367" cy="362" r="3.5"></circle><circle class="menu-dot" style="--dot-index:19" cx="378" cy="361" r="3.5"></circle><circle class="menu-dot" style="--dot-index:20" cx="371" cy="396" r="3.5"></circle><circle class="menu-dot" style="--dot-index:21" cx="242" cy="366" r="3.5"></circle><circle class="menu-dot" style="--dot-index:22" cx="239" cy="375" r="3.5"></circle><circle class="menu-dot" style="--dot-index:23" cx="320" cy="346" r="3.5"></circle><circle class="menu-dot" style="--dot-index:24" cx="133" cy="174" r="3.5"></circle><circle class="menu-dot" style="--dot-index:25" cx="332" cy="130" r="3.5"></circle><circle class="menu-dot" style="--dot-index:26" cx="96" cy="209" r="3.5"></circle><circle class="menu-dot" style="--dot-index:27" cx="308" cy="201" r="3.5"></circle></svg>
+      <div class="menu-preview" data-menu-preview><div class="menu-preview__grid"><a class="menu-preview__item" href="projects/seasidehills.html"><img class="menu-preview__thumb" src="images/projects/seasidehills/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Seaside Hills Residence</span></a><a class="menu-preview__item" href="projects/habitatschool.html"><img class="menu-preview__thumb" src="images/projects/habitatschool/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Habitat School</span></a><a class="menu-preview__item" href="projects/souksalah.html"><img class="menu-preview__thumb" src="images/projects/souksalah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Souk Salah</span></a><a class="menu-preview__item" href="projects/ajmanbank.html"><img class="menu-preview__thumb" src="images/projects/ajmanbank/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Ajman Bank Headquarters</span></a><a class="menu-preview__item" href="projects/cityuniversity.html"><img class="menu-preview__thumb" src="images/projects/cityuniversity/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">City University Campus</span></a><a class="menu-preview__item" href="projects/alghalamosque.html"><img class="menu-preview__thumb" src="images/projects/alghalamosque/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Al Ghala Mosque</span></a></div><a class="menu-preview__exit" href="projects.html">All projects <span class="menu-preview__arrow" aria-hidden="true">&rarr;</span></a></div>
+    </div>
+
+    <div class="menu-contact">
+      <a class="menu-contact__item" href="tel:+97167446633"><span dir="ltr">+971 6 744 6633</span></a>
+      <a class="menu-contact__item" href="mailto:info@proarc.ae"><span dir="ltr">info@proarc.ae</span></a>
+      <!--
+        The AR switch is a reserved slot, not a control: the overlay is the
+        one site-wide chrome surface, so the language switch belongs here
+        when the bilingual build lands. Nothing renders until then, and an
+        empty box is not shipped in the meantime (§9 rule 4).
+
+        The address line is CUT and the cut is a decision (§8): v1's
+        "13003, Ajman, UAE" is a PO Box wearing an address label on every
+        page. Contact carries the full facts row. Restoring a line here is
+        a consolidation question, never a silent build decision.
+      -->
+    </div>
+
+  </div>
+</div>
+
+
+<!--
+  /careers — Screen 07 §8. Copy authority for the Join-us block that leads
+  here: ../_bmad/wds/E-Brand-Framework/04-copy-direction.md v3.2 §5.
+
+  The page in one line: the name → one paragraph → the application form.
+  That is the whole of §8's rebuild, and everything else the live page
+  carries is deleted.
+
+  OFF-NAV, AND NOT 301'd. The overlay's four items do not include it; About's
+  Join-us block and the footer are its two doors, and Contact's line under
+  its form is the third for the reader who arrived at the wrong form. A 301
+  would discard a working recruitment route to save a URL, and the forms
+  phase would have to rebuild the form anyway.
+
+  THREE DELETIONS, AND THEY ARE THE REASON THIS PAGE WAS REBUILT:
+
+    Current Openings — two "[ Job Title ]" placeholders with
+    "[ 2–3 line job description pending confirmation from Proarc ]" beneath
+    each, LIVE TO THE PUBLIC. The section is gone, and no listing exists
+    until a real opening does. This is the no-empty-headings rule applied to
+    the worst instance of it on the site.
+
+    Why Work With Us — the unsupportable claims again, in card form.
+
+    The X6 staffing register — "architects, engineers and site engineers" —
+    which appeared twice on the live page, once inside the form's own
+    placeholder, and a third time in this route's meta description until
+    this build. X9 bars a headcount permanently and X6 has not answered, so
+    no form of that sentence has a surface anywhere.
+
+  GROUND PAPER, on Contact's three rendered facts (08-contact.md §2): the
+  error state stays #B3261E rather than becoming a lit salmon on the page
+  where a reader is being told they got something wrong · the browser's
+  unoverridable autofill paint is a whisper on paper and glowing rectangles
+  on black · and this page has no closing band, so the footer's black is its
+  one ground switch (E1.2c). A closing band would be wrong here for a second
+  reason as well: "Have a project in mind?" is addressed to a client, and
+  the reader of this page is not one.
+
+  NO PHOTOGRAPH. No studio photograph exists — the live site's is Rose
+  Tower's gallery-02 wearing a caption (08-contact.md §7) — and a page about
+  joining a room cannot illustrate itself with a building it drew.
+
+  E12: the page carries no digit at all outside the form's own machine
+  constraints. No headcount, no years-of-experience, no counts of anything.
+-->
+<main id="main" class="cr">
+
+  <!-- 1 · The name and the paragraph (§8).
+
+       THE H1 IS THE ROUTE'S OWN NAME, which is the link About and the
+       footer both carry ("Working at Proarc →"). A reader who follows a
+       link should land on its words. Display scale, weight 300 —
+       .t-editorial, the arrival register on every page of the site.
+
+       THE PARAGRAPH DOES NOT REPEAT ABOUT'S. §5's Join-us block already
+       spent "we hire architects, engineers and project managers into the
+       same office as everyone else", one click away; saying it again here
+       would make the door and the room the same sentence. This paragraph
+       carries the next beat instead — why there is nothing to list, what is
+       worth sending, and where it goes.
+
+       IT EXPLAINS THE ABSENT LISTING AS A CONSEQUENCE, NOT A DEFENCE. The
+       31 Jul voice correction removed the defensive register site-wide, so
+       the sentence states the positive form first (the practice hires when
+       a project needs someone) and lets the absence follow from it.
+
+       NO ROLE IS NAMED AND NOTHING IS COUNTED — X9 bars a headcount
+       permanently and the X6 register is deleted from this page, so
+       "what you have built" carries the applicant's discipline instead of a
+       list that would omit someone. THE ADDRESS IS THE BUILD'S, not the
+       source's: it comes from data/contact.json through build/lib/careers.js
+       so that this page and Contact cannot disagree about it. -->
+  <section class="cr-open container">
+    <h1 class="cr-open__line t-editorial">Working at Proarc</h1>
+    <p class="cr-open__prose t-body">The practice hires when a project needs someone, which is why there is no list of openings on this page. What we read is a letter that says what you have built and where. Send it with your CV, either below or to <a class="cr-link" href="mailto:info@proarc.ae">info@proarc.ae</a>.</p>
+  </section>
+
+  <!-- 2 · The application form (§8) — the live page's one piece of real,
+       working content, rebuilt in the site's grammar: visible 12px
+       uppercase labels above the field, border-bottom fields, no boxes, no
+       placeholders-as-labels. The grammar itself is in components.css,
+       shared with Contact, which is why it is not a page decision here.
+
+       THE FIELD SET IS §8's: name, email, phone, country, position, CV
+       upload, cover letter. Nothing is added and nothing is dropped.
+
+       WHAT IS REQUIRED IS WHAT THE PRACTICE CANNOT READ AN APPLICATION
+       WITHOUT: a name, an address to reply to, the position, the CV and the
+       letter the paragraph above asks for. Phone and country are marked
+       optional in lowercase beside their labels, the same way Contact marks
+       its one optional field; the required fields carry no asterisks,
+       because an asterisk is a legend the page would then have to print.
+
+       POSITION IS A TEXT FIELD, NOT A SELECT. A select would have to be
+       filled with a list of roles, and a list of roles on the page whose
+       whole argument is that there is no list is the deleted section coming
+       back through the form. Whether it ever becomes a select is the forms
+       phase's question, as it is on Contact.
+
+       THE ROUTE DOES NOT EXIST YET AND SAYS SO AT BUILD. There is no
+       php/careers.php in the tree; php/contact.php is a five-field message
+       handler that would drop a CV without reporting it, and it fatals on
+       PHP 8 besides. The action names the route the forms phase must build,
+       because a form with no action posts to this page and discards an
+       application in silence. The paragraph above carries the working
+       address beside it, so no applicant is left with only a dead route.
+
+       enctype IS multipart/form-data, checked at build: a file input posted
+       as urlencoded sends the filename and nothing else, which is the one
+       failure that looks exactly like success. -->
+  <section class="cr-form container">
+    <form class="cr-form__form" action="php/careers.php" method="post" enctype="multipart/form-data" aria-label="Application">
+      <div class="form-field">
+        <label class="form-field__label" for="cr-name">Name</label>
+        <input class="form-field__input" type="text" id="cr-name" name="name" autocomplete="name" required>
+      </div>
+
+      <div class="form-field">
+        <label class="form-field__label" for="cr-email">Email</label>
+        <input class="form-field__input" type="email" id="cr-email" name="email" autocomplete="email" required>
+      </div>
+
+      <div class="form-field">
+        <label class="form-field__label" for="cr-phone">Phone <span class="form-field__optional">optional</span></label>
+        <input class="form-field__input" type="tel" id="cr-phone" name="phone" autocomplete="tel">
+      </div>
+
+      <div class="form-field">
+        <label class="form-field__label" for="cr-country">Country <span class="form-field__optional">optional</span></label>
+        <input class="form-field__input" type="text" id="cr-country" name="country" autocomplete="country-name">
+      </div>
+
+      <div class="form-field">
+        <label class="form-field__label" for="cr-position">Position</label>
+        <input class="form-field__input" type="text" id="cr-position" name="position" required>
+      </div>
+
+      <div class="form-field">
+        <label class="form-field__label" for="cr-cv">CV</label>
+        <input class="form-field__file" type="file" id="cr-cv" name="cv" accept=".pdf,.doc,.docx" required>
+      </div>
+
+      <div class="form-field">
+        <label class="form-field__label" for="cr-letter">Cover letter</label>
+        <textarea class="form-field__input form-field__area" id="cr-letter" name="letter" rows="8" required></textarea>
+      </div>
+
+      <button class="form-submit" type="submit">Send application</button>
+    </form>
+  </section>
+
+</main>
+
+<!--
+  The footer. Black ground with its own #333333 top hairline — on a paper
+  page the closing band owns the switch and the footer shares the band's
+  ground, so the two are separated by structure and scale, never by colour
+  (E1.2a). On a page with no band the footer owns the switch itself (E1.2c).
+
+  The line is the decided site-wide copy. Skyline is retired everywhere,
+  the footer included (D-4): a skyline is towers, and it argues for the
+  three offices rather than the twenty-seven schools and shops. The second
+  sentence is X6-elastic — it names three disciplines, and ProArc's answer
+  on the discipline list changes this sentence and the Services blocks
+  together.
+
+  This footer is one of /ajman's three doors (the other two are Home's map
+  and About's story), so its Ajman link is the one link here that must never
+  break. It also carries the marketing route to /careers, which is why the
+  overlay refuses a careers item of its own.
+
+  Deliberately NOT here, each a live v1 fault this replaces: the wordmark
+  re-set as type in a <span class="brand">, a Testimonials item, "Projects"
+  where the decided label is Work, seven nav items where the nav is four,
+  the newsletter form posting to a contact.php that fatals on PHP 8, and six
+  dead href="#" links of which three were the social row.
+-->
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+
+    <p class="site-footer__line">The buildings a city grows up in. Architecture, engineering and project management from one Ajman office.</p>
+
+    <nav class="site-footer__nav" aria-label="Footer">
+      <ul class="site-footer__list">
+        <li><a class="site-footer__link" href="projects.html">Work</a></li>
+        <li><a class="site-footer__link" href="services.html">Services</a></li>
+        <li><a class="site-footer__link" href="about.html">About</a></li>
+        <li><a class="site-footer__link" href="contact.html">Contact</a></li>
+        <li><a class="site-footer__link" href="ajman.html">Ajman</a></li>
+        <li><a class="site-footer__link" href="careers.html">Careers</a></li>
+      </ul>
+    </nav>
+
+    <!-- Two socials, both verified live. Twitter/X is cut site-wide: the
+         handle is the CEO's personal account, not the practice's. -->
+    <ul class="site-footer__social">
+      <li><a class="site-footer__link" href="https://www.facebook.com/proarcarchitects/" rel="noopener">Facebook</a></li>
+      <li><a class="site-footer__link" href="https://www.instagram.com/proarchitects/" rel="noopener">Instagram</a></li>
+    </ul>
+
+    <p class="site-footer__legal">&copy; 2026 Proarc</p>
+
+  </div>
+</footer>
+
+<!--
+  R2 ships one script, and it is the menu.
+
+  What was here in v1 and is deliberately gone: GSAP, ScrollTrigger and
+  Lenis, pulled from three external CDNs, driving js/reveals.js (elements
+  fade and translate up as they scroll into view) and js/smooth-scroll.js
+  (scroll hijacking).
+
+  Three reasons, and any one of them is sufficient:
+
+  1. R2's motion language is decided and those are not it. "The site draws"
+     — all motion is line-work drawing itself: the scroll cue, the link
+     underlines, the Ajman map, this menu's wipe. No decorative fades, no
+     parallax, no sliders, no bounce.
+  2. Reduced motion must always show the finished state, and a reveal system
+     that starts every element at opacity 0 is one broken script away from a
+     blank page.
+  3. This repository is handed over as a whole, once. Three external CDN
+     dependencies in the chrome of a static site is a liability the handover
+     should not carry.
+
+  js/reveals.js, js/smooth-scroll.js and src/styles/animations.css are still
+  in the tree and still work; nothing loads them. If a screen turns out to
+  need one, it opts in through its own pageScript rather than every page
+  paying for it.
+-->
+
+<script src="js/menu.js" defer></script>
+
+
+</body>
+</html>
