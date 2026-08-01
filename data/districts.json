@@ -1,0 +1,34 @@
+{
+  "_what": "The district geometry for every surface that draws Proarc's marks: the menu overlay's constellation (09-menu §6), Home's map beat and /ajman's standing map (05-ajman §2). One source, so the three cannot disagree.",
+
+  "_counts": "There are no counts in this file, deliberately. A district's mark count is DERIVED from data/projects.json by build/lib/districts.js, so a resolved O5 duplicate or a landed district changes the output and never the design (09-menu §6). Today that derivation yields 28 marks across the ten districts below.",
+
+  "_positions": "PLACEHOLDER, and labelled as such wherever it renders. E7.1 splits the map into three layers and the commission supplies only one — coastline and boundaries. The marks are the page's, at true pixels. Until that artwork lands these cluster centres carry the constellation (Option B), which is a constellation and not cartography: it claims relative grouping, never a coordinate. Centres are carried unchanged from board 16 rev 2, which Mahesh saw and approved. When the commission lands, replace `centre` per district and nothing else.",
+
+  "_marks": "E7.2 — no mark is placed by inference. A record earns a mark only if its own location string names a district. The 18 plain-Ajman records and the one Umm Al Quwain record have no mark until their data does; they are not approximated onto the drawing.",
+
+  "viewBox": "0 0 560 440",
+
+  "scatter": {
+    "_what": "How a district's n records are spread around its centre. Deterministic — a seeded generator, never Math.random() — so a rebuild is byte-stable and a diff means the data moved.",
+    "seed": 9,
+    "jitterX": 30,
+    "jitterY": 26,
+    "radius": 3.5
+  },
+
+  "districts": [
+    { "name": "Al Jurf",        "centre": [398, 128], "aliases": ["al jurf", "jurf"] },
+    { "name": "Al Tallah",      "centre": [452, 296], "aliases": ["al tallah", "tallah"] },
+    { "name": "Al Zorah",       "centre": [176,  84], "aliases": ["al zorah", "al zohrah", "zorah"] },
+    { "name": "Aamra",          "centre": [368, 372], "aliases": ["aamra", "al aamra"] },
+    { "name": "Emirates City",  "centre": [238, 384], "aliases": ["emirates city"] },
+    { "name": "Aalia",          "centre": [318, 330], "aliases": ["aalia", "al aalia"] },
+    { "name": "Al Khor",        "centre": [128, 168], "aliases": ["al khor", "khor"] },
+    { "name": "Hamidiya",       "centre": [330, 122], "aliases": ["hamidiya", "al hamidiya"] },
+    { "name": "Marina & Creek", "centre": [ 96, 226], "aliases": ["marina & creek", "marina and creek"] },
+    { "name": "Rashdiya",       "centre": [282, 196], "aliases": ["rashdiya", "al rashdiya", "al rashidiya"] }
+  ],
+
+  "outsideEmirate": ["umm al quwain"]
+}

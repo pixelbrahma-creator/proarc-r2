@@ -1,0 +1,133 @@
+{
+  "_readme": [
+    "The route contract for every hand-authored page. The 47 project records are NOT here —",
+    "they come from one template through build/generate-projects.js. 11 authored + 47 generated = 58.",
+    "",
+    "A key here is the source file pages-src/<key>.html. Until that file exists the build reports",
+    "the page as skipped and writes nothing, which is how a route can be decided now and built later.",
+    "",
+    "Fields:",
+    "  outFile   where the compiled page lands. Root .html files and projects/*.html are BUILD",
+    "            OUTPUTS and are never hand-edited.",
+    "  ground    the band the page opens on, per v1.3 E1. Black states, paper proves: Home, /ajman",
+    "            and Services carry the narrative; Work, the records, About and Contact carry the",
+    "            evidence. About is paper because §1.5a bars third-party marks from a dark ground",
+    "            and the client wall is About's. Contact is paper on its own rendered facts.",
+    "  navLit    which of the four nav items lights. The whole project block lights work.",
+    "  navExact  whether that item also takes aria-current=page. Exact match only.",
+    "",
+    "There is no offices sector page. The five-built rule (D-2) needs five built projects and",
+    "offices holds three, so the works room on the Work arrival is that set's home. Testimonials",
+    "is deleted outright, not redirected."
+  ],
+
+  "index": {
+    "outFile": "index.html",
+    "title": "Proarc — Architecture, engineering and project management, Ajman",
+    "description": "The buildings a city grows up in. Architecture, engineering and project management from one Ajman office, since 2006.",
+    "canonical": "https://proarc.ae/",
+    "ground": "black",
+    "navLit": "",
+    "navExact": false
+  },
+
+  "projects": {
+    "outFile": "projects.html",
+    "title": "Selected work — Proarc",
+    "description": "Schools, malls, offices and homes across the Emirates, drawn from one Ajman office since 2006.",
+    "canonical": "https://proarc.ae/projects",
+    "ground": "paper",
+    "navLit": "work",
+    "navExact": true
+  },
+
+  "projects-list": {
+    "outFile": "projects/list.html",
+    "title": "All projects — Proarc",
+    "description": "Every Proarc project, name first: sector, location and year in one list.",
+    "canonical": "https://proarc.ae/projects/list",
+    "ground": "paper",
+    "navLit": "work",
+    "navExact": false
+  },
+
+  "projects-schools": {
+    "outFile": "projects/schools.html",
+    "title": "Schools — Proarc",
+    "description": "Where Ajman learns: campuses drawn for the school groups that come back to us, campus after campus.",
+    "canonical": "https://proarc.ae/projects/schools",
+    "ground": "paper",
+    "navLit": "work",
+    "navExact": false
+  },
+
+  "projects-malls": {
+    "outFile": "projects/malls.html",
+    "title": "Malls and shops — Proarc",
+    "description": "Where Ajman shops: malls, souks and retail across the Emirate.",
+    "canonical": "https://proarc.ae/projects/malls",
+    "ground": "paper",
+    "navLit": "work",
+    "navExact": false
+  },
+
+  "projects-homes": {
+    "outFile": "projects/homes.html",
+    "title": "Homes — Proarc",
+    "description": "Where Ajman lives: villas and towers, from Al Zorah to Aamra.",
+    "canonical": "https://proarc.ae/projects/homes",
+    "ground": "paper",
+    "navLit": "work",
+    "navExact": false
+  },
+
+  "ajman": {
+    "outFile": "ajman.html",
+    "title": "One Emirate. Since 2006. — Proarc",
+    "description": "All but one of Proarc's buildings stand in Ajman. The one that does not is a mall in Umm Al Quwain.",
+    "canonical": "https://proarc.ae/ajman",
+    "ground": "black",
+    "navLit": "",
+    "navExact": false
+  },
+
+  "services": {
+    "outFile": "services.html",
+    "title": "Services — Proarc",
+    "description": "Master planning, architecture, structural and MEP engineering, interior design and project management, from one office.",
+    "canonical": "https://proarc.ae/services",
+    "ground": "black",
+    "navLit": "services",
+    "navExact": true
+  },
+
+  "about": {
+    "outFile": "about.html",
+    "title": "About — Proarc",
+    "description": "An architecture, engineering and project management practice working from one Ajman office since 2006.",
+    "canonical": "https://proarc.ae/about",
+    "ground": "paper",
+    "navLit": "about",
+    "navExact": true
+  },
+
+  "contact": {
+    "outFile": "contact.html",
+    "title": "Contact — Proarc",
+    "description": "Every enquiry reaches the studio directly.",
+    "canonical": "https://proarc.ae/contact",
+    "ground": "paper",
+    "navLit": "contact",
+    "navExact": true
+  },
+
+  "careers": {
+    "outFile": "careers.html",
+    "title": "Working at Proarc",
+    "description": "Architects, engineers and site engineers work side by side in one Ajman office.",
+    "canonical": "https://proarc.ae/careers",
+    "ground": "paper",
+    "navLit": "",
+    "navExact": false
+  }
+}

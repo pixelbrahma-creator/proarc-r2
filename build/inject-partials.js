@@ -51,6 +51,7 @@ function main() {
   let count = 0;
 
   Object.keys(meta).forEach((srcName) => {
+    if (srcName.startsWith('_')) return; // documentation keys, not routes
     const pageData = Object.assign({ assetPrefix: '' }, meta[srcName]);
     const srcPath = path.join(SRC_DIR, srcName + '.html');
     if (!fs.existsSync(srcPath)) {
@@ -69,7 +70,12 @@ function main() {
       console.warn(`  ! ${srcName}: unresolved template tokens left in output: ${leftover.join(', ')}`);
     }
 
+    // Routes nest (projects/list.html, projects/schools.html), and the
+    // projects/ directory does not exist in a fresh clone until the project
+    // pages are generated. Create the parent rather than depending on which
+    // build script happened to run first.
     const outPath = path.join(ROOT, pageData.outFile);
+    fs.mkdirSync(path.dirname(outPath), { recursive: true });
     fs.writeFileSync(outPath, compiled, 'utf8');
     console.log(`  ✓ ${srcName}.html -> ${pageData.outFile}`);
     count++;

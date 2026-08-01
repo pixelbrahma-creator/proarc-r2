@@ -1,3 +1,5 @@
 node_modules/
 images/_raw/
 images/manifest.json
+verify-*.html
+projects/verify-*.html

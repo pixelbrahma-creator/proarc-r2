@@ -7,7 +7,8 @@
     "build:images": "node build/process-images.js",
     "build:manifest": "node build/manifest-from-outputs.js",
     "build:manifest:check": "node build/manifest-from-outputs.js --check",
-    "build:pages": "node build/generate-projects.js",
+    "build:pages": "node build/inject-partials.js",
+    "build:projects": "node build/generate-projects.js",
     "build": "npm run build:manifest && npm run build:pages",
     "check:links": "node build/check-links.js",
     "lint:css": "stylelint \"src/**/*.css\""

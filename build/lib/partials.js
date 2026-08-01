@@ -3,17 +3,58 @@
 const fs = require('fs');
 const path = require('path');
 const { render } = require('./render');
+const { buildDistrictMarks, renderConstellation } = require('./districts');
+const { buildPreview, renderPreview } = require('./preview');
 
 const PARTIALS_DIR = path.join(__dirname, '..', '..', 'partials');
-const NAV_PAGES = ['home', 'about', 'services', 'projects', 'testimonials', 'careers', 'contact'];
 
-function navActiveFlags(activePage) {
-  const flags = {};
-  NAV_PAGES.forEach((p) => {
-    const key = 'navActive' + p[0].toUpperCase() + p.slice(1);
-    flags[key] = p === activePage ? 'is-active' : '';
+/**
+ * The nav — four noun labels, and the lock is four (09-menu §5, §11).
+ * There is no Home item: the wordmark, which the overlay carries with its
+ * field dissolved, is the Home door. /ajman and /careers are off-nav by
+ * decision and light nothing.
+ */
+const NAV = [
+  { key: 'work', label: 'Work', href: 'projects.html' },
+  { key: 'services', label: 'Services', href: 'services.html' },
+  { key: 'about', label: 'About', href: 'about.html' },
+  { key: 'contact', label: 'Contact', href: 'contact.html' },
+];
+
+/**
+ * Current-page semantics (09-menu §5). The lit item answers "which of these
+ * four would take me back toward where I am", which is a wider question than
+ * "which page am I on" — so the two states are separate and a page declares
+ * both:
+ *
+ *   navLit    the item that gets weight 700 + #FFFFFF. The whole project
+ *             block lights WORK: the arrival, the ledger, the three sector
+ *             pages and all 47 records.
+ *   navExact  whether that item also takes aria-current="page". Exact match
+ *             ONLY — so /projects carries it and the 47 records do not,
+ *             because a record is not the page the link leads to.
+ *
+ * Getting this wrong is silent in a browser and loud in a screen reader,
+ * which is why it is two named fields rather than one clever inference.
+ */
+function navItems(pageData) {
+  const lit = pageData.navLit || '';
+  const exact = pageData.navExact === true;
+  const prefix = pageData.assetPrefix || '';
+
+  return NAV.map((item) => {
+    const isLit = item.key === lit;
+    return {
+      navHref: prefix + item.href,
+      navLabel: item.label,
+      navLitClass: isLit ? ' is-lit' : '',
+      navCurrentAttr: isLit && exact ? ' aria-current="page"' : '',
+      // Only WORK carries a panel (§4 rule 4). The marker is an attribute
+      // rather than a label match so the swap keeps working when the
+      // bilingual build gives this item an Arabic label.
+      navSwapAttr: item.key === 'work' ? ' data-menu-work' : '',
+    };
   });
-  return flags;
 }
 
 function loadPartial(name) {
@@ -21,15 +62,40 @@ function loadPartial(name) {
 }
 
 /**
- * Renders the four shared partials (head/header/footer/scripts) against
- * page-level data and returns them keyed by name, ready to splice into
- * an authored page or a generated template.
+ * The constellation is identical on every page and derived from two JSON
+ * files, so it is built once per process rather than 58 times.
+ */
+let constellationCache = null;
+function constellation() {
+  if (constellationCache === null) {
+    constellationCache = renderConstellation(buildDistrictMarks(), 'menu-constellation');
+  }
+  return constellationCache;
+}
+
+/**
+ * The preview's six records are the same everywhere too, but its markup
+ * carries assetPrefix, so only the data lookup is cached.
+ */
+let previewCache = null;
+function preview(assetPrefix) {
+  if (previewCache === null) previewCache = buildPreview();
+  return renderPreview(previewCache, assetPrefix);
+}
+
+/**
+ * Renders the shared partials against page-level data.
  *
  * pageData: { title, description, canonical, ogImage, assetPrefix,
- *             activePage, pageStylesheet, pageScript }
+ *             navLit, navExact, ground, pageStylesheet, pageScript }
  */
 function renderShell(pageData) {
-  const data = Object.assign({ assetPrefix: '' }, pageData, navActiveFlags(pageData.activePage));
+  const data = Object.assign({ assetPrefix: '' }, pageData, {
+    navItems: navItems(pageData),
+    constellation: constellation(),
+    preview: preview(pageData.assetPrefix || ''),
+  });
+
   return {
     head: render(loadPartial('head'), data),
     header: render(loadPartial('header'), data),
@@ -51,4 +117,4 @@ function injectShell(sourceHtml, pageData) {
     .replace('<!-- @include scripts -->', shell.scripts);
 }
 
-module.exports = { renderShell, injectShell, loadPartial, navActiveFlags };
+module.exports = { renderShell, injectShell, loadPartial, navItems, NAV };
