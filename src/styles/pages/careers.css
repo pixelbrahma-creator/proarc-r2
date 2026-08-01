@@ -32,6 +32,16 @@
   padding-block: calc(var(--gap-component) + var(--gap-heading)) calc(var(--gap-section) / 2);
 }
 
+@media (max-width: 1024px) {
+  /* The tokens step down at this breakpoint faster than the chrome does —
+     the plate keeps its full height while the gaps halve, and at ≤767 their
+     64px sum starts the first line's ink 2.8px inside the plate's band. The
+     clearance is restated rather than inherited, as on Home's claim band. */
+  .cr-open {
+    padding-block-start: calc(var(--gap-component) + var(--gap-heading) + var(--gap-block));
+  }
+}
+
 /* .t-editorial carries the register and the mobile collapse — 52px, 40px
    at 1023, 34px at 767. "Working at Proarc" is the route's own name, which
    is the phrase the two links into this page carry. */

@@ -48,6 +48,16 @@
   padding-block: calc(var(--gap-component) + var(--gap-heading)) var(--gap-section);
 }
 
+@media (max-width: 1024px) {
+  /* The tokens step down at this breakpoint faster than the chrome does —
+     the plate keeps its full height while the gaps halve, and at ≤767 their
+     64px sum starts the first line's ink 2.8px inside the plate's band. The
+     clearance is restated rather than inherited, as on Home's claim band. */
+  .sv-claim {
+    padding-block-start: calc(var(--gap-component) + var(--gap-heading) + var(--gap-block));
+  }
+}
+
 .sv-claim__line {
   margin: 0;
 }
