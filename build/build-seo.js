@@ -176,17 +176,18 @@ function audit(routes) {
   });
 
   /**
-   * THE CANONICALS ARE EXTENSIONLESS AND THE FILES ARE NOT. This is a
-   * deployment question, not a build fault: GitHub Pages resolves /contact
-   * to contact.html, and a host that does not would leave every canonical
-   * on the site pointing at a 404. Reported every run rather than fixed,
-   * because the canonical shape is a decision (08-contact.md §6) and the
-   * host is Mahesh's to name.
+   * THE CANONICALS ARE EXTENSIONLESS AND THE FILES ARE NOT — and the host
+   * is now named: GITHUB PAGES (Mahesh, Session I, 1 Aug 2026), which
+   * resolves /contact to contact.html, so the extensionless shape is
+   * correct as built. The count is still printed because the fact it
+   * guards is conditional on the host: a move to a host that does not
+   * strip the extension re-opens this as a 404 on every canonical, and a
+   * decision that stops being printed becomes a fact nobody re-checks.
    */
   const extensionless = routes.filter((r) => r.canonical && !/\/$/.test(r.canonical)).length;
   notes.push(
-    `${extensionless} of ${routes.length} canonicals are extensionless while the files carry .html — ` +
-      `fine on GitHub Pages, a 404 on a host that does not strip the extension. Confirm with the deployment.`
+    `${extensionless} of ${routes.length} canonicals are extensionless against .html files — correct on ` +
+      `GitHub Pages, the named host (Session I). A host change re-opens this: elsewhere it is a 404 on every canonical.`
   );
 
   const withoutImage = routes.filter((r) => !r.ogImage);
