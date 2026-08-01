@@ -191,6 +191,15 @@ building shorter than its record, silently, and a wrong elevation looks exactly
 like a right one (E3.7). Basements are drawn below the datum; the footprint is
 the one invented value and is identical for every building (E3.3); no height is
 ever inferred for a record that holds none (E7.2).
+**About's comes from `build/lib/about.js`**, and it is the one page lib that
+derives nothing: twenty-eight of the client wall's thirty-two rows have no
+record behind them, so the membership is authored in `data/clients.json` and
+the lib's whole job is to refuse a wall that disagrees with the site. A mark
+file that is absent throws — §1.5a rule 2 bars typesetting a name in place of
+a mark, so **a client with no artwork has no row**. A logo on disk that the
+data neither ships nor lists in `notShipped` throws, so a new mark cannot be
+silently left off. A relation that is not a `projects.json` title throws: the
+wall names no building the site cannot show.
 E7.3's west-to-east sweep is **not** either page's — it lives in
 `districts.js`, because both maps need the identical order and one map derived
 twice is how two surfaces start disagreeing about where a building is.
@@ -263,6 +272,34 @@ own `pageScript`.
 > `build:manifest` after every fresh clone; `build:manifest:check` verifies it
 > against disk without writing.
 
+> **The declared-width trap.** A column's declared width is not the width its
+> content gets, and the difference is invisible in the source. About's 200px
+> mark column delivered **174.9px**, then 197.9px, then 200.0px: a
+> `padding-inline-end` *inside* the cell (so `max-inline-size: 100%` resolved
+> against 176px), auto table layout treating `inline-size` as a **preference**
+> and negotiating it down (`table-layout: fixed` makes it exact), and the UA
+> stylesheet's `td { padding: 1px }`, which survives a rule that sets only
+> `padding-block`. Every static assertion passed at 174.9. **Measure the
+> rendered box, never the declared one.**
+
+> **A cap assertion is satisfied by an element of no size.** A probe that
+> measures images must force every `loading="lazy"` image loaded first *and
+> assert that it loaded*. About's first probe run reported PropertyTech at
+> **0.0px tall** and passed "no mark exceeds the 32px cap" on that same
+> element in the same run. Same family as `innerText` of a hidden element and
+> the unfocused page that fires no focus events.
+
+> **Trimming artwork: the naive trim looks exactly like a working one.** These
+> logo files each carry 10–56 disconnected lossy-webp alpha specks at ≤48%
+> alpha — invisible on paper, but an any-alpha bounding box stops at them, and
+> that is what `magick -trim`, PIL `getbbox()` and sharp `.trim()` all use. Keep
+> the union of the alpha-connected components that contain a pixel **above 50%
+> alpha**; cropping to the strict 50% box instead slices the letterforms' own
+> antialiasing. Re-encode a crop of already-lossy artwork at **q92 with
+> `alphaQuality: 100`**, never lossless — lossless re-encodes the artefacts
+> faithfully at 2.6× the bytes, and exact alpha is what lets a sweep assert
+> that a file's box equals its ink box.
+
 ## Before you finish any UI task
 
 Run through this list and state the result:
@@ -273,6 +310,10 @@ Run through this list and state the result:
 4. Checked at 375px, 768px and 1440px.
 5. Checked with `dir="rtl"` and `lang="ar"`.
 6. Zoom to 200% at 1280×720 produces no horizontal scroll.
+7. **Look at the page.** Screenshot it at full size and read it as a page, not
+   as a set of assertions. Three builds running, the thing that was wrong was
+   green in every check: a marquee-ratio drawing that read as a bar chart, a
+   heading whose box cleared what its ink did not, a mark column 25px short.
 
 ## Asking rather than guessing
 
