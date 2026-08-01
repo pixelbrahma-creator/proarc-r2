@@ -15,7 +15,15 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
-  scroll-behavior: auto; /* Lenis owns smooth scroll; native stays instant */
+  /* R2 ships no smooth-scroll library — v1's Lenis is gone with the rest of
+     the CDN motion stack, and "the site draws" is the whole motion language.
+     Scrolling stays the browser's own. */
+  scroll-behavior: auto;
+
+  /* The gutter is reserved permanently so that locking scroll behind the
+     menu overlay removes nothing: neither the content nor the fixed chrome
+     shifts by the scrollbar's width when the menu opens. */
+  scrollbar-gutter: stable;
   -webkit-text-size-adjust: 100%;
 }
 

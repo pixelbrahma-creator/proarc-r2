@@ -60,6 +60,15 @@
   --fs-h1:       3.25rem;  /* 52px */
   --fs-mega:     5.25rem;  /* 84px */
 
+  /* The menu overlay's nav list — 52px at EVERY width, which is why it
+     cannot borrow --fs-h1 (that collapses to 40px at 1023 and 34px at 767).
+     v1.3 E13 and 09-menu.md §5 decide the value on measured metrics rather
+     than taste: the four labels were rendered in real General Sans and
+     CONTACT, not SERVICES, is the widest at 266.3px bold. 375px carries the
+     full scale — 266px of label against 327px of column — so there is no
+     mobile collapse to design and none is wanted. */
+  --fs-menu-nav: 3.25rem;  /* 52px, fixed across breakpoints */
+
   /* ---------------------------------------------------------------------
      Line-height — Latin
      --------------------------------------------------------------------- */

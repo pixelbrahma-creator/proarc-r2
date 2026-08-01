@@ -23,6 +23,13 @@ Design tokens live in `src/styles/tokens.css`. Every type and colour value in
 the codebase comes from a token. If a value you need is not a token, **stop
 and ask** — do not invent one.
 
+> One token has been added since v1.3 was signed: **`--fs-menu-nav` (52px,
+> fixed at every breakpoint)**. The menu overlay's nav list cannot borrow
+> `--fs-h1`, which collapses to 40px and then 34px, and 09-menu §5 decides
+> 52-at-every-width on measured label metrics. It implements a signed clause
+> rather than introducing a value, but it is the only such addition — treat
+> the next one as a guideline revision.
+
 ---
 
 ## Hard rules — never violate these
@@ -150,8 +157,28 @@ Root `.html` and `projects/*.html` are **build outputs**. Never hand-edit.
 Edit `pages-src/`, `partials/`, `src/styles/`, `data/` only, then rebuild:
 
 ```
-npm run build:manifest && npm run build:pages
+npm run build            # = build:manifest && build:pages
+npm run build:projects   # the 47 records, once the template exists
 ```
+
+Two build steps, because there are two kinds of page:
+
+- **`build:pages`** compiles the 11 hand-authored pages from `pages-src/*.html`
+  against `pages-src/meta.json`, which is the route contract: every page's
+  output path, its ground (E1) and its two nav states. A route declared there
+  with no source file is reported as skipped and writes nothing, so a route can
+  be decided now and built later.
+- **`build:projects`** renders the 47 records from one template. It is not in
+  `build` yet because `partials/project-detail.template.html` has not been
+  authored; it fails loudly rather than emitting 47 broken pages, and joins
+  `build` the day the template lands.
+
+**No page loads anything from a CDN.** v1's GSAP, ScrollTrigger and Lenis are
+gone with the scroll-reveal system they drove — R2's motion language is "the
+site draws", and a handover package should not depend on three external hosts.
+`js/reveals.js`, `js/smooth-scroll.js` and `src/styles/animations.css` are still
+in the tree but nothing loads them; a screen that needs one opts in through its
+own `pageScript`.
 
 > **The manifest trap.** `images/manifest.json` is gitignored and the raw
 > sources are not in this repository. `build:pages` does **not** fail without

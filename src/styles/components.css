@@ -30,3 +30,606 @@
      - Hierarchy comes from size, weight and space — never from opacity
        (v1.2 §9.16).
    ========================================================================= */
+
+
+/* =========================================================================
+   THE CHROME AND THE MENU OVERLAY
+   Spec: _bmad/wds/D-UX-Design/09-menu.md · v1.3 E13.1–E13.4 · v1.2 §4.7, §8
+
+   The overlay is the site's ONLY navigation surface, at every width. It is
+   not a mobile fallback for a desktop bar, and there is no width at which
+   navigation lives somewhere else.
+   ========================================================================= */
+
+/* -------------------------------------------------------------------------
+   The identity-chrome field rule (E13.2)
+
+   The pill and the plate carry a PERMANENT black field. On paper it is a
+   visible black tile — §4.7's "one persistent black element on a white
+   page". On any black ground the field is the page's own colour and
+   dissolves, leaving the three lines and the letterforms alone at 21:1.
+
+   This is §8's wordmark mechanism ("shows no seam") generalised to both
+   pieces of identity chrome. It costs no scroll listener, no threshold and
+   no colour swap, and nothing can desync, because the grounds do all the
+   work. What is locked is the POSITION, not a visible rectangle.
+   ------------------------------------------------------------------------- */
+
+.chrome-trigger,
+.chrome-plate {
+  position: fixed;
+  z-index: var(--z-nav);
+  background: var(--color-surface-dark);
+}
+
+/* C-1: the three lines on one side... */
+.chrome-trigger {
+  inset-block-start: 20px;
+  inset-inline-start: var(--gutter-desktop);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 44px;   /* §4.7's hit target, unchanged */
+  min-block-size: 44px;
+  padding: 0;
+  border: none;
+  appearance: none;
+}
+
+/* ...the logo on the other. The plate is also the Home door: inside the
+   open overlay its field has dissolved and the letterforms are the way
+   home, which is why the nav lock needs no Home item. */
+.chrome-plate {
+  inset-block-start: 0;
+  inset-inline-end: var(--gutter-desktop);
+  display: block;
+  padding: var(--logo-clear-space);
+}
+
+.chrome-plate__mark {
+  inline-size: var(--logo-min-width-desktop);
+  block-size: auto;
+}
+
+/* The bars, and the ✕ they become.
+
+   E13.1 says the bars become a ✕ "in the same pill, in the same place", so
+   they are not swapped for a glyph — the same three strokes rotate into it.
+   No icon font, no second element to keep in sync, and no font-size for a
+   mark that is not type.
+
+   Three real elements rather than one plus two pseudo-elements: pseudo-
+   elements are children of the bar they hang off, so their transforms would
+   compose with its rotation and the ✕ would come out skewed. Siblings each
+   carry exactly the transform they are given. */
+.chrome-trigger__bars {
+  position: relative;
+  display: block;
+  inline-size: 18px;
+  block-size: 13.5px;
+}
+
+.chrome-trigger__bars i {
+  position: absolute;
+  inset-inline: 0;
+  display: block;
+  block-size: 1.5px;
+  background: var(--color-on-dark);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.chrome-trigger__bars i:nth-child(1) { inset-block-start: 0; }
+.chrome-trigger__bars i:nth-child(2) { inset-block-start: 6px; }
+.chrome-trigger__bars i:nth-child(3) { inset-block-start: 12px; }
+
+/* The outer two travel to the middle and cross; the middle one closes to
+   nothing. It scales rather than fades, because hierarchy — and everything
+   else — never comes from opacity (§9.16). */
+.chrome-trigger[aria-expanded="true"] .chrome-trigger__bars i:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.chrome-trigger[aria-expanded="true"] .chrome-trigger__bars i:nth-child(2) {
+  transform: scaleX(0);
+}
+
+.chrome-trigger[aria-expanded="true"] .chrome-trigger__bars i:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+.chrome-trigger:focus-visible,
+.chrome-plate:focus-visible {
+  outline: 2px solid var(--color-on-dark);
+  outline-offset: -4px;
+}
+
+/* On a paper page the focus ring must not be white-on-white where it
+   overhangs the field. It never does: the ring is inset. */
+
+
+/* -------------------------------------------------------------------------
+   The nib — the white hairline that leads the wipe (§9.1)
+   ------------------------------------------------------------------------- */
+
+.menu-nib {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-start: 0;
+  z-index: calc(var(--z-nav) - 1);
+  display: none;
+  inline-size: 1px;
+  background: var(--color-on-dark);
+  transform: scaleY(0);
+  transform-origin: top;
+  pointer-events: none;
+}
+
+.menu-nib.is-running {
+  display: block;
+  animation: menu-nib-run 420ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+/* The line drops from the trigger's edge, then sweeps the viewport. In RTL
+   it starts at the mirrored corner and runs the other way — one sign flip,
+   no second keyframe set. */
+[dir="rtl"] .menu-nib { --nib-direction: -1; }
+
+@keyframes menu-nib-run {
+  0%   { transform: scaleY(0) translateX(0); }
+  24%  { transform: scaleY(1) translateX(0); }
+  100% { transform: scaleY(1) translateX(calc(100vw * var(--nib-direction, 1))); }
+}
+
+
+/* -------------------------------------------------------------------------
+   The overlay — full viewport, black, three regions (§4)
+   ------------------------------------------------------------------------- */
+
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  overflow-y: auto;
+  background: var(--color-surface-dark);
+  visibility: hidden;
+
+  /* Closed, the field is clipped away to the trigger's own edge. Opening
+     transitions the clip, so the black arrives as a wipe travelling across
+     the viewport rather than as a box appearing. */
+  clip-path: inset(0 100% 0 0);
+}
+
+[dir="rtl"] .menu-overlay { clip-path: inset(0 0 0 100%); }
+
+/* Armed: the hidden state is committed and painted. The class flip to
+   .is-open happens only AFTER a forced reflow — arming and flipping in one
+   style pass makes the browser treat the reveal itself as the transition,
+   and nothing animates. */
+.menu-overlay.is-armed { visibility: visible; }
+
+.menu-overlay.is-open {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Close runs the wipe back the way it came, faster. */
+.menu-overlay.is-open.is-closing {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 300ms ease;
+}
+
+[dir="rtl"] .menu-overlay.is-open.is-closing { clip-path: inset(0 0 0 100%); }
+
+.menu-overlay__regions {
+  display: grid;
+  grid-template-columns: 267px minmax(0, 1fr) auto;
+  gap: var(--gap-component);
+  align-items: start;
+  min-block-size: 100%;
+  padding-block: 120px var(--gutter-desktop);
+  padding-inline: var(--gutter-desktop);
+}
+
+
+/* -------------------------------------------------------------------------
+   The nav list (§5) — measured, not estimated
+
+   The column reserves 267px, the ceiling of the widest bold metric
+   (CONTACT at 266.3px), so moving between pages never reflows the list.
+   ------------------------------------------------------------------------- */
+
+.menu-nav__row {
+  position: relative;
+}
+
+/* Decorative rules under the items are list furniture — under EVERY item,
+   never a marker. #333333 on black is 1.66:1, below 1.4.11's floor, which
+   is exactly why it may separate sections but may not bound a hit target
+   or carry a state. Here it does neither. */
+.menu-nav__row::after {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline: 0;
+  display: block;
+  block-size: 1px;
+  background: var(--color-hairline-dark);
+  transform: scaleX(0);
+
+  /* transform-origin has no logical keywords, so the drawing edge is set as
+     a percentage and flipped by direction below — the same one-value flip
+     the nib uses. */
+  transform-origin: 0 50%;
+  transition: transform 300ms ease;
+  content: "";
+}
+
+[dir="rtl"] .menu-nav__row::after { transform-origin: 100% 50%; }
+
+/* The rules draw in sequence behind the wipe (§9.1). Four explicit delays
+   rather than an nth-child formula: the nav lock is four items, and if a
+   fifth ever appears the missing delay should be noticed, not interpolated. */
+.menu-overlay.is-open .menu-nav__row::after { transform: scaleX(1); }
+.menu-overlay.is-open .menu-nav__row:nth-child(1)::after { transition-delay: 400ms; }
+.menu-overlay.is-open .menu-nav__row:nth-child(2)::after { transition-delay: 480ms; }
+.menu-overlay.is-open .menu-nav__row:nth-child(3)::after { transition-delay: 560ms; }
+.menu-overlay.is-open .menu-nav__row:nth-child(4)::after { transition-delay: 640ms; }
+
+.menu-nav__item {
+  display: block;
+  padding-block: var(--gap-inline);
+  font-size: var(--fs-menu-nav);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-nav);
+
+  /* Zero, and not the hero tracking a 52px uppercase line would normally
+     take. §5's four label metrics were measured at letter-spacing 0 and the
+     267px column reserve is derived from them, so tracking the labels
+     tighter would quietly invalidate the one number on this screen that was
+     measured rather than estimated. It also keeps one rule across both
+     languages, since Arabic tracking is always zero. */
+  letter-spacing: var(--ls-body);
+  color: var(--color-on-dark-secondary);
+  text-transform: uppercase;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+/* The active state is weight and brightness only — never colour, and never
+   an underline, which the row already owns as furniture.
+
+   .is-lit answers "which of these four takes me back toward where I am",
+   so the whole project block lights WORK. aria-current is separate and
+   exact-match only: a project record is not the page the link leads to. */
+.menu-nav__item.is-lit {
+  font-weight: var(--fw-bold);
+  color: var(--color-on-dark);
+}
+
+.menu-nav__item:hover,
+.menu-nav__item:focus-visible {
+  color: var(--color-on-dark);
+}
+
+.menu-nav__item:focus-visible {
+  outline: 2px solid var(--color-on-dark);
+  outline-offset: 4px;
+}
+
+/* Arabic has no weight 300 (§7.3), so the rest state is 400 and the
+   rest→current contrast narrows to 400→700. Brightness carries more of the
+   job in Arabic, which is why the active state has two signals. */
+html:lang(ar) .menu-nav__item {
+  font-weight: var(--fw-regular);
+  text-transform: none;
+}
+
+
+/* -------------------------------------------------------------------------
+   The centre (§4) — G-4, "the swap"
+
+   The constellation at rest; the preview while WORK is hovered or focused.
+   Never both: the centre holds one idea at a time. The swap is instant and
+   has no animation of its own — a transition here would be a second
+   animation competing with the open.
+   ------------------------------------------------------------------------- */
+
+.menu-centre {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 0;
+}
+
+.menu-constellation {
+  inline-size: 100%;
+  max-block-size: 400px;
+}
+
+/* Ornament, not navigation: no labels, no links, no hit areas, no counts.
+   A reader who clicks a mark gets nothing, deliberately. */
+.menu-dot {
+  fill: var(--color-on-dark);
+  transform: scale(0);
+  transform-origin: center;
+  transform-box: fill-box;
+  transition: transform 140ms ease-out;
+}
+
+/* The marks arrive one at a time, 34ms apart, from +520ms — the Home map's
+   own choreography (E7.3): a spatial sweep that claims nothing about time.
+   The delay lives on the open rule only, so closing is immediate. */
+.menu-overlay.is-open .menu-dot {
+  transform: scale(1);
+  transition-delay: calc(520ms + var(--dot-index) * 34ms);
+}
+
+.menu-preview { display: none; }
+
+.menu-overlay.show-work .menu-constellation { display: none; }
+.menu-overlay.show-work .menu-preview { display: block; }
+
+.menu-preview__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap-block);
+}
+
+/* A plain grid — no bordered container (§4.7's card-in-card prohibition). */
+.menu-preview__item {
+  display: block;
+}
+
+.menu-preview__thumb {
+  inline-size: 100%;
+  block-size: auto;
+}
+
+.menu-preview__name {
+  display: block;
+  margin-block-start: var(--gap-inline);
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-metadata);
+  color: var(--color-on-dark-body);
+}
+
+.menu-preview__item:hover .menu-preview__name,
+.menu-preview__item:focus-visible .menu-preview__name {
+  color: var(--color-on-dark);
+}
+
+.menu-preview__item:focus-visible,
+.menu-preview__exit:focus-visible {
+  outline: 2px solid var(--color-on-dark);
+  outline-offset: 4px;
+}
+
+/* The one piece of wayfinding in the panel, and it carries no count:
+   "View All 47 Projects" is dead (E12). */
+.menu-preview__exit {
+  display: inline-block;
+  margin-block-start: var(--gap-block);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-body);
+  color: var(--color-on-dark);
+}
+
+/* The arrow is a glyph, so it flips with the language rather than being
+   mirrored by a transform. */
+[dir="rtl"] .menu-preview__arrow {
+  display: inline-block;
+  transform: scaleX(-1);
+}
+
+
+/* -------------------------------------------------------------------------
+   The contact region (§8) — two identifiers
+
+   Both are E12-clean: identifiers are not quantities. Both are direction-
+   isolated in RTL by a dir="ltr" span on the value, so a phone number never
+   reorders. The address line is cut by decision, not by data.
+   ------------------------------------------------------------------------- */
+
+.menu-contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-tight);
+  text-align: start;
+}
+
+.menu-contact__item {
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-body-lg);
+  color: var(--color-on-dark-body);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.menu-contact__item:hover,
+.menu-contact__item:focus-visible {
+  color: var(--color-on-dark);
+}
+
+.menu-contact__item:focus-visible {
+  outline: 2px solid var(--color-on-dark);
+  outline-offset: 4px;
+}
+
+
+/* -------------------------------------------------------------------------
+   Scroll lock (§4.7) — no scroll behind the overlay, and no layout shift
+
+   scrollbar-gutter reserves the gutter permanently, so removing the
+   scrollbar removes nothing: content does not shift and neither does the
+   fixed chrome, which is positioned against the viewport and would
+   otherwise slide by the scrollbar's width every time the menu opened.
+   ------------------------------------------------------------------------- */
+
+html.is-menu-open { overflow: hidden; }
+
+
+/* -------------------------------------------------------------------------
+   Breakpoints (§10)
+   ------------------------------------------------------------------------- */
+
+@media (max-width: 1023px) {
+  .chrome-trigger { inset-inline-start: var(--gutter-tablet); }
+  .chrome-plate { inset-inline-end: var(--gutter-tablet); }
+
+  .menu-overlay__regions {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--gap-heading);
+    padding-block: 104px var(--gutter-tablet);
+    padding-inline: var(--gutter-tablet);
+  }
+
+  /* The ornament is deleted whole, never shrunk (E3.7 read for ornament):
+     28 marks in a phone-width box is texture. The preview goes with it —
+     touch has no hover, so the panel would never be reachable, and WORK
+     simply navigates. Below 1024 the overlay is nav + contact. */
+  .menu-centre { display: none; }
+}
+
+@media (max-width: 767px) {
+  .chrome-trigger { inset-inline-start: var(--gutter-mobile); }
+
+  .chrome-plate {
+    inset-inline-end: var(--gutter-mobile);
+    padding: var(--gap-block);
+  }
+
+  .chrome-plate__mark { inline-size: var(--logo-min-width-mobile); }
+
+  /* §10: overlay padding 24px. The nav keeps the full 52px scale — the
+     widest bold label is 266px against 327px of column at 375px, so no
+     label collapse exists at any width and none is needed. */
+  .menu-overlay__regions {
+    padding-block: 96px var(--gap-block);
+    padding-inline: var(--gap-block);
+  }
+}
+
+
+/* =========================================================================
+   THE FOOTER
+
+   Always black, on every page. On a paper page the closing band owns the
+   switch and shares this ground, so band and footer are separated by scale
+   and by the hairline below — never by colour (E1.2a). On a page with no
+   band the footer owns the switch itself (E1.2c).
+   ========================================================================= */
+
+.site-footer {
+  background: var(--color-surface-dark);
+  border-block-start: 1px solid var(--color-hairline-dark);
+  color: var(--color-on-dark-body);
+}
+
+.site-footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-block);
+  max-inline-size: var(--container-max);
+  margin-inline: auto;
+  padding-block: var(--gap-component);
+  padding-inline: var(--gutter-desktop);
+}
+
+/* The one line. Its second sentence is X6-elastic: ProArc's answer on the
+   discipline list rewrites it and the Services blocks together. */
+.site-footer__line {
+  max-inline-size: var(--measure-body);
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-body-lg);
+  letter-spacing: var(--ls-body-lg);
+  color: var(--color-on-dark);
+}
+
+.site-footer__list,
+.site-footer__social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-block);
+}
+
+.site-footer__link {
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-metadata);
+  color: var(--color-on-dark-secondary);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.site-footer__link:hover,
+.site-footer__link:focus-visible {
+  color: var(--color-on-dark);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.site-footer__link:focus-visible {
+  outline: 2px solid var(--color-on-dark);
+  outline-offset: 4px;
+}
+
+.site-footer__legal {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-caption);
+  letter-spacing: var(--ls-caption);
+  color: var(--color-on-dark-secondary);
+}
+
+@media (max-width: 1023px) {
+  .site-footer__inner { padding-inline: var(--gutter-tablet); }
+}
+
+@media (max-width: 767px) {
+  .site-footer__inner { padding-inline: var(--gutter-mobile); }
+  .site-footer__list { gap: var(--gap-tight); }
+}
+
+
+/* -------------------------------------------------------------------------
+   Reduced motion (§9.6) — the finished overlay, immediately
+
+   tokens.css already collapses every duration globally, but a duration of
+   zero does not cancel a DELAY: the dot stagger alone would leave the
+   constellation blank for 1.4 seconds. Delays are zeroed here, and the
+   nib — which is pure motion and has nothing to show when still — does not
+   run at all.
+   ------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-overlay,
+  .menu-overlay.is-open,
+  .menu-overlay.is-open.is-closing {
+    clip-path: none;
+    transition: none;
+  }
+
+  /* transform:none is the finished state for both — an unscaled rule is a
+     full-width rule, and an unscaled mark is a whole mark. */
+  .menu-overlay.is-open .menu-dot,
+  .menu-overlay.is-open .menu-nav__row::after,
+  .menu-nav__row::after {
+    transform: none;
+    transition: none;
+    transition-delay: 0s;
+  }
+
+  /* The four stagger rules carry a :nth-child, so they out-specify the reset
+     above. The transition is already off, which makes the delay inert — but
+     a reader should be able to trust the computed value instead of having to
+     work out the cascade, so the reset matches their specificity. */
+  .menu-overlay.is-open .menu-nav__row:nth-child(n)::after {
+    transition-delay: 0s;
+  }
+
+  .menu-nib,
+  .menu-nib.is-running {
+    display: none;
+    animation: none;
+  }
+}
