@@ -173,8 +173,13 @@ async function processProject(project, manifest, stats) {
   // D1: the record decides which of its images leads and which ship. Taking
   // sources[0] is what led a twenty-image set with a furnished living room —
   // filename order is not curation. See build/lib/images.js.
-  const heroSrc = sources[heroIndex(project)];
-  const shipping = galleryIndices(project, galleryOut.length);
+  // The slots this record holds, by name. In the pipeline they are
+  // contiguous by construction (one per source, numbered in order), so
+  // this is the same answer the old count gave — stated as names so the
+  // two callers resolve a curation the same way.
+  const slots = galleryOut.map((g) => `gallery-${g.n}`);
+  const heroSrc = sources[heroIndex(project, slots)];
+  const shipping = galleryIndices(project, slots);
   const heroOut = path.join(outDir, 'hero.webp');
   const heroMdOut = path.join(outDir, 'hero-md.webp');
   const thumbOut = path.join(outDir, 'thumb.webp');

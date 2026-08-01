@@ -26,44 +26,74 @@
 
 const GALLERY_SLOT = /^gallery-(\d+)$/;
 
-function slotIndex(slug, name) {
-  const m = GALLERY_SLOT.exec(name);
-  if (!m) {
+/**
+ * A SLOT NAME IS RESOLVED BY NAME, NEVER BY POSITION.
+ *
+ * The first version of this file read "gallery-07" as `Number(7) - 1` and
+ * used it as an index into whatever list the caller happened to hold. That
+ * is correct only while the slots are numbered contiguously from 01 — which
+ * every one of the forty-seven records is, today, which is exactly why the
+ * fault has never fired.
+ *
+ * Take one derivative out of a record — a frame that turned out to be
+ * another building's, a duplicate, anything — and every curated name after
+ * the hole quietly moves onto the next photograph. `images.gallery:
+ * ["gallery-05"]` would still resolve, still render, and still be a
+ * different picture than the one somebody chose. Nothing throws, no link
+ * breaks, no probe fails: the page simply shows the wrong building, and
+ * the record still says gallery-05.
+ *
+ * That is what "deleting a derivative silently re-points a curation" means,
+ * and the fix is not to keep the numbering tidy — it is to stop the number
+ * being an index at all. A name now means the slot of that name; a name
+ * with no slot behind it is an error, loudly.
+ */
+function resolve(slug, name, slots, where) {
+  if (!GALLERY_SLOT.test(name)) {
+    throw new Error(`${slug}: images entries name a gallery slot ("gallery-07"); got "${name}".`);
+  }
+  const i = slots.indexOf(name);
+  if (i === -1) {
     throw new Error(
-      `${slug}: images entries name a gallery slot ("gallery-07"); got "${name}".`
+      `${slug}: images.${where} names ${name}, which the record does not hold. ` +
+        `It holds ${slots.length ? slots.join(', ') : 'nothing'}. ` +
+        `A curation names a photograph, so a missing one stops the build rather than sliding onto its neighbour.`
     );
   }
-  return Number(m[1]) - 1;
+  return i;
+}
+
+/** The slot names a record holds, in order, from its files or its sources. */
+function slotNames(paths) {
+  return paths.map((p) => String(p).replace(/^.*\//, '').replace(/\.webp$/, ''));
 }
 
 /** 0-based index of the gallery slot that leads the record. */
-function heroIndex(project) {
+function heroIndex(project, slots) {
   const name = (project.images && project.images.hero) || 'gallery-01';
-  return slotIndex(project.slug, name);
+  return resolve(project.slug, name, slots, 'hero');
 }
 
 /**
  * 0-based indices of the gallery slots that ship, in order, hero excluded.
- * `count` is how many slots exist on disk / in sources.
+ * `slots` is the list of slot names the record actually holds.
  */
-function galleryIndices(project, count) {
-  const hero = heroIndex(project);
-  if (hero < 0 || hero >= count) {
+function galleryIndices(project, slots) {
+  if (!Array.isArray(slots)) {
     throw new Error(
-      `${project.slug}: images.hero points at slot ${hero + 1} but the record holds ${count} image(s).`
+      `${project.slug}: galleryIndices takes the list of slot NAMES the record holds, not a count. ` +
+        `A count is what let a positional index outlive the numbering it assumed.`
     );
   }
+  const hero = heroIndex(project, slots);
 
   const explicit = project.images && project.images.gallery;
   if (!explicit) {
-    return Array.from({ length: count }, (_, i) => i).filter((i) => i !== hero);
+    return slots.map((_, i) => i).filter((i) => i !== hero);
   }
 
   return explicit.map((name) => {
-    const i = slotIndex(project.slug, name);
-    if (i < 0 || i >= count) {
-      throw new Error(`${project.slug}: images.gallery names ${name}, which the record does not hold.`);
-    }
+    const i = resolve(project.slug, name, slots, 'gallery');
     if (i === hero) {
       throw new Error(
         `${project.slug}: ${name} is the hero and is listed in images.gallery — that is the duplicate the rule exists to remove.`
@@ -73,4 +103,4 @@ function galleryIndices(project, count) {
   });
 }
 
-module.exports = { heroIndex, galleryIndices };
+module.exports = { heroIndex, galleryIndices, slotNames };

@@ -30,7 +30,7 @@ const LOGOS_DIR = path.join(ROOT, 'images', 'logos');
 const MANIFEST_PATH = path.join(ROOT, 'images', 'manifest.json');
 const DATA_PATH = path.join(ROOT, 'data', 'projects.json');
 
-const { galleryIndices } = require('./lib/images');
+const { galleryIndices, slotNames } = require('./lib/images');
 const { webpSize } = require('./lib/webp-size');
 
 const GALLERY_RE = /^gallery-(\d+)\.webp$/;
@@ -58,7 +58,10 @@ function buildProjectEntry(project) {
   // de-duplicated out of the gallery, and a record may curate its set down
   // (build/lib/images.js). Dropped files stay on disk — a curation call is
   // reversible, a deleted derivative is not.
-  const gallery = galleryIndices(project, onDisk.length).map((i) => onDisk[i]);
+  // The slot NAMES the record holds, not how many — a curation names a
+  // photograph, and a name resolved by position moves onto its neighbour
+  // the moment a derivative is missing (build/lib/images.js).
+  const gallery = galleryIndices(project, slotNames(onDisk)).map((i) => onDisk[i]);
 
   const has = (f) => files.includes(f);
   const entry = {
