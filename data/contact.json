@@ -1,0 +1,46 @@
+{
+  "_readme": [
+    "Contact's facts — Screen 08, _bmad/wds/D-UX-Design/08-contact.md §4.",
+    "",
+    "EVERY VALUE HERE IS ONE PROARC PUBLISHES ABOUT ITSELF (08-contact-data.md §1).",
+    "A third-party directory's account of ProArc is a CANDIDATE, and a candidate never",
+    "ships — it goes on the letter. The street address the 2GIS and FOB listings agree",
+    "on is therefore absent from this file by decision, not by oversight.",
+    "",
+    "THE TWO GATES ARE THE TWO NULLS. There is no separate open/closed flag, because a",
+    "flag and a value can contradict each other and one of them would then be a lie:",
+    "",
+    "  street      null  -> X14 is open. The row is labelled Post and carries the PO",
+    "                       Box alone. Give this file a street and the row becomes",
+    "                       Address, in that order, with the PO Box beneath it.",
+    "  hours.days  null  -> X15 is open. The Hours row is not rendered at all.",
+    "                       Give this file a day range and the row arrives.",
+    "",
+    "NO BRACKETED DUMMY MAY EVER BE WRITTEN HERE. build/lib/contact.js throws on a",
+    "square bracket in any value. Brackets are a board and spec device (08-contact-data",
+    "§5); /careers shipped \"[ Job Title ]\" live to the public, and that is the fault",
+    "this build removes rather than repeats. A gate that is open renders NOTHING —",
+    "an absence is honest where a placeholder is not.",
+    "",
+    "The tel: href is NOT authored. It is derived from phone by the build so the dialled",
+    "number and the printed number cannot drift apart."
+  ],
+
+  "published": {
+    "poBox": "P.O. Box 13003, Ajman, United Arab Emirates",
+    "phone": "+971 6 744 6633",
+    "email": "info@proarc.ae"
+  },
+
+  "street": null,
+
+  "hours": {
+    "times": "9:00–18:00",
+    "days": null
+  },
+
+  "form": {
+    "action": "php/contact.php",
+    "method": "post"
+  }
+}

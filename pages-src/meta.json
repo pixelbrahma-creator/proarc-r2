@@ -142,7 +142,9 @@
     "canonical": "https://proarc.ae/contact",
     "ground": "paper",
     "navLit": "contact",
-    "navExact": true
+    "navExact": true,
+    "pageStylesheet": "contact",
+    "pageScript": "contact"
   },
 
   "careers": {

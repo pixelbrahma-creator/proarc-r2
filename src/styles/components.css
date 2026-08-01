@@ -633,3 +633,171 @@ html.is-menu-open { overflow: hidden; }
     animation: none;
   }
 }
+
+
+/* =========================================================================
+   THE FORM GRAMMAR
+   Spec: _bmad/wds/D-UX-Design/08-contact.md §6 · v1.3 E6 / E6.1
+
+   Shared, not page CSS, because the site has two forms: Contact's five
+   fields and /careers' application form. One grammar, two layouts — the
+   layouts live in pages/contact.css and pages/careers.css.
+
+   THE GRAMMAR, and it is all §6 fixes: visible 12px uppercase labels ABOVE
+   the field · border-bottom fields, no boxes · placeholder-as-label barred
+   · the submit is an ink block on paper and inverts on dark.
+
+   THE BORDER IS #595959 ON BOTH GROUNDS — v1.3 E6.1, added from this
+   screen. E6's table gave the DARK border #595959 (3.00:1, exactly WCAG
+   1.4.11's floor) and left the light one at --color-hairline #D6D6D6,
+   which is 1.45:1 on white — below the floor on every form this site has
+   ever shipped. A field border is a component boundary and therefore
+   structural under E3.2 on either ground, so light takes --color-ink-
+   secondary too (7.00:1). --color-hairline stays correct for decorative
+   rules; it was never correct for an input boundary.
+
+   WHAT IS DELIBERATELY NOT HERE: focus treatment beyond a visible focus,
+   filled states, the validation matrix, error and success strings, and
+   whether Subject ever becomes a select. All of it is the forms phase's,
+   and §6's second column is its brief. The one thing that could not wait
+   is the focus indicator — a field a keyboard reader cannot locate is not
+   a boundary question, and tokens.css already ships .field-error and
+   .field-invalid for the phase to switch on.
+   ------------------------------------------------------------------------- */
+
+.form-field + .form-field {
+  margin-block-start: var(--gap-block);
+}
+
+/* The label is a block above its field, not beside it: 12px uppercase is
+   the site's small-label register (the client wall's group heads, the
+   record tables' labels) and --color-ink-secondary is 7.00:1. */
+.form-field__label {
+  display: block;
+  margin-block-end: var(--gap-inline);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-nav);
+  line-height: var(--lh-caption);
+  text-transform: uppercase;
+  color: var(--color-ink-secondary);
+}
+
+/* Phone is the only optional field (§6) and it says so in lowercase beside
+   its own label, inside it, so a screen reader reads "Phone optional" as
+   the label. The required four carry no asterisk — an asterisk is a legend
+   the page would then have to print.
+
+   It steps down by CASE AND WEIGHT, not by colour: #595959 is already the
+   secondary, and going lighter to mark a lesser thing would build
+   hierarchy out of contrast the text cannot afford (v1.2 §9.16). */
+.form-field__optional {
+  font-weight: var(--fw-regular);
+  letter-spacing: 0;
+  text-transform: lowercase;
+}
+
+/* No box. The rule under the field is the field.
+
+   appearance and border-radius are STATED, not inherited: iOS Safari
+   rounds and insets every input by default, and "no border-radius" is a
+   system rule (v1.2 §9) that a UA stylesheet does not know about.
+
+   background: transparent is what makes the browser's autofill paint a
+   whisper on paper rather than a plate — §2's second reason for this
+   page's ground. inline-size: 100% because a field inherits no width from
+   its label, and box-sizing is already border-box in base.css. */
+.form-field__input {
+  display: block;
+  inline-size: 100%;
+  padding-block: var(--gap-inline);
+  padding-inline: 0;
+  appearance: none;
+  border: 0;
+  border-block-end: 1px solid var(--color-ink-secondary);
+  border-radius: 0;
+  background: transparent;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-ink);
+  transition: border-block-end-color var(--dur-fast) var(--ease-out);
+}
+
+/* A textarea is a field that grew, not a different control. resize is
+   vertical only: horizontal resize would break the measure the column was
+   set to. */
+.form-field__area {
+  resize: vertical;
+  min-block-size: 8em;
+}
+
+/* The site's focus grammar, unchanged from its links: a 2px ink outline at
+   4px offset. The border darkens with it so the field reads as active in
+   the same gesture, but the OUTLINE is what carries the indicator — a
+   1px-to-2px rule change is not a focus indicator a reader can rely on. */
+.form-field__input:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 4px;
+  border-block-end-color: var(--color-ink);
+}
+
+/* The page's one imperative (voice §3.4). An ink block on paper; the dark
+   rule below is the inversion §6 asks for, and it is written now so a form
+   that later lands on a dark surface does not arrive with an invisible
+   button. */
+.form-submit {
+  display: inline-block;
+  margin-block-start: var(--gap-heading);
+  padding-block: var(--gap-tight);
+  padding-inline: var(--gap-heading);
+  border: 1px solid var(--color-ink);
+  background: var(--color-ink);
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  color: var(--color-on-dark);
+  transition: background-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+
+.form-submit:hover,
+.form-submit:focus-visible {
+  background: transparent;
+  color: var(--color-ink);
+}
+
+.form-submit:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 4px;
+}
+
+.surface-dark .form-field__label {
+  color: var(--color-on-dark-secondary);
+}
+
+.surface-dark .form-field__input {
+  border-block-end-color: var(--color-ink-secondary);
+  color: var(--color-on-dark-body);
+}
+
+.surface-dark .form-field__input:focus-visible {
+  outline-color: var(--color-on-dark);
+  border-block-end-color: var(--color-on-dark);
+}
+
+.surface-dark .form-submit {
+  border-color: var(--color-on-dark);
+  background: var(--color-on-dark);
+  color: var(--color-surface-dark);
+}
+
+.surface-dark .form-submit:hover,
+.surface-dark .form-submit:focus-visible {
+  background: transparent;
+  color: var(--color-on-dark);
+}
+
+.surface-dark .form-submit:focus-visible {
+  outline-color: var(--color-on-dark);
+}

@@ -19,6 +19,7 @@ const home = require('./lib/home');
 const ajman = require('./lib/ajman');
 const services = require('./lib/services');
 const about = require('./lib/about');
+const contact = require('./lib/contact');
 
 const ROOT = path.join(__dirname, '..');
 const SRC_DIR = path.join(ROOT, 'pages-src');
@@ -66,6 +67,8 @@ function main() {
       data = Object.assign({}, pageData, services.viewData(pageData.assetPrefix));
     } else if (about.hasViewData(srcName)) {
       data = Object.assign({}, pageData, about.viewData(pageData.assetPrefix));
+    } else if (contact.hasViewData(srcName)) {
+      data = Object.assign({}, pageData, contact.viewData(pageData.assetPrefix));
     }
 
     const source = fs.readFileSync(srcPath, 'utf8');

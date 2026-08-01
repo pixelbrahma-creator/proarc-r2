@@ -229,9 +229,16 @@
   vertical-align: baseline;
 }
 
+/* text-align stated, not inherited — the UA's `th { text-align: center }`
+   matches the element and therefore beats the table's inherited start.
+   Found on Contact, where the same table treatment shipped visible and the
+   labels centred in their column. Nothing changes here today: this table
+   is hidden behind X6, which is exactly why the fault could sit unseen and
+   why it is fixed now rather than on the day the attribute comes off. */
 .ab-facts__label {
   inline-size: 40%;
   padding-inline-end: var(--gap-tight);
+  text-align: start;
   font-size: var(--fs-metadata);
   font-weight: var(--fw-medium);
   letter-spacing: var(--ls-nav);

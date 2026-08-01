@@ -1,0 +1,280 @@
+/* ===========================================================
+   Contact — Screen 08, `08-contact.md`.
+
+   GROUND PAPER (§2), decided on three rendered facts and not on
+   E6: the error state stays #B3261E rather than becoming the
+   most saturated pixel in R2 after the client wall · the
+   browser's unoverridable autofill paint is a whisper on paper
+   and glowing rectangles on black · and the page has NO CLOSING
+   BAND (§10), so the footer's black is its one ground switch.
+   E1.2c is the clause that falls out of the third: on a page
+   with no closing band the footer owns the switch.
+
+   Because the ground is paper nothing here restates a colour
+   the way Services does — base.css already colours headings
+   --color-ink and body copy resolves correctly. The only
+   colours stated below step DOWN to --color-ink-secondary
+   (7.00:1), the site's secondary on paper. #A6A6A6 never
+   appears on paper.
+
+   THE FORM'S GRAMMAR IS NOT IN THIS FILE. Labels, fields, the
+   focus indicator and the submit block live in components.css,
+   because /careers carries the second form and one grammar
+   serving two pages is the only way they stay one design. What
+   is here is this page's LAYOUT: the column widths, the ruled
+   rows and the rhythm between the five beats.
+
+   NO FRAME ANYWHERE, on either ruled block. Screen 04 settled
+   it and About repeated it: a border around three facts is what
+   makes three facts look like a form with fields missing — on a
+   page that has a real form eighty pixels below, twice as
+   badly. Every rule in this file is horizontal.
+   =========================================================== */
+
+/* The two ruled blocks — the facts and the process steps — share one
+   edge, so they share one width. Set once: two literals that must agree
+   are two literals that will not. The value is §4's ~680px, and the form
+   below is deliberately narrower (§6's 560px) because a field a reader
+   types into is not a row they read across. */
+.ct {
+  --ct-rule-column: 680px;
+}
+
+/* -----------------------------------------------------------
+   1 · The line (§3)
+   ----------------------------------------------------------- */
+
+/* The top padding clears the chrome at every width — the same duty About's
+   story and Services' claim carry. The H1 starts in the top inline-start
+   corner, which is the corner the menu trigger is fixed in. */
+.ct-open {
+  padding-block: calc(var(--gap-component) + var(--gap-heading)) var(--gap-section);
+}
+
+/* .t-editorial carries the register and the mobile collapse: --fs-h1 is
+   52px, 40px at 1023 and 34px at 767, which is §9's stated H1 value with
+   no page-level override. Alone on the page — no support line (Mahesh,
+   31 Jul), so there is nothing beneath it to space. */
+.ct-open__line {
+  margin: 0;
+}
+
+/* -----------------------------------------------------------
+   2 · The facts (§4) — four rows, three of them today
+   ----------------------------------------------------------- */
+
+/* HALF THE SECTION GAP BELOW THIS BLOCK AND THE NEXT, and it is the site's
+   own arithmetic rather than a new number: layout.css's .section pays
+   calc(--gap-section / 2) per side, so 100px is what one section owes the
+   rhythm on its own.
+
+   Rendered at the full 200 the page ran 2,699px tall for about 1,000px of
+   content and the form began at y≈1,330 — three screens down, on the page
+   whose reader arrived to write. The five beats are one act, not four
+   separate sections: the facts, the process and the form answer one
+   another. The line above keeps the full gap, because standing alone is
+   the decision that was taken about it. */
+.ct-facts {
+  padding-block-end: calc(var(--gap-section) / 2);
+}
+
+/* table-layout: fixed, on About's finding: auto layout treats a column's
+   inline-size as a PREFERENCE and negotiates it against the content, so a
+   declared 200px column settled at 197.9px. Fixed makes the label column
+   exactly the width stated below, which is the width the layout was
+   measured on. */
+.ct-facts__table {
+  inline-size: 100%;
+  max-inline-size: var(--ct-rule-column);
+  table-layout: fixed;
+  border-collapse: collapse;
+  text-align: start;
+}
+
+/* Hairline between rows AND above the first, so the block reads as a set
+   rather than as three loose lines. No rule under the last row: the block
+   is open at the bottom, like the client wall and the record tables. */
+.ct-facts__label,
+.ct-facts__value {
+  padding-block: var(--pad-table-row);
+  border-block-start: 1px solid var(--color-hairline);
+  vertical-align: baseline;
+}
+
+/* 160px, not About's 40%: the labels here are one short word and 40% of
+   680 would spend 272px on "Email" while the PO Box line — the longest
+   value on the page — wrapped early beside it.
+
+   The UA stylesheet gives every th and td 1px of padding on all four
+   sides. padding-block above leaves the inline pair standing, which is how
+   About's 200px column rendered 197.9px, so both are stated here. The
+   gutter belongs to the value, as the space between a label and the thing
+   it labels always does. */
+/* text-align IS STATED, and it is not a preference. The UA stylesheet
+   carries `th { text-align: center }`, and an inherited value from the
+   table — even at higher specificity — never beats a declaration that
+   matches the element itself. Rendered, the three labels centred in their
+   160px column and floated ~50px away from the values they label. The same
+   omission is sitting in About's facts table, invisible only because that
+   table ships hidden behind X6. */
+.ct-facts__label {
+  inline-size: 160px;
+  padding-inline: 0 var(--gap-tight);
+  text-align: start;
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-nav);
+  line-height: var(--lh-metadata);
+  text-transform: uppercase;
+  color: var(--color-ink-secondary);
+}
+
+.ct-facts__value {
+  padding-inline: 0;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-ink);
+}
+
+/* The Address row carries two lines when X14 clears — the street, then the
+   PO Box. Today it is one line under the label Post. */
+.ct-facts__line {
+  display: block;
+}
+
+/* A value that happens to be actionable, not a navigation link: it keeps
+   the value's own size and colour and takes the site's link register —
+   ruled underneath rather than coloured, thickening on hover and focus.
+   The rule is currentcolor, so it is ink at 18.88:1 and never
+   --color-hairline, which is 1.45:1 and cannot carry a distinction. */
+.ct-facts__link {
+  border-block-end: 1px solid currentcolor;
+  padding-block-end: 2px;
+  color: var(--color-ink);
+  transition: border-block-end-width var(--dur-fast) var(--ease-out);
+}
+
+.ct-facts__link:hover,
+.ct-facts__link:focus-visible {
+  border-block-end-width: 2px;
+}
+
+.ct-facts__link:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 4px;
+}
+
+/* -----------------------------------------------------------
+   3 · What happens after you write (§5)
+   ----------------------------------------------------------- */
+
+.ct-process {
+  padding-block-end: calc(var(--gap-section) / 2);
+}
+
+.ct-process__title {
+  margin: 0 0 var(--gap-heading);
+}
+
+/* The rules span the facts table's column, so the two ruled blocks stack
+   on one edge; the sentences inside stay at --measure-body (.t-body), so
+   the ruled row is wider than its own prose exactly the way a table row
+   is. base.css already strips the list marker from every ol on the site,
+   which is §5's "markers suppressed" — the sequence lives in the markup
+   and in the sentences. */
+.ct-process__list {
+  max-inline-size: var(--ct-rule-column);
+}
+
+.ct-process__step {
+  padding-block: var(--pad-table-row);
+  border-block-start: 1px solid var(--color-hairline);
+}
+
+/* The step head is <b> inside the sentence and takes --fw-semibold from
+   tokens.css's .t-body rule, with no colour change — §5's "weight 600 at
+   body scale, not a heading". Nothing to declare here; the paragraph is
+   the row. */
+.ct-process__line {
+  margin: 0;
+}
+
+/* -----------------------------------------------------------
+   4 · The form (§6) and the careers line (§10)
+   ----------------------------------------------------------- */
+
+.ct-form {
+  padding-block-end: var(--gap-section);
+}
+
+/* 560px, narrower than the ruled blocks above it. A field is typed into,
+   not read across: the widest of the five is the message box, and a
+   680px-wide text area invites a paragraph the reader then cannot see the
+   shape of. */
+.ct-form__form {
+  max-inline-size: 560px;
+}
+
+/* The page's one body link out sits under the form, separated by the
+   heading gap so it belongs to the form's context rather than trailing off
+   the button. */
+.ct-careers {
+  margin-block-start: var(--gap-heading);
+}
+
+/* THE INLINE REGISTER, NOT THE ROUTE REGISTER. About's .ab-link and Home's
+   .hm-link are uppercase 14px labels because they stand alone on their own
+   line. This link sits INSIDE a sentence, and Home already decided that
+   case: .hm-link-inline carries the mosque's name in running prose, where
+   "an uppercase label would break the sentence". Rendered uppercase here it
+   did exactly that — 14px tracked capitals wedged into a 16px sentence.
+   Weight and the rule carry it; never colour. */
+.ct-link {
+  border-block-end: 1px solid currentcolor;
+  font-weight: var(--fw-semibold);
+  color: var(--color-ink);
+  transition: border-block-end-width var(--dur-fast) var(--ease-out);
+}
+
+.ct-link:hover,
+.ct-link:focus-visible {
+  border-block-end-width: 2px;
+}
+
+.ct-link:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 4px;
+}
+
+/* -----------------------------------------------------------
+   5 · Breakpoints (§9) — restack, never shrink
+   ----------------------------------------------------------- */
+
+/* THE FACTS TABLE STACKS LABEL OVER VALUE, one hairline per pair. Carrying
+   the desktop layout down leaves 160px of a 335px column to the label and
+   wraps "P.O. Box 13003, United Arab" onto three lines beside it.
+
+   The cells become blocks and the ROW carries the rule, so the ruled
+   register survives the restack rather than being traded for it — About's
+   wall took the same clause for the same reason. */
+@media (max-width: 767px) {
+  .ct-facts__row {
+    border-block-start: 1px solid var(--color-hairline);
+  }
+
+  .ct-facts__label,
+  .ct-facts__value {
+    display: block;
+    inline-size: auto;
+    border-block-start: 0;
+  }
+
+  .ct-facts__label {
+    padding-block-end: 0;
+    padding-inline: 0;
+  }
+
+  .ct-facts__value {
+    padding-block-start: 0;
+  }
+}
