@@ -157,21 +157,33 @@ Root `.html` and `projects/*.html` are **build outputs**. Never hand-edit.
 Edit `pages-src/`, `partials/`, `src/styles/`, `data/` only, then rebuild:
 
 ```
-npm run build            # = build:manifest && build:pages
-npm run build:projects   # the 47 records, once the template exists
+npm run build            # = build:manifest && build:pages && build:projects
 ```
 
-Two build steps, because there are two kinds of page:
+Two page steps, because there are two kinds of page:
 
 - **`build:pages`** compiles the 11 hand-authored pages from `pages-src/*.html`
   against `pages-src/meta.json`, which is the route contract: every page's
   output path, its ground (E1) and its two nav states. A route declared there
   with no source file is reported as skipped and writes nothing, so a route can
   be decided now and built later.
-- **`build:projects`** renders the 47 records from one template. It is not in
-  `build` yet because `partials/project-detail.template.html` has not been
-  authored; it fails loudly rather than emitting 47 broken pages, and joins
-  `build` the day the template lands.
+- **`build:projects`** renders the 47 records from
+  `partials/project-detail.template.html`. The rules it applies live in
+  **`build/lib/records.js`** — the sector mapping, the location display, the
+  spec rows, the prose strips, the neighbours — because the Work surfaces want
+  three of them too, and a second implementation is how two surfaces start
+  disagreeing about one record.
+
+**Which image leads a record is data, not filename order** (`build/lib/images.js`).
+`images.hero` names the gallery slot that leads and `images.gallery` names what
+ships beneath it; absent, slot 1 leads and the rest follow. Both the pipeline
+and the manifest reader honour it, so re-running the image pipeline cannot
+revert a curation. The reasons are in `_bmad/…/00i-D1-Curation-Log.md`.
+
+**`build:images` is not part of `build`.** It reads raw sources that are not in
+this repository, so running it here processes nothing; it now exits rather than
+writing the empty manifest that would silently strip every image from the site.
+On a clone, `build:manifest` is the right script.
 
 **No page loads anything from a CDN.** v1's GSAP, ScrollTrigger and Lenis are
 gone with the scroll-reveal system they drove — R2's motion language is "the
