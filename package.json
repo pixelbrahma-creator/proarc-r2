@@ -9,9 +9,10 @@
     "build:manifest:check": "node build/manifest-from-outputs.js --check",
     "build:pages": "node build/inject-partials.js",
     "build:projects": "node build/generate-projects.js",
-    "build": "npm run build:manifest && npm run build:pages && npm run build:projects",
+    "build": "npm run build:manifest && npm run build:pages && npm run build:projects && npm run build:seo",
     "check:links": "node build/check-links.js",
-    "lint:css": "stylelint \"src/**/*.css\""
+    "lint:css": "stylelint \"src/**/*.css\"",
+    "build:seo": "node build/build-seo.js"
   },
   "devDependencies": {
     "sharp": "^0.33.5",

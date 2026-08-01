@@ -29,7 +29,28 @@
   "published": {
     "poBox": "P.O. Box 13003, Ajman, United Arab Emirates",
     "phone": "+971 6 744 6633",
-    "email": "info@proarc.ae"
+    "email": "info@proarc.ae",
+
+    "_note": [
+      "The two below are NOT rendered as facts rows — the block is Post, Phone and Email (§4).",
+      "They are here because the structured data in build/lib/seo.js needs them and this is",
+      "the file that holds what ProArc publishes about itself. Retyping either into a lib is",
+      "how a site comes to disagree with itself about its own address.",
+      "",
+      "social: the two accounts ProArc owns, both HTTP 200 (08-contact-data.md §1). The CEO's",
+      "personal Twitter and the fax were CUT by Mahesh on 31 Jul and are not here to be found",
+      "later and reinstated by accident. The footer renders these two; the SEO sweep checks",
+      "that it renders THESE two.",
+      "",
+      "founded: the year About's first paragraph states, and the only year the practice",
+      "publishes about itself."
+    ],
+
+    "social": [
+      "https://www.facebook.com/proarcarchitects/",
+      "https://www.instagram.com/proarchitects/"
+    ],
+    "founded": "2006"
   },
 
   "street": null,

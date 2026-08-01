@@ -3,18 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <title>Jeddah Heights — Proarc</title>
-<meta name="description" content="Jeddah Heights located in the cityâ€™s finest commercial areas, next to Ajman City center offers invigorating uninterrupted view of the extensive mall and Ajman skyline.">
+<meta name="description" content="Jeddah Heights — Ajman, 2018. Architecture, engineering and project management by Proarc.">
 <link rel="canonical" href="https://proarc.ae/projects/jeddahheights">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="Jeddah Heights — Proarc">
-<meta property="og:description" content="Jeddah Heights located in the cityâ€™s finest commercial areas, next to Ajman City center offers invigorating uninterrupted view of the extensive mall and Ajman skyline.">
-<!-- Conditional: /ajman has no photograph, and content="" is a broken tag
-     rather than an absent one. The relative PATH is the SEO pass's to fix. -->
-<meta property="og:image" content="../images/projects/jeddahheights/hero-md.webp">
+<meta property="og:description" content="Jeddah Heights — Ajman, 2018. Architecture, engineering and project management by Proarc.">
+<meta property="og:site_name" content="Proarc">
+<!-- og:url is DERIVED from the canonical in build/lib/seo.js, never
+     authored beside it: two hand-written identities for one page is how
+     they come to disagree. -->
+<meta property="og:url" content="https://proarc.ae/projects/jeddahheights">
+<!-- Conditional: /ajman, Services, About, Contact and /careers carry no
+     photograph by decision, and content="" is a broken tag rather than an
+     absent one.
+
+     ABSOLUTE, and that is the fix this partial used to carry a note asking
+     for. All 53 pages that had an og:image shipped it as a page-relative
+     path — "../images/projects/rosetower/hero-md.webp" — which no scraper
+     can resolve from anywhere but the page itself. Every share card on the
+     site was blank. build/lib/seo.js resolves it against the one origin,
+     inside renderShell, so all fifty-eight routes take it from one place. -->
+<meta property="og:image" content="https://proarc.ae/images/projects/jeddahheights/hero-md.webp">
 <meta property="og:type" content="website">
+<!-- A summary_large_image card with no image is a broken card, not a large
+     one. The type follows what the page can actually offer. -->
 <meta name="twitter:card" content="summary_large_image">
 <link rel="shortcut icon" href="../images/ui/favicon.ico">
+
+<!-- Structured data, opt-in per route (build/lib/seo.js). It carries what
+     ProArc publishes about itself and what the records hold, and nothing
+     else: no headcount (X9 bars it permanently), no project count (the
+     no-numbers rule), no street address until X14 answers, no aggregate
+     rating, and no SearchAction — the Work arrival's search runs in the
+     browser over a build-made island and has no URL a crawler could query,
+     so declaring the endpoint would advertise something that does not
+     exist. Structured data is not a loophole in a copy rule. -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","@id":"https://proarc.ae/projects/jeddahheights#project","name":"Jeddah Heights","url":"https://proarc.ae/projects/jeddahheights","creator":{"@id":"https://proarc.ae/#practice"},"isPartOf":{"@id":"https://proarc.ae/#site"},"description":"Jeddah Heights — Ajman, 2018. Architecture, engineering and project management by Proarc.","image":"https://proarc.ae/images/projects/jeddahheights/hero-md.webp","locationCreated":{"@type":"Place","name":"Ajman"},"dateCreated":"2018"}</script>
 
 <link rel="stylesheet" href="../src/styles/tokens.css">
 <link rel="preload" href="../assets/fonts/general-sans/GeneralSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -129,7 +154,7 @@
     <div class="pd-column">
       <a class="pd-back t-meta-label" href="../projects/homes.html"><span class="pd-back__arrow" aria-hidden="true">&larr;</span> Homes</a>
       <h1 class="pd-name t-editorial">Jeddah Heights</h1>
-      <p class="pd-statement t-body-lg">Jeddah Heights located in the cityâ€™s finest commercial areas, next to Ajman City center offers invigorating uninterrupted view of the extensive mall and Ajman skyline.</p>
+      <p class="pd-statement t-body-lg">Jeddah Heights located in the city’s finest commercial areas, next to Ajman City center offers invigorating uninterrupted view of the extensive mall and Ajman skyline.</p>
 
       <table class="pd-specs">
         <caption class="u-visually-hidden">Jeddah Heights — project facts</caption>
@@ -142,7 +167,7 @@
 
   
   <div class="pd-prose container">
-    <p class="pd-prose__p t-body">A total of 180 apartments are set to be the center of this landmark development which is positioned to become one of the areaâ€™s most sought after addresses in the city. Jeddah Heights comprises of 15 typical floors with one, two and three-bedroom apartments, served by five levels of podium parking and ground floor commercial spaces. The tower strategically uses screens with geometric patterns to protect the parking levels at the same time create a visual treat for the passersby and residents. A sense of balance is created using solid and translucent materials on the facade. The solid materials reflect the exterior environment through the use of neutral and earthy tones. The geometric design gives the building a metropolitan vibe in both massing and elevational treatments.</p>
+    <p class="pd-prose__p t-body">A total of 180 apartments are set to be the center of this landmark development which is positioned to become one of the area’s most sought after addresses in the city. Jeddah Heights comprises of 15 typical floors with one, two and three-bedroom apartments, served by five levels of podium parking and ground floor commercial spaces. The tower strategically uses screens with geometric patterns to protect the parking levels at the same time create a visual treat for the passersby and residents. A sense of balance is created using solid and translucent materials on the facade. The solid materials reflect the exterior environment through the use of neutral and earthy tones. The geometric design gives the building a metropolitan vibe in both massing and elevational treatments.</p>
   </div>
   
 

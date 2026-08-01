@@ -1,0 +1,15 @@
+# Proarc — https://proarc.ae
+#
+# Every route on this site is indexable, /careers included: it is off-nav
+# because the four-item overlay is a navigation decision, not because the
+# page is private. It is a working recruitment route and it is in the
+# sitemap.
+#
+# php/ holds the form handlers. There is nothing there for a crawler to
+# read and a handler is not a page.
+
+User-agent: *
+Allow: /
+Disallow: /php/
+
+Sitemap: https://proarc.ae/sitemap.xml

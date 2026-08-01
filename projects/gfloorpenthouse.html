@@ -9,12 +9,37 @@
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="G+8 Floor + Penthouse — Proarc">
 <meta property="og:description" content="This premier residential development in Al Zorah features a modern G+8 floor structure topped with a sophisticated penthouse with a built up area of 3,995 sqm.">
-<!-- Conditional: /ajman has no photograph, and content="" is a broken tag
-     rather than an absent one. The relative PATH is the SEO pass's to fix. -->
-<meta property="og:image" content="../images/projects/gfloorpenthouse/hero-md.webp">
+<meta property="og:site_name" content="Proarc">
+<!-- og:url is DERIVED from the canonical in build/lib/seo.js, never
+     authored beside it: two hand-written identities for one page is how
+     they come to disagree. -->
+<meta property="og:url" content="https://proarc.ae/projects/gfloorpenthouse">
+<!-- Conditional: /ajman, Services, About, Contact and /careers carry no
+     photograph by decision, and content="" is a broken tag rather than an
+     absent one.
+
+     ABSOLUTE, and that is the fix this partial used to carry a note asking
+     for. All 53 pages that had an og:image shipped it as a page-relative
+     path — "../images/projects/rosetower/hero-md.webp" — which no scraper
+     can resolve from anywhere but the page itself. Every share card on the
+     site was blank. build/lib/seo.js resolves it against the one origin,
+     inside renderShell, so all fifty-eight routes take it from one place. -->
+<meta property="og:image" content="https://proarc.ae/images/projects/gfloorpenthouse/hero-md.webp">
 <meta property="og:type" content="website">
+<!-- A summary_large_image card with no image is a broken card, not a large
+     one. The type follows what the page can actually offer. -->
 <meta name="twitter:card" content="summary_large_image">
 <link rel="shortcut icon" href="../images/ui/favicon.ico">
+
+<!-- Structured data, opt-in per route (build/lib/seo.js). It carries what
+     ProArc publishes about itself and what the records hold, and nothing
+     else: no headcount (X9 bars it permanently), no project count (the
+     no-numbers rule), no street address until X14 answers, no aggregate
+     rating, and no SearchAction — the Work arrival's search runs in the
+     browser over a build-made island and has no URL a crawler could query,
+     so declaring the endpoint would advertise something that does not
+     exist. Structured data is not a loophole in a copy rule. -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","@id":"https://proarc.ae/projects/gfloorpenthouse#project","name":"G+8 Floor + Penthouse","url":"https://proarc.ae/projects/gfloorpenthouse","creator":{"@id":"https://proarc.ae/#practice"},"isPartOf":{"@id":"https://proarc.ae/#site"},"description":"This premier residential development in Al Zorah features a modern G+8 floor structure topped with a sophisticated penthouse with a built up area of 3,995 sqm.","image":"https://proarc.ae/images/projects/gfloorpenthouse/hero-md.webp","locationCreated":{"@type":"Place","name":"Al Zorah, Ajman"}}</script>
 
 <link rel="stylesheet" href="../src/styles/tokens.css">
 <link rel="preload" href="../assets/fonts/general-sans/GeneralSans-Regular.woff2" as="font" type="font/woff2" crossorigin>

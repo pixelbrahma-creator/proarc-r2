@@ -19,6 +19,7 @@ const path = require('path');
 const { render } = require('./lib/render');
 const { renderShell, loadPartial } = require('./lib/partials');
 const R = require('./lib/records');
+const seo = require('./lib/seo');
 
 const ROOT = path.join(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'projects');
@@ -66,7 +67,20 @@ function main() {
   const warnings = [];
   const warn = (m) => warnings.push(m);
 
-  const stats = { written: 0, mute: [], statementOnly: [], noNeighbours: [], quantities: [] };
+  const stats = { written: 0, mute: [], statementOnly: [], noNeighbours: [], quantities: [], ledgerDescriptions: [] };
+
+  /**
+   * A PRE-PASS, because a duplicate cannot be seen one record at a time.
+   * Three records — Mark & Save at Rashdiya, Al Tallah and Al Jurf — carry
+   * the same summary in the data, which is the mail-merge X1 exists to
+   * replace, and all three described themselves identically to a crawler.
+   * Counting the statements first is what lets the description rule see it.
+   */
+  const statementCounts = new Map();
+  projects.forEach((p) => {
+    const s = (R.statement(p, () => {}) || '').trim();
+    if (s) statementCounts.set(s, (statementCounts.get(s) || 0) + 1);
+  });
 
   projects.forEach((project) => {
     const images = manifest.projects[project.slug];
@@ -103,11 +117,44 @@ function main() {
     const quantities = [statement, ...prose].join(' ').match(/\d[\d,.]*/g);
     if (quantities) stats.quantities.push(`${project.slug} (${quantities.slice(0, 4).join(', ')})`);
 
+    /**
+     * THE DESCRIPTION IS THE STATEMENT WHEN THE STATEMENT CAN SERVE AS ONE.
+     * Otherwise it is the record's ledger line — name, place, year — which
+     * is what the site itself prints when it lists a building, and which is
+     * unique by construction because no two records share a name.
+     *
+     * Sixteen records take the ledger line, and for twelve of them it is
+     * better copy as well as shorter: the over-long summaries are the
+     * brochure register — "premier", "prestigious", "landmark" — that §7
+     * deletes site-wide, so a reader was being shown two thirds of a
+     * sentence the site does not otherwise say. When X1 rewrites the
+     * summaries the statements will fit and the descriptions follow with no
+     * change here.
+     */
+    const year = R.parseYear(project);
+    const ledgerLine = `${project.title} — ${R.displayLocation(project)}${year && /^\d{4}$/.test(String(year)) ? `, ${year}` : ''}.`;
+    const chosen = seo.descriptionFor(statement, ledgerLine, statementCounts);
+    if (chosen.reason) stats.ledgerDescriptions.push(`${project.slug} (${chosen.reason})`);
+
     const pageData = {
       title: `${project.title} — Proarc`,
-      description: statement || `${project.title}, ${R.displayLocation(project)}.`,
+      description: chosen.text,
       canonical: `https://proarc.ae/projects/${project.slug}`,
       ogImage: (heroMd || hero).src,
+      // The record, for a machine. Only what the record holds: no status,
+      // no area, no count, and no dateCreated unless the year is a real
+      // one — eight records read "Under Proposal" or similar, and a schema
+      // date is a claim about when the thing was made.
+      jsonLd: seo.embed([
+        seo.projectJsonLd({
+          slug: project.slug,
+          title: project.title,
+          description: chosen.text,
+          image: seo.absoluteAsset((heroMd || hero).src),
+          location: R.displayLocation(project),
+          year,
+        }),
+      ]),
       assetPrefix: ASSET_PREFIX,
       pageStylesheet: 'project',
       ground: 'paper',
@@ -182,6 +229,10 @@ function main() {
   console.log(`  mute:            ${stats.mute.length} (${stats.mute.join(', ') || '—'})`);
   console.log(`  no neighbours:   ${stats.noNeighbours.length} (${stats.noNeighbours.join(', ') || '—'})`);
   console.log(`  E12 debt:        ${stats.quantities.length} record(s) carry a quantity in display prose (X1)`);
+  console.log(
+    `  ledger meta:     ${stats.ledgerDescriptions.length} record(s) describe themselves by ledger line, not statement` +
+      `${stats.ledgerDescriptions.length ? ` — ${stats.ledgerDescriptions.join(', ')}` : ''}`
+  );
 
   if (warnings.length) {
     console.warn(`\n${warnings.length} warning(s):`);

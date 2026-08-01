@@ -21,6 +21,7 @@ const services = require('./lib/services');
 const about = require('./lib/about');
 const contact = require('./lib/contact');
 const careers = require('./lib/careers');
+const seo = require('./lib/seo');
 
 const ROOT = path.join(__dirname, '..');
 const SRC_DIR = path.join(ROOT, 'pages-src');
@@ -75,6 +76,16 @@ function main() {
       // carried the X6 staffing register, which is the sentence this page
       // deletes from two other surfaces.
       data = Object.assign({}, pageData, careers.viewData(pageData.assetPrefix, pageData));
+    }
+
+    /**
+     * THE PRACTICE IS DECLARED ONCE, ON THE HOME PAGE, and referenced by
+     * @id from the 47 records. Repeating the whole node on every route
+     * would be fifty-eight copies of one fact — the same fault as the
+     * hand-written phone number in the chrome, told to a machine.
+     */
+    if (srcName === 'index') {
+      data = Object.assign({}, data, { jsonLd: seo.embed([seo.practiceJsonLd(), seo.siteJsonLd()]) });
     }
 
     const source = fs.readFileSync(srcPath, 'utf8');

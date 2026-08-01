@@ -5,6 +5,7 @@ const path = require('path');
 const { render } = require('./render');
 const { buildDistrictMarks, renderConstellation } = require('./districts');
 const { buildPreview, renderPreview } = require('./preview');
+const seo = require('./seo');
 
 const PARTIALS_DIR = path.join(__dirname, '..', '..', 'partials');
 
@@ -90,7 +91,12 @@ function preview(assetPrefix) {
  *             navLit, navExact, ground, pageStylesheet, pageScript }
  */
 function renderShell(pageData) {
-  const data = Object.assign({ assetPrefix: '' }, pageData, {
+  // The machine contract is derived HERE, in the one place both generators
+  // pass through: og:url from the canonical, og:image made absolute, and
+  // the Twitter card type following whether there is an image at all. All
+  // fifty-eight pages shipped a RELATIVE og:image before this, which is not
+  // a URL a scraper can fetch — every share card on the site was blank.
+  const data = Object.assign({ assetPrefix: '' }, pageData, seo.shellData(pageData), {
     navItems: navItems(pageData),
     constellation: constellation(),
     preview: preview(pageData.assetPrefix || ''),
