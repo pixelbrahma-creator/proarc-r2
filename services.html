@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Services — Proarc</title>
+<meta name="description" content="Master planning, architecture, structural and MEP engineering, interior design and project management, from one office.">
+<link rel="canonical" href="https://proarc.ae/services">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Services — Proarc">
+<meta property="og:description" content="Master planning, architecture, structural and MEP engineering, interior design and project management, from one office.">
+<!-- Conditional: /ajman has no photograph, and content="" is a broken tag
+     rather than an absent one. The relative PATH is the SEO pass's to fix. -->
+
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="shortcut icon" href="images/ui/favicon.ico">
+
+<link rel="stylesheet" href="src/styles/tokens.css">
+<link rel="preload" href="assets/fonts/general-sans/GeneralSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/general-sans/GeneralSans-Semibold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="src/styles/fonts.css">
+<link rel="stylesheet" href="src/styles/tokens-layout.css">
+<link rel="stylesheet" href="src/styles/base.css">
+<link rel="stylesheet" href="src/styles/layout.css">
+<link rel="stylesheet" href="src/styles/components.css">
+<link rel="stylesheet" href="src/styles/pages/services.css">
+
+</head>
+<body>
+<!--
+  The site's chrome and its one navigation surface. Spec: 09-menu.md.
+
+  Three things sit here, and the order below is the tab order: the trigger
+  (top inline-start), the wordmark plate (top inline-end), and the overlay
+  they open. C-1 is the decided arrangement — "the logo on one side and the
+  three lines on the other" — and both corners flip in RTL by logical
+  properties alone; the artwork never mirrors (§8).
+
+  The chrome is NOT duplicated inside the overlay. It is one set of elements
+  painted above it, which is what makes the identity-chrome field rule
+  (E13.2) free: the plate and the pill carry a permanent #000000 field, so
+  paper reveals the field and the overlay's own black dissolves it. No scroll
+  listener, no threshold, no colour swap, nothing to desync.
+-->
+
+<button class="chrome-trigger" type="button"
+        data-menu-trigger
+        aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
+  <span class="chrome-trigger__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+</button>
+
+<a class="chrome-plate" href="index.html">
+  <img class="chrome-plate__mark"
+       src="images/ui/logo-mark.webp"
+       alt="Proarc — home"
+       width="330" height="117" decoding="async">
+</a>
+
+<!-- The nib: the white hairline that leads the wipe. Decoration, and it
+     leaves the flow entirely when it is not running. -->
+<span class="menu-nib" data-menu-nib aria-hidden="true"></span>
+
+<div class="menu-overlay" id="site-menu" data-menu-overlay inert>
+  <div class="menu-overlay__regions">
+
+    <nav class="menu-nav" aria-label="Main">
+      <ul class="menu-nav__list">
+        <li class="menu-nav__row"><a class="menu-nav__item" href="projects.html" data-menu-work>Work</a></li><li class="menu-nav__row"><a class="menu-nav__item is-lit" href="services.html" aria-current="page">Services</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="about.html">About</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!--
+      The centre holds one idea at a time (G-4, "the swap"): the
+      constellation at rest, the preview while WORK is hovered or focused,
+      never both. The swap is instant and has no animation of its own — a
+      transition here would compete with the open.
+    -->
+    <div class="menu-centre" data-menu-centre>
+      <svg class="menu-constellation" viewBox="0 0 560 440" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><circle class="menu-dot" style="--dot-index:0" cx="380" cy="146" r="3.5"></circle><circle class="menu-dot" style="--dot-index:1" cx="377" cy="145" r="3.5"></circle><circle class="menu-dot" style="--dot-index:2" cx="411" cy="138" r="3.5"></circle><circle class="menu-dot" style="--dot-index:3" cx="384" cy="150" r="3.5"></circle><circle class="menu-dot" style="--dot-index:4" cx="376" cy="135" r="3.5"></circle><circle class="menu-dot" style="--dot-index:5" cx="410" cy="133" r="3.5"></circle><circle class="menu-dot" style="--dot-index:6" cx="439" cy="319" r="3.5"></circle><circle class="menu-dot" style="--dot-index:7" cx="439" cy="308" r="3.5"></circle><circle class="menu-dot" style="--dot-index:8" cx="461" cy="289" r="3.5"></circle><circle class="menu-dot" style="--dot-index:9" cx="454" cy="317" r="3.5"></circle><circle class="menu-dot" style="--dot-index:10" cx="474" cy="294" r="3.5"></circle><circle class="menu-dot" style="--dot-index:11" cx="474" cy="280" r="3.5"></circle><circle class="menu-dot" style="--dot-index:12" cx="187" cy="75" r="3.5"></circle><circle class="menu-dot" style="--dot-index:13" cx="149" cy="104" r="3.5"></circle><circle class="menu-dot" style="--dot-index:14" cx="158" cy="85" r="3.5"></circle><circle class="menu-dot" style="--dot-index:15" cx="176" cy="62" r="3.5"></circle><circle class="menu-dot" style="--dot-index:16" cx="196" cy="95" r="3.5"></circle><circle class="menu-dot" style="--dot-index:17" cx="350" cy="350" r="3.5"></circle><circle class="menu-dot" style="--dot-index:18" cx="367" cy="362" r="3.5"></circle><circle class="menu-dot" style="--dot-index:19" cx="378" cy="361" r="3.5"></circle><circle class="menu-dot" style="--dot-index:20" cx="371" cy="396" r="3.5"></circle><circle class="menu-dot" style="--dot-index:21" cx="242" cy="366" r="3.5"></circle><circle class="menu-dot" style="--dot-index:22" cx="239" cy="375" r="3.5"></circle><circle class="menu-dot" style="--dot-index:23" cx="320" cy="346" r="3.5"></circle><circle class="menu-dot" style="--dot-index:24" cx="133" cy="174" r="3.5"></circle><circle class="menu-dot" style="--dot-index:25" cx="332" cy="130" r="3.5"></circle><circle class="menu-dot" style="--dot-index:26" cx="96" cy="209" r="3.5"></circle><circle class="menu-dot" style="--dot-index:27" cx="308" cy="201" r="3.5"></circle></svg>
+      <div class="menu-preview" data-menu-preview><div class="menu-preview__grid"><a class="menu-preview__item" href="projects/seasidehills.html"><img class="menu-preview__thumb" src="images/projects/seasidehills/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Seaside Hills Residence</span></a><a class="menu-preview__item" href="projects/habitatschool.html"><img class="menu-preview__thumb" src="images/projects/habitatschool/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Habitat School</span></a><a class="menu-preview__item" href="projects/souksalah.html"><img class="menu-preview__thumb" src="images/projects/souksalah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Souk Salah</span></a><a class="menu-preview__item" href="projects/ajmanbank.html"><img class="menu-preview__thumb" src="images/projects/ajmanbank/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Ajman Bank Headquarters</span></a><a class="menu-preview__item" href="projects/cityuniversity.html"><img class="menu-preview__thumb" src="images/projects/cityuniversity/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">City University Campus</span></a><a class="menu-preview__item" href="projects/alghalamosque.html"><img class="menu-preview__thumb" src="images/projects/alghalamosque/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Al Ghala Mosque</span></a></div><a class="menu-preview__exit" href="projects.html">All projects <span class="menu-preview__arrow" aria-hidden="true">&rarr;</span></a></div>
+    </div>
+
+    <div class="menu-contact">
+      <a class="menu-contact__item" href="tel:+97167446633"><span dir="ltr">+971 6 744 6633</span></a>
+      <a class="menu-contact__item" href="mailto:info@proarc.ae"><span dir="ltr">info@proarc.ae</span></a>
+      <!--
+        The AR switch is a reserved slot, not a control: the overlay is the
+        one site-wide chrome surface, so the language switch belongs here
+        when the bilingual build lands. Nothing renders until then, and an
+        empty box is not shipped in the meantime (§9 rule 4).
+
+        The address line is CUT and the cut is a decision (§8): v1's
+        "13003, Ajman, UAE" is a PO Box wearing an address label on every
+        page. Contact carries the full facts row. Restoring a line here is
+        a consolidation question, never a silent build decision.
+      -->
+    </div>
+
+  </div>
+</div>
+
+
+<!--
+  Services — Screen 06. Spec: 06-services.md. Copy authority:
+  ../_bmad/wds/E-Brand-Framework/04-copy-direction.md v3.3 §4, VERBATIM.
+
+  The page in one line: the claim → the theme → the range drawn → the six
+  discipline blocks → the specialist list → the delivery → the close → the
+  inverted band → the footer.
+
+  GROUND BLACK (§1) — an amendment to E1, decided 31 Jul on two rendered
+  frames. Home, Services and /ajman state; Work and the 47 record pages
+  prove, on paper. The closing band is this page's ONE ground exception.
+
+  E12 THROUGHOUT: there is not one digit in this page's own copy. The range
+  is carried by a drawing and by a caption naming its two ends — the drawing
+  may show what prose may not say — and the delivery names its districts
+  rather than counting its buildings. No verb (learns/shops/works/lives)
+  appears here: a verb names a set of buildings and this page is not about
+  the city. No "Ajman" in display prose either; the caption's districts are a
+  record surface and exempt.
+
+  THE PAGE NAMES EXACTLY TWO BUILDINGS, both of them ends of the range
+  caption. No discipline block names a building (E7.2): `scope` is empty on
+  all 47, so naming one beside a discipline would assert who did what in
+  order to have something to link.
+-->
+<main id="main" class="sv">
+
+  <div class="sv-dark surface-dark">
+
+    <!-- 1 · The claim (§2). The H1 is verbless and carries no full stop.
+         Its register is Editorial — light, sentence case — stated here and
+         never inherited: base.css gives an h1 its shape and the page states
+         its register.
+
+         The top padding clears the chrome at every width. The trigger is
+         fixed in the top inline-start corner, which is the corner this
+         claim starts in, and Home's claim ran under the plate at three
+         widths because the test was a box test. Measured here against the
+         rendered ink. -->
+    <section class="sv-claim container">
+      <h1 class="sv-claim__line t-editorial">One practice, accountable from first approval to handover</h1>
+      <p class="sv-claim__body t-body-lg">We bring architecture, structure and building services together in one office, so the scheme that is approved is the scheme that gets built &mdash; and we stay with it through construction.</p>
+      <p class="sv-claim__theme">Schools, malls, offices and homes &mdash; one practice answers for all of them.</p>
+    </section>
+
+    <!-- 2 · THE RANGE, DRAWN (§3) — V-1, decided 31 Jul on the
+         implementation study. Line elevations, NEVER photographs: this is
+         evidence, not illustration, and it pairs with the /ajman map as the
+         site's two drawn artefacts — the practice in plan there, in
+         elevation here.
+
+         Every line is generated from data/projects.json by
+         build/lib/services.js, which carries the rules: only a record whose
+         file names its levels is drawn (E7.2 — no height is ever inferred),
+         basements are drawn BELOW the datum (E3.7 — the datum is real), the
+         footprint is the one invented value and is identical for every
+         building (E3.3), and the order is ascending by what a reader can
+         see.
+
+         NO LABELS ON THE DRAWING. Fifteen names under 42-unit elevations
+         render around 9px, below the 12px floor — and the anonymous middle
+         is what lets a record that is not standing be drawn at all (E9.6).
+         The caption names and links the two ends, and nothing else on this
+         page names a building.
+
+         The drawing ships FINISHED. js/services.js arms it and plays the
+         draw-in once; a broken script, a blocked file or no JS at all
+         leaves the whole range drawn. -->
+    <section class="sv-range container" aria-labelledby="sv-range-statement">
+      <figure class="sv-range__figure">
+        <div class="sv-drawing" data-drawing>
+          <svg class="sv-drawing__svg" viewBox="0 0 972 483" role="img" aria-label="Line elevations of the buildings whose records name their levels, drawn shortest to tallest." preserveAspectRatio="xMidYMid meet"><path class="sv-datum" pathLength="1" d="M 0 457 H 972"></path><path class="sv-rise" style="--elev-index:0" pathLength="1" d="M 0 457 V 439"></path><path class="sv-rise" style="--elev-index:0" pathLength="1" d="M 48 457 V 439 H 0"></path><path class="sv-floors" style="--elev-index:0" d="M 0 448 H 48"></path><path class="sv-rise" style="--elev-index:1" pathLength="1" d="M 66 457 V 421"></path><path class="sv-rise" style="--elev-index:1" pathLength="1" d="M 114 457 V 421 H 66"></path><path class="sv-floors" style="--elev-index:1" d="M 66 448 H 114 M 66 439 H 114 M 66 430 H 114"></path><path class="sv-rise" style="--elev-index:2" pathLength="1" d="M 132 457 V 412"></path><path class="sv-rise" style="--elev-index:2" pathLength="1" d="M 180 457 V 412 H 132"></path><path class="sv-floors" style="--elev-index:2" d="M 132 448 H 180 M 132 439 H 180 M 132 430 H 180 M 132 421 H 180"></path><path class="sv-rise" style="--elev-index:3" pathLength="1" d="M 198 457 V 412"></path><path class="sv-rise" style="--elev-index:3" pathLength="1" d="M 246 457 V 412 H 198"></path><path class="sv-floors" style="--elev-index:3" d="M 198 448 H 246 M 198 439 H 246 M 198 430 H 246 M 198 421 H 246"></path><path class="sv-rise" style="--elev-index:4" pathLength="1" d="M 264 457 V 412"></path><path class="sv-rise" style="--elev-index:4" pathLength="1" d="M 312 457 V 412 H 264"></path><path class="sv-floors" style="--elev-index:4" d="M 264 448 H 312 M 264 439 H 312 M 264 430 H 312 M 264 421 H 312"></path><path class="sv-rise" style="--elev-index:5" pathLength="1" d="M 330 457 V 376"></path><path class="sv-rise" style="--elev-index:5" pathLength="1" d="M 378 457 V 376 H 330"></path><path class="sv-floors" style="--elev-index:5" d="M 330 448 H 378 M 330 439 H 378 M 330 430 H 378 M 330 421 H 378 M 330 412 H 378 M 330 403 H 378 M 330 394 H 378 M 330 385 H 378"></path><path class="sv-rise" style="--elev-index:6" pathLength="1" d="M 396 457 V 367"></path><path class="sv-rise" style="--elev-index:6" pathLength="1" d="M 444 457 V 367 H 396"></path><path class="sv-floors" style="--elev-index:6" d="M 396 448 H 444 M 396 439 H 444 M 396 430 H 444 M 396 421 H 444 M 396 412 H 444 M 396 403 H 444 M 396 394 H 444 M 396 385 H 444 M 396 376 H 444"></path><path class="sv-rise" style="--elev-index:7" pathLength="1" d="M 462 457 V 367"></path><path class="sv-rise" style="--elev-index:7" pathLength="1" d="M 510 457 V 367 H 462"></path><path class="sv-rise" style="--elev-index:7" pathLength="1" d="M 462 457 V 475 H 510 V 457"></path><path class="sv-floors" style="--elev-index:7" d="M 462 448 H 510 M 462 439 H 510 M 462 430 H 510 M 462 421 H 510 M 462 412 H 510 M 462 403 H 510 M 462 394 H 510 M 462 385 H 510 M 462 376 H 510 M 462 466 H 510"></path><path class="sv-rise" style="--elev-index:8" pathLength="1" d="M 528 457 V 295"></path><path class="sv-rise" style="--elev-index:8" pathLength="1" d="M 576 457 V 295 H 528"></path><path class="sv-floors" style="--elev-index:8" d="M 528 448 H 576 M 528 439 H 576 M 528 430 H 576 M 528 421 H 576 M 528 412 H 576 M 528 403 H 576 M 528 394 H 576 M 528 385 H 576 M 528 376 H 576 M 528 367 H 576 M 528 358 H 576 M 528 349 H 576 M 528 340 H 576 M 528 331 H 576 M 528 322 H 576 M 528 313 H 576 M 528 304 H 576"></path><path class="sv-rise" style="--elev-index:9" pathLength="1" d="M 594 457 V 277"></path><path class="sv-rise" style="--elev-index:9" pathLength="1" d="M 642 457 V 277 H 594"></path><path class="sv-floors" style="--elev-index:9" d="M 594 448 H 642 M 594 439 H 642 M 594 430 H 642 M 594 421 H 642 M 594 412 H 642 M 594 403 H 642 M 594 394 H 642 M 594 385 H 642 M 594 376 H 642 M 594 367 H 642 M 594 358 H 642 M 594 349 H 642 M 594 340 H 642 M 594 331 H 642 M 594 322 H 642 M 594 313 H 642 M 594 304 H 642 M 594 295 H 642 M 594 286 H 642"></path><path class="sv-rise" style="--elev-index:10" pathLength="1" d="M 660 457 V 250"></path><path class="sv-rise" style="--elev-index:10" pathLength="1" d="M 708 457 V 250 H 660"></path><path class="sv-floors" style="--elev-index:10" d="M 660 448 H 708 M 660 439 H 708 M 660 430 H 708 M 660 421 H 708 M 660 412 H 708 M 660 403 H 708 M 660 394 H 708 M 660 385 H 708 M 660 376 H 708 M 660 367 H 708 M 660 358 H 708 M 660 349 H 708 M 660 340 H 708 M 660 331 H 708 M 660 322 H 708 M 660 313 H 708 M 660 304 H 708 M 660 295 H 708 M 660 286 H 708 M 660 277 H 708 M 660 268 H 708 M 660 259 H 708"></path><path class="sv-rise" style="--elev-index:11" pathLength="1" d="M 726 457 V 169"></path><path class="sv-rise" style="--elev-index:11" pathLength="1" d="M 774 457 V 169 H 726"></path><path class="sv-floors" style="--elev-index:11" d="M 726 448 H 774 M 726 439 H 774 M 726 430 H 774 M 726 421 H 774 M 726 412 H 774 M 726 403 H 774 M 726 394 H 774 M 726 385 H 774 M 726 376 H 774 M 726 367 H 774 M 726 358 H 774 M 726 349 H 774 M 726 340 H 774 M 726 331 H 774 M 726 322 H 774 M 726 313 H 774 M 726 304 H 774 M 726 295 H 774 M 726 286 H 774 M 726 277 H 774 M 726 268 H 774 M 726 259 H 774 M 726 250 H 774 M 726 241 H 774 M 726 232 H 774 M 726 223 H 774 M 726 214 H 774 M 726 205 H 774 M 726 196 H 774 M 726 187 H 774 M 726 178 H 774"></path><path class="sv-rise" style="--elev-index:12" pathLength="1" d="M 792 457 V 25"></path><path class="sv-rise" style="--elev-index:12" pathLength="1" d="M 840 457 V 25 H 792"></path><path class="sv-floors" style="--elev-index:12" d="M 792 448 H 840 M 792 439 H 840 M 792 430 H 840 M 792 421 H 840 M 792 412 H 840 M 792 403 H 840 M 792 394 H 840 M 792 385 H 840 M 792 376 H 840 M 792 367 H 840 M 792 358 H 840 M 792 349 H 840 M 792 340 H 840 M 792 331 H 840 M 792 322 H 840 M 792 313 H 840 M 792 304 H 840 M 792 295 H 840 M 792 286 H 840 M 792 277 H 840 M 792 268 H 840 M 792 259 H 840 M 792 250 H 840 M 792 241 H 840 M 792 232 H 840 M 792 223 H 840 M 792 214 H 840 M 792 205 H 840 M 792 196 H 840 M 792 187 H 840 M 792 178 H 840 M 792 169 H 840 M 792 160 H 840 M 792 151 H 840 M 792 142 H 840 M 792 133 H 840 M 792 124 H 840 M 792 115 H 840 M 792 106 H 840 M 792 97 H 840 M 792 88 H 840 M 792 79 H 840 M 792 70 H 840 M 792 61 H 840 M 792 52 H 840 M 792 43 H 840 M 792 34 H 840"></path><path class="sv-rise" style="--elev-index:13" pathLength="1" d="M 858 457 V 16"></path><path class="sv-rise" style="--elev-index:13" pathLength="1" d="M 906 457 V 16 H 858"></path><path class="sv-rise" style="--elev-index:13" pathLength="1" d="M 858 457 V 475 H 906 V 457"></path><path class="sv-floors" style="--elev-index:13" d="M 858 448 H 906 M 858 439 H 906 M 858 430 H 906 M 858 421 H 906 M 858 412 H 906 M 858 403 H 906 M 858 394 H 906 M 858 385 H 906 M 858 376 H 906 M 858 367 H 906 M 858 358 H 906 M 858 349 H 906 M 858 340 H 906 M 858 331 H 906 M 858 322 H 906 M 858 313 H 906 M 858 304 H 906 M 858 295 H 906 M 858 286 H 906 M 858 277 H 906 M 858 268 H 906 M 858 259 H 906 M 858 250 H 906 M 858 241 H 906 M 858 232 H 906 M 858 223 H 906 M 858 214 H 906 M 858 205 H 906 M 858 196 H 906 M 858 187 H 906 M 858 178 H 906 M 858 169 H 906 M 858 160 H 906 M 858 151 H 906 M 858 142 H 906 M 858 133 H 906 M 858 124 H 906 M 858 115 H 906 M 858 106 H 906 M 858 97 H 906 M 858 88 H 906 M 858 79 H 906 M 858 70 H 906 M 858 61 H 906 M 858 52 H 906 M 858 43 H 906 M 858 34 H 906 M 858 25 H 906 M 858 466 H 906"></path><path class="sv-rise" style="--elev-index:14" pathLength="1" d="M 924 457 V 16"></path><path class="sv-rise" style="--elev-index:14" pathLength="1" d="M 972 457 V 16 H 924"></path><path class="sv-rise" style="--elev-index:14" pathLength="1" d="M 924 457 V 475 H 972 V 457"></path><path class="sv-floors" style="--elev-index:14" d="M 924 448 H 972 M 924 439 H 972 M 924 430 H 972 M 924 421 H 972 M 924 412 H 972 M 924 403 H 972 M 924 394 H 972 M 924 385 H 972 M 924 376 H 972 M 924 367 H 972 M 924 358 H 972 M 924 349 H 972 M 924 340 H 972 M 924 331 H 972 M 924 322 H 972 M 924 313 H 972 M 924 304 H 972 M 924 295 H 972 M 924 286 H 972 M 924 277 H 972 M 924 268 H 972 M 924 259 H 972 M 924 250 H 972 M 924 241 H 972 M 924 232 H 972 M 924 223 H 972 M 924 214 H 972 M 924 205 H 972 M 924 196 H 972 M 924 187 H 972 M 924 178 H 972 M 924 169 H 972 M 924 160 H 972 M 924 151 H 972 M 924 142 H 972 M 924 133 H 972 M 924 124 H 972 M 924 115 H 972 M 924 106 H 972 M 924 97 H 972 M 924 88 H 972 M 924 79 H 972 M 924 70 H 972 M 924 61 H 972 M 924 52 H 972 M 924 43 H 972 M 924 34 H 972 M 924 25 H 972 M 924 466 H 972"></path></svg>
+        </div>
+
+        <!-- The caption block, in order (§3.5): two ruled rows — from and
+             to, so it survives 375px — then the capnote, then the
+             statement below the figure.
+
+             The rows carry the name, linked to its own page, with the
+             DISTRICT as its support. No configuration string: a quantity's
+             place is that building's own spec table (E12).
+
+             NO STATUS ON EITHER END — an amendment to §3.5 and to the
+             capnote's second clause, decided 1 Aug. The spec asks a named
+             end to carry its record's status where the building is not
+             standing; records.js suppresses exactly that string on all 47
+             because the site never says a building is unbuilt, and this
+             page would be the only surface reintroducing it. E9.6's duty is
+             discharged for the SET by the capnote, which names nobody. -->
+        <figcaption class="sv-range__caption">
+          <ul class="sv-caption">
+            
+            <li class="sv-caption__row">
+              <a class="sv-caption__name" href="projects/royalfurniture.html">Royal Furniture <span aria-hidden="true">&rarr;</span></a>
+              <span class="sv-caption__place">Al Jurf, Ajman</span>
+            </li>
+            
+            <li class="sv-caption__row">
+              <a class="sv-caption__name" href="projects/one-678.html">One 678 <span aria-hidden="true">&rarr;</span></a>
+              <span class="sv-caption__place">Aamra, Ajman</span>
+            </li>
+            
+          </ul>
+          <p class="sv-capnote">Drawn from the records &mdash; every building whose file names its levels, and every level it names. Some of these are still rising.</p>
+        </figcaption>
+      </figure>
+
+      <p class="sv-statement" id="sv-range-statement">The smallest building here and the tallest carry the same responsibility.</p>
+    </section>
+
+    <!-- 3 · The mechanism (§2) — the lead, then the six blocks in the order
+         a building is made. Ruled rows: name and one sentence. EVERY
+         SUB-CAPABILITY IS A BULLET IN THE SPECIALIST LIST, NEVER A BLOCK
+         AND NEVER A PAGE.
+
+         Site supervision is folded into Project management, which matches
+         the practice's own account of itself, and the resident engineers
+         are named in that block's prose rather than given a seventh block.
+
+         X6 (the discipline set in ProArc's own words) rides through this
+         section: it changes block prose or bullets, never the page. X10
+         (masterplanning evidence) gated the Master planning block in the
+         spec; Mahesh called it 1 Aug — the six ship, and X10 now changes
+         only what the block's prose may claim. -->
+    <section class="sv-mechanism container">
+      <p class="sv-mechanism__lead t-body-lg">Every project starts with the site, the budget and the approvals it will need. Then we draw.</p>
+
+      <div class="sv-blocks">
+        <section class="sv-block">
+          <h2 class="sv-block__name t-h3">Master planning</h2>
+          <p class="sv-block__prose">Site-wide strategies and urban masterplans &mdash; the framework every building on the site then has to work within.</p>
+        </section>
+
+        <section class="sv-block">
+          <h2 class="sv-block__name t-h3">Architecture</h2>
+          <p class="sv-block__prose">The brief, the site, the approvals it will need, and the drawings that answer them &mdash; concept through to construction issue.</p>
+        </section>
+
+        <section class="sv-block">
+          <h2 class="sv-block__name t-h3">Structural engineering</h2>
+          <p class="sv-block__prose">The frame, drawn in-house alongside the architecture rather than issued to it.</p>
+        </section>
+
+        <section class="sv-block">
+          <h2 class="sv-block__name t-h3">MEP engineering</h2>
+          <p class="sv-block__prose">Mechanical, electrical and plumbing, coordinated from concept stage, so the services fit the building they were drawn for.</p>
+        </section>
+
+        <section class="sv-block">
+          <h2 class="sv-block__name t-h3">Interior design</h2>
+          <p class="sv-block__prose">Spatial planning, materials and lighting, detailed to the same drawings as the envelope.</p>
+        </section>
+
+        <section class="sv-block">
+          <h2 class="sv-block__name t-h3">Project management</h2>
+          <p class="sv-block__prose">Programme, cost and contract administration from appointment to handover, with our own resident engineers on site through construction.</p>
+        </section>
+      </div>
+
+      <!-- The specialist list — one ruled block, the items as one flowing
+           line. AUTHORITY APPROVALS LEADS DELIBERATELY: it is the driving
+           force nothing else on the site addresses, and it is the honest
+           form of "advisory" — an appointment, not a pillar.
+
+           The lead is a paragraph rather than a heading: it labels a list
+           and does not head a section, and rule 9 bars invented section
+           labels. The list is named by it through aria-labelledby, so the
+           relationship survives without a heading level that means nothing. -->
+      <section class="sv-speclist">
+        <p class="sv-speclist__lead" id="sv-speclist-lead">Our specialist experience includes:</p>
+        <ul class="sv-speclist__items" aria-labelledby="sv-speclist-lead">
+          <li class="sv-speclist__item">Authority submissions and approvals</li>
+          <li class="sv-speclist__item">Feasibility studies</li>
+          <li class="sv-speclist__item">Concept and scheme design</li>
+          <li class="sv-speclist__item">Construction drawings</li>
+          <li class="sv-speclist__item">Structural design and detailing</li>
+          <li class="sv-speclist__item">MEP coordination and clash detection</li>
+          <li class="sv-speclist__item">Services load calculations</li>
+          <li class="sv-speclist__item">Site supervision and quality inspection</li>
+          <li class="sv-speclist__item">Snagging and handover</li>
+          <li class="sv-speclist__item">Space planning</li>
+          <li class="sv-speclist__item">Material and finish selection</li>
+          <li class="sv-speclist__item">Lighting design</li>
+        </ul>
+      </section>
+    </section>
+
+    <!-- 4 · The delivery (§2) — the page's second owned fact, and its one
+         route to the work. Numberless by construction: it names the two
+         districts where buildings are going up rather than counting them.
+
+         Its register was stepped down from the fragment scale at rev 6 —
+         this is a sentence pair, and a fragment's scale read as a shout. -->
+    <section class="sv-delivery container">
+      <p class="sv-statement">What we have designed is standing across the Emirates. What we are designing now is going up in Aamra and Al Zorah.</p>
+      <p class="sv-delivery__route"><a class="sv-link" href="projects.html">The work <span aria-hidden="true">&rarr;</span></a></p>
+    </section>
+
+    <!-- 5 · The close (§2) — one responsibility, held to the end. The X13
+         candidate second sentence ("Much of our work is for clients who
+         have built with us before") does NOT ship: repeat-client copy lives
+         in the project block, and this page's one candidate line is waiting
+         on Mahesh's check with ProArc. -->
+    <section class="sv-close container">
+      <p class="sv-statement">Design, engineering, supervision and handover are one responsibility, and we hold it until the building is finished.</p>
+    </section>
+
+  </div>
+
+  <!-- 6 · The closing band — E1.2, the inverse of its page, and the one lit
+       surface on it. The register is the site's: 32px light on all
+       fifty-four pages that carry it. The footer returns to black. -->
+  <section class="sv-band" aria-label="Start a project">
+    <div class="container">
+      <p class="sv-band__line">Have a project in mind? Let&rsquo;s talk.</p>
+      <a class="sv-band__action" href="contact.html">Contact</a>
+    </div>
+  </section>
+
+</main>
+
+<!--
+  The footer. Black ground with its own #333333 top hairline — on a paper
+  page the closing band owns the switch and the footer shares the band's
+  ground, so the two are separated by structure and scale, never by colour
+  (E1.2a). On a page with no band the footer owns the switch itself (E1.2c).
+
+  The line is the decided site-wide copy. Skyline is retired everywhere,
+  the footer included (D-4): a skyline is towers, and it argues for the
+  three offices rather than the twenty-seven schools and shops. The second
+  sentence is X6-elastic — it names three disciplines, and ProArc's answer
+  on the discipline list changes this sentence and the Services blocks
+  together.
+
+  This footer is one of /ajman's three doors (the other two are Home's map
+  and About's story), so its Ajman link is the one link here that must never
+  break. It also carries the marketing route to /careers, which is why the
+  overlay refuses a careers item of its own.
+
+  Deliberately NOT here, each a live v1 fault this replaces: the wordmark
+  re-set as type in a <span class="brand">, a Testimonials item, "Projects"
+  where the decided label is Work, seven nav items where the nav is four,
+  the newsletter form posting to a contact.php that fatals on PHP 8, and six
+  dead href="#" links of which three were the social row.
+-->
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+
+    <p class="site-footer__line">The buildings a city grows up in. Architecture, engineering and project management from one Ajman office.</p>
+
+    <nav class="site-footer__nav" aria-label="Footer">
+      <ul class="site-footer__list">
+        <li><a class="site-footer__link" href="projects.html">Work</a></li>
+        <li><a class="site-footer__link" href="services.html">Services</a></li>
+        <li><a class="site-footer__link" href="about.html">About</a></li>
+        <li><a class="site-footer__link" href="contact.html">Contact</a></li>
+        <li><a class="site-footer__link" href="ajman.html">Ajman</a></li>
+        <li><a class="site-footer__link" href="careers.html">Careers</a></li>
+      </ul>
+    </nav>
+
+    <!-- Two socials, both verified live. Twitter/X is cut site-wide: the
+         handle is the CEO's personal account, not the practice's. -->
+    <ul class="site-footer__social">
+      <li><a class="site-footer__link" href="https://www.facebook.com/proarcarchitects/" rel="noopener">Facebook</a></li>
+      <li><a class="site-footer__link" href="https://www.instagram.com/proarchitects/" rel="noopener">Instagram</a></li>
+    </ul>
+
+    <p class="site-footer__legal">&copy; 2026 Proarc</p>
+
+  </div>
+</footer>
+
+<!--
+  R2 ships one script, and it is the menu.
+
+  What was here in v1 and is deliberately gone: GSAP, ScrollTrigger and
+  Lenis, pulled from three external CDNs, driving js/reveals.js (elements
+  fade and translate up as they scroll into view) and js/smooth-scroll.js
+  (scroll hijacking).
+
+  Three reasons, and any one of them is sufficient:
+
+  1. R2's motion language is decided and those are not it. "The site draws"
+     — all motion is line-work drawing itself: the scroll cue, the link
+     underlines, the Ajman map, this menu's wipe. No decorative fades, no
+     parallax, no sliders, no bounce.
+  2. Reduced motion must always show the finished state, and a reveal system
+     that starts every element at opacity 0 is one broken script away from a
+     blank page.
+  3. This repository is handed over as a whole, once. Three external CDN
+     dependencies in the chrome of a static site is a liability the handover
+     should not carry.
+
+  js/reveals.js, js/smooth-scroll.js and src/styles/animations.css are still
+  in the tree and still work; nothing loads them. If a screen turns out to
+  need one, it opts in through its own pageScript rather than every page
+  paying for it.
+-->
+
+<script src="js/menu.js" defer></script>
+<script src="js/services.js" defer></script>
+
+</body>
+</html>

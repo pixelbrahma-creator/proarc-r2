@@ -119,7 +119,9 @@
     "canonical": "https://proarc.ae/services",
     "ground": "black",
     "navLit": "services",
-    "navExact": true
+    "navExact": true,
+    "pageStylesheet": "services",
+    "pageScript": "services"
   },
 
   "about": {

@@ -184,6 +184,13 @@ Home's data comes from **`build/lib/home.js`** on the same terms: it consumes
 only what no other surface wants — the rooms' fallback forms and the
 selections that end in an ellipsis. **/ajman's comes from `build/lib/ajman.js`**
 on the same terms again: the district ledger's blocks and rows, and the marks.
+**Services' comes from `build/lib/services.js`**: the range drawn, generated
+from the fifteen records that carry a `configuration`. Its level vocabulary is
+explicit and **an unrecognised level throws** — a parser that shrugs draws a
+building shorter than its record, silently, and a wrong elevation looks exactly
+like a right one (E3.7). Basements are drawn below the datum; the footprint is
+the one invented value and is identical for every building (E3.3); no height is
+ever inferred for a record that holds none (E7.2).
 E7.3's west-to-east sweep is **not** either page's — it lives in
 `districts.js`, because both maps need the identical order and one map derived
 twice is how two surfaces start disagreeing about where a building is.
@@ -222,6 +229,15 @@ revert a curation. The reasons are in `_bmad/…/00i-D1-Curation-Log.md`.
 this repository, so running it here processes nothing; it now exits rather than
 writing the empty manifest that would silently strip every image from the site.
 On a clone, `build:manifest` is the right script.
+
+> **A green page is not a proportionate one.** Two builds running, the fault
+> that mattered most was invisible to every assertion: /ajman's ledger shipped
+> at 4,336px against its own ~1,900px arithmetic, and Services' range first
+> drew twelve units per storey on a forty-two-unit footprint — a ratio no
+> elevation has — and read as a bar chart rather than an elevation sheet. Both
+> were found by looking at the rendered page. **Screenshot the finished page at
+> full size before calling a screen done**, and look at it as a page rather
+> than as a checklist.
 
 > **A reveal needs a rendered "before", and a STICKY element does not get one
 > off-screen.** Every drawn surface ships finished and its script *arms* it, so

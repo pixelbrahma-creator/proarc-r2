@@ -17,6 +17,7 @@ const { render } = require('./lib/render');
 const work = require('./lib/work');
 const home = require('./lib/home');
 const ajman = require('./lib/ajman');
+const services = require('./lib/services');
 
 const ROOT = path.join(__dirname, '..');
 const SRC_DIR = path.join(ROOT, 'pages-src');
@@ -60,6 +61,8 @@ function main() {
       data = Object.assign({}, pageData, home.viewData(pageData.assetPrefix));
     } else if (ajman.hasViewData(srcName)) {
       data = Object.assign({}, pageData, ajman.viewData(pageData.assetPrefix));
+    } else if (services.hasViewData(srcName)) {
+      data = Object.assign({}, pageData, services.viewData(pageData.assetPrefix));
     }
 
     const source = fs.readFileSync(srcPath, 'utf8');
