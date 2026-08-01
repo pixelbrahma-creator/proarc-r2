@@ -1,0 +1,491 @@
+/* ===========================================================
+   Home — Screen 01, `01-home.md`.
+
+   One stylesheet for one page, and the page carries three
+   grounds (§2): paper for the claim and its caption strip,
+   black from the sentence to the map, paper for the
+   invitation. Every switch lands on a section boundary; the
+   footer's own black is the third.
+
+   Nothing is ever set on a photograph here — the hero's
+   caption sits below it and each room's evidence name sits in
+   the strip beneath the print, so the hard rule is satisfied
+   by composition and no scrim exists on this page.
+
+   #A6A6A6 appears only off-photo (8.63:1 on black). The one
+   value that is not a colour token's own name is the
+   structural line on dark: #595959 is --color-ink-secondary's
+   hex, and continuity §9 fixes it as the value a line may take
+   when it BOUNDS something on black. --color-hairline-dark
+   (#333333, 1.66:1) may only separate text sections, which is
+   the one place it is used below.
+   =========================================================== */
+
+/* -----------------------------------------------------------
+   1 · The claim — paper, squat (§4.1)
+   ----------------------------------------------------------- */
+
+/* Squat is specified, not incidental: the photograph must be in view
+   without scrolling at 1440. The band is padded, never sized to the
+   viewport — a full-height claim turns the page back into the splash
+   screen this hero replaced. */
+/* The top padding CLEARS THE CHROME, at every width. The plate hangs from
+   the top edge into the page (§3.1) and the trigger sits opposite it, so
+   the claim has to begin below them both — at 1440 the two happen to miss
+   each other, but between about 1025 and 1200 the claim's first line runs
+   straight under the plate, and at 375 it disappears behind it. Measured
+   against the rendered ink, not the element box: the box is 960px wide
+   while the line is 870, so a box test passes a page that collides. */
+.hm-claim-band {
+  padding-block: calc(var(--gap-component) + var(--gap-heading)) var(--gap-heading);
+  background: var(--color-surface);
+}
+
+/* The site's first Mega Splash. --fs-mega has existed since the token
+   layer was written and no page had reached for it until Home; it
+   collapses to H1 at 34px on phones, which is the intentional collapse
+   (spec §11), and the support line holds at its 16px floor beside it. */
+.hm-claim {
+  margin: 0;
+  max-inline-size: var(--measure-hero);
+  font-size: var(--fs-mega);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-mega);
+  letter-spacing: var(--ls-hero);
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+.hm-claim__support {
+  margin: var(--gap-block) 0 0;
+  color: var(--color-ink-secondary);
+}
+
+/* -----------------------------------------------------------
+   2 · The photograph (§4.2)
+   ----------------------------------------------------------- */
+
+.hm-hero {
+  margin: 0;
+  background: var(--color-surface);
+}
+
+/* Full bleed, at its own aspect ratio, never cropped (E3.6). G4's two
+   art-directed crops are still owed; until they land one composition
+   serves both widths — judged, never cropped by CSS. */
+.hm-hero__img {
+  inline-size: 100%;
+  block-size: auto;
+}
+
+/* Off-image, always — #A6A6A6 over a photograph falls to 3.46:1 and was
+   R1's first accessibility failure. This strip is ink on paper. */
+.hm-hero__caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--gap-block);
+  padding-block: var(--gap-block) var(--gap-component);
+}
+
+.hm-hero__name {
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-semibold);
+  color: var(--color-ink);
+}
+
+.hm-hero__name:hover,
+.hm-hero__name:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.hm-hero__place {
+  text-transform: uppercase;
+}
+
+/* -----------------------------------------------------------
+   3 · Links on black — the draw, never a fade
+   ----------------------------------------------------------- */
+
+/* The route links: "The practice →", "One Emirate, drawn →". Uppercase
+   label with a 1px rule at rest that thickens rather than fades. */
+.hm-link {
+  display: inline-block;
+  border-block-end: 1px solid currentcolor;
+  padding-block-end: 2px;
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  color: var(--color-on-dark);
+  transition: border-block-end-width var(--dur-fast) var(--ease-out);
+}
+
+.hm-link:hover,
+.hm-link:focus-visible {
+  border-block-end-width: 2px;
+}
+
+.hm-link:focus-visible {
+  outline: 2px solid var(--color-on-dark);
+  outline-offset: 4px;
+}
+
+/* Inside running prose (the mosque's name), where an uppercase label
+   would break the sentence. Weight carries it, never colour. */
+.hm-link-inline {
+  border-block-end: 1px solid currentcolor;
+  font-weight: var(--fw-semibold);
+  color: var(--color-on-dark);
+}
+
+.hm-link-inline:hover,
+.hm-link-inline:focus-visible {
+  border-block-end-width: 2px;
+}
+
+.hm-link-inline:focus-visible {
+  outline: 2px solid var(--color-on-dark);
+  outline-offset: 4px;
+}
+
+/* The middot between names — #595959 against #A6A6A6 names, so the
+   separator recedes without either becoming a colour signal. */
+.hm-sep {
+  color: var(--color-ink-secondary);
+}
+
+/* -----------------------------------------------------------
+   4 · The sentence (§5.1)
+   ----------------------------------------------------------- */
+
+.hm-sentence {
+  padding-block: var(--gap-section) 0;
+}
+
+.hm-sentence__line {
+  margin: 0;
+}
+
+.hm-sentence__route {
+  margin: var(--gap-heading) 0 0;
+}
+
+/* -----------------------------------------------------------
+   5 · The four rooms (§5.2) — fallback forms until G6 lands
+   ----------------------------------------------------------- */
+
+.hm-room {
+  padding-block-start: var(--gap-section);
+}
+
+/* A room's parts sit INSIDE one .container rather than each carrying the
+   class: a measure-limited element that is also the container measures
+   its own max-inline-size and then pays the gutters out of it, which
+   rendered the names wall 169px wide inside a 960px column. The recorded
+   rule — a measure-limited paragraph never carries .container itself. */
+.hm-room__print {
+  margin: 0;
+}
+
+/* The hairline-framed print — the fallback scale a mid-tier photograph
+   can honestly hold. One rule serves both proportions: the height cap
+   binds a landscape frame, the width cap binds a portrait one, and
+   neither is ever cropped (E3.6).
+
+   The frame BOUNDS an image, so it takes the structural value on black
+   (#595959, 3.00:1) and not --color-hairline-dark, which is 1.66:1 and
+   may only separate text sections (continuity §9). */
+.hm-room__img {
+  max-inline-size: 100%;
+  max-block-size: 56vh;
+  inline-size: auto;
+  block-size: auto;
+  border: 1px solid var(--color-ink-secondary);
+}
+
+/* learns' fallback: the names wall. It is the room's visual, so it is
+   set at display scale rather than at metadata scale — and it is a
+   SELECTION like every other room's quiet line, which is why it ends in
+   an ellipsis and states no total. */
+.hm-room__wall {
+  margin: 0;
+  /* A wall of names is a field, not reading prose — the display measure
+     (24ch) would stack ten names into a column. --measure-body at this
+     size runs three lines, which is what a wall looks like. */
+  max-inline-size: var(--measure-body);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-editorial);
+  letter-spacing: var(--ls-editorial);
+  color: var(--color-on-dark-body);
+}
+
+/* The strip: the verb at inline-start is the room's ONE link; the
+   evidence name sits opposite it. The print carries no caption of its
+   own — this line is the caption. */
+.hm-room__strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gap-block);
+  padding-block-start: var(--gap-block);
+}
+
+/* The colour is stated, not inherited: base.css gives every heading
+   --color-ink, and tokens.css lifts headings on a dark ground only for
+   the .t-* display classes. Without this the verb is #111111 on #000000
+   — invisible the moment any of it sits outside the link. */
+.hm-room__verb {
+  margin: 0;
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-h3);
+  letter-spacing: var(--ls-h3);
+  color: var(--color-on-dark);
+}
+
+/* The verb link is display-scale, so it takes the drawn underline
+   rather than the label rule: nothing at rest, drawn from the
+   inline-start edge on hover and focus. */
+.hm-room__verb .hm-link {
+  border-block-end: 0;
+  padding-block-end: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-transform: none;
+  position: relative;
+}
+
+/* The rule grows from the reading edge — `inline-size`, not scaleX, so
+   the draw runs the right way in Arabic without a mirrored rule.
+   transform-origin has no logical keyword; this does. */
+.hm-room__verb .hm-link::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-end: -4px;
+  inline-size: 0;
+  block-size: 1px;
+  background: currentcolor;
+  transition: inline-size var(--dur-fast) var(--ease-out);
+}
+
+.hm-room__verb .hm-link:hover::after,
+.hm-room__verb .hm-link:focus-visible::after {
+  inline-size: 100%;
+}
+
+.hm-room__evidence {
+  margin: 0;
+  font-size: var(--fs-metadata);
+  line-height: var(--lh-metadata);
+  color: var(--color-on-dark-secondary);
+}
+
+/* A selection of the rest — plain text, never links, so the room keeps
+   exactly one destination. The ellipsis is the argument. */
+.hm-room__quiet {
+  margin-block-start: var(--gap-tight);
+  max-inline-size: var(--measure-body);
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-metadata);
+  color: var(--color-on-dark-secondary);
+}
+
+/* -----------------------------------------------------------
+   6 · The Prays moment (§5.3)
+   ----------------------------------------------------------- */
+
+.hm-prays {
+  padding-block-start: var(--gap-section);
+}
+
+.hm-prays__verb {
+  margin: 0;
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-h2);
+  letter-spacing: var(--ls-h2);
+  color: var(--color-on-dark);
+}
+
+.hm-prays__line {
+  margin: var(--gap-block) 0 0;
+  max-inline-size: var(--measure-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-on-dark-secondary);
+}
+
+/* -----------------------------------------------------------
+   7 · The map — Option B, the constellation (§6.1, E7.1–E7.3)
+   ----------------------------------------------------------- */
+
+/* Separated from the mosque line by a #333333 hairline: decorative,
+   separating two text sections, which is the one thing 1.66:1 is
+   permitted to do. */
+.hm-map {
+  margin-block-start: var(--gap-section);
+  padding-block-start: var(--gap-section);
+  border-block-start: 1px solid var(--color-hairline-dark);
+}
+
+/* The marks are TRUE 5px (E7.1), which is only true if the drawing does
+   not scale under them. So the field takes one of three KNOWN widths —
+   never a fluid one — and --mark-scale cancels each one exactly:
+
+     ≥961px   840 wide (1.5× the authored 560) → marks × 0.6667
+     640–960  560 wide (the authored size)     → marks × 1
+     <640     320 wide (0.5714×)               → marks × 1.75
+
+   The positions scale and the marks do not, which is the whole of E7.1:
+   a constellation that spreads across the page while every mark stays
+   the size the spec fixed. No script is involved in any of it. */
+.hm-map__field {
+  --mark-scale: 0.6667;
+}
+
+.hm-map__svg {
+  inline-size: 840px;
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+.hm-mark {
+  fill: var(--color-on-dark);
+  transform: scale(var(--mark-scale));
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* The finished map is the SHIPPED state: with no script, and under
+   reduced motion, every mark is already placed. js/home.js arms the
+   animation by hiding the marks, then plays it once — so a broken
+   script leaves a complete map rather than an empty field. */
+.hm-map--armed .hm-mark {
+  transform: scale(0);
+}
+
+/* 140ms per mark, 34ms apart — the menu overlay's own values, because the
+   dots there ARE this choreography (09-menu §9 took it from E7.3). */
+.hm-map--drawing .hm-mark {
+  transform: scale(var(--mark-scale));
+  transition: transform 140ms ease-out;
+  transition-delay: calc(var(--mark-index) * 34ms);
+}
+
+.hm-map__line {
+  margin: var(--gap-heading) 0 0;
+}
+
+/* -----------------------------------------------------------
+   8 · The invitation (§6.2) — the one lit surface on the page
+   ----------------------------------------------------------- */
+
+.hm-invitation {
+  padding-block: calc(var(--gap-section-major) / 2);
+  background: var(--color-surface);
+}
+
+.hm-invitation__line {
+  margin: 0 0 var(--gap-block);
+  max-inline-size: var(--measure-h2);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-h2);
+  letter-spacing: var(--ls-h2);
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+.hm-invitation__action {
+  display: inline-block;
+  padding-block: var(--gap-tight);
+  padding-inline: var(--gap-heading);
+  border: 1px solid var(--color-ink);
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  color: var(--color-ink);
+  transition: background-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+
+.hm-invitation__action:hover,
+.hm-invitation__action:focus-visible {
+  background: var(--color-ink);
+  color: var(--color-surface);
+}
+
+/* -----------------------------------------------------------
+   9 · Breakpoints — restack, never shrink
+   ----------------------------------------------------------- */
+
+@media (max-width: 767px) {
+  /* The strip wraps with the verb on the first line and the name
+     beneath it (§5.2), rather than squeezing two items onto one. */
+  .hm-room__strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-inline);
+  }
+
+  /* A phone holds less height than a desktop, so the print is capped by
+     width there instead — still its own proportion, still uncropped. */
+  .hm-room__img {
+    max-block-size: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  /* The tokens step down at this breakpoint faster than the chrome does —
+     the plate keeps its full height while --gap-component halves — so the
+     clearance is restated rather than inherited. */
+  .hm-claim-band {
+    padding-block-start: calc(var(--gap-component) + var(--gap-heading) + var(--gap-block));
+  }
+}
+
+@media (max-width: 960px) {
+  .hm-map__field {
+    --mark-scale: 1;
+  }
+
+  .hm-map__svg {
+    inline-size: 560px;
+  }
+}
+
+@media (max-width: 639px) {
+  .hm-map__field {
+    --mark-scale: 1.75;
+  }
+
+  .hm-map__svg {
+    inline-size: 320px;
+  }
+}
+
+/* -----------------------------------------------------------
+   10 · Reduced motion
+   ----------------------------------------------------------- */
+
+/* tokens.css already clamps every transition to 0.01ms under reduce, so
+   nothing needs zeroing here. What DOES need stating is the delay: a
+   zero duration does not cancel a 34ms-per-mark stagger, and the map
+   would sit blank for its whole sweep. js/home.js does not arm at all
+   under reduce; this is the belt to that brace. */
+@media (prefers-reduced-motion: reduce) {
+  .hm-map--armed .hm-mark,
+  .hm-map--drawing .hm-mark {
+    transform: scale(var(--mark-scale));
+    transition-delay: 0s;
+  }
+}

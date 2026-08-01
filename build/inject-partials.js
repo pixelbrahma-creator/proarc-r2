@@ -15,6 +15,7 @@ const path = require('path');
 const { injectShell } = require('./lib/partials');
 const { render } = require('./lib/render');
 const work = require('./lib/work');
+const home = require('./lib/home');
 
 const ROOT = path.join(__dirname, '..');
 const SRC_DIR = path.join(ROOT, 'pages-src');
@@ -48,11 +49,15 @@ function main() {
       return;
     }
 
-    // The Work surfaces render from the records (build/lib/work.js) — the
-    // data is merged here so the sources stay structure and copy only.
-    const data = work.hasViewData(srcName)
-      ? Object.assign({}, pageData, work.viewData(srcName, pageData.assetPrefix))
-      : pageData;
+    // The Work surfaces render from the records (build/lib/work.js) and
+    // Home from build/lib/home.js — the data is merged here so the sources
+    // stay structure and copy only.
+    let data = pageData;
+    if (work.hasViewData(srcName)) {
+      data = Object.assign({}, pageData, work.viewData(srcName, pageData.assetPrefix));
+    } else if (home.hasViewData(srcName)) {
+      data = Object.assign({}, pageData, home.viewData(pageData.assetPrefix));
+    }
 
     const source = fs.readFileSync(srcPath, 'utf8');
     let compiled = injectShell(source, data);

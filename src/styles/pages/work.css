@@ -110,9 +110,10 @@
    The Work surfaces' decided H1 is Editorial, SENTENCE CASE ("Learns." —
    03-work §4.2.3), so the inherited transform is switched off here, scoped.
    Whether base.css keeps that rule at all is a Home-session decision. */
+/* The text-transform:none that used to sit here is gone with the sitewide
+   h1 uppercase it was fighting (base.css, decided at the Home build). */
 .wk-verb {
   margin: 0;
-  text-transform: none;
 }
 
 .wk-support {

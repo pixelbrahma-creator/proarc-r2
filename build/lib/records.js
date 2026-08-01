@@ -133,7 +133,33 @@ function statusRow(project, warn) {
     return null;
   }
   if (!project.status) return null;
-  return { label: 'Status', value: sentenceCase(project.status) };
+  if (project.status === 'Completed') return { label: 'Status', value: sentenceCase(project.status) };
+
+  /**
+   * NEVER SAY A BUILDING IS UNBUILT — Mahesh, 1 Aug 2026. This closes the
+   * status-row question that had been open since build session B.
+   *
+   * "Under construction", "Design stage", "Under design" and "Design
+   * development" are the site's only statements that a building does not
+   * stand, and they appear in exactly one place: this row, on the eight
+   * records that carry one. They are now suppressed, so a record in
+   * progress simply shows what it does hold — client, location,
+   * configuration — and the site never dates or discounts it.
+   *
+   * Two things deliberately NOT suppressed with it, because neither says
+   * anything about the building:
+   *
+   *   the E9 provenance caption ("· Visualisation") is a statement about
+   *   the IMAGE, and E9 exists precisely so a render never implies a
+   *   building that does not exist. Removing it would break the rule this
+   *   decision is otherwise consistent with.
+   *
+   *   the closing band's conditional ("the team behind Zamzam Tower"
+   *   rather than "that delivered") avoids claiming a delivery without
+   *   ever announcing the absence of one.
+   */
+  warn(`${project.slug}: status "${project.status}" suppressed — the site never says a building is unbuilt (Mahesh, 1 Aug).`);
+  return null;
 }
 
 function specRows(project, warn) {

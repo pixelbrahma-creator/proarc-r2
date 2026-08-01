@@ -32,7 +32,9 @@
     "canonical": "https://proarc.ae/",
     "ground": "black",
     "navLit": "",
-    "navExact": false
+    "navExact": false,
+    "pageStylesheet": "home",
+    "pageScript": "home"
   },
 
   "projects": {

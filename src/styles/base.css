@@ -53,16 +53,29 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-ink);
 }
 
-/* h1 = Hero Display (guideline §3.1): every h1 on this site is a short
-   marketing/section headline, never editorial project-narrative prose,
-   so the bold/uppercase register applies sitewide without needing a
-   separate .t-editorial class in markup. */
+/* h1 — DECIDED at the Home build (1 Aug 2026): the sitewide uppercase is
+   GONE. v1 made every h1 Hero Display (uppercase, bold) because every v1 h1
+   was a short marketing headline. R2's are not: the record pages set the
+   building's name in Editorial Display, Work opens on "Selected work",
+   /ajman on a two-line statement, About on the first sentence of its story.
+   The rule was leaking through inheritance — .t-editorial overrides weight
+   and size but not text-transform — so all 47 record pages were shipping
+   "SEASIDE HILLS RESIDENCE" against Screen 04's decided light sentence case,
+   and Work had to override it by hand.
+
+   text-transform is invisible to a textContent probe. It was found by a
+   screenshot and it is verified by one.
+
+   What stays here is the SHAPE of a top-level heading (its size and
+   leading), so an unclassed h1 is still a heading. The REGISTER is now
+   stated by the page: .t-hero for the uppercase display register,
+   .t-editorial for the light sentence-case one. Uppercase is never
+   inherited; a page that wants it asks for it. */
 h1 {
   font-size: var(--fs-h1);
   font-weight: var(--fw-bold);
   line-height: var(--lh-hero);
   letter-spacing: var(--ls-hero);
-  text-transform: uppercase;
 }
 
 h2 {

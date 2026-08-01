@@ -101,6 +101,18 @@ Summarised. The clause text governs; read it.
 - Heading levels follow document structure, not visual size. Never skip
   `h1` → `h3`. A large heading that is not the page's top-level heading is an
   `h2` styled at H1 size.
+- **A heading's REGISTER is stated by the page, never inherited.** base.css
+  gives `h1` its shape (size, leading) and nothing else; `.t-hero` is the
+  uppercase display register and `.t-editorial` the light sentence-case one.
+  v1's sitewide `h1 { text-transform: uppercase }` was deleted at the Home
+  build — it had been leaking through inheritance onto all 47 record pages,
+  which shipped their building names in caps against Screen 04's decided
+  register. **A transform is invisible to a textContent probe: verify type
+  transforms with a screenshot or a computed-style read, never by asserting
+  on text.**
+- **On a dark ground, state a heading's colour.** base.css colours every
+  heading `--color-ink` and tokens.css lifts only the `.t-*` display classes
+  under `.surface-dark`, so a bare `h2`/`h3` on black is #111111 on #000000.
 - `text-transform: uppercase` for uppercase. Never type capitals into content.
 - Metadata and spec lists are real `<table>` markup with `<th scope="row">`.
 - Set `lang` and `dir` on `<html>` and on every inline language switch.
@@ -162,6 +174,11 @@ npm run build            # = build:manifest && build:pages && build:projects
 
 Two page steps, because there are two kinds of page:
 
+Home's data comes from **`build/lib/home.js`** on the same terms: it consumes
+`records.js`, `work.js` (the plate) and `districts.js` (the marks) and derives
+only what no other surface wants — the rooms' fallback forms, the selections
+that end in an ellipsis, and the map's west-to-east sweep order.
+
 - **`build:pages`** compiles the 11 hand-authored pages from `pages-src/*.html`
   against `pages-src/meta.json`, which is the route contract: every page's
   output path, its ground (E1) and its two nav states. A route declared there
@@ -178,6 +195,13 @@ Two page steps, because there are two kinds of page:
   spec rows, the prose strips, the neighbours — because the Work surfaces want
   three of them too, and a second implementation is how two surfaces start
   disagreeing about one record.
+
+> **The derivatives are a vocabulary, not a pile.** `images.hero` and
+> `images.gallery` in `data/projects.json` address images by **slot index**,
+> so deleting an unreferenced derivative silently re-points every curation on
+> that record — the build refuses rather than shipping the wrong photograph.
+> Removing images is a **compaction** (renumber the files, rewrite the
+> curation, verify the output is byte-identical), never a tidy-up.
 
 **Which image leads a record is data, not filename order** (`build/lib/images.js`).
 `images.hero` names the gallery slot that leads and `images.gallery` names what

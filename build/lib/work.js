@@ -474,4 +474,8 @@ function viewData(srcName, prefix) {
   return {};
 }
 
-module.exports = { hasViewData, viewData, buildingNoun, rowPlace, searchText };
+// `plate` and `leadImage` are exported for Home (build/lib/home.js), whose
+// rooms show the same figure this file already derives for the Work
+// surfaces. Home re-deriving it is how two surfaces start disagreeing about
+// one photograph.
+module.exports = { hasViewData, viewData, buildingNoun, rowPlace, searchText, plate, leadImage };

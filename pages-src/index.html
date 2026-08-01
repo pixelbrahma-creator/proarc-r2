@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<!-- @include head -->
+</head>
+<body>
+<!-- @include header -->
+
+<!--
+  Home — index.html. Spec: 01-home.md. Copy authority:
+  ../_bmad/wds/E-Brand-Framework/04-copy-direction.md v3.3 §1, verbatim.
+
+  The page in one line: the claim → the photograph → the sentence → four
+  rooms → the mosque → the map → the invitation. Every section carries one
+  idea, one visual and one link, and NO DESTINATION REPEATS — which is why
+  the room prints are not links (their verb is), why Seaside Hills is
+  absent from the lives selection (the claim's caption already links it),
+  and why the map's marks are facts rather than controls.
+
+  Three grounds, three switches, all on section boundaries (§2): paper for
+  the claim and its caption, black from the sentence to the map, paper for
+  the invitation, then the footer returns to black. The W1 plate is a
+  visible black rectangle over the claim and dissolves into the page's own
+  black below it — by ground, not by script.
+
+  The four rooms ship in their FALLBACK forms: G6, the four at-tier
+  photographs, has no date. learns is the names wall; shops, works and
+  lives are hairline-framed prints. Each graduates to a full-bleed
+  photograph the day its image lands, with nothing around it restructured.
+-->
+<main id="main" class="hm">
+
+  <!-- 1 · The claim — paper, squat. The photograph must be in view without
+       scrolling at 1440, so this block is capped rather than filling the
+       viewport: a full-height claim turns the page back into the splash
+       screen this hero replaced. No link, no eyebrow, no scroll cue. -->
+  <section class="hm-claim-band">
+    <div class="container">
+      <h1 class="hm-claim">The buildings a city grows up in.</h1>
+      <p class="hm-claim__support t-body-lg">Since 2006, in Ajman.</p>
+    </div>
+  </section>
+
+  <!-- 2 · The photograph — full bleed, at its own aspect ratio, never
+       cropped (E3.6). Nothing is set on it: the caption sits below it on
+       paper, which is where the section's one link lives. -->
+  <figure class="hm-hero">
+    <img class="hm-hero__img" src="{{heroSrc}}"{{#if heroSrcset}} srcset="{{heroSrcset}}" sizes="100vw"{{/if}}
+         width="{{heroWidth}}" height="{{heroHeight}}" alt="{{heroName}}" fetchpriority="high" decoding="async">
+    <figcaption class="hm-hero__caption container">
+      <a class="hm-hero__name" href="{{heroHref}}">{{heroName}} <span aria-hidden="true">&rarr;</span></a>
+      <span class="hm-hero__place t-caption">{{heroPlace}}</span>
+    </figcaption>
+  </figure>
+
+  <!-- 3 · Black begins here, at the section boundary below the caption. -->
+  <div class="hm-dark surface-dark">
+
+    <section class="hm-sentence container">
+      <h2 class="hm-sentence__line t-editorial">Since 2006, we have drawn the schools, the shops, the offices and the homes of one Emirate.</h2>
+      <p class="hm-sentence__route"><a class="hm-link" href="{{aboutHref}}">The practice <span aria-hidden="true">&rarr;</span></a></p>
+    </section>
+
+    <!-- 4 · The four rooms — one pattern four times, in the sentence's
+         order: learns · shops · works · lives. The verb is the link; the
+         evidence name sits opposite it; the quiet line names a selection
+         and ends in an ellipsis. The quiet line is never a link, so the
+         room keeps exactly one destination. -->
+    {{#each rooms}}
+    <section class="hm-room">
+      <div class="container">
+        {{#if roomPrint}}
+        <figure class="hm-room__print">
+          <img class="hm-room__img" src="{{printSrc}}"{{#if printSrcset}} srcset="{{printSrcset}}" sizes="(max-width: 1200px) 100vw, 1120px"{{/if}}
+               width="{{printWidth}}" height="{{printHeight}}" alt="{{roomEvidence}}" loading="lazy" decoding="async">
+        </figure>
+        {{/if}}
+        {{#if roomWall}}
+        <p class="hm-room__wall">{{roomWallHtml}}</p>
+        {{/if}}
+        <div class="hm-room__strip">
+          <h3 class="hm-room__verb"><a class="hm-link" href="{{roomHref}}">{{roomVerb}} <span aria-hidden="true">&rarr;</span></a></h3>
+          {{#if roomEvidence}}<p class="hm-room__evidence">{{roomEvidence}}{{#if roomProvenance}} <span class="hm-sep">&middot;</span> {{roomProvenance}}{{/if}}</p>{{/if}}
+        </div>
+        {{#if roomQuietHtml}}
+        <p class="hm-room__quiet">{{roomQuietHtml}}</p>
+        {{/if}}
+      </div>
+    </section>
+    {{/each}}
+
+    <!-- 5 · The Prays moment — the fifth verb, one building behind it, so
+         the line ends in a full stop and never the selection-ellipsis. The
+         heading is a heading (a set of one has no page); the mosque's name
+         is the moment's one link. Civic work is shown, never narrated. -->
+    <section class="hm-prays container">
+      <h3 class="hm-prays__verb">And prays.</h3>
+      <p class="hm-prays__line">Prayer runs through it all. <a class="hm-link-inline" href="{{mosqueHref}}">Al Ghala Mosque</a>, Al Jurf &mdash; completed 2009.</p>
+    </section>
+
+    <!-- 6 · The map — Option B, the constellation. The marks are the
+         page's own, generated from the records at a true 5px (E7.1); no
+         mark is placed by inference (E7.2) and no mark carries a date
+         (E7.3), so they sweep west to east and no counter runs. No section
+         label: the link line is the caption. -->
+    <section class="hm-map container" aria-label="Proarc&rsquo;s buildings across the Emirate">
+      <div class="hm-map__field" data-map>
+        <svg class="hm-map__svg" viewBox="{{mapViewBox}}" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet">{{mapMarksHtml}}</svg>
+      </div>
+      <p class="hm-map__line"><a class="hm-link" href="{{ajmanHref}}">One Emirate, drawn <span aria-hidden="true">&rarr;</span></a></p>
+    </section>
+
+  </div>
+
+  <!-- 7 · The invitation — paper, the inverse of the page, and the one lit
+       surface on it. The brightest moment is the moment the page asks for
+       the project. The footer returns to black below it. -->
+  <section class="hm-invitation" aria-label="Start a project">
+    <div class="container">
+      <p class="hm-invitation__line">Have a project in mind? Let&rsquo;s talk.</p>
+      <a class="hm-invitation__action" href="{{contactHref}}">Contact</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- @include footer -->
+<!-- @include scripts -->
+</body>
+</html>
