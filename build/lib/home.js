@@ -243,12 +243,10 @@ function roomData(db, manifest, prefix, room) {
 function mapData() {
   const marks = D.buildDistrictMarks();
 
-  // E7.3 — a spatial sweep, west to east. districts.js lays marks down in
-  // authored district order (which is by size), and a sweep that ran
-  // largest-district-first would read as a ranking of places.
-  const swept = marks.marks
-    .map((m, i) => ({ x: m.x, y: m.y, source: i }))
-    .sort((a, b) => a.x - b.x || a.y - b.y || a.source - b.source);
+  // E7.3 — a spatial sweep, west to east. The sort lives in districts.js
+  // because /ajman sweeps the same marks, and one map derived twice is how
+  // two surfaces start disagreeing about where a building is.
+  const swept = D.sweepOrder(marks.marks);
 
   // The circles are generated rather than looped in the page source: the
   // only per-mark value is its index (the 34ms stagger reads it in CSS),

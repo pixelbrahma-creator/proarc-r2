@@ -6,7 +6,9 @@
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="{{title}}">
 <meta property="og:description" content="{{description}}">
-<meta property="og:image" content="{{ogImage}}">
+<!-- Conditional: /ajman has no photograph, and content="" is a broken tag
+     rather than an absent one. The relative PATH is the SEO pass's to fix. -->
+{{#if ogImage}}<meta property="og:image" content="{{ogImage}}">{{/if}}
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="shortcut icon" href="{{assetPrefix}}images/ui/favicon.ico">

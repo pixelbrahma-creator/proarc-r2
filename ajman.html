@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>One Emirate. Since 2006. — Proarc</title>
+<meta name="description" content="All but one of Proarc's buildings stand in Ajman. The one that does not is a mall in Umm Al Quwain.">
+<link rel="canonical" href="https://proarc.ae/ajman">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="One Emirate. Since 2006. — Proarc">
+<meta property="og:description" content="All but one of Proarc's buildings stand in Ajman. The one that does not is a mall in Umm Al Quwain.">
+<!-- Conditional: /ajman has no photograph, and content="" is a broken tag
+     rather than an absent one. The relative PATH is the SEO pass's to fix. -->
+
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="shortcut icon" href="images/ui/favicon.ico">
+
+<link rel="stylesheet" href="src/styles/tokens.css">
+<link rel="preload" href="assets/fonts/general-sans/GeneralSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/general-sans/GeneralSans-Semibold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="src/styles/fonts.css">
+<link rel="stylesheet" href="src/styles/tokens-layout.css">
+<link rel="stylesheet" href="src/styles/base.css">
+<link rel="stylesheet" href="src/styles/layout.css">
+<link rel="stylesheet" href="src/styles/components.css">
+<link rel="stylesheet" href="src/styles/pages/ajman.css">
+
+</head>
+<body>
+<!--
+  The site's chrome and its one navigation surface. Spec: 09-menu.md.
+
+  Three things sit here, and the order below is the tab order: the trigger
+  (top inline-start), the wordmark plate (top inline-end), and the overlay
+  they open. C-1 is the decided arrangement — "the logo on one side and the
+  three lines on the other" — and both corners flip in RTL by logical
+  properties alone; the artwork never mirrors (§8).
+
+  The chrome is NOT duplicated inside the overlay. It is one set of elements
+  painted above it, which is what makes the identity-chrome field rule
+  (E13.2) free: the plate and the pill carry a permanent #000000 field, so
+  paper reveals the field and the overlay's own black dissolves it. No scroll
+  listener, no threshold, no colour swap, nothing to desync.
+-->
+
+<button class="chrome-trigger" type="button"
+        data-menu-trigger
+        aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
+  <span class="chrome-trigger__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+</button>
+
+<a class="chrome-plate" href="index.html">
+  <img class="chrome-plate__mark"
+       src="images/ui/logo-mark.webp"
+       alt="Proarc — home"
+       width="330" height="117" decoding="async">
+</a>
+
+<!-- The nib: the white hairline that leads the wipe. Decoration, and it
+     leaves the flow entirely when it is not running. -->
+<span class="menu-nib" data-menu-nib aria-hidden="true"></span>
+
+<div class="menu-overlay" id="site-menu" data-menu-overlay inert>
+  <div class="menu-overlay__regions">
+
+    <nav class="menu-nav" aria-label="Main">
+      <ul class="menu-nav__list">
+        <li class="menu-nav__row"><a class="menu-nav__item" href="projects.html" data-menu-work>Work</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="services.html">Services</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="about.html">About</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!--
+      The centre holds one idea at a time (G-4, "the swap"): the
+      constellation at rest, the preview while WORK is hovered or focused,
+      never both. The swap is instant and has no animation of its own — a
+      transition here would compete with the open.
+    -->
+    <div class="menu-centre" data-menu-centre>
+      <svg class="menu-constellation" viewBox="0 0 560 440" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><circle class="menu-dot" style="--dot-index:0" cx="380" cy="146" r="3.5"></circle><circle class="menu-dot" style="--dot-index:1" cx="377" cy="145" r="3.5"></circle><circle class="menu-dot" style="--dot-index:2" cx="411" cy="138" r="3.5"></circle><circle class="menu-dot" style="--dot-index:3" cx="384" cy="150" r="3.5"></circle><circle class="menu-dot" style="--dot-index:4" cx="376" cy="135" r="3.5"></circle><circle class="menu-dot" style="--dot-index:5" cx="410" cy="133" r="3.5"></circle><circle class="menu-dot" style="--dot-index:6" cx="439" cy="319" r="3.5"></circle><circle class="menu-dot" style="--dot-index:7" cx="439" cy="308" r="3.5"></circle><circle class="menu-dot" style="--dot-index:8" cx="461" cy="289" r="3.5"></circle><circle class="menu-dot" style="--dot-index:9" cx="454" cy="317" r="3.5"></circle><circle class="menu-dot" style="--dot-index:10" cx="474" cy="294" r="3.5"></circle><circle class="menu-dot" style="--dot-index:11" cx="474" cy="280" r="3.5"></circle><circle class="menu-dot" style="--dot-index:12" cx="187" cy="75" r="3.5"></circle><circle class="menu-dot" style="--dot-index:13" cx="149" cy="104" r="3.5"></circle><circle class="menu-dot" style="--dot-index:14" cx="158" cy="85" r="3.5"></circle><circle class="menu-dot" style="--dot-index:15" cx="176" cy="62" r="3.5"></circle><circle class="menu-dot" style="--dot-index:16" cx="196" cy="95" r="3.5"></circle><circle class="menu-dot" style="--dot-index:17" cx="350" cy="350" r="3.5"></circle><circle class="menu-dot" style="--dot-index:18" cx="367" cy="362" r="3.5"></circle><circle class="menu-dot" style="--dot-index:19" cx="378" cy="361" r="3.5"></circle><circle class="menu-dot" style="--dot-index:20" cx="371" cy="396" r="3.5"></circle><circle class="menu-dot" style="--dot-index:21" cx="242" cy="366" r="3.5"></circle><circle class="menu-dot" style="--dot-index:22" cx="239" cy="375" r="3.5"></circle><circle class="menu-dot" style="--dot-index:23" cx="320" cy="346" r="3.5"></circle><circle class="menu-dot" style="--dot-index:24" cx="133" cy="174" r="3.5"></circle><circle class="menu-dot" style="--dot-index:25" cx="332" cy="130" r="3.5"></circle><circle class="menu-dot" style="--dot-index:26" cx="96" cy="209" r="3.5"></circle><circle class="menu-dot" style="--dot-index:27" cx="308" cy="201" r="3.5"></circle></svg>
+      <div class="menu-preview" data-menu-preview><div class="menu-preview__grid"><a class="menu-preview__item" href="projects/seasidehills.html"><img class="menu-preview__thumb" src="images/projects/seasidehills/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Seaside Hills Residence</span></a><a class="menu-preview__item" href="projects/habitatschool.html"><img class="menu-preview__thumb" src="images/projects/habitatschool/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Habitat School</span></a><a class="menu-preview__item" href="projects/souksalah.html"><img class="menu-preview__thumb" src="images/projects/souksalah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Souk Salah</span></a><a class="menu-preview__item" href="projects/ajmanbank.html"><img class="menu-preview__thumb" src="images/projects/ajmanbank/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Ajman Bank Headquarters</span></a><a class="menu-preview__item" href="projects/cityuniversity.html"><img class="menu-preview__thumb" src="images/projects/cityuniversity/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">City University Campus</span></a><a class="menu-preview__item" href="projects/alghalamosque.html"><img class="menu-preview__thumb" src="images/projects/alghalamosque/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Al Ghala Mosque</span></a></div><a class="menu-preview__exit" href="projects.html">All projects <span class="menu-preview__arrow" aria-hidden="true">&rarr;</span></a></div>
+    </div>
+
+    <div class="menu-contact">
+      <a class="menu-contact__item" href="tel:+97167446633"><span dir="ltr">+971 6 744 6633</span></a>
+      <a class="menu-contact__item" href="mailto:info@proarc.ae"><span dir="ltr">info@proarc.ae</span></a>
+      <!--
+        The AR switch is a reserved slot, not a control: the overlay is the
+        one site-wide chrome surface, so the language switch belongs here
+        when the bilingual build lands. Nothing renders until then, and an
+        empty box is not shipped in the meantime (§9 rule 4).
+
+        The address line is CUT and the cut is a decision (§8): v1's
+        "13003, Ajman, UAE" is a PO Box wearing an address label on every
+        page. Contact carries the full facts row. Restoring a line here is
+        a consolidation question, never a silent build decision.
+      -->
+    </div>
+
+  </div>
+</div>
+
+
+<!--
+  /ajman — the discovered chapter. Spec: 05-ajman.md. Copy authority:
+  ../_bmad/wds/E-Brand-Framework/04-copy-direction.md v3.3 §2a, verbatim.
+
+  The page in one line: the statement → the standing map with the district
+  ledger scrolling beside it → the schools door → the authority sentence →
+  [the timeline, hidden] → the inverted band → the footer.
+
+  ONE GROUND, END TO END (§2). Black from the statement to the authority
+  sentence, one inverted white band at the close, footer black. Two switches,
+  both on section boundaries. There is NO FORCED PAPER PANEL on this page —
+  the client wall is About's, where §1.5a is satisfied by the page rather
+  than by an exception. Do not reintroduce one.
+
+  E1.4 does not apply here. Home's opening statement sits on paper because
+  its first act must not read as a treatment applied to a photograph;
+  /ajman has no photograph, and the discovered chapter is a narrative
+  surface. Do not extend the paper-claim exception by analogy.
+
+  No breadcrumb and no back link: /ajman is a top-level page, not a child,
+  and it is deliberately off-nav — reached from three doors only (the Home
+  map, the About story, the footer).
+
+  The map ships as OPTION B, the constellation: marks and nothing else, no
+  coastline, no boundaries, no joining lines, and — decided at this build —
+  no labels either. The ledger is the legend at every width.
+-->
+<main id="main" class="aj">
+
+  <div class="aj-dark surface-dark">
+
+    <!-- 1 · The statement (§4.1). Squat by decision: the map must be at
+         least partly in view at 1280×720, the same rule as Home's hero and
+         for the same reason — a full-viewport statement turns the page into
+         a splash screen. Numberless (E12): "all but one" rides the "one"
+         exemption exactly as "Every campus but one" does. -->
+    <section class="aj-statement container">
+      <h1 class="aj-statement__line t-editorial">One Emirate.<br>Since 2006.</h1>
+      <p class="aj-statement__support t-body-lg">All but one of Proarc&rsquo;s buildings stand in Ajman. The one that does not is a mall in Umm Al Quwain.</p>
+    </section>
+
+    <!-- 2 · The standing map and the district ledger — ONE COMPONENT (§3.1,
+         §3.4). Work's standing-frame pattern with a map in the frame: the
+         map column is sticky and holds its place while the whole ledger
+         scrolls past it. The naive side-by-side was rejected on arithmetic
+         (a ~440px map beside a ~1,900px ledger leaves ~1,400px of empty
+         black), and a full-width map with the ledger below puts the answer
+         off-screen.
+
+         THE INTERACTION, AS OPTION B REWRITES IT. §3.4 specifies the map as
+         the index and the ledger as the answer — but that was written
+         against artwork that does not exist. With no polygons there is
+         nothing on the map to touch, and marks are not hit targets (47 ×
+         44px do not fit 375px, §3.4 rule 3). So the direction reverses: the
+         LEDGER is the control surface and the MAP answers it. Hover or
+         focus anywhere inside a district block and its marks hold #FFFFFF
+         while every other mark drops to #A6A6A6 — the page's own rest and
+         current grammar from §3.3, two measured tokens, never opacity.
+
+         It adds no tab stop: every row is already a link, so focus drives
+         it exactly as hover does and the keyboard reaches all of it. The
+         value change on the marks is an ECHO of a signal the block already
+         carries in weight and rule, never the sole carrier of it.
+
+         The blocks with no marks — "Also in Ajman" and the record outside
+         the Emirate — carry no data-district and do not participate. Those
+         buildings are not on the map, and a block that lit without the map
+         answering would say they were. -->
+    <section class="aj-standing" data-standing aria-label="Proarc&rsquo;s buildings, by district">
+      <div class="container aj-standing__grid">
+
+        <div class="aj-standing__map">
+          <div class="aj-map" data-map>
+            <svg class="aj-map__svg" viewBox="0 0 560 440" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><circle class="aj-mark" data-district="marina-and-creek" style="--mark-index:0" cx="96" cy="209" r="5"></circle><circle class="aj-mark" data-district="al-khor" style="--mark-index:1" cx="133" cy="174" r="5"></circle><circle class="aj-mark" data-district="al-zorah" style="--mark-index:2" cx="149" cy="104" r="5"></circle><circle class="aj-mark" data-district="al-zorah" style="--mark-index:3" cx="158" cy="85" r="5"></circle><circle class="aj-mark" data-district="al-zorah" style="--mark-index:4" cx="176" cy="62" r="5"></circle><circle class="aj-mark" data-district="al-zorah" style="--mark-index:5" cx="187" cy="75" r="5"></circle><circle class="aj-mark" data-district="al-zorah" style="--mark-index:6" cx="196" cy="95" r="5"></circle><circle class="aj-mark" data-district="emirates-city" style="--mark-index:7" cx="239" cy="375" r="5"></circle><circle class="aj-mark" data-district="emirates-city" style="--mark-index:8" cx="242" cy="366" r="5"></circle><circle class="aj-mark" data-district="rashdiya" style="--mark-index:9" cx="308" cy="201" r="5"></circle><circle class="aj-mark" data-district="aalia" style="--mark-index:10" cx="320" cy="346" r="5"></circle><circle class="aj-mark" data-district="hamidiya" style="--mark-index:11" cx="332" cy="130" r="5"></circle><circle class="aj-mark" data-district="aamra" style="--mark-index:12" cx="350" cy="350" r="5"></circle><circle class="aj-mark" data-district="aamra" style="--mark-index:13" cx="367" cy="362" r="5"></circle><circle class="aj-mark" data-district="aamra" style="--mark-index:14" cx="371" cy="396" r="5"></circle><circle class="aj-mark" data-district="al-jurf" style="--mark-index:15" cx="376" cy="135" r="5"></circle><circle class="aj-mark" data-district="al-jurf" style="--mark-index:16" cx="377" cy="145" r="5"></circle><circle class="aj-mark" data-district="aamra" style="--mark-index:17" cx="378" cy="361" r="5"></circle><circle class="aj-mark" data-district="al-jurf" style="--mark-index:18" cx="380" cy="146" r="5"></circle><circle class="aj-mark" data-district="al-jurf" style="--mark-index:19" cx="384" cy="150" r="5"></circle><circle class="aj-mark" data-district="al-jurf" style="--mark-index:20" cx="410" cy="133" r="5"></circle><circle class="aj-mark" data-district="al-jurf" style="--mark-index:21" cx="411" cy="138" r="5"></circle><circle class="aj-mark" data-district="al-tallah" style="--mark-index:22" cx="439" cy="308" r="5"></circle><circle class="aj-mark" data-district="al-tallah" style="--mark-index:23" cx="439" cy="319" r="5"></circle><circle class="aj-mark" data-district="al-tallah" style="--mark-index:24" cx="454" cy="317" r="5"></circle><circle class="aj-mark" data-district="al-tallah" style="--mark-index:25" cx="461" cy="289" r="5"></circle><circle class="aj-mark" data-district="al-tallah" style="--mark-index:26" cx="474" cy="280" r="5"></circle><circle class="aj-mark" data-district="al-tallah" style="--mark-index:27" cx="474" cy="294" r="5"></circle></svg>
+          </div>
+        </div>
+
+        <!-- The ledger is the page's inventory and is deliberately MORE
+             COMPLETE than the map can be (§4.2): it carries the records
+             whose data names no district and the one outside the Emirate,
+             because E7.2 places no mark by inference. NO COUNTS ON ANY HEAD
+             — the rows are the count. -->
+        <div class="aj-ledger">
+          
+          <section class="aj-block" data-district="al-jurf">
+            <h2 class="aj-block__head">Al Jurf</h2>
+            <ul class="aj-block__rows">
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/habitatschool.html">Habitat School</a>
+                <span class="aj-row__meta">2014</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/citylifejurf.html">City Life Mall, Jurf</a>
+                <span class="aj-row__meta">2013</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/woodlem.html">Woodlem Park Private School</a>
+                <span class="aj-row__meta">2017</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/royalfurniture.html">Royal Furniture</a>
+                
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/marksavealjurf.html">Mark &amp; Save, Al Jurf</a>
+                
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/edu-woodlemparkaljurf.html">Woodlem Park School, Al Jurf</a>
+                <span class="aj-row__meta">2017</span>
+              </li>
+              
+            </ul>
+          </section>
+          
+          <section class="aj-block" data-district="al-tallah">
+            <h2 class="aj-block__head">Al Tallah</h2>
+            <ul class="aj-block__rows">
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/cityschool.html">City School</a>
+                <span class="aj-row__meta">2016</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/citylifetallah.html">City Life, Al Tallah II</a>
+                <span class="aj-row__meta">2016</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/marksavealtallah.html">Mark &amp; Save, Al Tallah</a>
+                
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/edu-habitataltallah.html">Habitat School, Al Tallah</a>
+                <span class="aj-row__meta">2017</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/frontlineschool.html">Frontline International School</a>
+                <span class="aj-row__meta">2016</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/citylifealtallah.html">City Life, Al Tallah</a>
+                
+              </li>
+              
+            </ul>
+          </section>
+          
+          <section class="aj-block" data-district="al-zorah">
+            <h2 class="aj-block__head">Al Zorah</h2>
+            <ul class="aj-block__rows">
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/seasidehills.html">Seaside Hills Residence</a>
+                
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/exclusivevillas.html">Exclusive Villas</a>
+                
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/gfloorpenthouse.html">G+8 Floor + Penthouse</a>
+                
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/deca-035.html">DECA 035 — Al Zorah Marina Residences</a>
+                <span class="aj-row__meta">Visualisation</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/sealine.html">Sealine Residences</a>
+                
+              </li>
+              
+            </ul>
+          </section>
+          
+          <section class="aj-block" data-district="aamra">
+            <h2 class="aj-block__head">Aamra</h2>
+            <ul class="aj-block__rows">
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/azhagarden.html">Azha Garden Residence</a>
+                
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/one-678.html">One 678</a>
+                <span class="aj-row__meta">Visualisation</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/bluebell-residence.html">Bluebell Residence</a>
+                <span class="aj-row__meta">Visualisation</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/azha-park-residences.html">Azha Park Residences</a>
+                <span class="aj-row__meta">Visualisation</span>
+              </li>
+              
+            </ul>
+          </section>
+          
+          <section class="aj-block" data-district="emirates-city">
+            <h2 class="aj-block__head">Emirates City</h2>
+            <ul class="aj-block__rows">
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/emiratescity.html">Emirates City D1 Tower</a>
+                
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/star-giga-tower.html">Star Giga Tower</a>
+                <span class="aj-row__meta">Visualisation</span>
+              </li>
+              
+            </ul>
+          </section>
+          
+          <section class="aj-block" data-district="aalia">
+            <h2 class="aj-block__head">Aalia</h2>
+            <ul class="aj-block__rows">
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/zamzam-tower.html">Zamzam Tower</a>
+                
+              </li>
+              
+            </ul>
+          </section>
+          
+          <section class="aj-block" data-district="al-khor">
+            <h2 class="aj-block__head">Al Khor</h2>
+            <ul class="aj-block__rows">
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/citylifekhor.html">City Life, Al Khor</a>
+                <span class="aj-row__meta">2016</span>
+              </li>
+              
+            </ul>
+          </section>
+          
+          <section class="aj-block" data-district="hamidiya">
+            <h2 class="aj-block__head">Hamidiya</h2>
+            <ul class="aj-block__rows">
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/edu-woodlemparkhamidiya.html">Woodlem Park School, Hamidiya</a>
+                <span class="aj-row__meta">2021</span>
+              </li>
+              
+            </ul>
+          </section>
+          
+          <section class="aj-block" data-district="marina-and-creek">
+            <h2 class="aj-block__head">Marina &amp; Creek</h2>
+            <ul class="aj-block__rows">
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/gateway.html">Gateway Residences</a>
+                
+              </li>
+              
+            </ul>
+          </section>
+          
+          <section class="aj-block" data-district="rashdiya">
+            <h2 class="aj-block__head">Rashdiya</h2>
+            <ul class="aj-block__rows">
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/marksaverashdiya.html">Mark &amp; Save, Rashdiya</a>
+                
+              </li>
+              
+            </ul>
+          </section>
+          
+          <section class="aj-block">
+            <h2 class="aj-block__head">Also in Ajman</h2>
+            <ul class="aj-block__rows">
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/souksalah.html">Souk Salah</a>
+                <span class="aj-row__meta">2015</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/ajmanbank.html">Ajman Bank Headquarters</a>
+                <span class="aj-row__meta">2015</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/cityuniversity.html">City University Campus</a>
+                <span class="aj-row__meta">2017</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/alghalamosque.html">Al Ghala Mosque</a>
+                <span class="aj-row__meta">2009</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/rosetower.html">Rose Tower</a>
+                
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/blacksquare.html">The Black Square</a>
+                <span class="aj-row__meta">2011</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/edu-crownbritish.html">Crown British School</a>
+                <span class="aj-row__meta">2021</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/edu-cityamerican.html">City American School</a>
+                <span class="aj-row__meta">2020</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/greenbuildings.html">Green Buildings</a>
+                
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/edu-northgatebritish.html">North Gate British School</a>
+                <span class="aj-row__meta">2024</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/edu-metropolitan.html">Metropolitan School</a>
+                <span class="aj-row__meta">2024</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/carsouq.html">Car Souq</a>
+                
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/edu-ajmanamerican.html">Ajman American School</a>
+                <span class="aj-row__meta">2017</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/homesrus.html">Homes R Us</a>
+                
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/edu-delhiprivate.html">Delhi Private School</a>
+                <span class="aj-row__meta">2017</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/edu-cityuniversity.html">City University</a>
+                <span class="aj-row__meta">2017</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/jeddahheights.html">Jeddah Heights</a>
+                <span class="aj-row__meta">2018</span>
+              </li>
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/rholding.html">R Holding Head Office</a>
+                
+              </li>
+              
+            </ul>
+          </section>
+          
+          <section class="aj-block">
+            <h2 class="aj-block__head">Umm Al Quwain</h2>
+            <ul class="aj-block__rows">
+              
+              <li class="aj-row">
+                <a class="aj-row__name" href="projects/citymalluaq.html">City Mall, Umm Al Quwain</a>
+                <span class="aj-row__meta">2016</span>
+              </li>
+              
+            </ul>
+          </section>
+          
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3 · The schools (§5) — the page's one outbound content link besides
+         the ledger's names and the invitation. The VERB is the link and the
+         page it lands on is called Schools: the threshold performs E10.1's
+         translation once. No photograph — the map is this page's image. -->
+    <section class="aj-schools container">
+      <h2 class="aj-schools__line t-editorial">Every campus but one is in Ajman.</h2>
+      <p class="aj-schools__support">Habitat, Woodlem Park, City School, DPS, and the Emirate&rsquo;s universities. School groups return to Proarc campus after campus.</p>
+      <p class="aj-schools__route"><a class="aj-link" href="projects/schools.html">Learns <span aria-hidden="true">&rarr;</span></a></p>
+    </section>
+
+    <!-- 4 · The authority sentence (§6.1) — W8's canonical home. NAMED, NOT
+         COUNTED: two of the four are federal bodies, not Ajman's, so v4's
+         "four Ajman authorities" is not what the marks say. STATED, NOT
+         JUSTIFIED: it says they commissioned the practice and stops,
+         because Ajman Sewerage and FEWA have no building among the 47 and
+         the sentence must not imply one. No section label above it — the
+         sentence introduces itself (§9.9 bans invented section labels).
+
+         X2 rides here: the mosque's client reads "Ministry of Awqaf and
+         Islamic Affairs" in the record and "General Authority of Islamic
+         Affairs & Endowments" on the mark. One body, two names, three
+         surfaces. The spec's wording ships; the gate stays open. -->
+    <section class="aj-authority container">
+      <h2 class="aj-authority__line t-editorial">Ajman&rsquo;s Municipality and Planning Department, Ajman Sewerage, the Federal Electricity and Water Authority and the General Authority of Islamic Affairs and Endowments have all commissioned Proarc.</h2>
+      <p class="aj-authority__support">Souk Salah, for the Municipality. Al Ghala Mosque, for the General Authority. Both are in the list above.</p>
+    </section>
+
+    <!-- 5 · The timeline (§8) — the same inventory on a different axis,
+         *when* rather than *where*. It ships HIDDEN and turns ITSELF on:
+         build/lib/ajman.js computes the gate from the data every build, so
+         the section appears the day the Year field reaches 40 of 47 and
+         nobody has to remember. Until then it renders nothing at all — a
+         pending section ships hidden, never as an empty box. -->
+    
+
+  </div>
+
+  <!-- 6 · The closing band — E1.2, the inverse of its page, and the ONE LIT
+       SURFACE on the whole of it. The brightest moment is the moment the
+       page asks for the project. No project parameter: this is the site's
+       general invitation, not a record's. The footer returns to black. -->
+  <section class="aj-band" aria-label="Start a project">
+    <div class="container">
+      <p class="aj-band__line">Have a project in mind? Let&rsquo;s talk.</p>
+      <a class="aj-band__action" href="contact.html">Contact</a>
+    </div>
+  </section>
+
+</main>
+
+<!--
+  The footer. Black ground with its own #333333 top hairline — on a paper
+  page the closing band owns the switch and the footer shares the band's
+  ground, so the two are separated by structure and scale, never by colour
+  (E1.2a). On a page with no band the footer owns the switch itself (E1.2c).
+
+  The line is the decided site-wide copy. Skyline is retired everywhere,
+  the footer included (D-4): a skyline is towers, and it argues for the
+  three offices rather than the twenty-seven schools and shops. The second
+  sentence is X6-elastic — it names three disciplines, and ProArc's answer
+  on the discipline list changes this sentence and the Services blocks
+  together.
+
+  This footer is one of /ajman's three doors (the other two are Home's map
+  and About's story), so its Ajman link is the one link here that must never
+  break. It also carries the marketing route to /careers, which is why the
+  overlay refuses a careers item of its own.
+
+  Deliberately NOT here, each a live v1 fault this replaces: the wordmark
+  re-set as type in a <span class="brand">, a Testimonials item, "Projects"
+  where the decided label is Work, seven nav items where the nav is four,
+  the newsletter form posting to a contact.php that fatals on PHP 8, and six
+  dead href="#" links of which three were the social row.
+-->
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+
+    <p class="site-footer__line">The buildings a city grows up in. Architecture, engineering and project management from one Ajman office.</p>
+
+    <nav class="site-footer__nav" aria-label="Footer">
+      <ul class="site-footer__list">
+        <li><a class="site-footer__link" href="projects.html">Work</a></li>
+        <li><a class="site-footer__link" href="services.html">Services</a></li>
+        <li><a class="site-footer__link" href="about.html">About</a></li>
+        <li><a class="site-footer__link" href="contact.html">Contact</a></li>
+        <li><a class="site-footer__link" href="ajman.html">Ajman</a></li>
+        <li><a class="site-footer__link" href="careers.html">Careers</a></li>
+      </ul>
+    </nav>
+
+    <!-- Two socials, both verified live. Twitter/X is cut site-wide: the
+         handle is the CEO's personal account, not the practice's. -->
+    <ul class="site-footer__social">
+      <li><a class="site-footer__link" href="https://www.facebook.com/proarcarchitects/" rel="noopener">Facebook</a></li>
+      <li><a class="site-footer__link" href="https://www.instagram.com/proarchitects/" rel="noopener">Instagram</a></li>
+    </ul>
+
+    <p class="site-footer__legal">&copy; 2026 Proarc</p>
+
+  </div>
+</footer>
+
+<!--
+  R2 ships one script, and it is the menu.
+
+  What was here in v1 and is deliberately gone: GSAP, ScrollTrigger and
+  Lenis, pulled from three external CDNs, driving js/reveals.js (elements
+  fade and translate up as they scroll into view) and js/smooth-scroll.js
+  (scroll hijacking).
+
+  Three reasons, and any one of them is sufficient:
+
+  1. R2's motion language is decided and those are not it. "The site draws"
+     — all motion is line-work drawing itself: the scroll cue, the link
+     underlines, the Ajman map, this menu's wipe. No decorative fades, no
+     parallax, no sliders, no bounce.
+  2. Reduced motion must always show the finished state, and a reveal system
+     that starts every element at opacity 0 is one broken script away from a
+     blank page.
+  3. This repository is handed over as a whole, once. Three external CDN
+     dependencies in the chrome of a static site is a liability the handover
+     should not carry.
+
+  js/reveals.js, js/smooth-scroll.js and src/styles/animations.css are still
+  in the tree and still work; nothing loads them. If a screen turns out to
+  need one, it opts in through its own pageScript rather than every page
+  paying for it.
+-->
+
+<script src="js/menu.js" defer></script>
+<script src="js/ajman.js" defer></script>
+
+</body>
+</html>

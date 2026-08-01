@@ -393,14 +393,21 @@
   background: var(--color-surface);
 }
 
+/* LEVELLED at the /ajman build (1 Aug, Mahesh): 32px light, the register
+   the 47 record pages, the three sector pages and the ledger already ship.
+   §6.2 specified 700 uppercase, which left the site with one band object in
+   two registers on 53 built pages — a board-7 leftover on the one page
+   drawn before the others, not a decision anyone took. An uppercase
+   imperative is also the shouting register E10 bars, and the voice lock is
+   state, never justify. The band's ground still inverts per E1.2; only its
+   type is levelled. */
 .hm-invitation__line {
   margin: 0 0 var(--gap-block);
   max-inline-size: var(--measure-h2);
   font-size: var(--fs-h2);
-  font-weight: var(--fw-bold);
+  font-weight: var(--fw-light);
   line-height: var(--lh-h2);
   letter-spacing: var(--ls-h2);
-  text-transform: uppercase;
   color: var(--color-ink);
 }
 

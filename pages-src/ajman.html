@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<!-- @include head -->
+</head>
+<body>
+<!-- @include header -->
+
+<!--
+  /ajman — the discovered chapter. Spec: 05-ajman.md. Copy authority:
+  ../_bmad/wds/E-Brand-Framework/04-copy-direction.md v3.3 §2a, verbatim.
+
+  The page in one line: the statement → the standing map with the district
+  ledger scrolling beside it → the schools door → the authority sentence →
+  [the timeline, hidden] → the inverted band → the footer.
+
+  ONE GROUND, END TO END (§2). Black from the statement to the authority
+  sentence, one inverted white band at the close, footer black. Two switches,
+  both on section boundaries. There is NO FORCED PAPER PANEL on this page —
+  the client wall is About's, where §1.5a is satisfied by the page rather
+  than by an exception. Do not reintroduce one.
+
+  E1.4 does not apply here. Home's opening statement sits on paper because
+  its first act must not read as a treatment applied to a photograph;
+  /ajman has no photograph, and the discovered chapter is a narrative
+  surface. Do not extend the paper-claim exception by analogy.
+
+  No breadcrumb and no back link: /ajman is a top-level page, not a child,
+  and it is deliberately off-nav — reached from three doors only (the Home
+  map, the About story, the footer).
+
+  The map ships as OPTION B, the constellation: marks and nothing else, no
+  coastline, no boundaries, no joining lines, and — decided at this build —
+  no labels either. The ledger is the legend at every width.
+-->
+<main id="main" class="aj">
+
+  <div class="aj-dark surface-dark">
+
+    <!-- 1 · The statement (§4.1). Squat by decision: the map must be at
+         least partly in view at 1280×720, the same rule as Home's hero and
+         for the same reason — a full-viewport statement turns the page into
+         a splash screen. Numberless (E12): "all but one" rides the "one"
+         exemption exactly as "Every campus but one" does. -->
+    <section class="aj-statement container">
+      <h1 class="aj-statement__line t-editorial">One Emirate.<br>Since 2006.</h1>
+      <p class="aj-statement__support t-body-lg">All but one of Proarc&rsquo;s buildings stand in Ajman. The one that does not is a mall in Umm Al Quwain.</p>
+    </section>
+
+    <!-- 2 · The standing map and the district ledger — ONE COMPONENT (§3.1,
+         §3.4). Work's standing-frame pattern with a map in the frame: the
+         map column is sticky and holds its place while the whole ledger
+         scrolls past it. The naive side-by-side was rejected on arithmetic
+         (a ~440px map beside a ~1,900px ledger leaves ~1,400px of empty
+         black), and a full-width map with the ledger below puts the answer
+         off-screen.
+
+         THE INTERACTION, AS OPTION B REWRITES IT. §3.4 specifies the map as
+         the index and the ledger as the answer — but that was written
+         against artwork that does not exist. With no polygons there is
+         nothing on the map to touch, and marks are not hit targets (47 ×
+         44px do not fit 375px, §3.4 rule 3). So the direction reverses: the
+         LEDGER is the control surface and the MAP answers it. Hover or
+         focus anywhere inside a district block and its marks hold #FFFFFF
+         while every other mark drops to #A6A6A6 — the page's own rest and
+         current grammar from §3.3, two measured tokens, never opacity.
+
+         It adds no tab stop: every row is already a link, so focus drives
+         it exactly as hover does and the keyboard reaches all of it. The
+         value change on the marks is an ECHO of a signal the block already
+         carries in weight and rule, never the sole carrier of it.
+
+         The blocks with no marks — "Also in Ajman" and the record outside
+         the Emirate — carry no data-district and do not participate. Those
+         buildings are not on the map, and a block that lit without the map
+         answering would say they were. -->
+    <section class="aj-standing" data-standing aria-label="Proarc&rsquo;s buildings, by district">
+      <div class="container aj-standing__grid">
+
+        <div class="aj-standing__map">
+          <div class="aj-map" data-map>
+            <svg class="aj-map__svg" viewBox="{{mapViewBox}}" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet">{{mapMarksHtml}}</svg>
+          </div>
+        </div>
+
+        <!-- The ledger is the page's inventory and is deliberately MORE
+             COMPLETE than the map can be (§4.2): it carries the records
+             whose data names no district and the one outside the Emirate,
+             because E7.2 places no mark by inference. NO COUNTS ON ANY HEAD
+             — the rows are the count. -->
+        <div class="aj-ledger">
+          {{#each blocks}}
+          <section class="aj-block"{{#if blockKey}} data-district="{{blockKey}}"{{/if}}>
+            <h2 class="aj-block__head">{{blockHead}}</h2>
+            <ul class="aj-block__rows">
+              {{#each rows}}
+              <li class="aj-row">
+                <a class="aj-row__name" href="{{rowHref}}">{{rowName}}</a>
+                {{#if rowMetaHtml}}<span class="aj-row__meta">{{rowMetaHtml}}</span>{{/if}}
+              </li>
+              {{/each}}
+            </ul>
+          </section>
+          {{/each}}
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3 · The schools (§5) — the page's one outbound content link besides
+         the ledger's names and the invitation. The VERB is the link and the
+         page it lands on is called Schools: the threshold performs E10.1's
+         translation once. No photograph — the map is this page's image. -->
+    <section class="aj-schools container">
+      <h2 class="aj-schools__line t-editorial">Every campus but one is in Ajman.</h2>
+      <p class="aj-schools__support">Habitat, Woodlem Park, City School, DPS, and the Emirate&rsquo;s universities. School groups return to Proarc campus after campus.</p>
+      <p class="aj-schools__route"><a class="aj-link" href="{{learnsHref}}">Learns <span aria-hidden="true">&rarr;</span></a></p>
+    </section>
+
+    <!-- 4 · The authority sentence (§6.1) — W8's canonical home. NAMED, NOT
+         COUNTED: two of the four are federal bodies, not Ajman's, so v4's
+         "four Ajman authorities" is not what the marks say. STATED, NOT
+         JUSTIFIED: it says they commissioned the practice and stops,
+         because Ajman Sewerage and FEWA have no building among the 47 and
+         the sentence must not imply one. No section label above it — the
+         sentence introduces itself (§9.9 bans invented section labels).
+
+         X2 rides here: the mosque's client reads "Ministry of Awqaf and
+         Islamic Affairs" in the record and "General Authority of Islamic
+         Affairs & Endowments" on the mark. One body, two names, three
+         surfaces. The spec's wording ships; the gate stays open. -->
+    <section class="aj-authority container">
+      <h2 class="aj-authority__line t-editorial">Ajman&rsquo;s Municipality and Planning Department, Ajman Sewerage, the Federal Electricity and Water Authority and the General Authority of Islamic Affairs and Endowments have all commissioned Proarc.</h2>
+      <p class="aj-authority__support">Souk Salah, for the Municipality. Al Ghala Mosque, for the General Authority. Both are in the list above.</p>
+    </section>
+
+    <!-- 5 · The timeline (§8) — the same inventory on a different axis,
+         *when* rather than *where*. It ships HIDDEN and turns ITSELF on:
+         build/lib/ajman.js computes the gate from the data every build, so
+         the section appears the day the Year field reaches 40 of 47 and
+         nobody has to remember. Until then it renders nothing at all — a
+         pending section ships hidden, never as an empty box. -->
+    {{#if timelineReady}}
+    <section class="aj-timeline container" aria-label="Proarc&rsquo;s buildings, by year">
+    </section>
+    {{/if}}
+
+  </div>
+
+  <!-- 6 · The closing band — E1.2, the inverse of its page, and the ONE LIT
+       SURFACE on the whole of it. The brightest moment is the moment the
+       page asks for the project. No project parameter: this is the site's
+       general invitation, not a record's. The footer returns to black. -->
+  <section class="aj-band" aria-label="Start a project">
+    <div class="container">
+      <p class="aj-band__line">Have a project in mind? Let&rsquo;s talk.</p>
+      <a class="aj-band__action" href="{{contactHref}}">Contact</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- @include footer -->
+<!-- @include scripts -->
+</body>
+</html>

@@ -1,0 +1,440 @@
+/* ===========================================================
+   /ajman — Screen 05, `05-ajman.md`.
+
+   ONE GROUND, END TO END (§2). Black from the statement to the
+   authority sentence, one inverted white band at the close,
+   and the footer's own black below it. Two switches, both on
+   section boundaries. There is no forced paper panel here and
+   there must not be one: the client wall is About's, where
+   §1.5a is satisfied by the page rather than by an exception.
+
+   Nothing is set on a photograph, because there is no
+   photograph — so this page carries no contrast measurement
+   over imagery at all. Every pair on it is already in §5:
+   #FFFFFF on #000000 21:1 · #EDEDED 17.94:1 · #A6A6A6 8.63:1 ·
+   #111111 on #FFFFFF 18.88:1.
+
+   The two dark line values are not interchangeable (continuity
+   §9): --color-hairline-dark (#333333, 1.66:1) may only
+   separate text sections, and #595959 — --color-ink-secondary's
+   hex — is what a line takes when it BOUNDS something or
+   carries a state. The ledger's block rules use each for
+   exactly one of those jobs.
+
+   COLOUR IS STATED ON THIS PAGE, NEVER INHERITED. base.css
+   colours every heading --color-ink and tokens.css lifts only
+   .t-hero/.t-editorial/.t-h2/.t-h3 under .surface-dark — so
+   .t-body-lg, and any bare element, computes #111111 on
+   #000000 and disappears. Every rule below that sets type on
+   black states its value.
+   =========================================================== */
+
+/* -----------------------------------------------------------
+   1 · The statement (§4.1) — squat, and clear of the chrome
+   ----------------------------------------------------------- */
+
+/* Squat is specified, not incidental: the map must be at least partly in
+   view at 1280×720. A full-viewport statement turns the page into a splash
+   screen, which is the same rule Home's hero carries and for the same reason.
+
+   The top padding CLEARS THE CHROME at every width. The trigger is fixed at
+   the top inline-start — the same corner this statement starts in — and the
+   plate hangs opposite it. Home's claim ran under the plate at 375, at 768
+   and from ~1025 to ~1200px, and the collision was invisible to a box test
+   because the box was 960px wide where the line was 870. Measured here
+   against the rendered ink. */
+.aj-statement {
+  padding-block: calc(var(--gap-component) + var(--gap-heading)) var(--gap-heading);
+}
+
+.aj-statement__line {
+  margin: 0;
+}
+
+/* .t-body-lg is NOT in tokens.css's dark lift list, so this line would
+   compute #111111 on #000000 and vanish. §4.1 fixes it at #EDEDED. */
+.aj-statement__support {
+  margin: var(--gap-block) 0 0;
+  color: var(--color-on-dark-body);
+}
+
+/* -----------------------------------------------------------
+   2 · The standing map and the ledger (§3.1) — one component
+   ----------------------------------------------------------- */
+
+.aj-standing {
+  padding-block-end: var(--gap-section);
+}
+
+/* Work's standing-frame pattern with a map in the frame. 58% at the
+   inline-start, the ledger takes the rest, and the map column is sticky —
+   which is the only form in which this layout exists: a ~440px map beside a
+   ~1,900px ledger in normal flow leaves ~1,400px of empty black. */
+.aj-standing__grid {
+  display: grid;
+  grid-template-columns: 58% 1fr;
+  column-gap: var(--gap-component);
+  align-items: start;
+}
+
+/* The offset clears the fixed trigger, which occupies the top 64px of this
+   same inline-start column. */
+.aj-standing__map {
+  position: sticky;
+  inset-block-start: calc(var(--gap-component) + var(--gap-block));
+}
+
+/* The marks are TRUE 5px (E7.1), which is only true if the drawing does not
+   scale under them. So the field takes one of four KNOWN widths — never a
+   fluid one — and --mark-scale cancels each exactly (scale = 560 ÷ width):
+
+     ≥1025px   480 wide, in the 58% column   → marks × 1.1667
+     821–1024  400 wide, in the 58% column   → marks × 1.4
+     640–820   560 wide, stacked (authored)  → marks × 1
+     ≤639      320 wide, stacked             → marks × 1.75
+
+   Home needed three because its map is always full width. This one is four
+   because 821px is a real change of geometry, not a step in a scale: above
+   it the map lives in a 58% column and below it the columns stack and the
+   map takes the container. Each width is the largest that fits its band at
+   the band's NARROWEST viewport — 480 against a 501.7px column at 1025,
+   400 against 429.8px at 821 — so the svg never has to be clamped by
+   max-inline-size, which would scale the marks with it. */
+.aj-map {
+  --mark-scale: 1.1667;
+}
+
+.aj-map__svg {
+  inline-size: 480px;
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+.aj-mark {
+  fill: var(--color-on-dark);
+  transform: scale(var(--mark-scale));
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* The finished map is the SHIPPED state: with no script, and under reduced
+   motion, every mark is already placed. js/ajman.js arms the animation by
+   hiding the marks, then plays it once — so a broken script leaves a
+   complete map rather than an empty field. */
+.aj-map--armed .aj-mark {
+  transform: scale(0);
+}
+
+/* 140ms per mark, 34ms apart — E7.3's own choreography, the same values
+   Home's constellation and the menu overlay's dots run. */
+.aj-map--drawing .aj-mark {
+  transform: scale(var(--mark-scale));
+  transition: transform 140ms ease-out;
+  transition-delay: calc(var(--mark-index) * 34ms);
+}
+
+/* THE INTERACTION, AS OPTION B REWRITES §3.4. With no polygons the map
+   cannot be the index, so the ledger is the control and the map answers:
+   the current district's marks hold #FFFFFF while every other mark drops to
+   #A6A6A6. Two measured tokens — the page's own rest-and-current grammar
+   from §3.3, applied to the marks because Option B has no labels to carry
+   it — and never opacity, which §9.16 prohibits.
+
+   The value change is an ECHO. The signal itself is carried by the ledger
+   block in weight and in a 2px rule, so nothing here depends on colour
+   alone, and a mark stays a fact rather than becoming a control. */
+[data-current] .aj-mark {
+  fill: var(--color-on-dark-secondary);
+}
+
+[data-current] .aj-mark--current {
+  fill: var(--color-on-dark);
+}
+
+/* -----------------------------------------------------------
+   3 · The ledger (§4.2) — the page's inventory
+   ----------------------------------------------------------- */
+
+/* Quiet ruled blocks. The #333333 hairline separates two text sections,
+   which is the one thing 1.66:1 is permitted to do.
+
+   The inline-start rule is transparent at rest and takes #595959 when the
+   block is current — declared on every block so the current state changes a
+   colour and never the layout. A border that appears on hover moves the
+   text it is beside. */
+.aj-block {
+  border-inline-start: 2px solid transparent;
+  padding-inline-start: var(--gap-block);
+  transition: border-inline-start-color var(--dur-fast) var(--ease-out);
+}
+
+/* 48px between blocks, not 128. A component gap either side ran the ledger
+   to 4,336px against the spec's own ~1,900px arithmetic, and it put barely
+   two district blocks on a screen — which matters here more than it would
+   on a list, because the map answers the block the reader is in and the
+   answer is only legible if some of its neighbours are visible too. The
+   hairline does the separating; the space only has to keep the blocks from
+   touching it. */
+.aj-block + .aj-block {
+  margin-block-start: var(--gap-block);
+  padding-block-start: var(--gap-block);
+  border-block-start: 1px solid var(--color-hairline-dark);
+}
+
+/* 12px uppercase, weight 500, #A6A6A6 — a head, not a heading in the
+   visual sense. NO COUNTS on any of them (§4.2): the distribution is
+   6·6·5·4·2·1·1·1·1·1, so a count beside each head prints a list of five
+   ones and the page announces its own thin tail. The rows are the count. */
+.aj-block__head {
+  margin: 0 0 var(--gap-block);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-caption);
+  letter-spacing: var(--ls-caption);
+  text-transform: uppercase;
+  color: var(--color-on-dark-secondary);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+/* Current: the head lifts to #FFFFFF at weight 600 and the block's rule
+   takes #595959 — value plus weight plus a structural line, which is E2's
+   nav pattern and never colour alone. Focus drives it exactly as hover
+   does, and every row is already a link, so this costs no tab stop. */
+.aj-block[data-district]:hover,
+.aj-block[data-district]:focus-within {
+  border-inline-start-color: var(--color-ink-secondary);
+}
+
+.aj-block[data-district]:hover > .aj-block__head,
+.aj-block[data-district]:focus-within > .aj-block__head {
+  font-weight: var(--fw-semibold);
+  color: var(--color-on-dark);
+}
+
+.aj-block__rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.aj-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-inline);
+  align-items: baseline;
+  justify-content: space-between;
+  padding-block: var(--pad-table-row);
+}
+
+.aj-row__name {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-on-dark);
+  border-block-end: 1px solid transparent;
+}
+
+.aj-row__name:hover,
+.aj-row__name:focus-visible {
+  border-block-end-color: currentcolor;
+}
+
+.aj-row__name:focus-visible {
+  outline: 2px solid var(--color-on-dark);
+  outline-offset: 2px;
+}
+
+/* The E9 provenance label and the year. Both are RECORD SURFACE, which is
+   the whole of E12's split: this page's display prose carries no quantity
+   at all and the ledger carries every one the records hold. */
+.aj-row__meta {
+  font-size: var(--fs-metadata);
+  line-height: var(--lh-metadata);
+  color: var(--color-on-dark-secondary);
+}
+
+/* The middot recedes without either value becoming a signal — Home's own
+   separator, matched rather than re-decided. */
+.aj-sep {
+  color: var(--color-ink-secondary);
+}
+
+/* -----------------------------------------------------------
+   4 · The schools (§5) and the authority sentence (§6.1)
+   ----------------------------------------------------------- */
+
+.aj-schools,
+.aj-authority {
+  padding-block-end: var(--gap-section);
+}
+
+.aj-schools__line {
+  margin: 0;
+}
+
+/* ~44ch: the authority sentence is long by construction — it names four
+   bodies rather than counting them — so it runs at the editorial measure's
+   sentence width rather than the display measure's short-line one. */
+.aj-authority__line {
+  margin: 0;
+  max-inline-size: 44ch;
+}
+
+.aj-schools__support,
+.aj-authority__support {
+  margin: var(--gap-block) 0 0;
+  max-inline-size: var(--measure-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-on-dark-body);
+}
+
+.aj-schools__route {
+  margin: var(--gap-heading) 0 0;
+}
+
+.aj-link {
+  display: inline-block;
+  border-block-end: 1px solid currentcolor;
+  padding-block-end: 2px;
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  color: var(--color-on-dark);
+  transition: border-block-end-width var(--dur-fast) var(--ease-out);
+}
+
+.aj-link:hover,
+.aj-link:focus-visible {
+  border-block-end-width: 2px;
+}
+
+.aj-link:focus-visible {
+  outline: 2px solid var(--color-on-dark);
+  outline-offset: 4px;
+}
+
+/* -----------------------------------------------------------
+   5 · The closing band (§9) — the one lit surface on the page
+   ----------------------------------------------------------- */
+
+/* E1.2: the band is the inverse of its page, so on a black page it is
+   paper. The brightest moment is the moment the page asks for the project.
+
+   The register is the site's, levelled at this build: 32px light, the form
+   the 47 record pages, the three sector pages and the ledger already ship.
+   Home's 700 uppercase was a board-7 leftover on one page out of the
+   fifty-three built, and an uppercase imperative is the register E10 bars —
+   home.css is amended to match rather than this page inheriting a second
+   register for one component. */
+.aj-band {
+  padding-block: calc(var(--gap-section-major) / 2);
+  background: var(--color-surface);
+}
+
+.aj-band__line {
+  margin: 0 0 var(--gap-block);
+  max-inline-size: var(--measure-h2);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-h2);
+  letter-spacing: var(--ls-h2);
+  color: var(--color-ink);
+}
+
+.aj-band__action {
+  display: inline-block;
+  padding-block: var(--gap-tight);
+  padding-inline: var(--gap-heading);
+  border: 1px solid var(--color-ink);
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  color: var(--color-ink);
+  transition: background-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+
+.aj-band__action:hover,
+.aj-band__action:focus-visible {
+  background: var(--color-ink);
+  color: var(--color-surface);
+}
+
+/* -----------------------------------------------------------
+   6 · Breakpoints — restack, never shrink
+   ----------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .aj-map {
+    --mark-scale: 1.4;
+  }
+
+  .aj-map__svg {
+    inline-size: 400px;
+  }
+}
+
+/* §3.7 — below 821px the columns stack, map first at its own proportion,
+   then the ledger. THE MAP IS NOT STICKY HERE: pinning it on a short
+   viewport buys nothing and costs the reader a screen. */
+@media (max-width: 820px) {
+  .aj-standing__grid {
+    display: block;
+  }
+
+  .aj-standing__map {
+    position: static;
+    margin-block-end: var(--gap-component);
+  }
+
+  .aj-map {
+    --mark-scale: 1;
+  }
+
+  .aj-map__svg {
+    inline-size: 560px;
+  }
+}
+
+@media (max-width: 639px) {
+  .aj-map {
+    --mark-scale: 1.75;
+  }
+
+  .aj-map__svg {
+    inline-size: 320px;
+  }
+}
+
+/* The row's two parts stop competing for one line and stack, rather than
+   the name being squeezed to fit its meta beside it. */
+@media (max-width: 480px) {
+  .aj-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+}
+
+/* -----------------------------------------------------------
+   7 · Reduced motion
+   ----------------------------------------------------------- */
+
+/* tokens.css already clamps every transition to 0.01ms under reduce, so
+   nothing needs zeroing here. What DOES need stating is the delay: a zero
+   duration does not cancel a 34ms-per-mark stagger, and the map would sit
+   blank for its whole sweep under the setting that exists to prevent
+   exactly that. js/ajman.js does not arm at all under reduce; this is the
+   belt to that brace.
+
+   The ledger interaction is untouched: a fill change is not motion, and
+   the reader who has asked for less of it still gets the map to answer. */
+@media (prefers-reduced-motion: reduce) {
+  .aj-map--armed .aj-mark,
+  .aj-map--drawing .aj-mark {
+    transform: scale(var(--mark-scale));
+    transition-delay: 0s;
+  }
+}

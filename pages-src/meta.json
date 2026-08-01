@@ -107,7 +107,9 @@
     "canonical": "https://proarc.ae/ajman",
     "ground": "black",
     "navLit": "",
-    "navExact": false
+    "navExact": false,
+    "pageStylesheet": "ajman",
+    "pageScript": "ajman"
   },
 
   "services": {

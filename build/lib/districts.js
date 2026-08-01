@@ -133,6 +133,28 @@ function buildDistrictMarks() {
 }
 
 /**
+ * E7.3 — the spatial sweep, west to east.
+ *
+ * buildDistrictMarks lays marks down in AUTHORED district order, which is by
+ * size: a sweep in that order animates the biggest district first and reads
+ * as a ranking of places, which is the one thing E7.3 exists to prevent.
+ * Sorting by x claims nothing about time or importance.
+ *
+ * This lives here rather than on a page because Home and /ajman both sweep,
+ * and a second implementation is how two surfaces start disagreeing about
+ * one map. The menu is deliberately not a caller: its constellation is
+ * ornament, so its sequence carries no meaning to get wrong (09-menu §6).
+ *
+ * `source` is the mark's position in the authored order, kept as the final
+ * tiebreak so two marks at identical coordinates still sweep deterministically.
+ */
+function sweepOrder(marks) {
+  return marks
+    .map((m, i) => Object.assign({}, m, { source: i }))
+    .sort((a, b) => a.x - b.x || a.y - b.y || a.source - b.source);
+}
+
+/**
  * The constellation, as the menu overlay draws it (09-menu §6).
  *
  * It is ornament and nothing else: no labels, no links, no hit areas, no
@@ -158,4 +180,4 @@ function renderConstellation(data, className) {
   );
 }
 
-module.exports = { buildDistrictMarks, renderConstellation, resolveDistrict, decodeEntities };
+module.exports = { buildDistrictMarks, renderConstellation, resolveDistrict, decodeEntities, sweepOrder };

@@ -101,6 +101,11 @@ Summarised. The clause text governs; read it.
 - Heading levels follow document structure, not visual size. Never skip
   `h1` → `h3`. A large heading that is not the page's top-level heading is an
   `h2` styled at H1 size.
+- **The closing band is ONE register site-wide: 32px light** (`--fs-h2` /
+  `--fw-light`), on all fifty-four pages that carry it. Its GROUND inverts per
+  E1.2 — paper on a black page, black on a paper one — but its type does not
+  change with it. Home shipped 700 uppercase until the /ajman build and that
+  was a leftover, not a decision.
 - **A heading's REGISTER is stated by the page, never inherited.** base.css
   gives `h1` its shape (size, leading) and nothing else; `.t-hero` is the
   uppercase display register and `.t-editorial` the light sentence-case one.
@@ -176,8 +181,12 @@ Two page steps, because there are two kinds of page:
 
 Home's data comes from **`build/lib/home.js`** on the same terms: it consumes
 `records.js`, `work.js` (the plate) and `districts.js` (the marks) and derives
-only what no other surface wants — the rooms' fallback forms, the selections
-that end in an ellipsis, and the map's west-to-east sweep order.
+only what no other surface wants — the rooms' fallback forms and the
+selections that end in an ellipsis. **/ajman's comes from `build/lib/ajman.js`**
+on the same terms again: the district ledger's blocks and rows, and the marks.
+E7.3's west-to-east sweep is **not** either page's — it lives in
+`districts.js`, because both maps need the identical order and one map derived
+twice is how two surfaces start disagreeing about where a building is.
 
 - **`build:pages`** compiles the 11 hand-authored pages from `pages-src/*.html`
   against `pages-src/meta.json`, which is the route contract: every page's
@@ -213,6 +222,17 @@ revert a curation. The reasons are in `_bmad/…/00i-D1-Curation-Log.md`.
 this repository, so running it here processes nothing; it now exits rather than
 writing the empty manifest that would silently strip every image from the site.
 On a clone, `build:manifest` is the right script.
+
+> **A reveal needs a rendered "before", and a STICKY element does not get one
+> off-screen.** Every drawn surface ships finished and its script *arms* it, so
+> a broken script leaves a complete page. That arming is a computed style
+> until the element paints — and an ordinary element gets pre-painted while
+> off-screen where a sticky one does not. So on a sticky surface the armed
+> state must be **re-committed on screen** (remove → force reflow → add →
+> force reflow) before the reveal, or every transition collapses: the values
+> jump, `document.getAnimations()` reports zero, and the page looks finished
+> rather than broken. It costs nothing visible — a browser cannot paint inside
+> a task. `js/ajman.js` carries the worked example.
 
 **No page loads anything from a CDN.** v1's GSAP, ScrollTrigger and Lenis are
 gone with the scroll-reveal system they drove — R2's motion language is "the
