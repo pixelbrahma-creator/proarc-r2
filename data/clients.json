@@ -1,0 +1,81 @@
+{
+  "_readme": [
+    "The client wall on About (07-about.md §5). AUTHORED, not derived: 28 of the 32 rows",
+    "have no record behind them, so there is nothing in projects.json to derive them from.",
+    "",
+    "`file` names images/logos/<file>.webp. `name` is the caption beside the mark — §1.5a",
+    "rule 2 bars typesetting a name INSTEAD of a mark, and permits naming a mark you are",
+    "showing. `group` must be one of the four heads in `groups` below; build/lib/about.js",
+    "throws on anything else. `relation` is the building, and is present on four rows only.",
+    "",
+    "WHAT SHIPS: 32 marks — the 34 files minus mitsubishi-electric and geco-mechanical-",
+    "electrical, which are equipment and contracting rather than clients (05-ajman §6.3).",
+    "The 13 typeset names with no artwork are not rows: the presentation is mark-plus-name,",
+    "so a client with no mark has no row. Khazna is one of the 13 and cannot be a row under",
+    "any X5 or X11 outcome unless ProArc supplies artwork.",
+    "",
+    "RELATIONS, FOUR ONLY. Shown where they do not restate the client's own name; every",
+    "other row is a client-equals-building echo and is suppressed (Screen 04's client-row",
+    "rule, reused). Each `relation` must match a record title in projects.json exactly —",
+    "the wall names no building the site does not hold.",
+    "",
+    "NOTHING ON THE WALL LINKS. Four of 32 rows have a destination and 28 do not; one name",
+    "in eight being a link is a broken affordance that invites the reader to test the rest.",
+    "",
+    "ORDER: the four groups in the order below, alphabetical by name within each. No other",
+    "order is available without making a ranking claim the page has no basis for.",
+    "",
+    "`provisional: true` marks a group placement ProArc has not confirmed (X5). The build",
+    "prints them every run so the guess stays visible instead of hardening into a fact."
+  ],
+
+  "groups": [
+    "Government & authorities",
+    "Education",
+    "Developers & property",
+    "Retail, hospitality & corporate"
+  ],
+
+  "notShipped": {
+    "mitsubishi-electric": "Equipment, not a client (05-ajman §6.3).",
+    "geco-mechanical-electrical": "Contracting, not a client (05-ajman §6.3)."
+  },
+
+  "clients": [
+    { "file": "government-of-ajman", "name": "Government of Ajman", "group": "Government & authorities", "relation": "Souk Salah" },
+    { "file": "general-authority-islamic-affairs", "name": "General Authority of Islamic Affairs & Endowments", "group": "Government & authorities", "relation": "Al Ghala Mosque" },
+    { "file": "ajman-sewerage", "name": "Ajman Sewerage", "group": "Government & authorities" },
+    { "file": "federal-electricity-water-authority", "name": "Federal Electricity & Water Authority", "group": "Government & authorities" },
+
+    { "file": "ajman-american-school", "name": "Ajman American Private School", "group": "Education" },
+    { "file": "city-school", "name": "City School", "group": "Education" },
+    { "file": "city-university", "name": "City University", "group": "Education" },
+    { "file": "frontline-international-school", "name": "Frontline International Private School", "group": "Education" },
+    { "file": "habitat-group-of-schools", "name": "Habitat Group of Schools", "group": "Education" },
+    { "file": "woodlem-park-school", "name": "Woodlem Park Private School", "group": "Education" },
+
+    { "file": "al-zorah-development", "name": "Al Zorah Development", "group": "Developers & property" },
+    { "file": "aqaar-real-estate", "name": "Aqaar Real Estate", "group": "Developers & property" },
+    { "file": "bahr", "name": "BAHR", "group": "Developers & property", "provisional": true },
+    { "file": "charterstates", "name": "Charterstates", "group": "Developers & property" },
+    { "file": "citylife", "name": "CityLife", "group": "Developers & property" },
+    { "file": "g-real-estate", "name": "G Real Estate", "group": "Developers & property" },
+    { "file": "prestige-constructions", "name": "Prestige Constructions", "group": "Developers & property" },
+    { "file": "propertytech", "name": "PropertyTech", "group": "Developers & property" },
+    { "file": "r-holding", "name": "R Holding", "group": "Developers & property", "relation": "The Black Square" },
+    { "file": "r-select", "name": "R Select", "group": "Developers & property", "relation": "City Life, Al Tallah" },
+    { "file": "talal-holdings", "name": "Talal Holdings", "group": "Developers & property" },
+
+    { "file": "aims-group", "name": "AIMS Group", "group": "Retail, hospitality & corporate", "provisional": true },
+    { "file": "ajman-bank", "name": "Ajman Bank", "group": "Retail, hospitality & corporate" },
+    { "file": "al-arabia", "name": "Al Arabia", "group": "Retail, hospitality & corporate", "provisional": true },
+    { "file": "city-mall", "name": "City Mall", "group": "Retail, hospitality & corporate" },
+    { "file": "hawthorn-suites-by-wyndham", "name": "Hawthorn Suites by Wyndham", "group": "Retail, hospitality & corporate" },
+    { "file": "kenz-hypermarket", "name": "KENZ Hypermarket", "group": "Retail, hospitality & corporate" },
+    { "file": "lulu", "name": "LuLu", "group": "Retail, hospitality & corporate" },
+    { "file": "ramada", "name": "Ramada", "group": "Retail, hospitality & corporate" },
+    { "file": "safari-mall", "name": "Safari Mall", "group": "Retail, hospitality & corporate" },
+    { "file": "star-cinemas", "name": "Star Cinemas", "group": "Retail, hospitality & corporate" },
+    { "file": "thumbay", "name": "Thumbay", "group": "Retail, hospitality & corporate" }
+  ]
+}

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<!-- @include head -->
+</head>
+<body>
+<!-- @include header -->
+
+<!--
+  About — Screen 07. Spec: 07-about.md. Copy authority:
+  ../_bmad/wds/E-Brand-Framework/04-copy-direction.md v3.1 §5, VERBATIM.
+
+  The page in one line: the story → the client wall → the facts (hidden) →
+  Join us → the inverted band → the footer.
+
+  GROUND PAPER (§2), E1 UNAMENDED. Home, Services and /ajman state on black;
+  Work, the 47 records and this page prove on paper. It is not a preference:
+  §1.5a bars a third-party mark from --color-surface-dark, and the wall is
+  thirty-two of them. Contact's paper stands on its own facts (Screen 08).
+  E1.2a — on a paper page the closing band owns the ground switch, and the
+  footer returns to black behind it.
+
+  THE ARGUMENT ORDER IS FIXED: who we are, then who trusts us. Facts-first
+  was refused (§3) — a table of three rows, all of them already inside ¶1,
+  is not an opening.
+
+  E12: the page's only digits are 2006 and 2023, both years-as-dates
+  (exemption 2). No quantity anywhere — not on a group head, not on the
+  wall, not in the story. "One office, one team" is the method word
+  (exemption 1). The wall states its size by being thirty-two rows long.
+
+  E10.2 — "Ajman" appears once in running copy, in the H1. ¶2 gave up its
+  own to "here" (31 Jul). ¶3's "Ajman Municipality and Planning Department"
+  is a proper name, not a placeless reference.
+
+  E10.2c — learn / shop / work / live appear ONCE, in ¶2, in their human
+  sense. They are not links, not headings, and they do not open a set.
+
+  TWO SECTIONS ARE ABSENT BY DECISION, and they are absent differently:
+  the Moideen quotation is NOT RENDERED AT ALL until X9 (§4 — the slot is
+  an absence, not a placeholder), and the facts table IS rendered, hidden,
+  until X6 (§6). No photograph, ever (§7) — the wall is About's image.
+-->
+<main id="main" class="ab">
+
+  <!-- 1 · The story (§3) — FACT, then PHILOSOPHY, then VERIFIED FACT, all
+       three numberless.
+
+       ¶1's FIRST SENTENCE IS THE H1, at display scale, with the rest of ¶1
+       as its support line. Its register is Editorial — light, sentence case
+       — stated here and never inherited: base.css gives an h1 its shape and
+       the page states its register. It keeps its full stop, because it is a
+       sentence lifted out of a paragraph rather than a headline written to
+       be one. X6's answer changes this H1, which is why it is the copy
+       authority's sentence and not a rewrite of it.
+
+       ¶3 is the only externally verified fact the practice has, and it is
+       stated flat: a five-star rating from a named authority in a named
+       year. Never "award-winning" — a service-quality rating is not an
+       award, and the sentence a tender officer can check is the one worth
+       printing. -->
+  <section class="ab-story container">
+    <h1 class="ab-story__line t-editorial">We are an architecture, engineering and project management practice in Ajman.</h1>
+    <p class="ab-story__support t-body-lg">One office, one team, and selected work across the Emirates since 2006.</p>
+
+    <p class="ab-story__prose t-body">A city is not a set of sectors. It is where people learn, shop, work and live &mdash; and here we have drawn all four. The schools our clients&rsquo; children attend, the malls their neighbourhoods use, the offices they work in and the homes they return to were, often enough, drawn by the same practice.</p>
+
+    <p class="ab-story__prose t-body">Ajman Municipality and Planning Department awarded us a five-star rating in 2023.</p>
+
+    <p class="ab-story__route"><a class="ab-link" href="{{workHref}}">The work <span aria-hidden="true">&rarr;</span></a></p>
+  </section>
+
+  <!-- 2 · The quotation (§4) — NOT RENDERED. Anees Moideen's line is
+       unwritten and X9 bars any headcount permanently, so there is nothing
+       to set. A ruled blockquote with no words in it is a placeholder, and
+       the no-empty-headings rule applies to devices as it does to headings.
+       When X9 answers, the section arrives here, between the story and the
+       wall: ruled top and bottom, no frame, display weight 300, ~38ch, the
+       attribution a 12px uppercase <cite>. No italics, no portrait. -->
+
+  <!-- 3 · The client wall (§5) — W-A, one stack of thirty-two rows under
+       four group heads, the mark in a 200px column with the name beside it.
+       Generated from data/clients.json by build/lib/about.js, which refuses
+       to build a wall that disagrees with the rest of the site.
+
+       NO HEADING ABOVE IT. 05-ajman §6.1 refused one above the authority
+       sentence because "The city's keepers" is an invented section label,
+       and "Who we build for" is the same fault in sentence case. The wall
+       introduces itself; the group heads do the labelling, and each head is
+       its own table's <caption> — a caption is the name of the thing it
+       sits on, which is exactly what a section label is not.
+
+       FOUR TABLES, NOT ONE. One table with head rows would make a group
+       head a row of the set it labels. Four tables give each group a real
+       accessible name and let a reader tab past a group whole.
+
+       NO <th> IN THESE ROWS — a departure from §5's letter, recorded. The
+       spec asks for th scope="row" on the mark cell, which is the site's
+       rule for a metadata list (label -> value). These two cells are not a
+       label and a value: they are the same client twice, once as artwork
+       and once as text. Neither heads the other, so neither is a th, and
+       the caption carries the only real label in the table. The mark takes
+       alt="" because the name beside it is its text equivalent — carrying
+       the name in both would announce every client twice.
+
+       NOTHING HERE LINKS (§10). Four rows of thirty-two have a destination
+       and twenty-eight do not; one name in eight being a link is a broken
+       affordance that invites the reader to test the other twenty-eight.
+
+       THIS IS R2'S ONE COLOURED SURFACE, and that is correct — §1.5a
+       reproduces a client's trademark as they own it, and recolouring it is
+       not ours to do. Three marks fight the paper (Talal Holdings, Aqaar,
+       Star Cinemas); naming every mark is what makes all three legible. -->
+  <section class="ab-wall container">
+    {{#each wall}}
+    <table class="ab-wall__group">
+      <caption class="ab-wall__head">{{groupHead}}</caption>
+      <tbody>
+        {{#each marks}}
+        <tr class="ab-wall__row">
+          <td class="ab-wall__markcell"><img class="ab-wall__mark" src="{{markSrc}}" width="{{markW}}" height="{{markH}}" alt="" loading="lazy" decoding="async"></td>
+          <td class="ab-wall__namecell"><span class="ab-wall__name">{{clientName}}</span>{{#if relation}}<span class="ab-wall__relation">{{relation}}</span>{{/if}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{/each}}
+  </section>
+
+  <!-- 4 · The facts (§6) — BUILT, AND SHIPPED HIDDEN until X6, so unhiding
+       is one attribute rather than a build. Ruled rows, no frame, no
+       heading: a border around three facts makes them look like a form with
+       fields missing (Screen 04's finding, reused).
+
+       ONE ROW SHIPS. Of §6's three, only Founding year survives on its own
+       facts, and even it is already inside ¶1 ("since 2006") — which is why
+       the table is hidden rather than merely thin. The other two are held
+       out with their reasons, not forgotten:
+
+         Headquarters · 13003, Ajman, UAE — two faults. "Headquarters"
+         implies branches the practice does not have, when the claim is one
+         office; and 13003 is a PO Box, which belongs on Contact.
+
+         Team · Architects, Engineers, MEP & Site Engineers — cannot ship in
+         any form. It is the X6 staffing register verbatim and names neither
+         an interior designer nor an urban planner, while Services ships six
+         blocks including Interior design and Master planning. Roles-without-
+         titles is the same list with the same omissions, and X9 bars a
+         headcount permanently, so there is no third form to fall back to.
+
+       Rows are a record surface, so E12 permits a quantity here. None of
+       the surviving rows carries one. -->
+  <section class="ab-facts container" hidden>
+    <table class="ab-facts__table">
+      <tbody>
+        <tr class="ab-facts__row">
+          <th class="ab-facts__label" scope="row">Founding year</th>
+          <td class="ab-facts__value">2006</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 5 · Join us (§8) — the practice's one recruitment route, and the only
+       door to /careers, which is kept off-nav and not 301'd. It says what
+       the office is like and asks for a letter; it does not list openings,
+       because the live page's two "[ Job Title ]" placeholders are deleted
+       and no listing exists until a real opening does.
+
+       "the same office as everyone else" is the sentence's whole argument
+       and it is ¶1's "one office, one team" cashed out — a hire joins the
+       room the work is drawn in. -->
+  <section class="ab-join container">
+    <p class="ab-join__prose t-body">We hire architects, engineers and project managers into the same office as everyone else. If that is the way you want to work, write to us.</p>
+    <p class="ab-join__route"><a class="ab-link" href="{{careersHref}}">Working at Proarc <span aria-hidden="true">&rarr;</span></a></p>
+  </section>
+
+  <!-- 6 · The closing band — E1.2, the inverse of its page, so on paper it
+       is the one dark surface and it owns the switch (E1.2a). The register
+       is the site's: 32px light on all fifty-four pages that carry it. The
+       footer continues the black behind it. -->
+  <section class="ab-band surface-dark" aria-label="Start a project">
+    <div class="container">
+      <p class="ab-band__line">Have a project in mind? Let&rsquo;s talk.</p>
+      <a class="ab-band__action" href="{{contactHref}}">Contact</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- @include footer -->
+<!-- @include scripts -->
+</body>
+</html>

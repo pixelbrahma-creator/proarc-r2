@@ -1,0 +1,364 @@
+/* ===========================================================
+   About — Screen 07, `07-about.md`.
+
+   GROUND PAPER, E1 UNAMENDED (§2), and not as a preference:
+   §1.5a bars a third-party mark from --color-surface-dark, and
+   the wall is thirty-two of them. The closing band is the
+   page's one dark surface and owns the switch (E1.2a); the
+   footer continues that black behind it.
+
+   Because the ground is paper, nothing here has to restate a
+   colour the way Services does — base.css already colours
+   headings --color-ink and body copy resolves correctly. The
+   only rules below that state a colour are the ones stepping
+   DOWN to --color-ink-secondary (7.00:1), which is the site's
+   secondary on paper. #A6A6A6 never appears on paper.
+
+   THE WALL IS R2'S ONE COLOURED SURFACE, and nothing in this
+   file touches the colour of a mark. §1.5a reproduces a
+   client's trademark as they own it: no filter, no
+   mix-blend-mode, no opacity, no background plate behind it.
+   Three marks fight the paper (Talal Holdings never reaches
+   3:1; Aqaar and Star Cinemas carry their own near-black
+   field) and the answer is the name beside them, not a
+   treatment applied to them.
+
+   NO FRAME ANYWHERE. §1.5a rule 5 permits a border on every
+   cell or none, and Screen 04 already chose none: a border
+   around three rows is what makes three facts look like a form
+   with fields missing. The wall's rules are horizontal only.
+   =========================================================== */
+
+/* -----------------------------------------------------------
+   1 · The story (§3)
+   ----------------------------------------------------------- */
+
+/* The top padding clears the chrome at every width — the same duty as
+   Services' claim. The H1 starts in the top inline-start corner, which is
+   the corner the menu trigger is fixed in. */
+.ab-story {
+  padding-block: calc(var(--gap-component) + var(--gap-heading)) var(--gap-section);
+}
+
+/* ¶1's first sentence, at display scale. .t-editorial carries the register
+   and the mobile collapse: --fs-h1 is 52px, 40px at 1023 and 34px at 767,
+   which is §9's stated H1 value with no page-level override. */
+.ab-story__line {
+  margin: 0;
+}
+
+.ab-story__support {
+  margin: var(--gap-block) 0 0;
+}
+
+/* The gap between the support line and ¶2 is the heading gap, not the block
+   gap: the H1 and its support are one object, and ¶2 starts the argument. */
+.ab-story__prose {
+  margin: var(--gap-heading) 0 0;
+}
+
+.ab-story__prose + .ab-story__prose {
+  margin-block-start: var(--gap-block);
+}
+
+.ab-story__route {
+  margin: var(--gap-heading) 0 0;
+}
+
+/* The page's three routes share one register — the site's link grammar on
+   paper, ruled underneath rather than coloured. */
+.ab-link {
+  display: inline-block;
+  border-block-end: 1px solid currentcolor;
+  padding-block-end: 2px;
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  color: var(--color-ink);
+  transition: border-block-end-width var(--dur-fast) var(--ease-out);
+}
+
+.ab-link:hover,
+.ab-link:focus-visible {
+  border-block-end-width: 2px;
+}
+
+.ab-link:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 4px;
+}
+
+/* -----------------------------------------------------------
+   2 · The client wall (§5) — W-A, one stack
+   ----------------------------------------------------------- */
+
+/* Four tables in one stack, one alignment axis down the whole wall. The
+   groups are separated by the component gap rather than a rule: the rules
+   in this section mean "one client", and a rule between groups would mean
+   the same thing at a different scale. */
+.ab-wall {
+  padding-block-end: var(--gap-section);
+}
+
+/* table-layout: fixed, because auto layout treats a column's inline-size as
+   a PREFERENCE and negotiates it against the content: the 200px mark column
+   settled at 197.9px and the one width-limited mark rendered 2px short of
+   the geometry §5's arithmetic chose. Fixed makes the column exactly 200px,
+   which is the number the container decision was taken on. */
+.ab-wall__group {
+  inline-size: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  text-align: start;
+}
+
+.ab-wall__group + .ab-wall__group {
+  margin-block-start: var(--gap-component);
+}
+
+/* The group head is the table's own <caption> — 12px uppercase secondary,
+   the site's small-label register. text-align is stated because a caption
+   centres by default, and this wall has one alignment axis. */
+.ab-wall__head {
+  padding-block-end: var(--gap-tight);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-nav);
+  line-height: var(--lh-caption);
+  text-align: start;
+  text-transform: uppercase;
+  color: var(--color-ink-secondary);
+}
+
+/* Hairline between rows, and above the first row of every group so the head
+   sits on its set. No vertical rule, no cell border, no outer frame. */
+.ab-wall__markcell,
+.ab-wall__namecell {
+  padding-block: var(--pad-table-row);
+  border-block-start: 1px solid var(--color-hairline);
+  vertical-align: middle;
+}
+
+/* W-A's mark column. 200px was chosen on the arithmetic in §5, re-derived
+   from the trimmed files: at the 32px cap the set runs 25.7px to 244.5px
+   wide (9.5:1, median 70.7), so a 200px column width-limits exactly one
+   mark — Al Zorah Development — and the shortest row still renders 26.2px
+   tall. 120px was rejected: nine marks would be width-limited and a third
+   of the wall would fall to 13-20px optical, which is the failure §6.3
+   solved by naming every client in the first place. */
+/* THE GUTTER BELONGS TO THE NAME, NOT THE MARK. Sizing the cell 200px and
+   then padding it 24px leaves the mark 176px, so the one width-limited mark
+   rendered 174.9px instead of 200 and the wall no longer matched the
+   arithmetic that chose the container. Measured, not reasoned: the cell is
+   200px and every pixel of it is the mark's. */
+.ab-wall__markcell {
+  inline-size: 200px;
+  /* The UA stylesheet gives every td 1px of padding on all four sides. The
+     rule above sets padding-block and leaves the inline pair standing, so
+     the mark had 198px of a 200px column and the width-limited mark landed
+     197.9px. Stated, not inherited. */
+  padding-inline: 0;
+}
+
+.ab-wall__namecell {
+  padding-inline: var(--gap-block) 0;
+}
+
+/* §1.5a rule 4 caps a mark at 32px optical height — a CAP, NOT A FLOOR, so
+   a mark rendering under it conforms.
+
+   max-* with auto dimensions, never height+max-width: the latter clamps the
+   width of a wide mark while the height stays 32px and DISTORTS it, which
+   on a trademark is not a layout bug. The intrinsic width/height attributes
+   on the <img> give the browser the aspect ratio, so each row reserves its
+   height before the mark loads — this page is thirty-two images. */
+.ab-wall__mark {
+  display: block;
+  inline-size: auto;
+  block-size: auto;
+  max-inline-size: 100%;
+  max-block-size: 32px;
+}
+
+.ab-wall__name {
+  display: block;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-ink);
+}
+
+/* Four rows carry one. Shown only where it does not restate the client's
+   own name — every other row is a client-equals-building echo (Screen 04's
+   suppression rule, reused). It is a caption on the row, not a second name,
+   so it steps down in size and colour. */
+.ab-wall__relation {
+  display: block;
+  margin-block-start: 2px;
+  font-size: var(--fs-metadata);
+  line-height: var(--lh-body);
+  color: var(--color-ink-secondary);
+}
+
+/* -----------------------------------------------------------
+   3 · The facts (§6) — built, shipped hidden
+   ----------------------------------------------------------- */
+
+/* [hidden] is the switch; these rules are what it unhides onto. base.css
+   may set display on section elements, so the attribute selector states it
+   rather than trusting the cascade — a facts table that ships VISIBLE is a
+   silent failure of the X6 gate, and the one below is a row already inside
+   ¶1. */
+.ab-facts[hidden] {
+  display: none;
+}
+
+.ab-facts__table {
+  inline-size: 100%;
+  border-collapse: collapse;
+}
+
+.ab-facts__row + .ab-facts__row .ab-facts__label,
+.ab-facts__row + .ab-facts__row .ab-facts__value {
+  border-block-start: 1px solid var(--color-hairline);
+}
+
+.ab-facts__label,
+.ab-facts__value {
+  padding-block: var(--pad-table-row);
+  vertical-align: baseline;
+}
+
+.ab-facts__label {
+  inline-size: 40%;
+  padding-inline-end: var(--gap-tight);
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  color: var(--color-ink-secondary);
+}
+
+.ab-facts__value {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-ink);
+}
+
+/* -----------------------------------------------------------
+   4 · Join us (§8)
+   ----------------------------------------------------------- */
+
+.ab-join {
+  padding-block-end: var(--gap-section);
+}
+
+.ab-join__prose {
+  margin: 0;
+}
+
+.ab-join__route {
+  margin: var(--gap-block) 0 0;
+}
+
+/* -----------------------------------------------------------
+   5 · The closing band — E1.2 / E1.2a
+   ----------------------------------------------------------- */
+
+/* On a paper page the band is the inverse, so it is the dark surface and it
+   owns the switch. The register is the site's, one on all fifty-four pages
+   that carry it: 32px light, never an uppercase imperative. */
+.ab-band {
+  padding-block: calc(var(--gap-section-major) / 2);
+}
+
+.ab-band__line {
+  margin: 0 0 var(--gap-block);
+  max-inline-size: var(--measure-h2);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-h2);
+  letter-spacing: var(--ls-h2);
+  color: var(--color-on-dark);
+}
+
+.ab-band__action {
+  display: inline-block;
+  padding-block: var(--gap-tight);
+  padding-inline: var(--gap-heading);
+  border: 1px solid var(--color-on-dark);
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  color: var(--color-on-dark);
+  transition: background-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+
+.ab-band__action:hover,
+.ab-band__action:focus-visible {
+  background: var(--color-on-dark);
+  color: var(--color-surface-dark);
+}
+
+/* -----------------------------------------------------------
+   6 · Breakpoints (§9) — restack, never shrink
+   ----------------------------------------------------------- */
+
+/* BELOW 768 THE WALL RESTACKS: the mark on its own line, the name beneath
+   it, still one ruled row per client.
+
+   Found by rendering, not by reasoning. Carrying the desktop values down
+   left 127px for the name at 375 and clipped every one of them — "General
+   Authority of Islamic Affairs & Endowm…". Shrinking the mark column to fit
+   is the wrong fix: at ~104px half the set falls below 20px optical, which
+   is the exact failure naming every client was chosen to solve.
+
+   The cells become blocks and the row carries the rule, so the ruled
+   register survives the restack rather than being traded for it. A
+   consequence worth having: the mark may now use the full column width, so
+   Al Zorah renders WIDER at 375 than in the 200px desktop container. */
+@media (max-width: 767px) {
+  .ab-wall__row {
+    border-block-start: 1px solid var(--color-hairline);
+  }
+
+  .ab-wall__markcell,
+  .ab-wall__namecell {
+    display: block;
+    border-block-start: 0;
+  }
+
+  .ab-wall__markcell {
+    inline-size: auto;
+    padding-block-end: var(--gap-inline);
+  }
+
+  /* The name is under the mark now, not beside it, so the gutter that
+     separated them horizontally would only indent the name. */
+  .ab-wall__namecell {
+    padding-block-start: 0;
+    padding-inline: 0;
+  }
+
+  /* The facts table stacks label over value on the same clause. */
+  .ab-facts__label,
+  .ab-facts__value {
+    display: block;
+    inline-size: auto;
+  }
+
+  .ab-facts__label {
+    padding-block-end: 0;
+    padding-inline-end: 0;
+  }
+
+  .ab-facts__value {
+    padding-block-start: 0;
+  }
+
+  .ab-facts__row + .ab-facts__row .ab-facts__value {
+    border-block-start: 0;
+  }
+}

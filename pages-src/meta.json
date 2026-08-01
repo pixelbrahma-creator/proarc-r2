@@ -131,7 +131,8 @@
     "canonical": "https://proarc.ae/about",
     "ground": "paper",
     "navLit": "about",
-    "navExact": true
+    "navExact": true,
+    "pageStylesheet": "about"
   },
 
   "contact": {
