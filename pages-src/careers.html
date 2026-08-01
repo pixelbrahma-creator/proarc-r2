@@ -118,20 +118,24 @@
        as urlencoded sends the filename and nothing else, which is the one
        failure that looks exactly like success. -->
   <section class="cr-form container">
-    <form class="cr-form__form" action="{{formAction}}" method="{{formMethod}}" enctype="{{formEnctype}}" aria-label="Application">
+    <form class="cr-form__form" data-form action="{{formAction}}" method="{{formMethod}}" enctype="{{formEnctype}}" aria-label="Application">
       <div class="form-field">
         <label class="form-field__label" for="cr-name">Name</label>
-        <input class="form-field__input" type="text" id="cr-name" name="name" autocomplete="name" required>
+        <input class="form-field__input" type="text" id="cr-name" name="name" autocomplete="name" required
+               data-missing="A name is missing.">
       </div>
 
       <div class="form-field">
         <label class="form-field__label" for="cr-email">Email</label>
-        <input class="form-field__input" type="email" id="cr-email" name="email" autocomplete="email" required>
+        <input class="form-field__input" type="email" id="cr-email" name="email" autocomplete="email" required
+               data-missing="An email address is missing."
+               data-invalid="This email address is not complete.">
       </div>
 
       <div class="form-field">
         <label class="form-field__label" for="cr-phone">Phone <span class="form-field__optional">optional</span></label>
-        <input class="form-field__input" type="tel" id="cr-phone" name="phone" autocomplete="tel">
+        <input class="form-field__input" type="tel" id="cr-phone" name="phone" autocomplete="tel"
+               data-invalid="This phone number is not complete.">
       </div>
 
       <div class="form-field">
@@ -141,21 +145,49 @@
 
       <div class="form-field">
         <label class="form-field__label" for="cr-position">Position</label>
-        <input class="form-field__input" type="text" id="cr-position" name="position" required>
+        <input class="form-field__input" type="text" id="cr-position" name="position" required
+               data-missing="A position is missing.">
       </div>
 
+      <!-- THE CV IS THE ONE FIELD WITH TWO WAYS TO BE WRONG, and neither
+           string carries a quantity (E12): a size is a number, "too large to
+           send" is not. The type check reads the accept attribute above it,
+           so the two can never disagree about what may be sent. -->
       <div class="form-field">
         <label class="form-field__label" for="cr-cv">CV</label>
-        <input class="form-field__file" type="file" id="cr-cv" name="cv" accept="{{cvAccept}}" required>
+        <input class="form-field__file" type="file" id="cr-cv" name="cv" accept="{{cvAccept}}" required
+               data-missing="A CV is missing."
+               data-invalid="This file cannot be read."
+               data-oversize="This file is too large to send.">
       </div>
 
       <div class="form-field">
         <label class="form-field__label" for="cr-letter">Cover letter</label>
-        <textarea class="form-field__input form-field__area" id="cr-letter" name="letter" rows="8" required></textarea>
+        <textarea class="form-field__input form-field__area" id="cr-letter" name="letter" rows="8" required
+                  data-missing="A cover letter is missing."></textarea>
       </div>
+
+      <!-- The honeypot, as on Contact (10-forms.md §4). -->
+      <input class="form-honeypot" type="text" id="cr-company" name="company" tabindex="-1"
+             autocomplete="off" aria-hidden="true">
 
       <button class="form-submit" type="submit">Send application</button>
     </form>
+
+    <!-- The two outcomes, as on Contact. The failure panel matters more
+         here: an applicant has attached a file and written a letter, and
+         the paragraph above already carries the working address — this
+         states it again at the moment it is needed, without clearing a
+         word of what they wrote. -->
+    <div class="form-outcome" data-form-success role="status" tabindex="-1" hidden>
+      <p class="form-outcome__head">Your application is with the studio.</p>
+      <p class="form-outcome__body t-body">The next step is ours.</p>
+    </div>
+
+    <div class="form-outcome" data-form-failure role="status" tabindex="-1" hidden>
+      <p class="form-outcome__head">This application did not send.</p>
+      <p class="form-outcome__body t-body">Nothing is lost — the details are still in the form, and <a class="form-outcome__link" href="{{emailHref}}">{{email}}</a> reaches the studio directly.</p>
+    </div>
   </section>
 
 </main>

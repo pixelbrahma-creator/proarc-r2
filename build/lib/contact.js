@@ -35,13 +35,22 @@
  *   site writes the number both ways (+97167446633 in markup, spaced in
  *   copy) and that is exactly how a digit goes missing from one of them.
  *
- * THE FORM'S ROUTE IS KNOWN-BROKEN AND SAYS SO, EVERY RUN. `php/contact.php`
- * calls get_magic_quotes_gpc(), removed in PHP 8, and a static host executes
- * no PHP at all. §6 hands the route to the forms phase as its first
- * question. The action is still written: a named route that fails loudly is
- * recoverable, where a form with no action posts to the page itself and
- * discards a real client's enquiry in silence. Until the forms phase runs,
- * the Email row is the page's working channel.
+ * THE ROUTE IS THE THIRD GATE, AND IT IS PRINTED LIKE THE OTHER TWO.
+ * `php/contact.php` calls get_magic_quotes_gpc(), removed in PHP 8, and a
+ * static host executes no PHP at all. Mahesh decided it in Session J: no
+ * submission now, wired when there is real hosting (10-forms.md §0).
+ *
+ *   THE ACTION IS NOT NULLED, unlike street and hours.days. A form with no
+ *   action posts to the page itself and discards a real client's enquiry in
+ *   silence; a named route fails loudly, and js/forms.js turns that loud
+ *   failure into a stated one that keeps every word the reader typed and
+ *   names the working channel.
+ *
+ *   THERE IS NO WIRED FLAG, for this file's own reason: a flag and a value
+ *   can contradict each other and one of them is then a lie. Nothing here
+ *   or in the build decides whether the route works — the script posts and
+ *   reads the answer, so the same code is correct on a static host today
+ *   and on a server at cutover.
  */
 
 const fs = require('fs');
@@ -245,8 +254,10 @@ function viewData(prefix) {
       `X15 ${d.days ? 'CLOSED' : 'OPEN'}: ${d.days ? `the office is open ${d.days}` : 'the day range is unknown, so no Hours row is rendered (times are confirmed ' + d.times + ')'}.`
   );
   console.log(
-    `    contact: the form posts to ${d.action} — which fatals on PHP 8 and executes nothing on a static host. ` +
-      `The route is the forms phase's first question (08-contact.md §6); until it runs, the Email row is the working channel.`
+    `    contact: THE ROUTE GATE IS OPEN — the form posts to ${d.action}, which fatals on PHP 8 and ` +
+      `executes nothing on a static host, so every submission fails and the form says so (10-forms.md §0). ` +
+      `Decided by Mahesh: no submission now, wired when there is real hosting. Set form.action in ` +
+      `data/contact.json and the success state arrives with no code change.`
   );
   console.log(`    contact: ${subject.count} project slugs in the Subject index for ?project=.`);
 
@@ -256,6 +267,8 @@ function viewData(prefix) {
     formMethod: escapeAttr(d.method),
     subjectIndexJson: subject.json,
     careersHref: `${prefix}careers.html`,
+    email: escapeText(d.email),
+    emailHref: escapeAttr('mailto:' + d.email),
   };
 }
 

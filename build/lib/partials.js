@@ -106,10 +106,31 @@ function chromeContact() {
 }
 
 /**
+ * A route's pageScript may name ONE script or SEVERAL.
+ *
+ * Contact is the first page to need two, and they are two on purpose:
+ * js/contact.js does the ?project= pre-fill, which is that page's alone,
+ * and js/forms.js is the validation grammar BOTH forms share — a second
+ * copy of it on /careers is how two surfaces start disagreeing about what
+ * a valid email address is.
+ *
+ * A string stays a string in meta.json, so every route written before this
+ * existed is unchanged and every page it renders comes out byte-identical.
+ */
+function pageScripts(pageData) {
+  const declared = pageData && pageData.pageScript;
+  if (!declared) return [];
+  const list = Array.isArray(declared) ? declared : [declared];
+  return list.filter((name) => typeof name === 'string' && name.trim());
+}
+
+/**
  * Renders the shared partials against page-level data.
  *
  * pageData: { title, description, canonical, ogImage, assetPrefix,
  *             navLit, navExact, ground, pageStylesheet, pageScript }
+ *
+ * pageScript is a string or an array of strings; see pageScripts() above.
  */
 function renderShell(pageData) {
   // The machine contract is derived HERE, in the one place both generators
@@ -121,6 +142,7 @@ function renderShell(pageData) {
     navItems: navItems(pageData),
     constellation: constellation(),
     preview: preview(pageData.assetPrefix || ''),
+    pageScripts: pageScripts(pageData),
   });
 
   return {

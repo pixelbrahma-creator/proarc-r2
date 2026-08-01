@@ -865,3 +865,144 @@ html.is-menu-open { overflow: hidden; }
 .surface-dark .form-submit:focus-visible {
   outline-color: var(--color-on-dark);
 }
+
+/* -------------------------------------------------------------------------
+   THE FORMS PHASE — the states. Spec: _bmad/wds/D-UX-Design/10-forms.md.
+
+   Everything below is switched on by js/forms.js and by nothing else. A
+   page with no script keeps the finished form above and the browser's own
+   native validation, which is why none of these rules changes a resting
+   field: an unflagged form renders byte-for-byte as it did before this
+   block existed.
+
+   THE ERROR STATE IS THREE SIGNALS AND NEVER FEWER (v1.2 §1.5, v1.3 E6.1):
+   the 2px inline-start rule (tokens.css .field-invalid, drawn in the margin
+   so the field does not move), an explicit text string, and colour. Colour
+   is the only one of the three that could be missed, and it is never alone.
+   ------------------------------------------------------------------------- */
+
+/* The field's own rule reddens with the state. This is the third signal,
+   not the first: it repeats what the margin rule and the string already
+   say, at the one place the reader's eye is. */
+.field-invalid .form-field__input,
+.field-invalid .form-field__file {
+  border-block-end-color: var(--color-signal);
+}
+
+.surface-dark .field-invalid .form-field__input,
+.surface-dark .field-invalid .form-field__file {
+  border-block-end-color: var(--color-signal-on-dark);
+}
+
+/* The string sits under the field it is about, at metadata scale — the
+   register the site uses for a line that describes another line. */
+.field-error {
+  margin-block-start: var(--gap-inline);
+}
+
+/* THE HONEYPOT (§4). Not type="hidden", because a hidden input is exactly
+   the one a bot does not fill. It is removed from the page without being
+   removed from the document: no size, no ink, nothing to tab to, and
+   aria-hidden in the markup keeps it out of the accessibility tree as
+   well. A human cannot reach it by pointer, by keyboard or by screen
+   reader; a script that fills every input it finds can. */
+.form-honeypot {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* THE OUTCOME PANELS. They ship [hidden] in the markup and the script
+   reveals one — the Work surfaces' idiom, so a reader without the script
+   never meets a dead panel. No display is declared on the class, because a
+   display value here would beat the [hidden] attribute and the panel would
+   ship visible on every page load. That is not a hypothetical: it is the
+   ordinary way this pattern breaks. */
+/* It sits under the button, close enough to be that button's answer. On
+   success the form is hidden and the panel takes its place in the layout,
+   which is where the reader was already looking. */
+.form-outcome {
+  margin-block-start: var(--gap-block);
+  max-inline-size: var(--measure-body);
+  padding-inline-start: var(--gap-block);
+  border-inline-start: 2px solid var(--color-ink);
+}
+
+/* NO FOCUS RING ON THE PANEL, and this was decided by looking at the
+   rendered state rather than at the rule. The panel carries tabindex="-1",
+   so it can NEVER be reached by Tab — the only focus it can ever receive
+   is the script's own, at the moment it appears. A ring there indicates
+   nothing a reader needs to know, and it drew a full 2px box around a
+   paragraph on a site whose grammar has no boxes and no border-radius.
+   The rule at its inline start is what marks it, in the site's own
+   language. Every operable control keeps its indicator; this is not one. */
+.form-outcome:focus,
+.form-outcome:focus-visible {
+  outline: none;
+}
+
+.form-outcome__head {
+  margin: 0;
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-h3);
+  color: var(--color-ink);
+}
+
+.form-outcome__body {
+  margin-block-start: var(--gap-tight);
+  margin-block-end: 0;
+  color: var(--color-ink-secondary);
+}
+
+/* The failure panel's one link is the working channel, and it carries the
+   inline register the site decided for a link inside a sentence: weight
+   and the rule, never case and never colour. */
+.form-outcome__link {
+  border-block-end: 1px solid currentcolor;
+  font-weight: var(--fw-semibold);
+  color: inherit;
+  text-decoration: none;
+}
+
+.form-outcome__link:hover,
+.form-outcome__link:focus-visible {
+  color: var(--color-ink);
+}
+
+.surface-dark .form-outcome {
+  border-inline-start-color: var(--color-on-dark);
+}
+
+.surface-dark .form-outcome__head {
+  color: var(--color-on-dark);
+}
+
+.surface-dark .form-outcome__body {
+  color: var(--color-on-dark-secondary);
+}
+
+.surface-dark .form-outcome__link:hover,
+.surface-dark .form-outcome__link:focus-visible {
+  color: var(--color-on-dark);
+}
+
+/* In flight: the button cannot be pressed twice. It keeps its own label —
+   a label that changes is a second string to translate, and the disabled
+   state already says the thing. */
+.form-submit[disabled] {
+  cursor: default;
+  background: var(--color-ink-secondary);
+  border-color: var(--color-ink-secondary);
+}
+
+.surface-dark .form-submit[disabled] {
+  background: var(--color-ink-secondary);
+  border-color: var(--color-ink-secondary);
+  color: var(--color-on-dark);
+}

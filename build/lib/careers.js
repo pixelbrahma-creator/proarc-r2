@@ -69,8 +69,11 @@ function viewData(prefix, pageData) {
 
   const exists = fs.existsSync(path.join(ROOT, form.action));
   console.log(
-    `    careers: the application posts to ${form.action}, which ${exists ? 'exists' : 'DOES NOT EXIST IN THE TREE'} — ` +
-      `the forms phase's to build (07-about.md §8). Until it does, the paragraph's ${c.email} is the working route.`
+    `    careers: THE ROUTE GATE IS OPEN — the application posts to ${form.action}, which ` +
+      `${exists ? 'exists but executes nothing on a static host' : 'DOES NOT EXIST IN THE TREE'}, so every ` +
+      `submission fails and the form says so (10-forms.md §0). Decided by Mahesh: no submission now, wired ` +
+      `when there is real hosting. The paragraph's ${c.email} is the working route meanwhile, and the ` +
+      `failure panel names it too.`
   );
 
   return {

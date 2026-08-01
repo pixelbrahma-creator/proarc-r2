@@ -18,6 +18,8 @@
     "  template  optional shared source: pages-src/<template>.html serves this route instead of",
     "            pages-src/<key>.html. The three sector pages are one template by decision (L1).",
     "  pageStylesheet / pageScript  opt-in per-page CSS and JS, resolved by the head/scripts partials.",
+    "            pageScript is a name OR a list of names. Contact is the only route that needs two:",
+    "            its own ?project= pre-fill, plus the validation grammar both forms share.",
     "  assetPrefix is derived from outFile's depth; a nested route reaches assets one level up.",
     "",
     "There is no offices sector page. The five-built rule (D-2) needs five built projects and",
@@ -144,7 +146,7 @@
     "navLit": "contact",
     "navExact": true,
     "pageStylesheet": "contact",
-    "pageScript": "contact"
+    "pageScript": ["contact", "forms"]
   },
 
   "careers": {
@@ -155,6 +157,7 @@
     "ground": "paper",
     "navLit": "",
     "navExact": false,
-    "pageStylesheet": "careers"
+    "pageStylesheet": "careers",
+    "pageScript": "forms"
   }
 }

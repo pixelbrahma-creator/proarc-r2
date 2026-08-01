@@ -188,22 +188,26 @@
        accessible name is stated on the <form> instead, where it names the
        control group without printing a line the page did not need.
 
-       THE required ATTRIBUTES ARE SEMANTICS, NOT THE VALIDATION MATRIX.
-       Which fields are required is this spec's decision (§6) and a screen
-       reader must be able to say so. WHEN checks run, inline versus
-       on-submit, focus management, every error and success string, the
-       filled and focus treatments beyond a visible focus, spam handling
-       and the success state are all the forms phase's — §6's second
-       column, written there.
+       THE required ATTRIBUTES ARE SEMANTICS AND THE STRINGS ARE THE PAGE'S.
+       Which fields are required is §6's decision and a screen reader must
+       be able to say so; the browser also validates on them for a reader
+       with no script, which is why noValidate is set by js/forms.js rather
+       than written here. Every error string rides on its own field as
+       data-missing / data-invalid, because the page's words belong in the
+       page — the script reads them and holds none of its own. A field
+       carrying neither attribute is not checked. Matrix: 10-forms.md §2.
 
-       THE ACTION IS A KNOWN-BROKEN ROUTE, DELIBERATELY NAMED. php/contact.php
-       calls get_magic_quotes_gpc(), removed in PHP 8, and a static host
-       executes no PHP at all; the route is the forms phase's first
-       question. It is still written down, because a form with no action
-       posts to the page itself and discards a real enquiry in silence,
-       where a named route fails loudly and recoverably. The build prints
-       this every run. Until the forms phase lands, the Email row above is
-       the page's working channel.
+       THE ACTION IS A KNOWN-BROKEN ROUTE, DELIBERATELY NAMED — and after
+       Session J it is a DECIDED state rather than an open question.
+       php/contact.php calls get_magic_quotes_gpc(), removed in PHP 8, and a
+       static host executes no PHP at all. Mahesh: no submission now, wired
+       when there is real hosting. It is still written down, because a form
+       with no action posts to the page itself and discards a real enquiry
+       in silence, where a named route fails loudly — and the failure panel
+       below turns that loud failure into a stated one that keeps the
+       reader's words and names the channel that works. The build prints the
+       gate every run. Nothing anywhere flags the route as wired or unwired:
+       the script posts and reads the answer, so wiring is one data edit.
 
        ?project={slug} PRE-FILLS SUBJECT and it stays editable (§6). The
        slug-to-title map is the island at the foot of this page — built
@@ -212,34 +216,74 @@
        Canonical stays /contact: Screen 04 §9's contract, landed on its
        receiving page. -->
   <section class="ct-form container">
-    <form class="ct-form__form" action="{{formAction}}" method="{{formMethod}}" aria-label="Enquiry">
+    <form class="ct-form__form" data-form action="{{formAction}}" method="{{formMethod}}" aria-label="Enquiry">
       <div class="form-field">
         <label class="form-field__label" for="ct-name">Name</label>
-        <input class="form-field__input" type="text" id="ct-name" name="name" autocomplete="name" required>
+        <input class="form-field__input" type="text" id="ct-name" name="name" autocomplete="name" required
+               data-missing="A name is missing.">
       </div>
 
       <div class="form-field">
         <label class="form-field__label" for="ct-email">Email</label>
-        <input class="form-field__input" type="email" id="ct-email" name="email" autocomplete="email" required>
+        <input class="form-field__input" type="email" id="ct-email" name="email" autocomplete="email" required
+               data-missing="An email address is missing."
+               data-invalid="This email address is not complete.">
       </div>
 
       <div class="form-field">
         <label class="form-field__label" for="ct-phone">Phone <span class="form-field__optional">optional</span></label>
-        <input class="form-field__input" type="tel" id="ct-phone" name="phone" autocomplete="tel">
+        <input class="form-field__input" type="tel" id="ct-phone" name="phone" autocomplete="tel"
+               data-invalid="This phone number is not complete.">
       </div>
 
       <div class="form-field">
         <label class="form-field__label" for="ct-subject">Subject</label>
-        <input class="form-field__input" type="text" id="ct-subject" name="subject" required>
+        <input class="form-field__input" type="text" id="ct-subject" name="subject" required
+               data-missing="A subject is missing.">
       </div>
 
       <div class="form-field">
         <label class="form-field__label" for="ct-message">Message</label>
-        <textarea class="form-field__input form-field__area" id="ct-message" name="message" rows="6" required></textarea>
+        <textarea class="form-field__input form-field__area" id="ct-message" name="message" rows="6" required
+                  data-missing="A message is missing."></textarea>
       </div>
+
+      <!-- THE HONEYPOT (10-forms.md §4). It is not type="hidden", because a
+           hidden input is the one a bot does not fill. No human input path
+           reaches it: no size and no ink from .form-honeypot, out of the tab
+           order, out of the accessibility tree. A filled one renders the
+           success panel and sends nothing — telling a bot it was caught is
+           telling the next bot how. -->
+      <input class="form-honeypot" type="text" id="ct-company" name="company" tabindex="-1"
+             autocomplete="off" aria-hidden="true">
 
       <button class="form-submit" type="submit">Send message</button>
     </form>
+
+    <!-- THE TWO OUTCOMES (10-forms.md §3). They ship [hidden] and js/forms.js
+         reveals one — the Work surfaces' idiom, so a reader without the
+         script never meets a dead panel. They carry no display in CSS,
+         because a display value would beat the [hidden] attribute and both
+         panels would ship visible.
+
+         THE FAILURE PANEL IS THE STATE EVERY SUBMIT REACHES TODAY, and it is
+         the reason the form may stay visible while the route is unwired
+         (Mahesh, Session J): the reader is told plainly, keeps every word
+         they typed, and is handed the channel that works. Without it they
+         would land on the host's own 404 — not even this site's — and lose
+         the page and their words together.
+
+         Its closing clause echoes the page's opening line deliberately. At
+         that moment it is the only sentence on the page still doing work. -->
+    <div class="form-outcome" data-form-success role="status" tabindex="-1" hidden>
+      <p class="form-outcome__head">Your message is with the studio.</p>
+      <p class="form-outcome__body t-body">The next step is ours.</p>
+    </div>
+
+    <div class="form-outcome" data-form-failure role="status" tabindex="-1" hidden>
+      <p class="form-outcome__head">This message did not send.</p>
+      <p class="form-outcome__body t-body">Nothing is lost — the words are still in the form, and <a class="form-outcome__link" href="{{emailHref}}">{{email}}</a> reaches the studio directly.</p>
+    </div>
 
     <!-- 5 · The careers line (§10) — the page's ONE body link out, and it
          is function rather than marketing: a job applicant is the one

@@ -457,12 +457,40 @@ html:lang(ar) .t-nav {
   color: var(--color-signal);
 }
 
+/* THE 2px RULE IS DRAWN IN THE MARGIN, NOT ON THE BOX — corrected by the
+   forms phase (10-forms.md §4), which is the first thing ever to switch
+   this class on.
+
+   As authored it was `border-inline-start: 2px solid`, and switched on it
+   MOVES THE FIELD THE READER IS READING: a border on the wrapper pushes
+   its content in by 2px, and the padding that would keep the rule off the
+   text pushes it further. A state must not shift the thing it describes,
+   and a field that jumps sideways at the moment it is called wrong is the
+   worst place on the site to do it.
+
+   The pseudo-element occupies no layout at all, so an invalid field sits
+   exactly where a valid one does. inset-inline-start is logical, so the
+   rule moves to the other margin in RTL with everything else, and
+   --gap-inline keeps it clear of the 20px mobile gutter.
+
+   Same class, same three signals (§1.5: colour + string + rule), no
+   movement. Same family as E6.1 — a rule that was written down and never
+   rendered. */
 .field-invalid {
-  border-inline-start: 2px solid var(--color-signal);
+  position: relative;
+}
+
+.field-invalid::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: calc(-1 * var(--gap-inline));
+  inline-size: 2px;
+  background: var(--color-signal);
 }
 
 .surface-dark .field-error { color: var(--color-signal-on-dark); }
-.surface-dark .field-invalid { border-inline-start-color: var(--color-signal-on-dark); }
+.surface-dark .field-invalid::before { background: var(--color-signal-on-dark); }
 
 /* =========================================================================
    Global guards

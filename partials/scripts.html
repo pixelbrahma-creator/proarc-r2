@@ -26,4 +26,4 @@
 -->
 
 <script src="{{assetPrefix}}js/menu.js" defer></script>
-{{#if pageScript}}<script src="{{assetPrefix}}js/{{pageScript}}.js" defer></script>{{/if}}
+{{#each pageScripts}}<script src="{{assetPrefix}}js/{{this}}.js" defer></script>{{/each}}
