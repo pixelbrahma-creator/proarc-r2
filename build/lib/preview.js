@@ -8,24 +8,12 @@
  * carried by an `order` integer on each record, which REPLACES the never-
  * curated `featured` field.
  *
- * That field does not exist in data/projects.json yet — it lands with the
- * project-template session. Running the rule against the file's own order
- * today is not a degraded result, it is a wrong one: the file is clustered
- * by category, so the first six completed records are six schools in a row.
- * Six near-identical school thumbnails is precisely the monotony the
- * exhibition anatomy was built to make structurally impossible, and the
- * preview's whole job is to span the verbs.
- *
- * So the rule is implemented once, here, and reads its order from:
- *
- *   1. `order` on the record, when it exists — the real D1, and the only
- *      path once the field lands; or
- *   2. INTERIM_ORDER below — the six Mahesh saw and approved on board 16
- *      rev 2, which is the only curated ordering that exists today.
- *
- * When `order` lands, INTERIM_ORDER stops being consulted and can be
- * deleted. Nothing else about this file changes, and no caller changes at
- * all — which is the point of implementing the rule rather than the list.
+ * The field landed with the curation pass (00i-D1-Curation-Log.md), so the
+ * rule now runs against real data and the interim list it read until then
+ * is deleted. It resolves to the six Mahesh approved on board 16 rev 2 —
+ * not by carrying them as a list, but because the curation put each set's
+ * strongest completed record at the head of the order and the head spans
+ * the verbs by construction.
  */
 
 const fs = require('fs');
@@ -35,45 +23,25 @@ const ROOT = path.join(__dirname, '..', '..');
 
 const PREVIEW_COUNT = 6;
 
-/**
- * INTERIM — board 16 rev 2's approved set, in its approved order.
- * Spans Residential · Educational · Retail & Mixed-Use · Commercial ·
- * Educational · Religious: the four verbs and the mosque.
- * Delete this when `order` lands on the records.
- */
-const INTERIM_ORDER = [
-  'seasidehills',
-  'habitatschool',
-  'souksalah',
-  'ajmanbank',
-  'cityuniversity',
-  'alghalamosque',
-];
-
 function buildPreview() {
   const db = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'projects.json'), 'utf8'));
   const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'images', 'manifest.json'), 'utf8'));
 
-  const hasOrderField = db.projects.some((p) => typeof p.order === 'number');
+  const unranked = db.projects.filter((p) => typeof p.order !== 'number');
+  if (unranked.length) {
+    throw new Error(
+      `menu preview: ${unranked.length} record(s) carry no D1 order (${unranked
+        .map((p) => p.slug)
+        .join(', ')}). An unranked record is invisible to every ordered surface — ` +
+        'rank it in data/projects.json rather than letting it fall off the end.'
+    );
+  }
 
-  const ranked = hasOrderField
-    ? db.projects
-        .filter((p) => typeof p.order === 'number')
-        .slice()
-        .sort((a, b) => a.order - b.order)
-    : INTERIM_ORDER.map((slug) => {
-        const record = db.projects.find((p) => p.slug === slug);
-        if (!record) {
-          throw new Error(
-            `menu preview: interim record "${slug}" is not in data/projects.json. ` +
-              'A renamed or merged slug (O5) must be re-curated, never silently dropped.'
-          );
-        }
-        return record;
-      });
+  const ranked = db.projects.slice().sort((a, b) => a.order - b.order);
 
-  // E9.5 — completed only. Applied to both paths, because it is the rule and
-  // not a property of the interim list.
+  // E9.5 — completed only. The order already puts built work first (D1
+  // rule 1), so this filter should be a no-op at the head; it stays because
+  // it is the rule, and a re-curation must not be able to slip a render in.
   const completed = ranked.filter((p) => p.status === 'Completed');
 
   const chosen = completed.slice(0, PREVIEW_COUNT).map((p) => {
@@ -135,4 +103,4 @@ function renderPreview(records, assetPrefix) {
   );
 }
 
-module.exports = { buildPreview, renderPreview, PREVIEW_COUNT, INTERIM_ORDER };
+module.exports = { buildPreview, renderPreview, PREVIEW_COUNT };

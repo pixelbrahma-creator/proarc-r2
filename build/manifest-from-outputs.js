@@ -30,21 +30,30 @@ const LOGOS_DIR = path.join(ROOT, 'images', 'logos');
 const MANIFEST_PATH = path.join(ROOT, 'images', 'manifest.json');
 const DATA_PATH = path.join(ROOT, 'data', 'projects.json');
 
+const { galleryIndices } = require('./lib/images');
+
 const GALLERY_RE = /^gallery-(\d+)\.webp$/;
 
 function naturalSort(a, b) {
   return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
 }
 
-function buildProjectEntry(slug) {
+function buildProjectEntry(project) {
+  const slug = project.slug;
   const dir = path.join(PROJECTS_DIR, slug);
   if (!fs.existsSync(dir)) return null;
 
   const files = fs.readdirSync(dir);
-  const gallery = files
+  const onDisk = files
     .filter((f) => GALLERY_RE.test(f))
     .sort(naturalSort)
     .map((f) => `images/projects/${slug}/${f}`);
+
+  // The manifest carries what SHIPS, not what is on disk: the hero is
+  // de-duplicated out of the gallery, and a record may curate its set down
+  // (build/lib/images.js). Dropped files stay on disk — a curation call is
+  // reversible, a deleted derivative is not.
+  const gallery = galleryIndices(project, onDisk.length).map((i) => onDisk[i]);
 
   const has = (f) => files.includes(f);
   const entry = {
@@ -57,7 +66,7 @@ function buildProjectEntry(slug) {
   // A record with no usable image is worse than absent: generate-projects.js
   // skips slugs that are missing from the manifest, but a slug present with an
   // empty hero renders a broken page. Treat it as missing.
-  if (!entry.hero && !gallery.length) return null;
+  if (!entry.hero && !onDisk.length) return null;
   return entry;
 }
 
@@ -89,7 +98,7 @@ function main() {
   // Iterate the DATA, not the directory, so the manifest's key order matches
   // the pipeline's and an orphan image directory can never invent a project.
   for (const project of db.projects) {
-    const entry = buildProjectEntry(project.slug);
+    const entry = buildProjectEntry(project);
     if (!entry) {
       missing.push(project.slug);
       continue;

@@ -15,6 +15,7 @@
   "projects": [
     {
       "slug": "edu-cityuniversity",
+      "order": 36,
       "legacySlug": "edu-cityuniversity",
       "title": "City University",
       "category": "Educational",
@@ -32,6 +33,7 @@
     },
     {
       "slug": "edu-woodlemparkaljurf",
+      "order": 37,
       "legacySlug": "edu-woodlemparkaljurf",
       "title": "Woodlem Park School, Al Jurf",
       "category": "Educational",
@@ -49,6 +51,7 @@
     },
     {
       "slug": "edu-ajmanamerican",
+      "order": 31,
       "legacySlug": "edu-ajmanamerican",
       "title": "Ajman American School",
       "category": "Educational",
@@ -66,6 +69,7 @@
     },
     {
       "slug": "edu-habitataltallah",
+      "order": 29,
       "legacySlug": "edu-habitataltallah",
       "title": "Habitat School, Al Tallah",
       "category": "Educational",
@@ -83,6 +87,7 @@
     },
     {
       "slug": "edu-delhiprivate",
+      "order": 35,
       "legacySlug": "edu-delhiprivate",
       "title": "Delhi Private School",
       "category": "Educational",
@@ -100,6 +105,7 @@
     },
     {
       "slug": "edu-woodlemparkhamidiya",
+      "order": 22,
       "legacySlug": "edu-woodlemparkhamidiya",
       "title": "Woodlem Park School, Hamidiya",
       "category": "Educational",
@@ -117,6 +123,7 @@
     },
     {
       "slug": "edu-northgatebritish",
+      "order": 25,
       "legacySlug": "edu-northgatebritish",
       "title": "North Gate British School",
       "category": "Educational",
@@ -134,6 +141,7 @@
     },
     {
       "slug": "edu-metropolitan",
+      "order": 27,
       "legacySlug": "edu-metropolitan",
       "title": "Metropolitan School",
       "category": "Educational",
@@ -151,6 +159,7 @@
     },
     {
       "slug": "edu-crownbritish",
+      "order": 13,
       "legacySlug": "edu-crownbritish",
       "title": "Crown British School",
       "category": "Educational",
@@ -168,6 +177,7 @@
     },
     {
       "slug": "edu-cityamerican",
+      "order": 16,
       "legacySlug": "edu-cityamerican",
       "title": "City American School",
       "category": "Educational",
@@ -185,6 +195,7 @@
     },
     {
       "slug": "marksaverashdiya",
+      "order": 26,
       "legacySlug": "marksaverashdiya",
       "title": "Mark & Save, Rashdiya",
       "category": "Commercial",
@@ -200,6 +211,7 @@
     },
     {
       "slug": "marksavealtallah",
+      "order": 20,
       "legacySlug": "marksavealtallah",
       "title": "Mark & Save, Al Tallah",
       "category": "Commercial",
@@ -215,6 +227,7 @@
     },
     {
       "slug": "marksavealjurf",
+      "order": 28,
       "legacySlug": "marksavealjurf",
       "title": "Mark & Save, Al Jurf",
       "category": "Commercial",
@@ -230,6 +243,7 @@
     },
     {
       "slug": "homesrus",
+      "order": 32,
       "legacySlug": "homesrus",
       "title": "Homes R Us",
       "category": "Commercial",
@@ -243,6 +257,7 @@
     },
     {
       "slug": "citylifealtallah",
+      "order": 34,
       "legacySlug": "citylifealtallah",
       "title": "City Life, Al Tallah",
       "category": "Retail & Mixed-Use",
@@ -259,6 +274,7 @@
     },
     {
       "slug": "carsouq",
+      "order": 30,
       "legacySlug": "carsouq",
       "title": "Car Souq",
       "category": "Commercial",
@@ -273,6 +289,7 @@
     },
     {
       "slug": "royalfurniture",
+      "order": 23,
       "legacySlug": "royalfurniture",
       "title": "Royal Furniture",
       "category": "Commercial",
@@ -288,6 +305,7 @@
     },
     {
       "slug": "rosetower",
+      "order": 11,
       "legacySlug": "rosetower",
       "title": "Rose Tower",
       "category": "Residential",
@@ -303,12 +321,12 @@
     },
     {
       "slug": "azhagarden",
+      "order": 8,
       "legacySlug": "azhagarden",
       "title": "Azha Garden Residence",
       "category": "Residential",
       "location": "Aamra, Ajman",
       "locationFilter": "Ajman",
-      "featured": true,
       "summary": "Azha Garden Residence is a residential tower featuring a Ground Floor and four levels of dedicated parking.",
       "description": [
         "Azha Garden Residence is a residential tower featuring a Ground Floor and four levels of dedicated parking. The development rises across 15 floors of high-quality living space with a built up area of 44,020 sqm, designed to meet the growing demand for modern housing in the region. Residents enjoy premium amenities, including a fully equipped Health Club and a versatile Roof area for recreation and community activities."
@@ -319,6 +337,7 @@
     },
     {
       "slug": "seasidehills",
+      "order": 1,
       "legacySlug": "seasidehills",
       "title": "Seaside Hills Residence",
       "category": "Residential",
@@ -333,6 +352,7 @@
     },
     {
       "slug": "greenbuildings",
+      "order": 24,
       "legacySlug": "greenbuildings",
       "title": "Green Buildings",
       "category": "Residential",
@@ -345,10 +365,14 @@
       "client": "Emirates Properties",
       "builtUpArea": "~74,000 sq. ft.",
       "status": "Completed",
-      "configuration": "G + M + 2 Floors"
+      "configuration": "G + M + 2 Floors",
+      "images": {
+        "hero": "gallery-03"
+      }
     },
     {
       "slug": "gfloorpenthouse",
+      "order": 21,
       "legacySlug": "gfloorpenthouse",
       "title": "G+8 Floor + Penthouse",
       "category": "Residential",
@@ -365,6 +389,7 @@
     },
     {
       "slug": "exclusivevillas",
+      "order": 15,
       "legacySlug": "exclusivevillas",
       "title": "Exclusive Villas",
       "category": "Residential",
@@ -376,10 +401,14 @@
       ],
       "builtUpArea": "16,283 sqm",
       "status": "Completed",
-      "imagePrefix": "Exclusive-villas"
+      "imagePrefix": "Exclusive-villas",
+      "images": {
+        "hero": "gallery-02"
+      }
     },
     {
       "slug": "gateway",
+      "order": 47,
       "legacySlug": "gateway",
       "title": "Gateway Residences",
       "category": "Residential",
@@ -395,6 +424,7 @@
     },
     {
       "slug": "sealine",
+      "order": 46,
       "legacySlug": "sealine",
       "title": "Sealine Residences",
       "category": "Residential",
@@ -410,12 +440,12 @@
     },
     {
       "slug": "ajmanbank",
+      "order": 4,
       "legacySlug": "ajmanbank",
       "title": "Ajman Bank Headquarters",
       "category": "Commercial",
       "location": "Ajman, UAE",
       "locationFilter": "Ajman",
-      "featured": true,
       "summary": "Ajman Bank headquarters is a G+M+7-storied iconic corporate complex located on Al-Ittihad Street adjacent to the Etisalat building.",
       "description": [
         "Ajman Bank headquarters is a G+M+7-storied iconic corporate complex located on Al-Ittihad Street adjacent to the Etisalat building. This HQ is responsible for entire transactions across the globe. The buildings bold, striking, reflective inclined glass façade creates many interlocking shapes and volumes which transcends the simple need of generating workspaces to become an Urban landmark."
@@ -427,12 +457,12 @@
     },
     {
       "slug": "citymalluaq",
+      "order": 10,
       "legacySlug": "citymalluaq",
       "title": "City Mall, Umm Al Quwain",
       "category": "Retail & Mixed-Use",
       "location": "Umm Al Quwain, UAE",
       "locationFilter": "Umm Al Quwain",
-      "featured": true,
       "summary": "City Life Mall has the reputation of the very first shopping mall ever built in Umm-Al-Quwain, U.A.E.",
       "description": [
         "City Life Mall has the reputation of the very first shopping mall ever built in Umm-Al-Quwain, U.A.E. The ground with mezzanine mall is equipped with a supermarket at the center and surrounded with several retails shops that further opens out to outdoor cafes, with exterior seating facilities along the edge. Several, colorful, eye-catching volumes interlock with each other to create a contemporary design all on a grand architectural scale. The two primary entrance portals are projected volumes with a metal canopy suspended with steel rods which leads to the main circulation spine, perpendicular to the entry. The spine connects the supermarket to the shops along the periphery. The overall faÃ§ade is divided hierarchically into volumes that visually defines the functions. Ground parking spaces are given in the front and back of the mall which is the connected through a service road via the main road."
@@ -444,6 +474,7 @@
     },
     {
       "slug": "citylifekhor",
+      "order": 7,
       "legacySlug": "citylifekhor",
       "title": "City Life, Al Khor",
       "category": "Retail & Mixed-Use",
@@ -460,6 +491,7 @@
     },
     {
       "slug": "citylifetallah",
+      "order": 14,
       "legacySlug": "citylifetallah",
       "title": "City Life, Al Tallah II",
       "category": "Retail & Mixed-Use",
@@ -476,6 +508,7 @@
     },
     {
       "slug": "frontlineschool",
+      "order": 33,
       "legacySlug": "frontlineschool",
       "title": "Frontline International School",
       "category": "Educational",
@@ -492,6 +525,7 @@
     },
     {
       "slug": "rholding",
+      "order": 39,
       "legacySlug": "rholding",
       "title": "R Holding Head Office",
       "category": "Commercial",
@@ -508,6 +542,7 @@
     },
     {
       "slug": "cityschool",
+      "order": 9,
       "legacySlug": "cityschool",
       "title": "City School",
       "category": "Educational",
@@ -524,12 +559,12 @@
     },
     {
       "slug": "blacksquare",
+      "order": 12,
       "legacySlug": "blacksquare",
       "title": "The Black Square",
       "category": "Commercial",
       "location": "Ajman, UAE",
       "locationFilter": "Ajman",
-      "featured": true,
       "summary": "As its name suggest the Black square is a large cuboid located at the commercial center of Ajman.",
       "description": [
         "As its name suggest the Black square is a large cuboid located at the commercial center of Ajman. This building has many store front restaurants and retail shops that open out into the main road. It also houses many main offices that function within the UAE, making it a landmark building in the city."
@@ -537,10 +572,14 @@
       "client": "R Holding",
       "builtUpArea": "335,834 sq. ft",
       "status": "Completed",
-      "year": "2011"
+      "year": "2011",
+      "images": {
+        "hero": "gallery-03"
+      }
     },
     {
       "slug": "habitatschool",
+      "order": 2,
       "legacySlug": "habitatschool",
       "title": "Habitat School",
       "category": "Educational",
@@ -557,12 +596,12 @@
     },
     {
       "slug": "cityuniversity",
+      "order": 5,
       "legacySlug": "cityuniversity",
       "title": "City University Campus",
       "category": "Educational",
       "location": "Ajman, UAE",
       "locationFilter": "Ajman",
-      "featured": true,
       "summary": "Located at the junction of Sheikh Ammar Road and Sheikh Mohammed bin Zayed road, Ajman.",
       "description": [
         "Located at the junction of Sheikh Ammar Road and Sheikh Mohammed bin Zayed road, Ajman. Built in seven phases, this massive university campus is spread across an area of 1miliion square feet accommodating 11,000 students. The university consists of the state of the art auditorium, indoor play, swimming pool along with staff and student accommodation facilities, to be built in the later phases. Set over 3 floors, this purpose built educational facility will be built to house approximately 11,000 students from all fields of study and be a safe hub of learning and personal growth for them. Aesthetically engaging, regular geometric forms are utilized to create balance and convey a sense of effortless grace along the exterior faÃ§ade of the project. The exterior wall mimics exposed concrete panels which gives the overall built form a raw, rustic edge to it. The structure features neutral color tones and is reflective of its exterior environment. The use of natural lighting is abundant throughout the premises and strategically placed large openings provide ample light into the classrooms. Ample parking is provided on the ground and basement levels for ease of access."
@@ -574,6 +613,7 @@
     },
     {
       "slug": "citylifejurf",
+      "order": 17,
       "legacySlug": "citylifejurf",
       "title": "City Life Mall, Jurf",
       "category": "Retail & Mixed-Use",
@@ -590,6 +630,7 @@
     },
     {
       "slug": "souksalah",
+      "order": 3,
       "legacySlug": "souksalah",
       "title": "Souk Salah",
       "category": "Retail & Mixed-Use",
@@ -606,6 +647,7 @@
     },
     {
       "slug": "woodlem",
+      "order": 19,
       "legacySlug": "woodlem",
       "title": "Woodlem Park Private School",
       "category": "Educational",
@@ -622,6 +664,7 @@
     },
     {
       "slug": "jeddahheights",
+      "order": 38,
       "legacySlug": "jeddahheights",
       "title": "Jeddah Heights",
       "category": "Residential",
@@ -638,6 +681,7 @@
     },
     {
       "slug": "emiratescity",
+      "order": 18,
       "legacySlug": "emiratescity",
       "title": "Emirates City D1 Tower",
       "category": "Residential",
@@ -652,6 +696,7 @@
     },
     {
       "slug": "alghalamosque",
+      "order": 6,
       "legacySlug": "alghalamosque",
       "title": "Al Ghala Mosque",
       "category": "Religious",
@@ -663,10 +708,14 @@
       ],
       "client": "Ministry of Awqaf and Islamic Affairs",
       "status": "Completed",
-      "year": "2009"
+      "year": "2009",
+      "images": {
+        "hero": "gallery-03"
+      }
     },
     {
       "slug": "bluebell-residence",
+      "order": 41,
       "code": "P-1299",
       "title": "Bluebell Residence",
       "category": "Residential",
@@ -688,6 +737,7 @@
     },
     {
       "slug": "azha-park-residences",
+      "order": 44,
       "code": "P-1336",
       "title": "Azha Park Residences",
       "category": "Residential",
@@ -704,10 +754,19 @@
         "The project aims to create a high-quality living environment by combining comfortable residential spaces, well-planned community facilities, and a sustainable approach to modern urban living."
       ],
       "isNew": true,
-      "source": "zip:P-1336"
+      "source": "zip:P-1336",
+      "images": {
+        "hero": "gallery-15",
+        "gallery": [
+          "gallery-16",
+          "gallery-12",
+          "gallery-13"
+        ]
+      }
     },
     {
       "slug": "one-678",
+      "order": 40,
       "code": "P-1414",
       "title": "One 678",
       "category": "Residential",
@@ -726,10 +785,22 @@
       ],
       "isNew": true,
       "source": "zip:P-1414",
-      "featured": true
+      "images": {
+        "hero": "gallery-01",
+        "gallery": [
+          "gallery-02",
+          "gallery-03",
+          "gallery-04",
+          "gallery-05",
+          "gallery-06",
+          "gallery-07",
+          "gallery-08"
+        ]
+      }
     },
     {
       "slug": "deca-035",
+      "order": 43,
       "code": "P-1478",
       "title": "DECA 035 — Al Zorah Marina Residences",
       "category": "Residential",
@@ -750,6 +821,7 @@
     },
     {
       "slug": "star-giga-tower",
+      "order": 42,
       "code": "P-1490",
       "title": "Star Giga Tower",
       "category": "Residential",
@@ -771,6 +843,7 @@
     },
     {
       "slug": "zamzam-tower",
+      "order": 45,
       "code": "P-1473",
       "title": "Zamzam Tower",
       "category": "Residential",
@@ -789,8 +862,7 @@
         "The building terminates with an elegant, curved canopy and parapet finished in a signature mustard-yellow, echoing the rounded corner of the tower and framing the illuminated \"Zamzam Tower\" signage on the roof parapet walls."
       ],
       "isNew": true,
-      "source": "docx:P-1473",
-      "featured": true
+      "source": "docx:P-1473"
     }
   ]
 }

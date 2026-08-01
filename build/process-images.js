@@ -22,6 +22,7 @@
 const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
+const { heroIndex, galleryIndices } = require('./lib/images');
 
 const ROOT = path.join(__dirname, '..');
 const SITE_ROOT = path.join(ROOT, '..');
@@ -169,7 +170,11 @@ async function processProject(project, manifest, stats) {
   await runWithConcurrency(tasks, CONCURRENCY);
   galleryOut.sort((a, b) => naturalSort(a.n, b.n));
 
-  const heroSrc = sources[0];
+  // D1: the record decides which of its images leads and which ship. Taking
+  // sources[0] is what led a twenty-image set with a furnished living room —
+  // filename order is not curation. See build/lib/images.js.
+  const heroSrc = sources[heroIndex(project)];
+  const shipping = galleryIndices(project, galleryOut.length);
   const heroOut = path.join(outDir, 'hero.webp');
   const heroMdOut = path.join(outDir, 'hero-md.webp');
   const thumbOut = path.join(outDir, 'thumb.webp');
@@ -182,7 +187,7 @@ async function processProject(project, manifest, stats) {
     hero: `images/projects/${project.slug}/hero.webp`,
     heroMd: `images/projects/${project.slug}/hero-md.webp`,
     thumb: `images/projects/${project.slug}/thumb.webp`,
-    gallery: galleryOut.map((g) => g.rel),
+    gallery: shipping.map((i) => galleryOut[i].rel),
   };
 
   stats.processed++;
@@ -224,6 +229,20 @@ async function main() {
   console.log('Processing client logos...');
   await processLogos(manifest, stats);
   console.log(`Processed ${stats.logosProcessed} logo(s).`);
+
+  // The raw sources are not in this repository. Run here without them and
+  // every record reports "no source images", the manifest comes out empty —
+  // and an empty manifest does not fail the page build, it silently strips
+  // every image from the site. So refuse to write one: on a clone with no
+  // sources the right script is build:manifest, which reads the committed
+  // derivatives.
+  if (!stats.processed) {
+    console.error(
+      '\nNo project produced an image, so nothing is written: an empty manifest ' +
+        'silently empties the site. If you have no raw sources, run `npm run build:manifest`.'
+    );
+    process.exit(1);
+  }
 
   fs.writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2) + '\n', 'utf8');
   console.log(`\nTotal output size: ${(stats.bytesOut / 1024 / 1024).toFixed(1)} MB`);
