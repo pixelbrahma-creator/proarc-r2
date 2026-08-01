@@ -10,10 +10,9 @@
  *   page's paragraph, it is where the application routes, and it is already
  *   in data/contact.json as one of ProArc's own published values. Reading
  *   it from there rather than retyping it into the source is what stops the
- *   two pages disagreeing the day it changes. (The menu overlay in
- *   partials/header.html holds a third, hand-written copy; that one is
- *   watched by the Contact sweep rather than fixed here, because threading
- *   data through the chrome touches every page's shell.)
+ *   two pages disagreeing the day it changes. (The menu overlay reads the
+ *   same file through renderShell since Session I — no hand-written copy
+ *   remains anywhere; sweep-contact stays as the tripwire on the output.)
  *
  *   THE ROUTE IS NAMED AND KNOWN-MISSING. There is no php/careers.php:
  *   php/contact.php is a five-field message handler that would drop a CV

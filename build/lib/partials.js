@@ -6,6 +6,7 @@ const { render } = require('./render');
 const { buildDistrictMarks, renderConstellation } = require('./districts');
 const { buildPreview, renderPreview } = require('./preview');
 const seo = require('./seo');
+const contact = require('./contact');
 
 const PARTIALS_DIR = path.join(__dirname, '..', '..', 'partials');
 
@@ -85,6 +86,26 @@ function preview(assetPrefix) {
 }
 
 /**
+ * The overlay's phone and email are the same fact Contact's rows print, so
+ * they come from the same file — data/contact.json, through contact.load(),
+ * which validates them and derives the tel: from the printed number.
+ * sweep-contact's agreement check stays as the tripwire on the built output.
+ */
+let chromeContactCache = null;
+function chromeContact() {
+  if (chromeContactCache === null) {
+    const d = contact.load();
+    chromeContactCache = {
+      menuTel: 'tel:' + d.dial,
+      menuPhone: d.phone,
+      menuMailto: 'mailto:' + d.email,
+      menuEmail: d.email,
+    };
+  }
+  return chromeContactCache;
+}
+
+/**
  * Renders the shared partials against page-level data.
  *
  * pageData: { title, description, canonical, ogImage, assetPrefix,
@@ -96,7 +117,7 @@ function renderShell(pageData) {
   // the Twitter card type following whether there is an image at all. All
   // fifty-eight pages shipped a RELATIVE og:image before this, which is not
   // a URL a scraper can fetch — every share card on the site was blank.
-  const data = Object.assign({ assetPrefix: '' }, pageData, seo.shellData(pageData), {
+  const data = Object.assign({ assetPrefix: '' }, pageData, seo.shellData(pageData), chromeContact(), {
     navItems: navItems(pageData),
     constellation: constellation(),
     preview: preview(pageData.assetPrefix || ''),
