@@ -166,7 +166,12 @@ Two page steps, because there are two kinds of page:
   against `pages-src/meta.json`, which is the route contract: every page's
   output path, its ground (E1) and its two nav states. A route declared there
   with no source file is reported as skipped and writes nothing, so a route can
-  be decided now and built later.
+  be decided now and built later. A route may name a shared source via
+  `template` (the three sector pages are one `pages-src/_sector.html` by
+  decision); `assetPrefix` is derived from the outFile's depth. The Work
+  surfaces' data (D1 sector sets, the building noun, row metadata, the search
+  island) comes from **`build/lib/work.js`**, which consumes `records.js` and
+  never re-derives its rules.
 - **`build:projects`** renders the 47 records from
   `partials/project-detail.template.html`. The rules it applies live in
   **`build/lib/records.js`** — the sector mapping, the location display, the

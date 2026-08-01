@@ -1,0 +1,477 @@
+'use strict';
+
+/**
+ * Everything the Work surfaces derive from the records — the arrival
+ * (projects.html), the three sector pages (projects/schools · malls ·
+ * homes) and the ledger (projects/list.html).
+ *
+ * Spec: `_bmad/wds/D-UX-Design/03-work.md`. Copy authority:
+ * `_bmad/wds/E-Brand-Framework/04-copy-direction.md` v3.3 §2 — the support
+ * lines and the arrival header below are that document's decided wording,
+ * verbatim.
+ *
+ * The record rules themselves (sector mapping, location display, year
+ * parse, provenance) come from records.js — a second implementation is how
+ * two surfaces start disagreeing about one record. This file only adds the
+ * derivations no other surface wants: the D1-ordered sector sets, the
+ * building's own noun, and the row metadata.
+ */
+
+const fs = require('fs');
+const path = require('path');
+const R = require('./records');
+
+const ROOT = path.join(__dirname, '..', '..');
+
+/* ------------------------------------------------------------------ *
+ * Escaping — the same two helpers generate-projects.js carries
+ * ------------------------------------------------------------------ */
+
+function escapeAttr(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function escapeText(s) {
+  return String(s).replace(/&(?!(?:[a-zA-Z]+|#\d+);)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/* ------------------------------------------------------------------ *
+ * The order (D1) and the sector sets
+ * ------------------------------------------------------------------ */
+
+function loadDb() {
+  return JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'projects.json'), 'utf8'));
+}
+
+function loadManifest() {
+  const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'images', 'manifest.json'), 'utf8'));
+  if (!Object.keys(manifest.projects || {}).length) {
+    throw new Error(
+      'images/manifest.json holds no projects — run `npm run build:manifest`. ' +
+        'An empty manifest does not fail the page build; it silently strips every image.'
+    );
+  }
+  return manifest;
+}
+
+/** All 47, in Proarc's order. An unranked record is a build error, not a tail. */
+function ordered(projects) {
+  const unranked = projects.filter((p) => typeof p.order !== 'number');
+  if (unranked.length) {
+    throw new Error(
+      `work surfaces: ${unranked.length} record(s) carry no D1 order (${unranked.map((p) => p.slug).join(', ')}).`
+    );
+  }
+  return projects.slice().sort((a, b) => a.order - b.order);
+}
+
+/** One sector's records, in Proarc's order. */
+function sectorSet(projects, key) {
+  return ordered(projects).filter((p) => R.sectorKey(p) === key);
+}
+
+/* ------------------------------------------------------------------ *
+ * The building's own noun — the ledger's third column (03-work §4.3)
+ * ------------------------------------------------------------------ */
+
+/**
+ * Derived from the record's own title where the title names its kind, so
+ * the site never asserts a kind the record does not hold. The three
+ * override entries are the spec's own noun list applied to titles that
+ * carry no kind word (Mark & Save is the list's "Superstore"; the two
+ * furniture retailers are its "Showroom"). Everything else falls back to
+ * its sector's plain noun.
+ */
+const NOUN_OVERRIDES = {
+  marksaverashdiya: 'Superstore',
+  marksavealtallah: 'Superstore',
+  marksavealjurf: 'Superstore',
+  royalfurniture: 'Showroom',
+  homesrus: 'Showroom',
+};
+
+// Order matters: University before School ("City University Campus"),
+// Residences before Residence only by regex boundary.
+const NOUN_TOKENS = [
+  ['University', 'University'],
+  ['School', 'School'],
+  ['Mosque', 'Mosque'],
+  ['Mall', 'Mall'],
+  ['Souk', 'Souk'],
+  ['Souq', 'Souq'],
+  ['Tower', 'Tower'],
+  ['Villas', 'Villas'],
+  ['Villa', 'Villas'],
+  ['Residences', 'Residence'],
+  ['Residence', 'Residence'],
+  ['Penthouse', 'Residence'],
+  ['Headquarters', 'Office'],
+  ['Office', 'Office'],
+];
+
+const SECTOR_FALLBACK_NOUN = {
+  schools: 'School',
+  shops: 'Mall',
+  homes: 'Residence',
+  works: 'Office',
+  mosque: 'Mosque',
+};
+
+function buildingNoun(project) {
+  if (NOUN_OVERRIDES[project.slug]) return NOUN_OVERRIDES[project.slug];
+  const words = String(project.title).split(/[\s,]+/);
+  for (const [token, noun] of NOUN_TOKENS) {
+    if (words.includes(token)) return noun;
+  }
+  return SECTOR_FALLBACK_NOUN[R.sectorKey(project)];
+}
+
+/**
+ * On a sector page the set's own noun goes unsaid in its rows — only the
+ * exception speaks (E10.2: "University beside City University"). On the
+ * Homes page the set's kinds ARE the set (the declined name was "Villas &
+ * towers"), so all three go unsaid there.
+ */
+const UNSAID_NOUNS = {
+  schools: ['School'],
+  shops: ['Mall'],
+  homes: ['Residence', 'Tower', 'Villas'],
+};
+
+/* ------------------------------------------------------------------ *
+ * Row metadata — the ground rule applied to a set's rows
+ * ------------------------------------------------------------------ */
+
+/**
+ * District-if-any: metadata speaks districts, a plain-Ajman location goes
+ * unsaid, another emirate is named in full (E10.2 — only difference
+ * speaks). This is a SET surface; the record page's own E10.2a exception
+ * does not apply here.
+ */
+function rowPlace(project) {
+  const district = R.districtOf(project);
+  if (district) return district;
+  const display = R.displayLocation(project);
+  return display === 'Ajman' ? '' : display;
+}
+
+/** name · place · noun-if-spoken · year, as data for one catalogue/list row. */
+function rowData(project, manifest, prefix, unsaidNouns) {
+  const noun = buildingNoun(project);
+  const provenance = R.provenance(project);
+  const images = manifest.projects[project.slug] || {};
+  return {
+    rowHref: `${prefix}projects/${project.slug}.html`,
+    rowName: escapeText(project.title),
+    rowProvenance: provenance ? escapeText(provenance) : '',
+    rowPlace: escapeText(rowPlace(project)),
+    rowNoun: unsaidNouns && unsaidNouns.includes(noun) ? '' : escapeText(noun),
+    rowYear: R.parseYear(project) || '',
+    rowThumb: images.thumb ? prefix + images.thumb : '',
+  };
+}
+
+/* ------------------------------------------------------------------ *
+ * Images — intrinsic sizes ride the manifest; a missing one is an error
+ * ------------------------------------------------------------------ */
+
+function image(manifest, rel, slug, prefix) {
+  const size = manifest.sizes && manifest.sizes[rel];
+  if (!size) throw new Error(`${slug}: no intrinsic size for ${rel}. Run npm run build:manifest.`);
+  return { src: prefix + rel, width: size[0], height: size[1] };
+}
+
+/** A record's lead image with its srcset, exactly as the project page builds it. */
+function leadImage(project, manifest, prefix) {
+  const images = manifest.projects[project.slug];
+  if (!images) throw new Error(`${project.slug}: not in the manifest.`);
+  const hero = image(manifest, images.hero, project.slug, prefix);
+  const heroMd = images.heroMd ? image(manifest, images.heroMd, project.slug, prefix) : null;
+  const srcset =
+    heroMd && heroMd.width !== hero.width ? `${heroMd.src} ${heroMd.width}w, ${hero.src} ${hero.width}w` : '';
+  return { src: hero.src, width: hero.width, height: hero.height, srcset };
+}
+
+/** A print/study/room-lead figure: the image plus its off-image caption. */
+function plate(project, manifest, prefix) {
+  const img = leadImage(project, manifest, prefix);
+  const provenance = R.provenance(project);
+  return {
+    plateHref: `${prefix}projects/${project.slug}.html`,
+    plateName: escapeText(project.title),
+    platePlace: escapeText(rowPlace(project)),
+    plateProvenance: provenance ? escapeText(provenance) : '',
+    plateSrc: img.src,
+    plateSrcset: img.srcset,
+    plateWidth: img.width,
+    plateHeight: img.height,
+  };
+}
+
+/* ------------------------------------------------------------------ *
+ * The three sector pages — copy from 04-copy-direction.md v3.3 §2,
+ * verbatim
+ * ------------------------------------------------------------------ */
+
+const SECTOR_PAGES = {
+  'projects-schools': {
+    key: 'schools',
+    noun: 'Schools',
+    verb: 'Learns.',
+    support:
+      'Where Ajman learns — campuses across the Emirate, from Habitat and Woodlem Park to its universities. ' +
+      'The school groups that build with us come back — campus after campus.',
+    also: [
+      { label: 'Malls & shops', href: 'malls.html' },
+      { label: 'Homes', href: 'homes.html' },
+    ],
+  },
+  'projects-malls': {
+    key: 'shops',
+    noun: 'Malls & shops',
+    verb: 'Shops.',
+    support:
+      'Where Ajman shops — the City Life malls, the souk built for Ajman Municipality, and the stores a ' +
+      'neighbourhood uses on a Tuesday.',
+    also: [
+      { label: 'Schools', href: 'schools.html' },
+      { label: 'Homes', href: 'homes.html' },
+    ],
+  },
+  'projects-homes': {
+    key: 'homes',
+    noun: 'Homes',
+    verb: 'Lives.',
+    support: 'Where Ajman lives — from the villas at Al Zorah to One 678, going up now at Aamra.',
+    also: [
+      { label: 'Schools', href: 'schools.html' },
+      { label: 'Malls & shops', href: 'malls.html' },
+    ],
+  },
+};
+
+/**
+ * "Also: Malls & shops · Homes — and one mosque." — the decided line, its
+ * punctuation included, so the template cannot mis-join it. The mosque
+ * phrase links to the record ("one" rides E12's method-word exemption).
+ */
+function alsoLineHtml(cfg, prefix) {
+  const links = cfg.also
+    .map((a) => `<a class="wk-also__link" href="${a.href}">${escapeText(a.label)}</a>`)
+    .join(' &middot; ');
+  return `Also: ${links} &mdash; and <a class="wk-also__link" href="${prefix}projects/alghalamosque.html">one mosque</a>.`;
+}
+
+function sectorViewData(srcName, prefix) {
+  const cfg = SECTOR_PAGES[srcName];
+  const db = loadDb();
+  const manifest = loadManifest();
+  const set = sectorSet(db.projects, cfg.key);
+
+  if (set.length < 4) {
+    throw new Error(`${srcName}: the set holds ${set.length} records — below the exhibition's own anatomy.`);
+  }
+
+  const unsaid = UNSAID_NOUNS[cfg.key];
+  const catalogue = set.slice(3).map((p) => rowData(p, manifest, prefix, unsaid));
+
+  return {
+    sectorNoun: cfg.noun,
+    sectorVerb: cfg.verb,
+    sectorSupport: escapeText(cfg.support),
+    backHref: `${prefix}projects.html`,
+    print: [plate(set[0], manifest, prefix)],
+    studies: [plate(set[1], manifest, prefix), plate(set[2], manifest, prefix)],
+    catalogueRows: catalogue,
+    frameSrc: catalogue[0].rowThumb,
+    alsoHtml: alsoLineHtml(cfg, prefix),
+    ogImage: leadImage(set[0], manifest, prefix).src,
+  };
+}
+
+/* ------------------------------------------------------------------ *
+ * The arrival — projects.html (03-work §4.1)
+ * ------------------------------------------------------------------ */
+
+/**
+ * The four rooms, in the sentence's order. The verb is the link — except
+ * works, whose set has no page (the five-built rule, D-2): its heading is
+ * a heading, and the room, which lists every name in the set, is the
+ * set's whole home.
+ *
+ * The opener lines are authored here in the register the spec fixes —
+ * nouns and names, no formula, no counts. The page's one "Ajman" and one
+ * formula belong to the mosque line; an organisation's own name (Ajman
+ * Bank, Ajman Municipality) never counts against it (E10.2b's principle).
+ */
+const ROOMS = [
+  {
+    key: 'schools',
+    verb: 'Learns',
+    opener: 'Campuses across the Emirate — Habitat, Woodlem Park, City School, and the universities.',
+    href: 'projects/schools.html',
+  },
+  {
+    key: 'shops',
+    verb: 'Shops',
+    opener: 'The City Life malls, the souk built for Ajman Municipality, and the neighbourhood stores.',
+    href: 'projects/malls.html',
+  },
+  {
+    key: 'works',
+    verb: 'Works',
+    opener: 'Ajman Bank’s headquarters and The Black Square.',
+    href: null,
+  },
+  {
+    key: 'homes',
+    verb: 'Lives',
+    opener: 'From the villas at Al Zorah to the towers rising at Aamra.',
+    href: 'projects/homes.html',
+  },
+];
+
+function roomListItem(project, manifest, prefix) {
+  const row = rowData(project, manifest, prefix, null);
+  const parts = [row.rowPlace, row.rowYear].filter(Boolean);
+  return {
+    itemHref: row.rowHref,
+    itemName: row.rowName,
+    itemProvenance: row.rowProvenance,
+    itemMeta: parts.join(' · '),
+  };
+}
+
+function arrivalViewData(prefix) {
+  const db = loadDb();
+  const manifest = loadManifest();
+
+  const rooms = ROOMS.map((room) => {
+    const set = sectorSet(db.projects, room.key);
+    return {
+      roomVerb: room.verb,
+      roomHref: room.href ? prefix + room.href : '',
+      // the engine has {{#if}} only, so the heading-not-a-link case (works,
+      // D-2) carries its own flag
+      roomHrefAbsent: room.href ? '' : '1',
+      roomOpener: escapeText(room.opener),
+      lead: [plate(set[0], manifest, prefix)],
+      names: set.map((p) => roomListItem(p, manifest, prefix)),
+    };
+  });
+
+  return {
+    rooms,
+    // The tally is data furniture — a record surface, generated, never
+    // display copy (03-work §4.1).
+    tally: `${db.projects.length} projects`,
+    mosqueHref: `${prefix}projects/alghalamosque.html`,
+    searchIndexJson: searchIndexJson(db, prefix),
+    ogImage: leadImage(sectorSet(db.projects, 'homes')[0], manifest, prefix).src,
+  };
+}
+
+/* ------------------------------------------------------------------ *
+ * The ledger — projects/list.html (03-work §4.3)
+ * ------------------------------------------------------------------ */
+
+const CHIPS = [
+  { chipKey: 'all', chipLabel: 'All' },
+  { chipKey: 'schools', chipLabel: 'Schools' },
+  { chipKey: 'shops', chipLabel: 'Malls & shops' },
+  { chipKey: 'works', chipLabel: 'Offices' },
+  { chipKey: 'homes', chipLabel: 'Homes' },
+];
+
+function ledgerViewData(prefix) {
+  const db = loadDb();
+  const manifest = loadManifest();
+  const all = ordered(db.projects);
+
+  const rows = all.map((p) => {
+    const row = rowData(p, manifest, prefix, null); // every row carries its noun — mixed ground
+    const provenance = R.provenance(p);
+    return Object.assign(row, {
+      rowSector: R.sectorKey(p),
+      rowOrder: p.order,
+      rowTitle: escapeAttr(String(p.title).toLowerCase()),
+      // Newest-first's three groups (§3.2): in-progress work first, then
+      // parseable years descending, then a plainly-headed TBC group.
+      rowInProgress: p.status !== 'Completed' ? '1' : '',
+      rowSearch: escapeAttr(searchText(p, provenance)),
+    });
+  });
+
+  const chips = CHIPS.map((c) =>
+    Object.assign({}, c, {
+      chipTally: c.chipKey === 'all' ? all.length : all.filter((p) => R.sectorKey(p) === c.chipKey).length,
+      chipPressed: c.chipKey === 'all' ? 'true' : 'false',
+    })
+  );
+
+  return {
+    ledgerRows: rows,
+    chips,
+    frameSrc: rows[0].rowThumb,
+    ogImage: leadImage(all[0], manifest, prefix).src,
+  };
+}
+
+/* ------------------------------------------------------------------ *
+ * Search — one index, both registers (03-work §4.4)
+ * ------------------------------------------------------------------ */
+
+const VERB_OF = { schools: 'learns', shops: 'shops', works: 'works', homes: 'lives', mosque: 'prays' };
+
+/**
+ * Title, verb, noun, district, summary — "school" and "learns" both find
+ * the set; "Black Square" finds the building. The summary goes through
+ * records.js's statement() so Lorem ipsum never becomes searchable text
+ * (the homesrus gate) and the area clause stays stripped.
+ */
+function searchText(project, provenance) {
+  const noWarn = () => {};
+  return [
+    project.title,
+    VERB_OF[R.sectorKey(project)],
+    R.SECTORS[R.sectorKey(project)].noun,
+    buildingNoun(project),
+    rowPlace(project),
+    R.parseYear(project) || '',
+    provenance || '',
+    R.statement(project, noWarn),
+  ]
+    .join(' ')
+    .toLowerCase();
+}
+
+function searchIndexJson(db, prefix) {
+  const records = ordered(db.projects).map((p) => {
+    const provenance = R.provenance(p);
+    const meta = [rowPlace(p), buildingNoun(p), R.parseYear(p) || ''].filter(Boolean);
+    return {
+      href: `${prefix}projects/${p.slug}.html`,
+      name: p.title + (provenance ? ` · ${provenance}` : ''),
+      meta: meta.join(' · '),
+      text: searchText(p, provenance),
+    };
+  });
+  return JSON.stringify(records).replace(/<\/script/gi, '<\\/script');
+}
+
+/* ------------------------------------------------------------------ *
+ * The entry point inject-partials.js calls
+ * ------------------------------------------------------------------ */
+
+function hasViewData(srcName) {
+  return srcName === 'projects' || srcName === 'projects-list' || !!SECTOR_PAGES[srcName];
+}
+
+function viewData(srcName, prefix) {
+  if (SECTOR_PAGES[srcName]) return sectorViewData(srcName, prefix);
+  if (srcName === 'projects') return arrivalViewData(prefix);
+  if (srcName === 'projects-list') return ledgerViewData(prefix);
+  return {};
+}
+
+module.exports = { hasViewData, viewData, buildingNoun, rowPlace, searchText };

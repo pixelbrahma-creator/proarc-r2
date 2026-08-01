@@ -40,10 +40,49 @@ function resolveBlocks(text, tag, replace) {
   throw new Error(`render: {{#${tag}}} nesting deeper than 32 — the template is almost certainly missing a {{/${tag}}}.`);
 }
 
+/**
+ * {{#each}} resolves OUTERMOST first, by a balanced scan — the opposite of
+ * {{#if}}. An each rebinds scope: resolving an inner each first would
+ * evaluate it against the OUTER data (where its key is usually undefined)
+ * and silently delete it, which is exactly how the arrival's rooms rendered
+ * empty. Outermost-first hands the whole body to the item render, and the
+ * recursion resolves the inner blocks in their own scope.
+ */
+function resolveEachOutermost(text, replace) {
+  const OPEN = '{{#each ';
+  const CLOSE = '{{/each}}';
+  let out = '';
+  let rest = text;
+  for (;;) {
+    const start = rest.indexOf(OPEN);
+    if (start === -1) return out + rest;
+    const keyEnd = rest.indexOf('}}', start);
+    if (keyEnd === -1) throw new Error('render: malformed {{#each}} opener');
+    const key = rest.slice(start + OPEN.length, keyEnd);
+    let depth = 1;
+    let i = keyEnd + 2;
+    while (depth > 0) {
+      const nextOpen = rest.indexOf(OPEN, i);
+      const nextClose = rest.indexOf(CLOSE, i);
+      if (nextClose === -1) throw new Error(`render: {{#each ${key}}} has no matching {{/each}}`);
+      if (nextOpen !== -1 && nextOpen < nextClose) {
+        depth++;
+        i = nextOpen + OPEN.length;
+      } else {
+        depth--;
+        i = nextClose + CLOSE.length;
+      }
+    }
+    const body = rest.slice(keyEnd + 2, i - CLOSE.length);
+    out += rest.slice(0, start) + replace(key, body);
+    rest = rest.slice(i);
+  }
+}
+
 function render(template, data) {
   let out = template;
 
-  out = resolveBlocks(out, 'each', (key, body) => {
+  out = resolveEachOutermost(out, (key, body) => {
     const arr = data[key];
     if (!Array.isArray(arr)) return '';
     return arr

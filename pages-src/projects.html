@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<!-- @include head -->
+</head>
+<body>
+<!-- @include header -->
+
+<!--
+  The arrival — /projects. Spec: 03-work.md §4.1. Home ends four times in an
+  ellipsis; this is where the ellipsis resolves: the whole practice as four
+  rooms, in the sentence's order (learns · shops · works · lives).
+
+  No chip row, no filter chrome — the rooms are the filter. The works room's
+  verb-heading is a heading, not a link (D-2): its set has no sector page and
+  the room, which lists every name, is the set's whole home. The page's one
+  "Ajman" and one formula belong to the mosque line. H1 is "Selected work"
+  (option B, called) — *selected* is spent here once; the ledger line is the
+  only other place the word appears in the Work system.
+-->
+<main id="main" class="wk wk-arrival">
+
+  <header class="wk-head wk-head--arrival container">
+    <h1 class="wk-verb t-editorial">Selected work</h1>
+    <p class="wk-support t-body-lg">Schools, homes, malls and offices across the Emirates &mdash; and clients who come back.</p>
+
+    <form class="wk-search" data-search role="search">
+      <label class="wk-search__label t-meta-label" for="wk-q">Search</label>
+      <input class="wk-search__field" type="search" id="wk-q" name="q" autocomplete="off" spellcheck="false">
+      <p class="wk-search__tally t-caption" data-tally>{{tally}}</p>
+    </form>
+    <ul class="wk-results" data-results hidden></ul>
+    <p class="wk-ledger-line t-caption"><a class="wk-also__link" href="projects/list.html">Every project, as a list &rarr;</a></p>
+  </header>
+
+  {{#each rooms}}
+  <section class="wk-room container">
+    {{#each lead}}
+    <figure class="wk-room__plate">
+      <img class="wk-plate__img" src="{{plateSrc}}"{{#if plateSrcset}} srcset="{{plateSrcset}}" sizes="(max-width: 1200px) 100vw, 1120px"{{/if}}
+           width="{{plateWidth}}" height="{{plateHeight}}" alt="{{plateName}}" loading="lazy" decoding="async">
+      <figcaption class="wk-plate__caption">
+        <a class="wk-plate__name t-meta-value" href="{{plateHref}}">{{plateName}}</a>{{#if plateProvenance}}<span class="wk-plate__genre">{{plateProvenance}}</span>{{/if}}{{#if platePlace}}<span class="wk-plate__place t-caption">{{platePlace}}</span>{{/if}}
+      </figcaption>
+    </figure>
+    {{/each}}
+
+    {{#if roomHref}}
+    <h2 class="wk-room__verb t-editorial"><a class="wk-room__verblink" href="{{roomHref}}">{{roomVerb}} <span aria-hidden="true">&rarr;</span></a></h2>
+    {{/if}}
+    {{#if roomHrefAbsent}}
+    <h2 class="wk-room__verb t-editorial">{{roomVerb}}</h2>
+    {{/if}}
+
+    <p class="wk-room__opener t-body-lg">{{roomOpener}}</p>
+
+    <ul class="wk-room__list">
+      {{#each names}}
+      <li class="wk-room__item">
+        <a class="wk-room__itemlink" href="{{itemHref}}"><span class="t-meta-value">{{itemName}}</span>{{#if itemProvenance}}<span class="wk-row__genre"> &middot; {{itemProvenance}}</span>{{/if}}{{#if itemMeta}}<span class="wk-room__itemmeta t-caption">{{itemMeta}}</span>{{/if}}</a>
+      </li>
+      {{/each}}
+    </ul>
+  </section>
+  {{/each}}
+
+  <!-- The mosque line — the page's only Ajman and only formula (03-work §4.1.3).
+       One sentence on paper; the name links to the record; no photograph, no
+       heading, no set. -->
+  <div class="container"><p class="wk-mosque">Where Ajman prays. <a class="wk-also__link" href="{{mosqueHref}}">Al Ghala Mosque</a>, for the Ministry of Awqaf and Islamic Affairs.</p></div>
+
+  <section class="wk-band surface-dark" aria-label="Start a project">
+    <div class="container">
+      <p class="wk-band__line">Have a project in mind? Let&rsquo;s talk.</p>
+      <a class="wk-band__action" href="{{assetPrefix}}contact.html">Contact</a>
+    </div>
+  </section>
+
+</main>
+
+<script type="application/json" id="wk-search-index">{{searchIndexJson}}</script>
+
+<!-- @include footer -->
+<!-- @include scripts -->
+</body>
+</html>

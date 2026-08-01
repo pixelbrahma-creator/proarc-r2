@@ -1,0 +1,658 @@
+/* ===========================================================
+   The Work surfaces — Screen 03, `03-work.md`.
+
+   One stylesheet for five pages: the arrival (projects.html),
+   the three sector pages (projects/schools · malls · homes,
+   one template) and the ledger (projects/list.html).
+
+   Ground: paper (E1) on every one of them; the single dark
+   surface is the closing band, which shares its ground with
+   the footer (E1.2a). Nothing is ever set on a photograph;
+   every caption is off-image. #A6A6A6 never appears on paper —
+   captions and metadata are ink-secondary (7.00:1).
+   =========================================================== */
+
+/* -----------------------------------------------------------
+   Wayfinding — "← All work · Schools"
+   ----------------------------------------------------------- */
+
+.wk-way {
+  display: flex;
+  align-items: baseline;
+  gap: var(--gap-inline);
+  padding-block-start: var(--gap-component);
+  text-transform: uppercase;
+}
+
+.wk-way__back {
+  color: var(--color-ink-secondary);
+}
+
+.wk-way__back:hover,
+.wk-way__back:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.wk-way__here {
+  color: var(--color-ink);
+}
+
+/* -----------------------------------------------------------
+   Plates — the print, the studies, the room leads.
+   E3.6: the image at its OWN aspect ratio, height-capped,
+   never cropped. Edge-to-edge for a landscape lead, a tall
+   plate for a vertical one — one rule for every proportion.
+   ----------------------------------------------------------- */
+
+/* margin-block only: a `margin: 0` here would clobber .container's
+   margin-inline auto and push the print off the page's axis. */
+.wk-print {
+  margin-block: 0;
+  padding-block-start: var(--gap-component);
+}
+
+.wk-plate__img {
+  max-inline-size: 100%;
+  max-block-size: 68vh;
+  inline-size: auto;
+  block-size: auto;
+}
+
+.wk-plate__caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--gap-inline);
+  margin-block-start: var(--gap-tight);
+}
+
+.wk-plate__name {
+  font-weight: var(--fw-semibold);
+}
+
+.wk-plate__name:hover,
+.wk-plate__name:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+/* E9's label reads as a fact beside the name, not a caption's tail. */
+.wk-plate__genre {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-caption);
+  line-height: var(--lh-caption);
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+.wk-plate__place {
+  text-transform: uppercase;
+}
+
+/* -----------------------------------------------------------
+   The head — bare-verb H1 (Editorial, 300) and the support
+   line carrying the page's one formula.
+   ----------------------------------------------------------- */
+
+.wk-head {
+  padding-block-start: var(--gap-component);
+}
+
+.wk-head--arrival {
+  padding-block-start: var(--gap-component);
+}
+
+/* base.css still carries v1's "every h1 is uppercase Hero Display" rule.
+   The Work surfaces' decided H1 is Editorial, SENTENCE CASE ("Learns." —
+   03-work §4.2.3), so the inherited transform is switched off here, scoped.
+   Whether base.css keeps that rule at all is a Home-session decision. */
+.wk-verb {
+  margin: 0;
+  text-transform: none;
+}
+
+.wk-support {
+  margin: var(--gap-block) 0 0;
+  color: var(--color-ink-secondary);
+}
+
+/* -----------------------------------------------------------
+   The studies — second and third photographs, half width,
+   side by side, aspect preserved, top-aligned.
+   ----------------------------------------------------------- */
+
+.wk-studies {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gutter-desktop);
+  align-items: start;
+  padding-block-start: var(--gap-component);
+}
+
+.wk-study {
+  margin: 0;
+}
+
+/* -----------------------------------------------------------
+   The catalogue — quiet rows beside the standing frame.
+   Desktop: the frame is sticky in its column, driven by row
+   hover and keyboard focus, no transition (the swap is
+   instant; reduced motion has nothing to remove). Below
+   1024px the frame is gone and each row carries its inline
+   thumbnail instead — hover exists nowhere below that width
+   that can be relied on (the M4 precedent).
+   ----------------------------------------------------------- */
+
+.wk-catalogue {
+  display: grid;
+  grid-template-columns: 1fr 38%;
+  column-gap: var(--gutter-desktop);
+  align-items: start;
+  padding-block-start: var(--gap-section);
+}
+
+.wk-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wk-row + .wk-row {
+  border-block-start: 1px solid var(--color-hairline);
+}
+
+.wk-row__link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gap-inline);
+  padding-block: var(--pad-table-row);
+}
+
+.wk-row__link:hover .wk-row__name,
+.wk-row__link:focus-visible .wk-row__name {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.wk-row__genre {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-caption);
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+.wk-row__meta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--gap-inline);
+  text-transform: uppercase;
+}
+
+.wk-row__meta span + span::before {
+  content: "\00B7\00A0";
+}
+
+.wk-row__year {
+  font-variant-numeric: tabular-nums;
+}
+
+.wk-row__thumb {
+  display: none;
+}
+
+.wk-frame {
+  position: sticky;
+  inset-block-start: var(--gap-component);
+  margin: 0;
+}
+
+.wk-frame__img {
+  inline-size: 100%;
+  block-size: auto;
+}
+
+/* -----------------------------------------------------------
+   The "also" line, and the mosque line
+   ----------------------------------------------------------- */
+
+.wk-also {
+  margin-block: 0;
+  padding-block-start: var(--gap-component);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-ink-secondary);
+}
+
+.wk-also__link {
+  font-weight: var(--fw-semibold);
+  color: var(--color-ink);
+}
+
+.wk-also__link:hover,
+.wk-also__link:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.wk-mosque {
+  margin-block: 0;
+  padding-block-start: var(--gap-section);
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-body-lg);
+  max-inline-size: var(--measure-body-lg);
+  color: var(--color-ink);
+}
+
+/* -----------------------------------------------------------
+   The arrival's rooms
+   ----------------------------------------------------------- */
+
+.wk-room {
+  padding-block-start: var(--gap-section);
+}
+
+.wk-room__plate {
+  margin: 0 0 var(--gap-component);
+}
+
+.wk-room__verb {
+  margin: 0;
+}
+
+.wk-room__verblink {
+  color: inherit;
+}
+
+.wk-room__verblink:hover,
+.wk-room__verblink:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 8px;
+}
+
+.wk-room__opener {
+  margin: var(--gap-block) 0 0;
+  color: var(--color-ink-secondary);
+}
+
+/* Every name in the set, as columns. Items keep together; the
+   column count follows the width, not a per-sector rule. */
+.wk-room__list {
+  margin: var(--gap-heading) 0 0;
+  padding: 0;
+  list-style: none;
+  columns: 3 280px;
+  column-gap: var(--gutter-desktop);
+}
+
+.wk-room__item {
+  break-inside: avoid;
+  padding-block: var(--pad-table-row);
+  border-block-start: 1px solid var(--color-hairline);
+}
+
+.wk-room__itemlink:hover .t-meta-value,
+.wk-room__itemlink:focus-visible .t-meta-value {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.wk-room__itemmeta {
+  display: block;
+  margin-block-start: 2px;
+  text-transform: uppercase;
+}
+
+/* -----------------------------------------------------------
+   Search — the field's border is E6.1's #595959 on both
+   grounds (ink-secondary IS that value); the tally is data
+   furniture at caption size.
+   ----------------------------------------------------------- */
+
+.wk-search {
+  margin-block-start: var(--gap-heading);
+}
+
+.wk-search__label {
+  display: block;
+  margin-block-end: 4px;
+  text-transform: uppercase;
+}
+
+.wk-search__field {
+  inline-size: min(100%, 40ch);
+  padding: var(--gap-inline);
+  border: 1px solid var(--color-ink-secondary);
+  background: var(--color-surface);
+  font-family: inherit;
+  font-size: var(--fs-body);
+  color: var(--color-ink);
+  border-radius: 0;
+  appearance: none;
+}
+
+.wk-search__field:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+.wk-search__tally {
+  margin: var(--gap-inline) 0 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.wk-results {
+  margin: var(--gap-block) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wk-ledger-line {
+  margin: var(--gap-block) 0 0;
+  text-transform: uppercase;
+}
+
+/* -----------------------------------------------------------
+   The ledger — chips, sort, table, floating frame
+   ----------------------------------------------------------- */
+
+.wk-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--gap-block) var(--gap-heading);
+}
+
+.wk-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-inline);
+}
+
+/* Squared chips (the ledger's only filter UI). State = fill,
+   plus aria-pressed for the machine — never colour alone. */
+.wk-chip {
+  padding: var(--gap-inline) var(--gap-tight);
+  border: 1px solid var(--color-ink);
+  background: var(--color-surface);
+  font-family: inherit;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-caption);
+  text-transform: uppercase;
+  color: var(--color-ink);
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.wk-chip[aria-pressed="true"] {
+  background: var(--color-ink);
+  color: var(--color-surface);
+}
+
+.wk-chip:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+.wk-chip__tally {
+  font-weight: var(--fw-regular);
+  font-variant-numeric: tabular-nums;
+}
+
+.wk-sort .t-meta-label {
+  display: block;
+  margin-block-end: 4px;
+  text-transform: uppercase;
+}
+
+.wk-sort__select {
+  padding: var(--gap-inline);
+  border: 1px solid var(--color-ink-secondary);
+  background: var(--color-surface);
+  font-family: inherit;
+  font-size: var(--fs-metadata);
+  color: var(--color-ink);
+  border-radius: 0;
+}
+
+.wk-sort__select:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+.wk-ledger__body {
+  display: grid;
+  grid-template-columns: 1fr 32%;
+  column-gap: var(--gutter-desktop);
+  align-items: start;
+  padding-block-start: var(--gap-component);
+}
+
+.wk-table {
+  inline-size: 100%;
+  border-collapse: collapse;
+}
+
+.wk-table__h {
+  padding-block: var(--pad-table-row);
+  padding-inline-end: var(--gap-tight);
+  border-block-end: 1px solid var(--color-ink);
+  text-transform: uppercase;
+  text-align: start;
+}
+
+.wk-table__row .wk-table__name,
+.wk-table__row .wk-table__cell {
+  padding-block: var(--pad-table-row);
+  padding-inline-end: var(--gap-tight);
+  border-block-start: 1px solid var(--color-hairline);
+  vertical-align: baseline;
+  text-align: start;
+}
+
+.wk-table__row:first-child .wk-table__name,
+.wk-table__row:first-child .wk-table__cell {
+  border-block-start: 0;
+}
+
+.wk-table__name {
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-regular);
+  color: var(--color-ink);
+}
+
+.wk-table__link {
+  color: inherit;
+}
+
+.wk-table__link:hover,
+.wk-table__link:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.wk-table__cell {
+  font-size: var(--fs-metadata);
+  color: var(--color-ink-secondary);
+}
+
+.wk-table__h--year,
+.wk-table__cell--year {
+  text-align: end;
+  padding-inline-end: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The plainly-headed group head newest-first inserts before the
+   year-to-be-confirmed tail (§3.2). */
+.wk-table__grouphead th {
+  padding-block: var(--gap-block) var(--pad-table-row);
+  border-block-start: 1px solid var(--color-hairline);
+  text-transform: uppercase;
+  text-align: start;
+}
+
+/* -----------------------------------------------------------
+   The closing band — the same object as the project page's
+   (project.css .pd-band); repeated here because a page loads
+   exactly one page stylesheet.
+   ----------------------------------------------------------- */
+
+.wk-band {
+  margin-block-start: var(--gap-section);
+  padding-block: calc(var(--gap-section-major) / 2) var(--gap-component);
+}
+
+.wk-band__line {
+  margin: 0 0 var(--gap-block);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-light);
+  letter-spacing: var(--ls-h2);
+  line-height: var(--lh-h2);
+  max-inline-size: var(--measure-h2);
+  color: var(--color-on-dark);
+}
+
+.wk-band__action {
+  display: inline-block;
+  padding-block: var(--gap-tight);
+  padding-inline: var(--gap-heading);
+  border: 1px solid var(--color-on-dark);
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  color: var(--color-on-dark);
+  transition: background-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+
+.wk-band__action:hover,
+.wk-band__action:focus-visible {
+  background: var(--color-on-dark);
+  color: var(--color-surface-dark);
+}
+
+/* -----------------------------------------------------------
+   Utility (shared shape with project.css)
+   ----------------------------------------------------------- */
+
+.u-visually-hidden {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* -----------------------------------------------------------
+   Breakpoints
+   ----------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .wk-studies,
+  .wk-room__list {
+    column-gap: var(--gutter-tablet);
+  }
+
+  /* Below 1024 the standing/floating frame is gone and the
+     rows carry their thumbnails (hover cannot be relied on). */
+  .wk-catalogue,
+  .wk-ledger__body {
+    grid-template-columns: 1fr;
+  }
+
+  .wk-frame {
+    display: none;
+  }
+
+  .wk-row__thumb {
+    display: block;
+    inline-size: 96px;
+    block-size: auto;
+    flex: none;
+  }
+
+  .wk-row__link {
+    align-items: center;
+  }
+
+  .wk-table .wk-row__thumb {
+    display: block;
+    margin-block-start: var(--gap-inline);
+  }
+}
+
+@media (max-width: 767px) {
+  .wk-studies {
+    grid-template-columns: 1fr;
+    row-gap: var(--gap-component);
+  }
+
+  .wk-room__list {
+    columns: 1;
+  }
+
+  .wk-controls {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .wk-row__thumb {
+    inline-size: 72px;
+  }
+}
+
+/* -----------------------------------------------------------
+   Print — the tender view (§4.3): the table with all rows in
+   the current filter/sort; chrome, controls, frames, thumbs
+   and the band suppressed.
+   ----------------------------------------------------------- */
+
+@media print {
+  .chrome-trigger,
+  .chrome-plate,
+  .menu-nib,
+  .menu-overlay,
+  .wk-controls,
+  .wk-frame,
+  .wk-row__thumb,
+  .wk-band,
+  .site-footer {
+    display: none !important;
+  }
+
+  .wk-ledger__body {
+    grid-template-columns: 1fr;
+    padding-block-start: 0;
+  }
+}
+
+/* -----------------------------------------------------------
+   Reduced motion — the frame swap is already instant; the one
+   transition on these pages is the band action. Durations AND
+   delays: a zero duration does not cancel a delay.
+   ----------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .wk-band__action {
+    transition-duration: 0s;
+    transition-delay: 0s;
+  }
+}

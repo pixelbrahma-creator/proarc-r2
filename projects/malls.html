@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Malls and shops — Proarc</title>
+<meta name="description" content="Where Ajman shops: malls, souks and retail across the Emirate.">
+<link rel="canonical" href="https://proarc.ae/projects/malls">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Malls and shops — Proarc">
+<meta property="og:description" content="Where Ajman shops: malls, souks and retail across the Emirate.">
+<meta property="og:image" content="../images/projects/souksalah/hero.webp">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="shortcut icon" href="../images/ui/favicon.ico">
+
+<link rel="stylesheet" href="../src/styles/tokens.css">
+<link rel="preload" href="../assets/fonts/general-sans/GeneralSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/general-sans/GeneralSans-Semibold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../src/styles/fonts.css">
+<link rel="stylesheet" href="../src/styles/tokens-layout.css">
+<link rel="stylesheet" href="../src/styles/base.css">
+<link rel="stylesheet" href="../src/styles/layout.css">
+<link rel="stylesheet" href="../src/styles/components.css">
+<link rel="stylesheet" href="../src/styles/pages/work.css">
+
+</head>
+<body>
+<!--
+  The site's chrome and its one navigation surface. Spec: 09-menu.md.
+
+  Three things sit here, and the order below is the tab order: the trigger
+  (top inline-start), the wordmark plate (top inline-end), and the overlay
+  they open. C-1 is the decided arrangement — "the logo on one side and the
+  three lines on the other" — and both corners flip in RTL by logical
+  properties alone; the artwork never mirrors (§8).
+
+  The chrome is NOT duplicated inside the overlay. It is one set of elements
+  painted above it, which is what makes the identity-chrome field rule
+  (E13.2) free: the plate and the pill carry a permanent #000000 field, so
+  paper reveals the field and the overlay's own black dissolves it. No scroll
+  listener, no threshold, no colour swap, nothing to desync.
+-->
+
+<button class="chrome-trigger" type="button"
+        data-menu-trigger
+        aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
+  <span class="chrome-trigger__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+</button>
+
+<a class="chrome-plate" href="../index.html">
+  <img class="chrome-plate__mark"
+       src="../images/ui/logo-mark.webp"
+       alt="Proarc — home"
+       width="330" height="117" decoding="async">
+</a>
+
+<!-- The nib: the white hairline that leads the wipe. Decoration, and it
+     leaves the flow entirely when it is not running. -->
+<span class="menu-nib" data-menu-nib aria-hidden="true"></span>
+
+<div class="menu-overlay" id="site-menu" data-menu-overlay inert>
+  <div class="menu-overlay__regions">
+
+    <nav class="menu-nav" aria-label="Main">
+      <ul class="menu-nav__list">
+        <li class="menu-nav__row"><a class="menu-nav__item is-lit" href="../projects.html" data-menu-work>Work</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="../services.html">Services</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="../about.html">About</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!--
+      The centre holds one idea at a time (G-4, "the swap"): the
+      constellation at rest, the preview while WORK is hovered or focused,
+      never both. The swap is instant and has no animation of its own — a
+      transition here would compete with the open.
+    -->
+    <div class="menu-centre" data-menu-centre>
+      <svg class="menu-constellation" viewBox="0 0 560 440" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><circle class="menu-dot" style="--dot-index:0" cx="380" cy="146" r="3.5"></circle><circle class="menu-dot" style="--dot-index:1" cx="377" cy="145" r="3.5"></circle><circle class="menu-dot" style="--dot-index:2" cx="411" cy="138" r="3.5"></circle><circle class="menu-dot" style="--dot-index:3" cx="384" cy="150" r="3.5"></circle><circle class="menu-dot" style="--dot-index:4" cx="376" cy="135" r="3.5"></circle><circle class="menu-dot" style="--dot-index:5" cx="410" cy="133" r="3.5"></circle><circle class="menu-dot" style="--dot-index:6" cx="439" cy="319" r="3.5"></circle><circle class="menu-dot" style="--dot-index:7" cx="439" cy="308" r="3.5"></circle><circle class="menu-dot" style="--dot-index:8" cx="461" cy="289" r="3.5"></circle><circle class="menu-dot" style="--dot-index:9" cx="454" cy="317" r="3.5"></circle><circle class="menu-dot" style="--dot-index:10" cx="474" cy="294" r="3.5"></circle><circle class="menu-dot" style="--dot-index:11" cx="474" cy="280" r="3.5"></circle><circle class="menu-dot" style="--dot-index:12" cx="187" cy="75" r="3.5"></circle><circle class="menu-dot" style="--dot-index:13" cx="149" cy="104" r="3.5"></circle><circle class="menu-dot" style="--dot-index:14" cx="158" cy="85" r="3.5"></circle><circle class="menu-dot" style="--dot-index:15" cx="176" cy="62" r="3.5"></circle><circle class="menu-dot" style="--dot-index:16" cx="196" cy="95" r="3.5"></circle><circle class="menu-dot" style="--dot-index:17" cx="350" cy="350" r="3.5"></circle><circle class="menu-dot" style="--dot-index:18" cx="367" cy="362" r="3.5"></circle><circle class="menu-dot" style="--dot-index:19" cx="378" cy="361" r="3.5"></circle><circle class="menu-dot" style="--dot-index:20" cx="371" cy="396" r="3.5"></circle><circle class="menu-dot" style="--dot-index:21" cx="242" cy="366" r="3.5"></circle><circle class="menu-dot" style="--dot-index:22" cx="239" cy="375" r="3.5"></circle><circle class="menu-dot" style="--dot-index:23" cx="320" cy="346" r="3.5"></circle><circle class="menu-dot" style="--dot-index:24" cx="133" cy="174" r="3.5"></circle><circle class="menu-dot" style="--dot-index:25" cx="332" cy="130" r="3.5"></circle><circle class="menu-dot" style="--dot-index:26" cx="96" cy="209" r="3.5"></circle><circle class="menu-dot" style="--dot-index:27" cx="308" cy="201" r="3.5"></circle></svg>
+      <div class="menu-preview" data-menu-preview><div class="menu-preview__grid"><a class="menu-preview__item" href="../projects/seasidehills.html"><img class="menu-preview__thumb" src="../images/projects/seasidehills/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Seaside Hills Residence</span></a><a class="menu-preview__item" href="../projects/habitatschool.html"><img class="menu-preview__thumb" src="../images/projects/habitatschool/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Habitat School</span></a><a class="menu-preview__item" href="../projects/souksalah.html"><img class="menu-preview__thumb" src="../images/projects/souksalah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Souk Salah</span></a><a class="menu-preview__item" href="../projects/ajmanbank.html"><img class="menu-preview__thumb" src="../images/projects/ajmanbank/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Ajman Bank Headquarters</span></a><a class="menu-preview__item" href="../projects/cityuniversity.html"><img class="menu-preview__thumb" src="../images/projects/cityuniversity/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">City University Campus</span></a><a class="menu-preview__item" href="../projects/alghalamosque.html"><img class="menu-preview__thumb" src="../images/projects/alghalamosque/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Al Ghala Mosque</span></a></div><a class="menu-preview__exit" href="../projects.html">All projects <span class="menu-preview__arrow" aria-hidden="true">&rarr;</span></a></div>
+    </div>
+
+    <div class="menu-contact">
+      <a class="menu-contact__item" href="tel:+97167446633"><span dir="ltr">+971 6 744 6633</span></a>
+      <a class="menu-contact__item" href="mailto:info@proarc.ae"><span dir="ltr">info@proarc.ae</span></a>
+      <!--
+        The AR switch is a reserved slot, not a control: the overlay is the
+        one site-wide chrome surface, so the language switch belongs here
+        when the bilingual build lands. Nothing renders until then, and an
+        empty box is not shipped in the meantime (§9 rule 4).
+
+        The address line is CUT and the cut is a decision (§8): v1's
+        "13003, Ajman, UAE" is a PO Box wearing an address label on every
+        page. Contact carries the full facts row. Restoring a line here is
+        a consolidation question, never a silent build decision.
+      -->
+    </div>
+
+  </div>
+</div>
+
+
+<!--
+  The sector page — one template, three routes (schools · malls · homes).
+  Spec: 03-work.md §4.2, "the exhibition". The tiers come straight from the
+  D1 order field: the print is the set's first-ordered record, the studies
+  its second and third, the catalogue the rest. Nothing here is ranked by
+  hand — build/lib/work.js reads the order and this file lays it out.
+
+  Ground: paper (E1). Nothing is set on a photograph; every caption is
+  off-image (name links to the project, district only). The set's own noun
+  goes unsaid in its rows — only the exception speaks (E10.2).
+-->
+<main id="main" class="wk">
+
+  <nav class="wk-way container" aria-label="You are here">
+    <a class="wk-way__back t-meta-label" href="../projects.html"><span aria-hidden="true">&larr;</span> All work</a>
+    <span class="wk-way__sep" aria-hidden="true">&middot;</span>
+    <span class="wk-way__here t-meta-label">Malls & shops</span>
+  </nav>
+
+  
+  <figure class="wk-print container">
+    <img class="wk-plate__img" src="../images/projects/souksalah/hero.webp"
+         width="1600" height="1067" alt="Souk Salah" fetchpriority="high" decoding="async">
+    <figcaption class="wk-plate__caption">
+      <a class="wk-plate__name t-meta-value" href="../projects/souksalah.html">Souk Salah</a>
+    </figcaption>
+  </figure>
+  
+
+  <header class="wk-head container">
+    <h1 class="wk-verb t-editorial">Shops.</h1>
+    <p class="wk-support t-body-lg">Where Ajman shops — the City Life malls, the souk built for Ajman Municipality, and the stores a neighbourhood uses on a Tuesday.</p>
+  </header>
+
+  <div class="wk-studies container">
+    
+    <figure class="wk-study">
+      <img class="wk-plate__img" src="../images/projects/citylifekhor/hero.webp"
+           width="1600" height="1067" alt="City Life, Al Khor" loading="lazy" decoding="async">
+      <figcaption class="wk-plate__caption">
+        <a class="wk-plate__name t-meta-value" href="../projects/citylifekhor.html">City Life, Al Khor</a><span class="wk-plate__place t-caption">Al Khor</span>
+      </figcaption>
+    </figure>
+    
+    <figure class="wk-study">
+      <img class="wk-plate__img" src="../images/projects/citymalluaq/hero.webp"
+           width="1600" height="1067" alt="City Mall, Umm Al Quwain" loading="lazy" decoding="async">
+      <figcaption class="wk-plate__caption">
+        <a class="wk-plate__name t-meta-value" href="../projects/citymalluaq.html">City Mall, Umm Al Quwain</a><span class="wk-plate__place t-caption">Umm Al Quwain</span>
+      </figcaption>
+    </figure>
+    
+  </div>
+
+  <!--
+    The catalogue. Desktop: quiet rows beside a standing photograph frame,
+    sticky in its column, driven by row hover AND keyboard focus (js/work.js),
+    defaulting to the first catalogue record. Mobile: the frame is gone and
+    each row carries a small inline thumbnail instead. The frame is
+    decorative — every image it shows exists on the project page itself —
+    so it is aria-hidden and the swap carries no transition.
+  -->
+  <section class="wk-catalogue container" aria-label="All Malls & shops">
+    <ul class="wk-rows" data-rows>
+      
+      <li class="wk-row">
+        <a class="wk-row__link" href="../projects/citylifetallah.html" data-thumb="../images/projects/citylifetallah/thumb.webp">
+          <span class="wk-row__name t-meta-value">City Life, Al Tallah II</span>
+          <span class="wk-row__meta t-caption"><span>Al Tallah</span><span class="wk-row__year">2016</span></span>
+          <img class="wk-row__thumb" src="../images/projects/citylifetallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
+        </a>
+      </li>
+      
+      <li class="wk-row">
+        <a class="wk-row__link" href="../projects/citylifejurf.html" data-thumb="../images/projects/citylifejurf/thumb.webp">
+          <span class="wk-row__name t-meta-value">City Life Mall, Jurf</span>
+          <span class="wk-row__meta t-caption"><span>Al Jurf</span><span class="wk-row__year">2013</span></span>
+          <img class="wk-row__thumb" src="../images/projects/citylifejurf/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
+        </a>
+      </li>
+      
+      <li class="wk-row">
+        <a class="wk-row__link" href="../projects/marksavealtallah.html" data-thumb="../images/projects/marksavealtallah/thumb.webp">
+          <span class="wk-row__name t-meta-value">Mark &amp; Save, Al Tallah</span>
+          <span class="wk-row__meta t-caption"><span>Al Tallah</span><span>Superstore</span></span>
+          <img class="wk-row__thumb" src="../images/projects/marksavealtallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
+        </a>
+      </li>
+      
+      <li class="wk-row">
+        <a class="wk-row__link" href="../projects/royalfurniture.html" data-thumb="../images/projects/royalfurniture/thumb.webp">
+          <span class="wk-row__name t-meta-value">Royal Furniture</span>
+          <span class="wk-row__meta t-caption"><span>Al Jurf</span><span>Showroom</span></span>
+          <img class="wk-row__thumb" src="../images/projects/royalfurniture/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
+        </a>
+      </li>
+      
+      <li class="wk-row">
+        <a class="wk-row__link" href="../projects/marksaverashdiya.html" data-thumb="../images/projects/marksaverashdiya/thumb.webp">
+          <span class="wk-row__name t-meta-value">Mark &amp; Save, Rashdiya</span>
+          <span class="wk-row__meta t-caption"><span>Rashdiya</span><span>Superstore</span></span>
+          <img class="wk-row__thumb" src="../images/projects/marksaverashdiya/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
+        </a>
+      </li>
+      
+      <li class="wk-row">
+        <a class="wk-row__link" href="../projects/marksavealjurf.html" data-thumb="../images/projects/marksavealjurf/thumb.webp">
+          <span class="wk-row__name t-meta-value">Mark &amp; Save, Al Jurf</span>
+          <span class="wk-row__meta t-caption"><span>Al Jurf</span><span>Superstore</span></span>
+          <img class="wk-row__thumb" src="../images/projects/marksavealjurf/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
+        </a>
+      </li>
+      
+      <li class="wk-row">
+        <a class="wk-row__link" href="../projects/carsouq.html" data-thumb="../images/projects/carsouq/thumb.webp">
+          <span class="wk-row__name t-meta-value">Car Souq</span>
+          <span class="wk-row__meta t-caption"><span>Souq</span></span>
+          <img class="wk-row__thumb" src="../images/projects/carsouq/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
+        </a>
+      </li>
+      
+      <li class="wk-row">
+        <a class="wk-row__link" href="../projects/homesrus.html" data-thumb="../images/projects/homesrus/thumb.webp">
+          <span class="wk-row__name t-meta-value">Homes R Us</span>
+          <span class="wk-row__meta t-caption"><span>Showroom</span></span>
+          <img class="wk-row__thumb" src="../images/projects/homesrus/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
+        </a>
+      </li>
+      
+      <li class="wk-row">
+        <a class="wk-row__link" href="../projects/citylifealtallah.html" data-thumb="../images/projects/citylifealtallah/thumb.webp">
+          <span class="wk-row__name t-meta-value">City Life, Al Tallah</span>
+          <span class="wk-row__meta t-caption"><span>Al Tallah</span></span>
+          <img class="wk-row__thumb" src="../images/projects/citylifealtallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
+        </a>
+      </li>
+      
+    </ul>
+    <figure class="wk-frame" data-frame aria-hidden="true">
+      <img class="wk-frame__img" src="../images/projects/citylifetallah/thumb.webp" alt="" width="800" height="600" decoding="async">
+    </figure>
+  </section>
+
+  <p class="wk-also container">Also: <a class="wk-also__link" href="schools.html">Schools</a> &middot; <a class="wk-also__link" href="homes.html">Homes</a> &mdash; and <a class="wk-also__link" href="../projects/alghalamosque.html">one mosque</a>.</p>
+
+  <!-- The closing band. E1.2 — the inverse of this paper page; E1.2a — nothing
+       sits between it and the footer, which share this ground. -->
+  <section class="wk-band surface-dark" aria-label="Start a project">
+    <div class="container">
+      <p class="wk-band__line">Have a project in mind? Let&rsquo;s talk.</p>
+      <a class="wk-band__action" href="../contact.html">Contact</a>
+    </div>
+  </section>
+
+</main>
+
+<!--
+  The footer. Black ground with its own #333333 top hairline — on a paper
+  page the closing band owns the switch and the footer shares the band's
+  ground, so the two are separated by structure and scale, never by colour
+  (E1.2a). On a page with no band the footer owns the switch itself (E1.2c).
+
+  The line is the decided site-wide copy. Skyline is retired everywhere,
+  the footer included (D-4): a skyline is towers, and it argues for the
+  three offices rather than the twenty-seven schools and shops. The second
+  sentence is X6-elastic — it names three disciplines, and ProArc's answer
+  on the discipline list changes this sentence and the Services blocks
+  together.
+
+  This footer is one of /ajman's three doors (the other two are Home's map
+  and About's story), so its Ajman link is the one link here that must never
+  break. It also carries the marketing route to /careers, which is why the
+  overlay refuses a careers item of its own.
+
+  Deliberately NOT here, each a live v1 fault this replaces: the wordmark
+  re-set as type in a <span class="brand">, a Testimonials item, "Projects"
+  where the decided label is Work, seven nav items where the nav is four,
+  the newsletter form posting to a contact.php that fatals on PHP 8, and six
+  dead href="#" links of which three were the social row.
+-->
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+
+    <p class="site-footer__line">The buildings a city grows up in. Architecture, engineering and project management from one Ajman office.</p>
+
+    <nav class="site-footer__nav" aria-label="Footer">
+      <ul class="site-footer__list">
+        <li><a class="site-footer__link" href="../projects.html">Work</a></li>
+        <li><a class="site-footer__link" href="../services.html">Services</a></li>
+        <li><a class="site-footer__link" href="../about.html">About</a></li>
+        <li><a class="site-footer__link" href="../contact.html">Contact</a></li>
+        <li><a class="site-footer__link" href="../ajman.html">Ajman</a></li>
+        <li><a class="site-footer__link" href="../careers.html">Careers</a></li>
+      </ul>
+    </nav>
+
+    <!-- Two socials, both verified live. Twitter/X is cut site-wide: the
+         handle is the CEO's personal account, not the practice's. -->
+    <ul class="site-footer__social">
+      <li><a class="site-footer__link" href="https://www.facebook.com/proarcarchitects/" rel="noopener">Facebook</a></li>
+      <li><a class="site-footer__link" href="https://www.instagram.com/proarchitects/" rel="noopener">Instagram</a></li>
+    </ul>
+
+    <p class="site-footer__legal">&copy; 2026 Proarc</p>
+
+  </div>
+</footer>
+
+<!--
+  R2 ships one script, and it is the menu.
+
+  What was here in v1 and is deliberately gone: GSAP, ScrollTrigger and
+  Lenis, pulled from three external CDNs, driving js/reveals.js (elements
+  fade and translate up as they scroll into view) and js/smooth-scroll.js
+  (scroll hijacking).
+
+  Three reasons, and any one of them is sufficient:
+
+  1. R2's motion language is decided and those are not it. "The site draws"
+     — all motion is line-work drawing itself: the scroll cue, the link
+     underlines, the Ajman map, this menu's wipe. No decorative fades, no
+     parallax, no sliders, no bounce.
+  2. Reduced motion must always show the finished state, and a reveal system
+     that starts every element at opacity 0 is one broken script away from a
+     blank page.
+  3. This repository is handed over as a whole, once. Three external CDN
+     dependencies in the chrome of a static site is a liability the handover
+     should not carry.
+
+  js/reveals.js, js/smooth-scroll.js and src/styles/animations.css are still
+  in the tree and still work; nothing loads them. If a screen turns out to
+  need one, it opts in through its own pageScript rather than every page
+  paying for it.
+-->
+
+<script src="../js/menu.js" defer></script>
+<script src="../js/work.js" defer></script>
+
+</body>
+</html>

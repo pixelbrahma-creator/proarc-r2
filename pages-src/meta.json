@@ -15,6 +15,10 @@
     "            and the client wall is About's. Contact is paper on its own rendered facts.",
     "  navLit    which of the four nav items lights. The whole project block lights work.",
     "  navExact  whether that item also takes aria-current=page. Exact match only.",
+    "  template  optional shared source: pages-src/<template>.html serves this route instead of",
+    "            pages-src/<key>.html. The three sector pages are one template by decision (L1).",
+    "  pageStylesheet / pageScript  opt-in per-page CSS and JS, resolved by the head/scripts partials.",
+    "  assetPrefix is derived from outFile's depth; a nested route reaches assets one level up.",
     "",
     "There is no offices sector page. The five-built rule (D-2) needs five built projects and",
     "offices holds three, so the works room on the Work arrival is that set's home. Testimonials",
@@ -38,7 +42,9 @@
     "canonical": "https://proarc.ae/projects",
     "ground": "paper",
     "navLit": "work",
-    "navExact": true
+    "navExact": true,
+    "pageStylesheet": "work",
+    "pageScript": "work"
   },
 
   "projects-list": {
@@ -48,7 +54,9 @@
     "canonical": "https://proarc.ae/projects/list",
     "ground": "paper",
     "navLit": "work",
-    "navExact": false
+    "navExact": false,
+    "pageStylesheet": "work",
+    "pageScript": "work"
   },
 
   "projects-schools": {
@@ -58,7 +66,10 @@
     "canonical": "https://proarc.ae/projects/schools",
     "ground": "paper",
     "navLit": "work",
-    "navExact": false
+    "navExact": false,
+    "template": "_sector",
+    "pageStylesheet": "work",
+    "pageScript": "work"
   },
 
   "projects-malls": {
@@ -68,7 +79,10 @@
     "canonical": "https://proarc.ae/projects/malls",
     "ground": "paper",
     "navLit": "work",
-    "navExact": false
+    "navExact": false,
+    "template": "_sector",
+    "pageStylesheet": "work",
+    "pageScript": "work"
   },
 
   "projects-homes": {
@@ -78,7 +92,10 @@
     "canonical": "https://proarc.ae/projects/homes",
     "ground": "paper",
     "navLit": "work",
-    "navExact": false
+    "navExact": false,
+    "template": "_sector",
+    "pageStylesheet": "work",
+    "pageScript": "work"
   },
 
   "ajman": {

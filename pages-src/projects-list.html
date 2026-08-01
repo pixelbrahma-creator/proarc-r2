@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<!-- @include head -->
+</head>
+<body>
+<!-- @include header -->
+
+<!--
+  The ledger — /projects/list. Spec: 03-work.md §4.3. The tender audience's
+  page: flat, dense, printable. One run of rows — grouping is the arrival's
+  job. The page renders complete in Proarc's order with every row present;
+  chips, sort, search and the floating frame are enhancements (js/work.js)
+  and the print stylesheet suppresses all of them.
+
+  Every row carries its noun — sectors mix here, so the noun is information,
+  not echo (E10.2). Chip tallies are data furniture, generated. No mosque
+  chip: a tally of one is not a control; the mosque rides under All and in
+  search.
+-->
+<main id="main" class="wk wk-ledger">
+
+  <header class="wk-head container">
+    <h1 class="wk-verb t-editorial">All projects</h1>
+    <p class="wk-support t-body-lg">Selected projects, since 2006.</p>
+
+    <div class="wk-controls" data-controls>
+      <form class="wk-search" data-search role="search">
+        <label class="wk-search__label t-meta-label" for="wk-q">Search</label>
+        <input class="wk-search__field" type="search" id="wk-q" name="q" autocomplete="off" spellcheck="false">
+        <p class="wk-search__tally t-caption" data-tally></p>
+      </form>
+
+      <div class="wk-chips" role="group" aria-label="Filter by type" data-chips hidden>
+        {{#each chips}}
+        <button class="wk-chip" type="button" data-chip="{{chipKey}}" aria-pressed="{{chipPressed}}">{{chipLabel}} <span class="wk-chip__tally">{{chipTally}}</span></button>
+        {{/each}}
+      </div>
+
+      <div class="wk-sort" data-sort hidden>
+        <label class="t-meta-label" for="wk-sort">Order</label>
+        <select class="wk-sort__select" id="wk-sort">
+          <option value="proarc" selected>Proarc&rsquo;s order</option>
+          <option value="newest">Newest first</option>
+          <option value="az">A&ndash;Z</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <div class="wk-ledger__body container">
+    <table class="wk-table" data-table>
+      <caption class="u-visually-hidden">Every Proarc project: name, district, type and year</caption>
+      <thead>
+        <tr>
+          <th class="wk-table__h t-meta-label" scope="col">Name</th>
+          <th class="wk-table__h t-meta-label" scope="col">District</th>
+          <th class="wk-table__h t-meta-label" scope="col">Type</th>
+          <th class="wk-table__h wk-table__h--year t-meta-label" scope="col">Year</th>
+        </tr>
+      </thead>
+      <tbody data-tbody>
+        {{#each ledgerRows}}
+        <tr class="wk-table__row" data-sector="{{rowSector}}" data-order="{{rowOrder}}" data-title="{{rowTitle}}"{{#if rowYear}} data-year="{{rowYear}}"{{/if}}{{#if rowInProgress}} data-inprogress="1"{{/if}} data-search="{{rowSearch}}">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="{{rowHref}}" data-thumb="{{rowThumb}}">{{rowName}}{{#if rowProvenance}} <span class="wk-row__genre">&middot; {{rowProvenance}}</span>{{/if}}<img class="wk-row__thumb" src="{{rowThumb}}" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">{{rowPlace}}</td>
+          <td class="wk-table__cell">{{rowNoun}}</td>
+          <td class="wk-table__cell wk-table__cell--year">{{rowYear}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    <figure class="wk-frame wk-frame--ledger" data-frame aria-hidden="true">
+      <img class="wk-frame__img" src="{{frameSrc}}" alt="" width="800" height="600" decoding="async">
+    </figure>
+  </div>
+
+  <section class="wk-band surface-dark" aria-label="Start a project">
+    <div class="container">
+      <p class="wk-band__line">Have a project in mind? Let&rsquo;s talk.</p>
+      <a class="wk-band__action" href="{{assetPrefix}}contact.html">Contact</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- @include footer -->
+<!-- @include scripts -->
+</body>
+</html>

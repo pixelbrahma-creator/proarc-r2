@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>All projects — Proarc</title>
+<meta name="description" content="Every Proarc project, name first: sector, location and year in one list.">
+<link rel="canonical" href="https://proarc.ae/projects/list">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="All projects — Proarc">
+<meta property="og:description" content="Every Proarc project, name first: sector, location and year in one list.">
+<meta property="og:image" content="../images/projects/seasidehills/hero.webp">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="shortcut icon" href="../images/ui/favicon.ico">
+
+<link rel="stylesheet" href="../src/styles/tokens.css">
+<link rel="preload" href="../assets/fonts/general-sans/GeneralSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/general-sans/GeneralSans-Semibold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../src/styles/fonts.css">
+<link rel="stylesheet" href="../src/styles/tokens-layout.css">
+<link rel="stylesheet" href="../src/styles/base.css">
+<link rel="stylesheet" href="../src/styles/layout.css">
+<link rel="stylesheet" href="../src/styles/components.css">
+<link rel="stylesheet" href="../src/styles/pages/work.css">
+
+</head>
+<body>
+<!--
+  The site's chrome and its one navigation surface. Spec: 09-menu.md.
+
+  Three things sit here, and the order below is the tab order: the trigger
+  (top inline-start), the wordmark plate (top inline-end), and the overlay
+  they open. C-1 is the decided arrangement — "the logo on one side and the
+  three lines on the other" — and both corners flip in RTL by logical
+  properties alone; the artwork never mirrors (§8).
+
+  The chrome is NOT duplicated inside the overlay. It is one set of elements
+  painted above it, which is what makes the identity-chrome field rule
+  (E13.2) free: the plate and the pill carry a permanent #000000 field, so
+  paper reveals the field and the overlay's own black dissolves it. No scroll
+  listener, no threshold, no colour swap, nothing to desync.
+-->
+
+<button class="chrome-trigger" type="button"
+        data-menu-trigger
+        aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
+  <span class="chrome-trigger__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+</button>
+
+<a class="chrome-plate" href="../index.html">
+  <img class="chrome-plate__mark"
+       src="../images/ui/logo-mark.webp"
+       alt="Proarc — home"
+       width="330" height="117" decoding="async">
+</a>
+
+<!-- The nib: the white hairline that leads the wipe. Decoration, and it
+     leaves the flow entirely when it is not running. -->
+<span class="menu-nib" data-menu-nib aria-hidden="true"></span>
+
+<div class="menu-overlay" id="site-menu" data-menu-overlay inert>
+  <div class="menu-overlay__regions">
+
+    <nav class="menu-nav" aria-label="Main">
+      <ul class="menu-nav__list">
+        <li class="menu-nav__row"><a class="menu-nav__item is-lit" href="../projects.html" data-menu-work>Work</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="../services.html">Services</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="../about.html">About</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!--
+      The centre holds one idea at a time (G-4, "the swap"): the
+      constellation at rest, the preview while WORK is hovered or focused,
+      never both. The swap is instant and has no animation of its own — a
+      transition here would compete with the open.
+    -->
+    <div class="menu-centre" data-menu-centre>
+      <svg class="menu-constellation" viewBox="0 0 560 440" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><circle class="menu-dot" style="--dot-index:0" cx="380" cy="146" r="3.5"></circle><circle class="menu-dot" style="--dot-index:1" cx="377" cy="145" r="3.5"></circle><circle class="menu-dot" style="--dot-index:2" cx="411" cy="138" r="3.5"></circle><circle class="menu-dot" style="--dot-index:3" cx="384" cy="150" r="3.5"></circle><circle class="menu-dot" style="--dot-index:4" cx="376" cy="135" r="3.5"></circle><circle class="menu-dot" style="--dot-index:5" cx="410" cy="133" r="3.5"></circle><circle class="menu-dot" style="--dot-index:6" cx="439" cy="319" r="3.5"></circle><circle class="menu-dot" style="--dot-index:7" cx="439" cy="308" r="3.5"></circle><circle class="menu-dot" style="--dot-index:8" cx="461" cy="289" r="3.5"></circle><circle class="menu-dot" style="--dot-index:9" cx="454" cy="317" r="3.5"></circle><circle class="menu-dot" style="--dot-index:10" cx="474" cy="294" r="3.5"></circle><circle class="menu-dot" style="--dot-index:11" cx="474" cy="280" r="3.5"></circle><circle class="menu-dot" style="--dot-index:12" cx="187" cy="75" r="3.5"></circle><circle class="menu-dot" style="--dot-index:13" cx="149" cy="104" r="3.5"></circle><circle class="menu-dot" style="--dot-index:14" cx="158" cy="85" r="3.5"></circle><circle class="menu-dot" style="--dot-index:15" cx="176" cy="62" r="3.5"></circle><circle class="menu-dot" style="--dot-index:16" cx="196" cy="95" r="3.5"></circle><circle class="menu-dot" style="--dot-index:17" cx="350" cy="350" r="3.5"></circle><circle class="menu-dot" style="--dot-index:18" cx="367" cy="362" r="3.5"></circle><circle class="menu-dot" style="--dot-index:19" cx="378" cy="361" r="3.5"></circle><circle class="menu-dot" style="--dot-index:20" cx="371" cy="396" r="3.5"></circle><circle class="menu-dot" style="--dot-index:21" cx="242" cy="366" r="3.5"></circle><circle class="menu-dot" style="--dot-index:22" cx="239" cy="375" r="3.5"></circle><circle class="menu-dot" style="--dot-index:23" cx="320" cy="346" r="3.5"></circle><circle class="menu-dot" style="--dot-index:24" cx="133" cy="174" r="3.5"></circle><circle class="menu-dot" style="--dot-index:25" cx="332" cy="130" r="3.5"></circle><circle class="menu-dot" style="--dot-index:26" cx="96" cy="209" r="3.5"></circle><circle class="menu-dot" style="--dot-index:27" cx="308" cy="201" r="3.5"></circle></svg>
+      <div class="menu-preview" data-menu-preview><div class="menu-preview__grid"><a class="menu-preview__item" href="../projects/seasidehills.html"><img class="menu-preview__thumb" src="../images/projects/seasidehills/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Seaside Hills Residence</span></a><a class="menu-preview__item" href="../projects/habitatschool.html"><img class="menu-preview__thumb" src="../images/projects/habitatschool/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Habitat School</span></a><a class="menu-preview__item" href="../projects/souksalah.html"><img class="menu-preview__thumb" src="../images/projects/souksalah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Souk Salah</span></a><a class="menu-preview__item" href="../projects/ajmanbank.html"><img class="menu-preview__thumb" src="../images/projects/ajmanbank/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Ajman Bank Headquarters</span></a><a class="menu-preview__item" href="../projects/cityuniversity.html"><img class="menu-preview__thumb" src="../images/projects/cityuniversity/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">City University Campus</span></a><a class="menu-preview__item" href="../projects/alghalamosque.html"><img class="menu-preview__thumb" src="../images/projects/alghalamosque/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Al Ghala Mosque</span></a></div><a class="menu-preview__exit" href="../projects.html">All projects <span class="menu-preview__arrow" aria-hidden="true">&rarr;</span></a></div>
+    </div>
+
+    <div class="menu-contact">
+      <a class="menu-contact__item" href="tel:+97167446633"><span dir="ltr">+971 6 744 6633</span></a>
+      <a class="menu-contact__item" href="mailto:info@proarc.ae"><span dir="ltr">info@proarc.ae</span></a>
+      <!--
+        The AR switch is a reserved slot, not a control: the overlay is the
+        one site-wide chrome surface, so the language switch belongs here
+        when the bilingual build lands. Nothing renders until then, and an
+        empty box is not shipped in the meantime (§9 rule 4).
+
+        The address line is CUT and the cut is a decision (§8): v1's
+        "13003, Ajman, UAE" is a PO Box wearing an address label on every
+        page. Contact carries the full facts row. Restoring a line here is
+        a consolidation question, never a silent build decision.
+      -->
+    </div>
+
+  </div>
+</div>
+
+
+<!--
+  The ledger — /projects/list. Spec: 03-work.md §4.3. The tender audience's
+  page: flat, dense, printable. One run of rows — grouping is the arrival's
+  job. The page renders complete in Proarc's order with every row present;
+  chips, sort, search and the floating frame are enhancements (js/work.js)
+  and the print stylesheet suppresses all of them.
+
+  Every row carries its noun — sectors mix here, so the noun is information,
+  not echo (E10.2). Chip tallies are data furniture, generated. No mosque
+  chip: a tally of one is not a control; the mosque rides under All and in
+  search.
+-->
+<main id="main" class="wk wk-ledger">
+
+  <header class="wk-head container">
+    <h1 class="wk-verb t-editorial">All projects</h1>
+    <p class="wk-support t-body-lg">Selected projects, since 2006.</p>
+
+    <div class="wk-controls" data-controls>
+      <form class="wk-search" data-search role="search">
+        <label class="wk-search__label t-meta-label" for="wk-q">Search</label>
+        <input class="wk-search__field" type="search" id="wk-q" name="q" autocomplete="off" spellcheck="false">
+        <p class="wk-search__tally t-caption" data-tally></p>
+      </form>
+
+      <div class="wk-chips" role="group" aria-label="Filter by type" data-chips hidden>
+        
+        <button class="wk-chip" type="button" data-chip="all" aria-pressed="true">All <span class="wk-chip__tally">47</span></button>
+        
+        <button class="wk-chip" type="button" data-chip="schools" aria-pressed="false">Schools <span class="wk-chip__tally">15</span></button>
+        
+        <button class="wk-chip" type="button" data-chip="shops" aria-pressed="false">Malls & shops <span class="wk-chip__tally">12</span></button>
+        
+        <button class="wk-chip" type="button" data-chip="works" aria-pressed="false">Offices <span class="wk-chip__tally">3</span></button>
+        
+        <button class="wk-chip" type="button" data-chip="homes" aria-pressed="false">Homes <span class="wk-chip__tally">16</span></button>
+        
+      </div>
+
+      <div class="wk-sort" data-sort hidden>
+        <label class="t-meta-label" for="wk-sort">Order</label>
+        <select class="wk-sort__select" id="wk-sort">
+          <option value="proarc" selected>Proarc&rsquo;s order</option>
+          <option value="newest">Newest first</option>
+          <option value="az">A&ndash;Z</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <div class="wk-ledger__body container">
+    <table class="wk-table" data-table>
+      <caption class="u-visually-hidden">Every Proarc project: name, district, type and year</caption>
+      <thead>
+        <tr>
+          <th class="wk-table__h t-meta-label" scope="col">Name</th>
+          <th class="wk-table__h t-meta-label" scope="col">District</th>
+          <th class="wk-table__h t-meta-label" scope="col">Type</th>
+          <th class="wk-table__h wk-table__h--year t-meta-label" scope="col">Year</th>
+        </tr>
+      </thead>
+      <tbody data-tbody>
+        
+        <tr class="wk-table__row" data-sector="homes" data-order="1" data-title="seaside hills residence" data-search="seaside hills residence lives homes residence al zorah   seaside hills residence is a project located in the beachfront district of al zorah, which is part of the emirate of ajman.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/seasidehills.html" data-thumb="../images/projects/seasidehills/thumb.webp">Seaside Hills Residence<img class="wk-row__thumb" src="../images/projects/seasidehills/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Al Zorah</td>
+          <td class="wk-table__cell">Residence</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="schools" data-order="2" data-title="habitat school" data-year="2014" data-search="habitat school learns schools school al jurf 2014  habitat private school is a private school situated in the al jurf area of ajman.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/habitatschool.html" data-thumb="../images/projects/habitatschool/thumb.webp">Habitat School<img class="wk-row__thumb" src="../images/projects/habitatschool/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Al Jurf</td>
+          <td class="wk-table__cell">School</td>
+          <td class="wk-table__cell wk-table__cell--year">2014</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="shops" data-order="3" data-title="souk salah" data-year="2015" data-search="souk salah shops malls &amp; shops souk  2015  the recently expanded and refurbished souk salah adopts the traditional arab architecture using wooden finish concrete columns and palm leaf ceiling to give a charming ambience with a blend of past and present.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/souksalah.html" data-thumb="../images/projects/souksalah/thumb.webp">Souk Salah<img class="wk-row__thumb" src="../images/projects/souksalah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell"></td>
+          <td class="wk-table__cell">Souk</td>
+          <td class="wk-table__cell wk-table__cell--year">2015</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="works" data-order="4" data-title="ajman bank headquarters" data-year="2015" data-search="ajman bank headquarters works offices office  2015  ajman bank headquarters is a g+m+7-storied iconic corporate complex located on al-ittihad street adjacent to the etisalat building.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/ajmanbank.html" data-thumb="../images/projects/ajmanbank/thumb.webp">Ajman Bank Headquarters<img class="wk-row__thumb" src="../images/projects/ajmanbank/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell"></td>
+          <td class="wk-table__cell">Office</td>
+          <td class="wk-table__cell wk-table__cell--year">2015</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="schools" data-order="5" data-title="city university campus" data-year="2017" data-search="city university campus learns schools university  2017  located at the junction of sheikh ammar road and sheikh mohammed bin zayed road, ajman.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/cityuniversity.html" data-thumb="../images/projects/cityuniversity/thumb.webp">City University Campus<img class="wk-row__thumb" src="../images/projects/cityuniversity/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell"></td>
+          <td class="wk-table__cell">University</td>
+          <td class="wk-table__cell wk-table__cell--year">2017</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="mosque" data-order="6" data-title="al ghala mosque" data-year="2009" data-search="al ghala mosque prays mosque mosque  2009  located in al-jurf this mosque takes inspiration from the traditional forms and elements of islamic architecture, where colonnades and arches dominate creating a pleasing form.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/alghalamosque.html" data-thumb="../images/projects/alghalamosque/thumb.webp">Al Ghala Mosque<img class="wk-row__thumb" src="../images/projects/alghalamosque/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell"></td>
+          <td class="wk-table__cell">Mosque</td>
+          <td class="wk-table__cell wk-table__cell--year">2009</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="shops" data-order="7" data-title="city life, al khor" data-year="2016" data-search="city life, al khor shops malls &amp; shops mall al khor 2016  city life, is located adjacent to the local fish market and overlooking the ajman creek.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/citylifekhor.html" data-thumb="../images/projects/citylifekhor/thumb.webp">City Life, Al Khor<img class="wk-row__thumb" src="../images/projects/citylifekhor/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Al Khor</td>
+          <td class="wk-table__cell">Mall</td>
+          <td class="wk-table__cell wk-table__cell--year">2016</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="homes" data-order="8" data-title="azha garden residence" data-search="azha garden residence lives homes residence aamra   azha garden residence is a residential tower featuring a ground floor and four levels of dedicated parking.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/azhagarden.html" data-thumb="../images/projects/azhagarden/thumb.webp">Azha Garden Residence<img class="wk-row__thumb" src="../images/projects/azhagarden/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Aamra</td>
+          <td class="wk-table__cell">Residence</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="schools" data-order="9" data-title="city school" data-year="2016" data-search="city school learns schools school al tallah 2016  city school is part of the city university campus in al-tallah, ajman.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/cityschool.html" data-thumb="../images/projects/cityschool/thumb.webp">City School<img class="wk-row__thumb" src="../images/projects/cityschool/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Al Tallah</td>
+          <td class="wk-table__cell">School</td>
+          <td class="wk-table__cell wk-table__cell--year">2016</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="shops" data-order="10" data-title="city mall, umm al quwain" data-year="2016" data-search="city mall, umm al quwain shops malls &amp; shops mall umm al quwain 2016  city life mall has the reputation of the very first shopping mall ever built in umm-al-quwain, u.a.e.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/citymalluaq.html" data-thumb="../images/projects/citymalluaq/thumb.webp">City Mall, Umm Al Quwain<img class="wk-row__thumb" src="../images/projects/citymalluaq/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Umm Al Quwain</td>
+          <td class="wk-table__cell">Mall</td>
+          <td class="wk-table__cell wk-table__cell--year">2016</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="homes" data-order="11" data-title="rose tower" data-search="rose tower lives homes tower    this landmark development features a complex structural design consisting of a ground floor, six levels of podium parking, and an expansive 40-floor residential tower with a built up area of 12,250 sqm.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/rosetower.html" data-thumb="../images/projects/rosetower/thumb.webp">Rose Tower<img class="wk-row__thumb" src="../images/projects/rosetower/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell"></td>
+          <td class="wk-table__cell">Tower</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="works" data-order="12" data-title="the black square" data-year="2011" data-search="the black square works offices office  2011  as its name suggest the black square is a large cuboid located at the commercial center of ajman.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/blacksquare.html" data-thumb="../images/projects/blacksquare/thumb.webp">The Black Square<img class="wk-row__thumb" src="../images/projects/blacksquare/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell"></td>
+          <td class="wk-table__cell">Office</td>
+          <td class="wk-table__cell wk-table__cell--year">2011</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="schools" data-order="13" data-title="crown british school" data-year="2021" data-search="crown british school learns schools school  2021  crown british school is an educational development delivered by proarc in ajman.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/edu-crownbritish.html" data-thumb="../images/projects/edu-crownbritish/thumb.webp">Crown British School<img class="wk-row__thumb" src="../images/projects/edu-crownbritish/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell"></td>
+          <td class="wk-table__cell">School</td>
+          <td class="wk-table__cell wk-table__cell--year">2021</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="shops" data-order="14" data-title="city life, al tallah ii" data-year="2016" data-search="city life, al tallah ii shops malls &amp; shops mall al tallah 2016  city life is located within the city university campus in al-tallah, ajman on sheikh mohammed bin zayed road.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/citylifetallah.html" data-thumb="../images/projects/citylifetallah/thumb.webp">City Life, Al Tallah II<img class="wk-row__thumb" src="../images/projects/citylifetallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Al Tallah</td>
+          <td class="wk-table__cell">Mall</td>
+          <td class="wk-table__cell wk-table__cell--year">2016</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="homes" data-order="15" data-title="exclusive villas" data-search="exclusive villas lives homes villas al zorah   situated within the prestigious al zorah development in ajman, this private luxury beach resort offers a refined gated community experience across a sprawling 16,283 square meter built-up area.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/exclusivevillas.html" data-thumb="../images/projects/exclusivevillas/thumb.webp">Exclusive Villas<img class="wk-row__thumb" src="../images/projects/exclusivevillas/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Al Zorah</td>
+          <td class="wk-table__cell">Villas</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="schools" data-order="16" data-title="city american school" data-year="2020" data-search="city american school learns schools school  2020  city american school is an educational development delivered by proarc in ajman.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/edu-cityamerican.html" data-thumb="../images/projects/edu-cityamerican/thumb.webp">City American School<img class="wk-row__thumb" src="../images/projects/edu-cityamerican/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell"></td>
+          <td class="wk-table__cell">School</td>
+          <td class="wk-table__cell wk-table__cell--year">2020</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="shops" data-order="17" data-title="city life mall, jurf" data-year="2013" data-search="city life mall, jurf shops malls &amp; shops mall al jurf 2013  city life mall located in 1,2, 3 ajman, is a community mall that primarily caters to the residents of that area.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/citylifejurf.html" data-thumb="../images/projects/citylifejurf/thumb.webp">City Life Mall, Jurf<img class="wk-row__thumb" src="../images/projects/citylifejurf/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Al Jurf</td>
+          <td class="wk-table__cell">Mall</td>
+          <td class="wk-table__cell wk-table__cell--year">2013</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="homes" data-order="18" data-title="emirates city d1 tower" data-search="emirates city d1 tower lives homes tower emirates city   emirates city d1 towers also known as lavender towers is a 30-story high building part of the emirates city layout plan.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/emiratescity.html" data-thumb="../images/projects/emiratescity/thumb.webp">Emirates City D1 Tower<img class="wk-row__thumb" src="../images/projects/emiratescity/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Emirates City</td>
+          <td class="wk-table__cell">Tower</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="schools" data-order="19" data-title="woodlem park private school" data-year="2017" data-search="woodlem park private school learns schools school al jurf 2017  woodlem park private school is situated in al-jurf 3, ajman, there are many neighboring ongoing developments that surrounds the school, making it an area envisioned for the future.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/woodlem.html" data-thumb="../images/projects/woodlem/thumb.webp">Woodlem Park Private School<img class="wk-row__thumb" src="../images/projects/woodlem/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Al Jurf</td>
+          <td class="wk-table__cell">School</td>
+          <td class="wk-table__cell wk-table__cell--year">2017</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="shops" data-order="20" data-title="mark &amp; save, al tallah" data-search="mark &amp; save, al tallah shops malls &amp; shops superstore al tallah   rising as a hallmark of architectural vision and structural grace, mark and save emerges across three strategic landscapes in ajman, redefining the city’s retail horizon.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/marksavealtallah.html" data-thumb="../images/projects/marksavealtallah/thumb.webp">Mark &amp; Save, Al Tallah<img class="wk-row__thumb" src="../images/projects/marksavealtallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Al Tallah</td>
+          <td class="wk-table__cell">Superstore</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="homes" data-order="21" data-title="g+8 floor + penthouse" data-search="g+8 floor + penthouse lives homes residence al zorah   this premier residential development in al zorah features a modern g+8 floor structure topped with a sophisticated penthouse with a built up area of 3,995 sqm.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/gfloorpenthouse.html" data-thumb="../images/projects/gfloorpenthouse/thumb.webp">G+8 Floor + Penthouse<img class="wk-row__thumb" src="../images/projects/gfloorpenthouse/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Al Zorah</td>
+          <td class="wk-table__cell">Residence</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="schools" data-order="22" data-title="woodlem park school, hamidiya" data-year="2021" data-search="woodlem park school, hamidiya learns schools school hamidiya 2021  woodlempark hamidiya school is an educational development delivered by proarc in hamidiya, ajman.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/edu-woodlemparkhamidiya.html" data-thumb="../images/projects/edu-woodlemparkhamidiya/thumb.webp">Woodlem Park School, Hamidiya<img class="wk-row__thumb" src="../images/projects/edu-woodlemparkhamidiya/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Hamidiya</td>
+          <td class="wk-table__cell">School</td>
+          <td class="wk-table__cell wk-table__cell--year">2021</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="shops" data-order="23" data-title="royal furniture" data-search="royal furniture shops malls &amp; shops showroom al jurf   spanning a palatial 4,000 square meters of architectural grace, the royal furniture showroom stands as a luminous beacon of interior inspiration.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/royalfurniture.html" data-thumb="../images/projects/royalfurniture/thumb.webp">Royal Furniture<img class="wk-row__thumb" src="../images/projects/royalfurniture/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Al Jurf</td>
+          <td class="wk-table__cell">Showroom</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="homes" data-order="24" data-title="green buildings" data-search="green buildings lives homes residence    this project features a series of five buildings (with built up area 9,383.36 sqm, 12,250 sqm, 6,841 sqm, 7,154 sqm, and 7,030 sqm), each designed with a ground floor dedicated to commercial use and a mezzanine plus two residential floors above.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/greenbuildings.html" data-thumb="../images/projects/greenbuildings/thumb.webp">Green Buildings<img class="wk-row__thumb" src="../images/projects/greenbuildings/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell"></td>
+          <td class="wk-table__cell">Residence</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="schools" data-order="25" data-title="north gate british school" data-year="2024" data-search="north gate british school learns schools school  2024  north gate british school is an educational development delivered by proarc in ajman.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/edu-northgatebritish.html" data-thumb="../images/projects/edu-northgatebritish/thumb.webp">North Gate British School<img class="wk-row__thumb" src="../images/projects/edu-northgatebritish/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell"></td>
+          <td class="wk-table__cell">School</td>
+          <td class="wk-table__cell wk-table__cell--year">2024</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="shops" data-order="26" data-title="mark &amp; save, rashdiya" data-search="mark &amp; save, rashdiya shops malls &amp; shops superstore rashdiya   rising as a hallmark of architectural vision and structural grace, mark and save emerges across three strategic landscapes in ajman, redefining the city’s retail horizon.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/marksaverashdiya.html" data-thumb="../images/projects/marksaverashdiya/thumb.webp">Mark &amp; Save, Rashdiya<img class="wk-row__thumb" src="../images/projects/marksaverashdiya/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Rashdiya</td>
+          <td class="wk-table__cell">Superstore</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="schools" data-order="27" data-title="metropolitan school" data-year="2024" data-search="metropolitan school learns schools school  2024  metropolitan school is an educational development delivered by proarc in ajman.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/edu-metropolitan.html" data-thumb="../images/projects/edu-metropolitan/thumb.webp">Metropolitan School<img class="wk-row__thumb" src="../images/projects/edu-metropolitan/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell"></td>
+          <td class="wk-table__cell">School</td>
+          <td class="wk-table__cell wk-table__cell--year">2024</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="shops" data-order="28" data-title="mark &amp; save, al jurf" data-search="mark &amp; save, al jurf shops malls &amp; shops superstore al jurf   rising as a hallmark of architectural vision and structural grace, mark and save emerges across three strategic landscapes in ajman, redefining the city’s retail horizon.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/marksavealjurf.html" data-thumb="../images/projects/marksavealjurf/thumb.webp">Mark &amp; Save, Al Jurf<img class="wk-row__thumb" src="../images/projects/marksavealjurf/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Al Jurf</td>
+          <td class="wk-table__cell">Superstore</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="schools" data-order="29" data-title="habitat school, al tallah" data-year="2017" data-search="habitat school, al tallah learns schools school al tallah 2017  habitat al tallah is an educational development delivered by proarc in al tallah, ajman.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/edu-habitataltallah.html" data-thumb="../images/projects/edu-habitataltallah/thumb.webp">Habitat School, Al Tallah<img class="wk-row__thumb" src="../images/projects/edu-habitataltallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Al Tallah</td>
+          <td class="wk-table__cell">School</td>
+          <td class="wk-table__cell wk-table__cell--year">2017</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="shops" data-order="30" data-title="car souq" data-search="car souq shops malls &amp; shops souq    nestled at the intersection of innovation and ambition, this premier car souq serves as a majestic theater for the automotive world, housing an elite collection of more than 50 professional showrooms across a sprawling 21,000 square-meter landscape.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/carsouq.html" data-thumb="../images/projects/carsouq/thumb.webp">Car Souq<img class="wk-row__thumb" src="../images/projects/carsouq/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell"></td>
+          <td class="wk-table__cell">Souq</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="schools" data-order="31" data-title="ajman american school" data-year="2017" data-search="ajman american school learns schools school  2017  ajman american school is an educational development delivered by proarc in ajman.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/edu-ajmanamerican.html" data-thumb="../images/projects/edu-ajmanamerican/thumb.webp">Ajman American School<img class="wk-row__thumb" src="../images/projects/edu-ajmanamerican/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell"></td>
+          <td class="wk-table__cell">School</td>
+          <td class="wk-table__cell wk-table__cell--year">2017</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="shops" data-order="32" data-title="homes r us" data-search="homes r us shops malls &amp; shops showroom    ">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/homesrus.html" data-thumb="../images/projects/homesrus/thumb.webp">Homes R Us<img class="wk-row__thumb" src="../images/projects/homesrus/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell"></td>
+          <td class="wk-table__cell">Showroom</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="schools" data-order="33" data-title="frontline international school" data-year="2016" data-search="frontline international school learns schools school al tallah 2016  frontline school is in al-tallah, ajman adjacent to ajman academy, this british curriculum school accommodates students from kg1 to 13th grade.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/frontlineschool.html" data-thumb="../images/projects/frontlineschool/thumb.webp">Frontline International School<img class="wk-row__thumb" src="../images/projects/frontlineschool/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Al Tallah</td>
+          <td class="wk-table__cell">School</td>
+          <td class="wk-table__cell wk-table__cell--year">2016</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="shops" data-order="34" data-title="city life, al tallah" data-search="city life, al tallah shops malls &amp; shops mall al tallah   city life is located within the city university campus in al-tallah, ajman on sheikh mohammed bin zayed road.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/citylifealtallah.html" data-thumb="../images/projects/citylifealtallah/thumb.webp">City Life, Al Tallah<img class="wk-row__thumb" src="../images/projects/citylifealtallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Al Tallah</td>
+          <td class="wk-table__cell">Mall</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="schools" data-order="35" data-title="delhi private school" data-year="2017" data-search="delhi private school learns schools school  2017  delhi private school is an educational development delivered by proarc in ajman.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/edu-delhiprivate.html" data-thumb="../images/projects/edu-delhiprivate/thumb.webp">Delhi Private School<img class="wk-row__thumb" src="../images/projects/edu-delhiprivate/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell"></td>
+          <td class="wk-table__cell">School</td>
+          <td class="wk-table__cell wk-table__cell--year">2017</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="schools" data-order="36" data-title="city university" data-year="2017" data-search="city university learns schools university  2017  city university is an educational development delivered by proarc in ajman.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/edu-cityuniversity.html" data-thumb="../images/projects/edu-cityuniversity/thumb.webp">City University<img class="wk-row__thumb" src="../images/projects/edu-cityuniversity/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell"></td>
+          <td class="wk-table__cell">University</td>
+          <td class="wk-table__cell wk-table__cell--year">2017</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="schools" data-order="37" data-title="woodlem park school, al jurf" data-year="2017" data-search="woodlem park school, al jurf learns schools school al jurf 2017  woodlempark al jurf school is an educational development delivered by proarc in al jurf, ajman.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/edu-woodlemparkaljurf.html" data-thumb="../images/projects/edu-woodlemparkaljurf/thumb.webp">Woodlem Park School, Al Jurf<img class="wk-row__thumb" src="../images/projects/edu-woodlemparkaljurf/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Al Jurf</td>
+          <td class="wk-table__cell">School</td>
+          <td class="wk-table__cell wk-table__cell--year">2017</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="homes" data-order="38" data-title="jeddah heights" data-year="2018" data-search="jeddah heights lives homes residence  2018  jeddah heights located in the cityâ€™s finest commercial areas, next to ajman city center offers invigorating uninterrupted view of the extensive mall and ajman skyline.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/jeddahheights.html" data-thumb="../images/projects/jeddahheights/thumb.webp">Jeddah Heights<img class="wk-row__thumb" src="../images/projects/jeddahheights/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell"></td>
+          <td class="wk-table__cell">Residence</td>
+          <td class="wk-table__cell wk-table__cell--year">2018</td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="works" data-order="39" data-title="r holding head office" data-search="r holding head office works offices office    this is a proposal of a head office for r holding.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/rholding.html" data-thumb="../images/projects/rholding/thumb.webp">R Holding Head Office<img class="wk-row__thumb" src="../images/projects/rholding/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell"></td>
+          <td class="wk-table__cell">Office</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="homes" data-order="40" data-title="one 678" data-inprogress="1" data-search="one 678 lives homes residence aamra  visualisation an ultra-tall organic tower in aamra, ajman, with a fluid, wave-like silhouette of continuous wraparound balconies.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/one-678.html" data-thumb="../images/projects/one-678/thumb.webp">One 678 <span class="wk-row__genre">&middot; Visualisation</span><img class="wk-row__thumb" src="../images/projects/one-678/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Aamra</td>
+          <td class="wk-table__cell">Residence</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="homes" data-order="41" data-title="bluebell residence" data-inprogress="1" data-search="bluebell residence lives homes residence aamra  visualisation a landmark high-rise residential development in al aamra, ajman, combining modern urban living with architectural elegance.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/bluebell-residence.html" data-thumb="../images/projects/bluebell-residence/thumb.webp">Bluebell Residence <span class="wk-row__genre">&middot; Visualisation</span><img class="wk-row__thumb" src="../images/projects/bluebell-residence/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Aamra</td>
+          <td class="wk-table__cell">Residence</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="homes" data-order="42" data-title="star giga tower" data-inprogress="1" data-search="star giga tower lives homes tower emirates city  visualisation a fluid, ribbon-balconied residential tower in emirates city with a louvered podium and rooftop amenity deck.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/star-giga-tower.html" data-thumb="../images/projects/star-giga-tower/thumb.webp">Star Giga Tower <span class="wk-row__genre">&middot; Visualisation</span><img class="wk-row__thumb" src="../images/projects/star-giga-tower/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Emirates City</td>
+          <td class="wk-table__cell">Tower</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="homes" data-order="43" data-title="deca 035 — al zorah marina residences" data-inprogress="1" data-search="deca 035 — al zorah marina residences lives homes residence al zorah  visualisation a minimalist contemporary waterfront development along the marina boardwalk in al zorah, opening toward expansive marina views.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/deca-035.html" data-thumb="../images/projects/deca-035/thumb.webp">DECA 035 — Al Zorah Marina Residences <span class="wk-row__genre">&middot; Visualisation</span><img class="wk-row__thumb" src="../images/projects/deca-035/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Al Zorah</td>
+          <td class="wk-table__cell">Residence</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="homes" data-order="44" data-title="azha park residences" data-inprogress="1" data-search="azha park residences lives homes residence aamra  visualisation a proposed mixed-use commercial and residential development of four residential towers in the eastern sector of aamra, ajman.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/azha-park-residences.html" data-thumb="../images/projects/azha-park-residences/thumb.webp">Azha Park Residences <span class="wk-row__genre">&middot; Visualisation</span><img class="wk-row__thumb" src="../images/projects/azha-park-residences/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Aamra</td>
+          <td class="wk-table__cell">Residence</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="homes" data-order="45" data-title="zamzam tower" data-inprogress="1" data-search="zamzam tower lives homes tower aalia   a high-contrast urban tower in global city, aalia, ajman, anchored by gold vertical fins and a glazed corner bay.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/zamzam-tower.html" data-thumb="../images/projects/zamzam-tower/thumb.webp">Zamzam Tower<img class="wk-row__thumb" src="../images/projects/zamzam-tower/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Aalia</td>
+          <td class="wk-table__cell">Tower</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="homes" data-order="46" data-title="sealine residences" data-inprogress="1" data-search="sealine residences lives homes residence al zorah   currently rising in the heart of al zorah, ajman, sealine residence is an upcoming architectural landmark located within row 5 of the prestigious beach village development.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/sealine.html" data-thumb="../images/projects/sealine/thumb.webp">Sealine Residences<img class="wk-row__thumb" src="../images/projects/sealine/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Al Zorah</td>
+          <td class="wk-table__cell">Residence</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+        <tr class="wk-table__row" data-sector="homes" data-order="47" data-title="gateway residences" data-inprogress="1" data-search="gateway residences lives homes residence marina &amp; creek   currently under construction between the marina and the creek, gateway apartment building is set to redefine waterfront living in ajman.">
+          <th class="wk-table__name" scope="row"><a class="wk-table__link" href="../projects/gateway.html" data-thumb="../images/projects/gateway/thumb.webp">Gateway Residences<img class="wk-row__thumb" src="../images/projects/gateway/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"></a></th>
+          <td class="wk-table__cell">Marina &amp; Creek</td>
+          <td class="wk-table__cell">Residence</td>
+          <td class="wk-table__cell wk-table__cell--year"></td>
+        </tr>
+        
+      </tbody>
+    </table>
+
+    <figure class="wk-frame wk-frame--ledger" data-frame aria-hidden="true">
+      <img class="wk-frame__img" src="../images/projects/seasidehills/thumb.webp" alt="" width="800" height="600" decoding="async">
+    </figure>
+  </div>
+
+  <section class="wk-band surface-dark" aria-label="Start a project">
+    <div class="container">
+      <p class="wk-band__line">Have a project in mind? Let&rsquo;s talk.</p>
+      <a class="wk-band__action" href="../contact.html">Contact</a>
+    </div>
+  </section>
+
+</main>
+
+<!--
+  The footer. Black ground with its own #333333 top hairline — on a paper
+  page the closing band owns the switch and the footer shares the band's
+  ground, so the two are separated by structure and scale, never by colour
+  (E1.2a). On a page with no band the footer owns the switch itself (E1.2c).
+
+  The line is the decided site-wide copy. Skyline is retired everywhere,
+  the footer included (D-4): a skyline is towers, and it argues for the
+  three offices rather than the twenty-seven schools and shops. The second
+  sentence is X6-elastic — it names three disciplines, and ProArc's answer
+  on the discipline list changes this sentence and the Services blocks
+  together.
+
+  This footer is one of /ajman's three doors (the other two are Home's map
+  and About's story), so its Ajman link is the one link here that must never
+  break. It also carries the marketing route to /careers, which is why the
+  overlay refuses a careers item of its own.
+
+  Deliberately NOT here, each a live v1 fault this replaces: the wordmark
+  re-set as type in a <span class="brand">, a Testimonials item, "Projects"
+  where the decided label is Work, seven nav items where the nav is four,
+  the newsletter form posting to a contact.php that fatals on PHP 8, and six
+  dead href="#" links of which three were the social row.
+-->
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+
+    <p class="site-footer__line">The buildings a city grows up in. Architecture, engineering and project management from one Ajman office.</p>
+
+    <nav class="site-footer__nav" aria-label="Footer">
+      <ul class="site-footer__list">
+        <li><a class="site-footer__link" href="../projects.html">Work</a></li>
+        <li><a class="site-footer__link" href="../services.html">Services</a></li>
+        <li><a class="site-footer__link" href="../about.html">About</a></li>
+        <li><a class="site-footer__link" href="../contact.html">Contact</a></li>
+        <li><a class="site-footer__link" href="../ajman.html">Ajman</a></li>
+        <li><a class="site-footer__link" href="../careers.html">Careers</a></li>
+      </ul>
+    </nav>
+
+    <!-- Two socials, both verified live. Twitter/X is cut site-wide: the
+         handle is the CEO's personal account, not the practice's. -->
+    <ul class="site-footer__social">
+      <li><a class="site-footer__link" href="https://www.facebook.com/proarcarchitects/" rel="noopener">Facebook</a></li>
+      <li><a class="site-footer__link" href="https://www.instagram.com/proarchitects/" rel="noopener">Instagram</a></li>
+    </ul>
+
+    <p class="site-footer__legal">&copy; 2026 Proarc</p>
+
+  </div>
+</footer>
+
+<!--
+  R2 ships one script, and it is the menu.
+
+  What was here in v1 and is deliberately gone: GSAP, ScrollTrigger and
+  Lenis, pulled from three external CDNs, driving js/reveals.js (elements
+  fade and translate up as they scroll into view) and js/smooth-scroll.js
+  (scroll hijacking).
+
+  Three reasons, and any one of them is sufficient:
+
+  1. R2's motion language is decided and those are not it. "The site draws"
+     — all motion is line-work drawing itself: the scroll cue, the link
+     underlines, the Ajman map, this menu's wipe. No decorative fades, no
+     parallax, no sliders, no bounce.
+  2. Reduced motion must always show the finished state, and a reveal system
+     that starts every element at opacity 0 is one broken script away from a
+     blank page.
+  3. This repository is handed over as a whole, once. Three external CDN
+     dependencies in the chrome of a static site is a liability the handover
+     should not carry.
+
+  js/reveals.js, js/smooth-scroll.js and src/styles/animations.css are still
+  in the tree and still work; nothing loads them. If a screen turns out to
+  need one, it opts in through its own pageScript rather than every page
+  paying for it.
+-->
+
+<script src="../js/menu.js" defer></script>
+<script src="../js/work.js" defer></script>
+
+</body>
+</html>
