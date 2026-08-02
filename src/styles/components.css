@@ -74,13 +74,14 @@
   /* The mark's two states (2 Aug follow-up, decided live): identity is
      loudest at ARRIVAL — 160 while the page's opening band is under the
      chrome — and steps to the reading size once it has scrolled past.
-     128, not the 96 floor: 96 is the size the arrival complaint was
-     about, and 128 is a step the system already owns. Below 1024 the
-     two states converge, so the quiet class becomes a no-op there.
+     The reading size is 96, §8's own desktop floor (tuned down from a
+     first pass at 128 — Mahesh, on the live site): the 96 complaint was
+     about ARRIVAL, and the arrival state now answers it. Tablet steps
+     128→96 the same way; mobile is already at 96 and stays constant.
      Dewan-style hide-on-scroll was considered and declined: the trigger
      is the site's only navigation control and never retreats. */
   --mark-size: var(--logo-size-desktop);
-  --mark-size-quiet: var(--logo-size-tablet);
+  --mark-size-quiet: var(--logo-size-mobile);
 
   position: fixed;
   inset-block-start: 0;
@@ -552,7 +553,7 @@ html.is-menu-open { overflow: hidden; }
   .chrome-plate {
     --chrome-axis: var(--gutter-tablet);
     --mark-size: var(--logo-size-tablet);
-    --mark-size-quiet: var(--logo-size-tablet);
+    --mark-size-quiet: var(--logo-size-mobile);
 
     padding: var(--logo-clear-space);
   }
