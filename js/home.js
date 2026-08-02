@@ -39,8 +39,10 @@
    * style pass, then draw it when it is properly in view, once.
    *
    * `armed` may name more than one element because a beat can be several
-   * elements drawing as one gesture — the mark and the hairline above the
-   * sentence are one moment, not two.
+   * elements drawing as one gesture. Both surfaces are single-element today
+   * — the beat's hairline was retired on 2 Aug — and the shape stays,
+   * because a one-element special case is what forced this generalisation
+   * the first time.
    */
   function drawOnce(el, armed, drawing, ratio) {
     if (!el) return;
@@ -84,13 +86,10 @@
   /* The practice mark — 47 courses on a datum, generated from the records
      (build/lib/crest.js). It draws at a LOWER ratio than the map because it
      is 520px of a two-column beat rather than a square field: at 0.4 a
-     desktop reader has the whole thing on screen and is already past it. */
+     desktop reader has the whole thing on screen and is already past it.
+
+     One element, one gesture. The hairline that drew with it was retired on
+     2 Aug when the beat took the mark's own ground line as its datum. */
   var crest = document.querySelector('[data-crest]');
-  var beat = crest && crest.closest('.hm-sentence');
-  drawOnce(
-    crest,
-    [{ el: crest, cls: 'hm-crest' }, { el: beat, cls: 'hm-sentence' }],
-    [{ el: crest, cls: 'hm-crest' }, { el: beat, cls: 'hm-sentence' }],
-    0.25
-  );
+  drawOnce(crest, [{ el: crest, cls: 'hm-crest' }], [{ el: crest, cls: 'hm-crest' }], 0.25);
 })();

@@ -50,6 +50,8 @@ const COURSE_H = 20;   // one record's course
 const MARK_W = 320;    // the widest set's width
 const GAP = 1.5;       // the joint between two courses
 const DATUM_PAD = 14;  // the ground line's overhang past the plinth
+const HEAVY = 1.8;     // the datum, and each set's own D1 lead
+const LIGHT = 0.6;     // every other course
 
 /** Sets, largest first — the order is the counts', not an authored list. */
 function bands(projects) {
@@ -119,7 +121,7 @@ function markup(projects) {
 
   /* The datum, first — the ground line before what stands on it, which is
      the order js/services.js already draws in. */
-  push('datum', `<line x1="0" y1="${bottom}" x2="${totalW}" y2="${bottom}" stroke-width="1.8"/>`);
+  push('datum', `<line x1="0" y1="${bottom}" x2="${totalW}" y2="${bottom}" stroke-width="${HEAVY}"/>`);
 
   rows.forEach((row) => {
     const y = bottom - 8 - row.index * COURSE_H;
@@ -127,7 +129,7 @@ function markup(projects) {
     push(
       'course',
       `<line x1="${(cx - half).toFixed(1)}" y1="${y}" x2="${(cx + half).toFixed(1)}" y2="${y}" ` +
-        `stroke-width="${row.lead ? 1.8 : 0.6}"/>`
+        `stroke-width="${row.lead ? HEAVY : LIGHT}"/>`
     );
   });
 
@@ -162,14 +164,26 @@ function markup(projects) {
   );
 
   const apex = topY - COURSE_H * 2.6;
-  const viewH = bottom + 10 - apex + 10;
+
+  /* THE BOX ENDS ON THE GROUND LINE — half a stroke below it, which is all
+     the datum needs not to be clipped. home.css §4 stands the words' last
+     line on the bottom of this box, so any pad here would open a silent gap
+     between the drawing's ground and the words standing on it, and the
+     shared datum would be near-alignment rather than alignment. The TOP
+     keeps its ten units: the apex is a mitred point, and a miter runs past
+     the path that closes it. */
+  const viewH = bottom + HEAVY / 2 - (apex - 10);
 
   /* The stagger is a pure function of index, so a changed count changes the
-     drawing and never the choreography. */
+     drawing and never the choreography. 200 -> 3100ms, and every stroke
+     takes --dur-reveal to land, so the last course arrives at ~4.2s. Slowed
+     from ~2.7s on 2 Aug — Mahesh, on the live site. Both halves moved: the
+     span, so the gesture lasts, and the per-stroke duration in home.css, so
+     a course is seen being DRAWN rather than switched on. */
   const total = parts.length;
   const svg = parts
     .map((p, n) => {
-      const delay = Math.round(140 + (n / Math.max(1, total - 1)) * 2200);
+      const delay = Math.round(200 + (n / Math.max(1, total - 1)) * 2900);
       return p.tag.replace(/^<(\w+)/, `<$1 pathLength="1" class="hm-crest__ln" style="--d:${delay}ms"`);
     })
     .join('');

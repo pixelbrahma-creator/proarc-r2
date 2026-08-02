@@ -203,6 +203,15 @@ maximum width — are named in the file, as E3.3's footprint is. It carries no
 words, no legend and no number; E12 governs display prose, and the Services
 precedent is explicit that a drawing may show what prose may not say.
 
+**Its SVG box ends on the ground line** — the bottom pad is half the datum's
+stroke, which is all the datum needs not to be clipped. That is load-bearing:
+the beat aligns the words' last line to the bottom of that box (`align-items:
+end` in `home.css` §4), so the route links' rules and the mark's ground read as
+one horizontal, 0.03px apart, with **no offset on either side**. Restore a pad
+there and the shared datum silently becomes near-alignment. The top keeps ten
+units — the apex is a mitred point, and a miter runs past the path that closes
+it.
+
 Home's data comes from **`build/lib/home.js`** on the same terms: it consumes
 `records.js`, `work.js` (the plate) and `districts.js` (the marks) and derives
 only what no other surface wants — the rooms' fallback forms and the
@@ -296,6 +305,17 @@ own `pageScript`.
 > (0.42) straight into the CSS moved a 4:5 cell 4.5% to the right and cut
 > "Ajman" off its own sign. Judged centres live in the punch list's crop table;
 > object-positions live in the stylesheet; they are different numbers.
+
+> **A tripwire mutation that no longer matches is invisible in the summary.**
+> `--tripwire` corrupts the built HTML to prove the sweep can fail, and it
+> reports a *total* failure count — which cannot tell a mutation that landed
+> from one that missed. Two crest mutations carried a draw delay in their
+> literal and both went stale the moment the choreography was slowed; the run
+> would still have said "the sweep can fail". **Every mutation in
+> `sweep-home.js` now goes through `mutate()`, which exits 1 with `TRIPWIRE
+> INERT` when its target is gone.** Aim a mutation at what the family is
+> actually about — the class, the geometry — never at an incidental attribute
+> that rides alongside it.
 
 > **The manifest trap.** `images/manifest.json` is gitignored and the raw
 > sources are not in this repository. `build:pages` does **not** fail without

@@ -59,6 +59,26 @@
   max-inline-size: none;
 }
 
+/* And the sentence CENTRES in the air the band leaves it (2 Aug, Mahesh, on
+   the live site: it read as sitting too high). The padding above is a
+   CLEARANCE — it states where the sentence may not go, which is under the
+   chrome — and a clearance floor is not a composition. Left at the floor
+   the ink sat 53px below the plate and 226px above the band: the screen
+   read top-heavy because the eye measures from the chrome's own bottom
+   edge, not from the top of the page.
+
+   Three auto margins now share the free space — this one's two and the
+   band's one — so the sentence takes a third of it above and the band stays
+   anchored to the fold, which is the whole arrangement's point. It is a
+   RATIO rather than a second measured value, so it re-balances itself when
+   the type reflows, and at a viewport too short to have free space it
+   collapses to zero and the sentence sits back on the clearance floor
+   rather than colliding with the band. Below 1024 the section gives up its
+   viewport height, free space is zero by construction, and this is inert. */
+.hm-open > .container {
+  margin-block: auto;
+}
+
 /* Full bleed: the band is the header, so it reaches both page edges and is
    deliberately outside .container. */
 .hm-open__band {
@@ -278,7 +298,19 @@
 /* Two columns from the desktop layout up: the words, and the mark. The mark
    column is `auto` rather than a measured width — it is sized by its own
    block-size below, so the column is whatever that leaves and the two never
-   disagree about it. */
+   disagree about it.
+
+   THE TWO COLUMNS SHARE A GROUND LINE. `end` stands the words' last line on
+   the bottom of the mark's box, and crest.js ends that box on the drawing's
+   own datum — so the route links' rules and the mark's ground are one
+   horizontal, and the words rise from the same line the drawing stands on.
+   It is an alignment by construction, not a nudge: neither side carries an
+   offset, and a redrawn mark cannot break it.
+
+   Centred was the first pass and it read as two objects sharing a row. The
+   hairline that used to open the beat is gone with it (2 Aug, Mahesh): it
+   bounded nothing on its right half, and the ground line does the job it
+   was drawn to do, from the side the drawing is already on. */
 .hm-sentence {
   padding-block: var(--gap-section) 0;
 }
@@ -288,18 +320,8 @@
     display: grid;
     grid-template-columns: 1fr auto;
     column-gap: var(--gap-component);
-    align-items: center;
+    align-items: end;
   }
-}
-
-/* The hairline above the sentence: the beat's own opening gesture. #595959
-   is --color-ink-secondary's value, which continuity §9 fixes as what a line
-   may take when it BOUNDS something on black. */
-.hm-sentence__rule {
-  block-size: 1px;
-  margin: 0 0 var(--gap-heading);
-  background: var(--color-ink-secondary);
-  transform-origin: 0 50%;
 }
 
 .hm-sentence__line {
@@ -349,11 +371,16 @@
   stroke-dashoffset: 1;
 }
 
-/* One stroke's own draw is FAST; the length of the gesture is the stagger,
-   which build/lib/crest.js emits per element as --d. Last course lands at
-   ~2.7s, the same order as Services' range and for the same reason. */
+/* A stroke is seen being DRAWN — --dur-reveal, not --dur-fast — and the
+   length of the gesture is the stagger, which build/lib/crest.js emits per
+   element as --d. Last course lands at ~4.2s. Both halves were slowed on
+   2 Aug (Mahesh, on the live site): at 0.4s a course arrived rather than
+   drew, and the mark read as a flicker of lines switching on. The two route
+   links are NOT animated — their underline is a border on the link itself,
+   so scaling it would scale the words, and a pseudo-element would fork the
+   hover rule the map link shares. */
 .hm-crest--drawing .hm-crest__ln {
-  animation: hm-crest-draw var(--dur-fast) var(--ease-out) both;
+  animation: hm-crest-draw var(--dur-reveal) var(--ease-out) both;
   animation-delay: var(--d);
 }
 
@@ -363,35 +390,11 @@
   }
 }
 
-/* The hairline draws with it — the beat's own first stroke. The two route
-   links are NOT animated: their underline is a border on the link itself,
-   so scaling it would scale the words, and a pseudo-element would fork the
-   hover rule the map link shares. */
-.hm-sentence--armed .hm-sentence__rule {
-  transform: scaleX(0);
-}
-
-.hm-sentence--drawing .hm-sentence__rule {
-  animation: hm-wipe var(--dur-reveal) var(--ease-out) both;
-}
-
-@keyframes hm-wipe {
-  to {
-    transform: scaleX(1);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .hm-crest--armed .hm-crest__ln,
   .hm-crest--drawing .hm-crest__ln {
     stroke-dasharray: none;
     stroke-dashoffset: 0;
-    animation: none;
-  }
-
-  .hm-sentence--armed .hm-sentence__rule,
-  .hm-sentence--drawing .hm-sentence__rule {
-    transform: none;
     animation: none;
   }
 }
