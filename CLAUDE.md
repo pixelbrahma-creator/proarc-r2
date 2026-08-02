@@ -193,6 +193,16 @@ npm run build            # = build:manifest && build:pages && build:projects
 
 Two page steps, because there are two kinds of page:
 
+**Home's second beat carries a drawing, and `build/lib/crest.js` generates it
+from `projects.json`** — one course per record, its width the size of the set
+that record belongs to, so the mark's whole silhouette is the portfolio's own
+proportions. **A zone with no data is not drawn:** the authored version this
+replaced carried an archway for "approvals navigated" and no record holds
+approvals data. Its only two invented values — the course height and the mark's
+maximum width — are named in the file, as E3.3's footprint is. It carries no
+words, no legend and no number; E12 governs display prose, and the Services
+precedent is explicit that a drawing may show what prose may not say.
+
 Home's data comes from **`build/lib/home.js`** on the same terms: it consumes
 `records.js`, `work.js` (the plate) and `districts.js` (the marks) and derives
 only what no other surface wants — the rooms' fallback forms and the
@@ -279,6 +289,13 @@ site draws", and a handover package should not depend on three external hosts.
 `js/reveals.js`, `js/smooth-scroll.js` and `src/styles/animations.css` are still
 in the tree but nothing loads them; a screen that needs one opts in through its
 own `pageScript`.
+
+> **`object-position`'s percentage is not a crop centre.** It distributes the
+> OVERFLOW, so the visible window's centre lands at `p·(1−w) + w/2` where `w`
+> is the crop window as a fraction of the source width. Writing a judged centre
+> (0.42) straight into the CSS moved a 4:5 cell 4.5% to the right and cut
+> "Ajman" off its own sign. Judged centres live in the punch list's crop table;
+> object-positions live in the stylesheet; they are different numbers.
 
 > **The manifest trap.** `images/manifest.json` is gitignored and the raw
 > sources are not in this repository. `build:pages` does **not** fail without

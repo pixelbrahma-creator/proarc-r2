@@ -121,10 +121,20 @@
   object-position: 41% center;
 }
 
-/* The tower's mass runs 0.30–0.65 of the frame, so its centre is not the
-   frame's. */
+/* The tower's mass runs 0.121–0.723 of this frame, so its centre is 0.42
+   and not the frame's. (The hero's own mass ran 0.30–0.65 for a centre of
+   0.48; the band moved off the hero because the works room below leads on
+   it, and no photograph ships twice on this page — see build/lib/home.js.)
+
+   ⚠ 42 is the CENTRE; 32 is the percentage that puts the window there.
+   `object-position` does not name a point in the source — it distributes
+   the OVERFLOW, so the window's centre lands at p·(1−w) + w/2 where w is
+   the 4:5 window as a fraction of the source width. Every value in this
+   block is the second number, and the first one is in the punch list's
+   crop table; writing the crop centre straight into the CSS moved this
+   cell 4.5% right and cut "Ajman" off its own sign. */
 .hm-open__img--ajmanbank {
-  object-position: 46% center;
+  object-position: 32% center;
 }
 
 /* The stepped corner, not the long façade. */
@@ -262,19 +272,128 @@
 }
 
 /* -----------------------------------------------------------
-   4 · The sentence (§5.1)
+   4 · The practice — the sentence and the mark (§5.1, §5.1a)
    ----------------------------------------------------------- */
 
+/* Two columns from the desktop layout up: the words, and the mark. The mark
+   column is `auto` rather than a measured width — it is sized by its own
+   block-size below, so the column is whatever that leaves and the two never
+   disagree about it. */
 .hm-sentence {
   padding-block: var(--gap-section) 0;
+}
+
+@media (min-width: 1025px) {
+  .hm-sentence {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: var(--gap-component);
+    align-items: center;
+  }
+}
+
+/* The hairline above the sentence: the beat's own opening gesture. #595959
+   is --color-ink-secondary's value, which continuity §9 fixes as what a line
+   may take when it BOUNDS something on black. */
+.hm-sentence__rule {
+  block-size: 1px;
+  margin: 0 0 var(--gap-heading);
+  background: var(--color-ink-secondary);
+  transform-origin: 0 50%;
 }
 
 .hm-sentence__line {
   margin: 0;
 }
 
+/* Two links, side by side. The gap is --gap-heading rather than a smaller
+   one on purpose: at --gap-block they read as one control with a separator,
+   which is the nav they must not become. */
 .hm-sentence__route {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-heading);
   margin: var(--gap-heading) 0 0;
+}
+
+/* -----------------------------------------------------------
+   4a · The mark (§5.1a) — 47 courses, generated from the records
+   ----------------------------------------------------------- */
+
+/* Sized by HEIGHT, never by width: the drawing's proportion is the
+   portfolio's own and it changes when the data does, so pinning its width
+   would let a future count decide how tall the beat is. */
+.hm-crest {
+  display: none;
+  color: var(--color-on-dark);
+}
+
+@media (min-width: 1025px) {
+  .hm-crest {
+    display: block;
+  }
+}
+
+.hm-crest__svg {
+  display: block;
+  block-size: 520px;
+  inline-size: auto;
+  max-inline-size: 100%;
+}
+
+/* The mark SHIPS DRAWN. js/home.js arms the dash pair, so a script that
+   never runs leaves a finished drawing rather than an empty column — the
+   same contract the map has carried since the first build. */
+.hm-crest--armed .hm-crest__ln {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+/* One stroke's own draw is FAST; the length of the gesture is the stagger,
+   which build/lib/crest.js emits per element as --d. Last course lands at
+   ~2.7s, the same order as Services' range and for the same reason. */
+.hm-crest--drawing .hm-crest__ln {
+  animation: hm-crest-draw var(--dur-fast) var(--ease-out) both;
+  animation-delay: var(--d);
+}
+
+@keyframes hm-crest-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* The hairline draws with it — the beat's own first stroke. The two route
+   links are NOT animated: their underline is a border on the link itself,
+   so scaling it would scale the words, and a pseudo-element would fork the
+   hover rule the map link shares. */
+.hm-sentence--armed .hm-sentence__rule {
+  transform: scaleX(0);
+}
+
+.hm-sentence--drawing .hm-sentence__rule {
+  animation: hm-wipe var(--dur-reveal) var(--ease-out) both;
+}
+
+@keyframes hm-wipe {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hm-crest--armed .hm-crest__ln,
+  .hm-crest--drawing .hm-crest__ln {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+
+  .hm-sentence--armed .hm-sentence__rule,
+  .hm-sentence--drawing .hm-sentence__rule {
+    transform: none;
+    animation: none;
+  }
 }
 
 /* -----------------------------------------------------------

@@ -60,11 +60,21 @@
   /* -----------------------------------------------------------------
      The mark's two states. The arrival element is the page's own first
      band — main's first child, or, where that child is a page-spanning
-     .surface-dark wrapper (Services, /ajman), ITS first child. While it
+     .surface-dark WRAPPER (Services, /ajman), ITS first child. While it
      intersects the chrome band the mark is at arrival size; once it has
      scrolled past, html.chrome-quiet steps the mark to the reading size.
      The edge is the page's own, never a guessed pixel threshold. Landing
      mid-page (back button, anchors) starts quiet, which is correct.
+
+     A wrapper is a DIV and a band is a SECTION, and that distinction is
+     load-bearing rather than stylistic. The first form of this test asked
+     only whether the first child carried .surface-dark — true of Services'
+     and /ajman's grouping div, and equally true of Home's opening screen,
+     which is a band in its own right. On Home it descended into the
+     sentence's .container, a box that begins BELOW the chrome band, so the
+     quiet state armed at scroll 0 and the 160 arrival mark never rendered
+     on the page it was tuned against. The rule was written from two pages'
+     markup and a third page adopted the same class for a different reason.
      ----------------------------------------------------------------- */
   var arrivalObserver = null;
 
@@ -72,7 +82,7 @@
     var main = document.querySelector('main');
     if (!main) return null;
     var t = main.firstElementChild;
-    if (t && t.classList.contains('surface-dark') && t.firstElementChild) {
+    if (t && t.tagName === 'DIV' && t.classList.contains('surface-dark') && t.firstElementChild) {
       t = t.firstElementChild;
     }
     return t;

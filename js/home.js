@@ -1,5 +1,5 @@
 /* =========================================================================
-   Home's one script — the map's sweep, and nothing else.
+   Home's script — two drawn surfaces, one contract.
 
    Spec: _bmad/wds/D-UX-Design/01-home.md §6.1 (E7.3). Enhancement only,
    and the word is load-bearing here: the FINISHED map is what the HTML and
@@ -27,34 +27,70 @@
 (function () {
   'use strict';
 
-  var field = document.querySelector('[data-map]');
-  if (!field) return;
-
-  // No observer, no animation — and no arming either, so the finished map
-  // stands.
+  // No observer, no animation — and no arming either, so both finished
+  // drawings stand.
   if (typeof IntersectionObserver !== 'function') return;
 
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
   if (reduce && reduce.matches) return;
 
-  field.classList.add('hm-map--armed');
+  /**
+   * One surface, one contract: hide it, COMMIT the hidden state in its own
+   * style pass, then draw it when it is properly in view, once.
+   *
+   * `armed` may name more than one element because a beat can be several
+   * elements drawing as one gesture — the mark and the hairline above the
+   * sentence are one moment, not two.
+   */
+  function drawOnce(el, armed, drawing, ratio) {
+    if (!el) return;
 
-  // Commit the hidden state in its own style pass. Reading a layout
-  // property is what forces it; the void is there so a minifier cannot
-  // decide the read is dead code.
-  void field.offsetHeight;
+    /* A surface the layout has deleted has no box, and an element with no
+       box never intersects — so arming it would hide a drawing that then
+       had no way to arrive. Below 1024 the mark is deleted whole (E3.7,
+       the constellation's own rule), and this is what keeps a reader who
+       resizes upward from meeting an empty column. */
+    if (!el.getClientRects().length) return;
 
-  var observer = new IntersectionObserver(
-    function (entries) {
-      for (var i = 0; i < entries.length; i++) {
-        if (entries[i].intersectionRatio < 0.4) continue;
-        observer.disconnect();
-        field.classList.add('hm-map--drawing');
-        return;
-      }
-    },
-    { threshold: [0.4] }
+    armed.forEach(function (pair) {
+      if (pair.el) pair.el.classList.add(pair.cls + '--armed');
+    });
+
+    // Reading a layout property is what forces the commit; the void is
+    // there so a minifier cannot decide the read is dead code.
+    void el.offsetHeight;
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        for (var i = 0; i < entries.length; i++) {
+          if (entries[i].intersectionRatio < ratio) continue;
+          observer.disconnect();
+          drawing.forEach(function (pair) {
+            if (pair.el) pair.el.classList.add(pair.cls + '--drawing');
+          });
+          return;
+        }
+      },
+      { threshold: [ratio] }
+    );
+
+    observer.observe(el);
+  }
+
+  /* The map — E7.3's spatial sweep. */
+  var field = document.querySelector('[data-map]');
+  drawOnce(field, [{ el: field, cls: 'hm-map' }], [{ el: field, cls: 'hm-map' }], 0.4);
+
+  /* The practice mark — 47 courses on a datum, generated from the records
+     (build/lib/crest.js). It draws at a LOWER ratio than the map because it
+     is 520px of a two-column beat rather than a square field: at 0.4 a
+     desktop reader has the whole thing on screen and is already past it. */
+  var crest = document.querySelector('[data-crest]');
+  var beat = crest && crest.closest('.hm-sentence');
+  drawOnce(
+    crest,
+    [{ el: crest, cls: 'hm-crest' }, { el: beat, cls: 'hm-sentence' }],
+    [{ el: crest, cls: 'hm-crest' }, { el: beat, cls: 'hm-sentence' }],
+    0.25
   );
-
-  observer.observe(field);
 })();

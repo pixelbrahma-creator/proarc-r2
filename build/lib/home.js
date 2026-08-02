@@ -38,6 +38,7 @@ const path = require('path');
 const R = require('./records');
 const W = require('./work');
 const D = require('./districts');
+const CREST = require('./crest');
 
 const ROOT = path.join(__dirname, '..', '..');
 
@@ -117,7 +118,14 @@ const ROOMS = [
     verb: 'Shops',
     href: 'projects/malls.html',
     form: 'print',
-    lead: 'souksalah',
+    // Souk Salah led this room until the opening band shipped, and the band
+    // now opens the same territory with the same photograph — the souk holds
+    // three frames of one arcade from nearly one position, so no reframing
+    // of it can stop the repeat. City Life, Al Khor is D1's next in the set
+    // and is in Ajman, which is the whole of the 1 Aug objection to
+    // citymalluaq; the souk is not lost, it leads the fold and rides the
+    // quiet line. See OPEN_BAND_FRAME for the rule this belongs to.
+    lead: 'citylifekhor',
     quietCount: 3,
   },
   {
@@ -306,12 +314,37 @@ const OPEN_BAND = [
   { label: 'The mosque', cells: ['alghalamosque'] },
 ];
 
-/** Which frame of each record leads the band: the hero, or a gallery slot. */
+/**
+ * Which frame of each record leads the band: the hero, or a gallery slot.
+ *
+ * NO PHOTOGRAPH SHIPS TWICE ON THIS PAGE. The band and the rooms below draw
+ * from the same 47 records, and nothing was watching the overlap: the first
+ * build put `souksalah/hero` and `ajmanbank/hero` in BOTH surfaces, so nine
+ * image slots carried seven frames and a reader met the souk and the bank
+ * twice, once cropped. The fix is split across the two surfaces on one rule
+ * — the FOLD keeps the strongest frame, because it is the page's first
+ * image of that territory:
+ *
+ *   Offices — the band moves to `gallery-02`, the daylight tower read
+ *   (mass 0.121–0.723, so its centre is 0.42 — the same derivation the
+ *   rev-7 crop pass used on the hero). The works room keeps the hero,
+ *   which is the set's D1 lead. `gallery-04` was tested and rejected: it
+ *   is the podium, and a red retail hoarding of promotional posters runs
+ *   across its bottom third — the habitat fault (a mundane foreground at
+ *   223px), with a colour intrusion on top of it. `gallery-03` is the
+ *   hero's own dusk angle plus the same hoarding, so it defeats the point.
+ *
+ *   Malls & shops — souksalah holds THREE frames of one arcade from nearly
+ *   one position, so no frame of it can stop the repeat. The ROOM moves
+ *   instead, to `citylifekhor`: D1's next in the set, in Ajman (which is
+ *   what ruled `citymalluaq` out, not the set's order), and a dusk exterior
+ *   that reads as a mall where the souk's interior corridor does not.
+ */
 const OPEN_BAND_FRAME = {
   habitatschool: { gallery: 2 },
   cityuniversity: 'hero',
   souksalah: 'hero',
-  ajmanbank: 'hero',
+  ajmanbank: { gallery: 0 },
   seasidehills: { gallery: 0 },
   alghalamosque: 'hero',
 };
@@ -368,10 +401,16 @@ function viewData(prefix) {
       // only as the page's Open Graph image.
       openBandHtml: openBandHtml(db, manifest, prefix),
 
+      // The second beat's mark — 47 courses, five widths, one datum, all of
+      // it read off the records. See build/lib/crest.js for what it draws
+      // and, as importantly, what it refuses to draw.
+      crestHtml: CREST.markup(db.projects),
+
       rooms: ROOMS.map((room) => roomData(db, manifest, prefix, room)),
 
       mosqueHref: `${prefix}projects/alghalamosque.html`,
       aboutHref: `${prefix}about.html`,
+      servicesHref: `${prefix}services.html`,
       ajmanHref: `${prefix}ajman.html`,
       contactHref: `${prefix}contact.html`,
 
