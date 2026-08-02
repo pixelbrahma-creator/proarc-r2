@@ -42,52 +42,65 @@
    ========================================================================= */
 
 /* -------------------------------------------------------------------------
-   The identity-chrome field rule (E13.2)
+   The chrome (Board 17, Session K — H1-a/b/c; amends E13.2's reach)
 
-   The pill and the plate carry a PERMANENT black field. On paper it is a
-   visible black tile — §4.7's "one persistent black element on a white
-   page". On any black ground the field is the page's own colour and
-   dissolves, leaving the three lines and the letterforms alone at 21:1.
+   Geometry first (P-2): both objects are content plus ONE clear space of
+   padding, flush at the top edge — the rule §8 already has, extended to
+   the pair instead of a fourth number invented for the pill. The plate is
+   taller because its contents are taller; that is a consequence.
 
-   This is §8's wordmark mechanism ("shows no seam") generalised to both
-   pieces of identity chrome. It costs no scroll listener, no threshold and
-   no colour swap, and nothing can desync, because the grounds do all the
-   work. What is locked is the POSITION, not a visible rectangle.
+   Position (G-2): the chrome sits on the CONTENT AXIS, not at a fixed
+   80px. --gutter-desktop is a content token; borrowed as a chrome offset
+   it was neither a bleed nor an alignment — 400px adrift at 1920, zero
+   only at exactly 1120. The offset below is the .container's own text
+   edge: half the leftover beyond --container-max, plus the gutter. The %
+   resolves against the viewport, which is also what centres .container.
+
+   The field (ground-aware — the E13.2 permanent field is now the plate's
+   rule alone): the TRIGGER ships fielded — the safe state, correct on
+   every ground — and js/chrome.js removes the field only while the band
+   under the chrome is clean paper. Three grounds: paper (no field, ink
+   strokes), black (field dissolves — identical either way), photograph
+   (the field returns; §8 bars identity on bare photography). The PLATE
+   keeps its permanent field until the E8 ink master exists: the pill's
+   strokes are CSS and can turn to ink today; the mark is artwork, and §8
+   bars deriving the inverted master with a filter.
    ------------------------------------------------------------------------- */
 
 .chrome-trigger,
 .chrome-plate {
+  --chrome-axis: calc(max(0px, (100% - var(--container-max)) / 2) + var(--gutter-desktop));
+
   position: fixed;
+  inset-block-start: 0;
   z-index: var(--z-nav);
+  padding: var(--logo-clear-space-desktop);
   background: var(--color-surface-dark);
 }
 
 /* C-1: the three lines on one side... */
 .chrome-trigger {
-  inset-block-start: 20px;
-  inset-inline-start: var(--gutter-desktop);
+  inset-inline-start: var(--chrome-axis);
   display: flex;
   align-items: center;
   justify-content: center;
-  min-inline-size: 44px;   /* §4.7's hit target, unchanged */
+  min-inline-size: 44px;   /* §4.7's hit target — the padded box is 73×67 */
   min-block-size: 44px;
-  padding: 0;
   border: none;
   appearance: none;
+  transition: background-color var(--dur-fast) var(--ease-out);
 }
 
 /* ...the logo on the other. The plate is also the Home door: inside the
    open overlay its field has dissolved and the letterforms are the way
    home, which is why the nav lock needs no Home item. */
 .chrome-plate {
-  inset-block-start: 0;
-  inset-inline-end: var(--gutter-desktop);
+  inset-inline-end: var(--chrome-axis);
   display: block;
-  padding: var(--logo-clear-space);
 }
 
 .chrome-plate__mark {
-  inline-size: var(--logo-min-width-desktop);
+  inline-size: var(--logo-size-desktop);
   block-size: auto;
 }
 
@@ -102,11 +115,18 @@
    elements are children of the bar they hang off, so their transforms would
    compose with its rotation and the ✕ would come out skewed. Siblings each
    carry exactly the transform they are given. */
+/* The bars grow with the mark but far more slowly — three strokes are not
+   a wordmark, and the pill must stay a target rather than becoming a
+   second plate: 18 + (160 − 96) × 0.08 = 23. --bar-travel is the middle
+   stroke's offset, (block-size − 1.5) / 2, and the ✕ reuses it so the
+   cross always meets at the centre whatever the breakpoint says. */
 .chrome-trigger__bars {
+  --bar-travel: 7.875px;
+
   position: relative;
   display: block;
-  inline-size: 18px;
-  block-size: 13.5px;
+  inline-size: 23px;
+  block-size: 17.25px;
 }
 
 .chrome-trigger__bars i {
@@ -115,18 +135,20 @@
   display: block;
   block-size: 1.5px;
   background: var(--color-on-dark);
-  transition: transform var(--dur-fast) var(--ease-out);
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
 }
 
 .chrome-trigger__bars i:nth-child(1) { inset-block-start: 0; }
-.chrome-trigger__bars i:nth-child(2) { inset-block-start: 6px; }
-.chrome-trigger__bars i:nth-child(3) { inset-block-start: 12px; }
+.chrome-trigger__bars i:nth-child(2) { inset-block-start: var(--bar-travel); }
+.chrome-trigger__bars i:nth-child(3) { inset-block-start: calc(var(--bar-travel) * 2); }
 
 /* The outer two travel to the middle and cross; the middle one closes to
    nothing. It scales rather than fades, because hierarchy — and everything
    else — never comes from opacity (§9.16). */
 .chrome-trigger[aria-expanded="true"] .chrome-trigger__bars i:nth-child(1) {
-  transform: translateY(6px) rotate(45deg);
+  transform: translateY(var(--bar-travel)) rotate(45deg);
 }
 
 .chrome-trigger[aria-expanded="true"] .chrome-trigger__bars i:nth-child(2) {
@@ -134,7 +156,7 @@
 }
 
 .chrome-trigger[aria-expanded="true"] .chrome-trigger__bars i:nth-child(3) {
-  transform: translateY(-6px) rotate(-45deg);
+  transform: translateY(calc(var(--bar-travel) * -1)) rotate(-45deg);
 }
 
 .chrome-trigger:focus-visible,
@@ -145,6 +167,29 @@
 
 /* On a paper page the focus ring must not be white-on-white where it
    overhangs the field. It never does: the ring is inset. */
+
+/* -------------------------------------------------------------------------
+   Ground-aware states (H1-b)
+
+   The page SHIPS in the safe state above — fielded, correct on every
+   ground — and js/chrome.js arms .chrome-ink only while nothing but paper
+   sits under the chrome's band. A blocked or broken script leaves a
+   complete page rather than an illegible one: the same doctrine as the
+   map, the drawing and the form panels. Removing the field moves nothing —
+   the padded box still lays the strokes out; only the paint goes.
+
+   The open overlay forces the black state, and it is settled HERE, by
+   source order, never by the script — these rules sit after the ink ones
+   so is-menu-open wins while both classes are on the root.
+   ------------------------------------------------------------------------- */
+
+html.chrome-ink .chrome-trigger { background: transparent; }
+html.chrome-ink .chrome-trigger__bars i { background: var(--color-ink); }
+html.chrome-ink .chrome-trigger:focus-visible { outline-color: var(--color-ink); }
+
+html.is-menu-open .chrome-trigger { background: transparent; }
+html.is-menu-open .chrome-trigger__bars i { background: var(--color-on-dark); }
+html.is-menu-open .chrome-trigger:focus-visible { outline-color: var(--color-on-dark); }
 
 
 /* -------------------------------------------------------------------------
@@ -227,7 +272,12 @@
   align-items: start;
   min-block-size: 100%;
   padding-block: 120px var(--gutter-desktop);
-  padding-inline: var(--gutter-desktop);
+
+  /* The chrome's own axis (G-2): the open overlay and the chrome are one
+     object — the trigger is its ✕, the plate its Home door — so the nav
+     column shares the trigger's edge and the contact column the plate's.
+     Without this the ✕ would sit 400px inside the nav's edge at 1920. */
+  padding-inline: calc(max(0px, (100% - var(--container-max)) / 2) + var(--gutter-desktop));
 }
 
 
@@ -469,12 +519,31 @@ html.is-menu-open { overflow: hidden; }
 
 
 /* -------------------------------------------------------------------------
-   Breakpoints (§10)
+   Breakpoints — the LAYOUT's own (1024/780), not a private 1023/767
+
+   The chrome used to switch one pixel before the container did, so at
+   exactly 1024 the text edge was 40 while the chrome held 80. G-2 aligns
+   the chrome to the content axis, which only means anything if both move
+   on the same widths. (Type still collapses at 767 — that is the type
+   system's breakpoint, and the chrome is layout.)
    ------------------------------------------------------------------------- */
 
-@media (max-width: 1023px) {
-  .chrome-trigger { inset-inline-start: var(--gutter-tablet); }
-  .chrome-plate { inset-inline-end: var(--gutter-tablet); }
+@media (max-width: 1024px) {
+  .chrome-trigger,
+  .chrome-plate {
+    --chrome-axis: var(--gutter-tablet);
+
+    padding: var(--logo-clear-space);
+  }
+
+  .chrome-plate__mark { inline-size: var(--logo-size-tablet); }
+
+  .chrome-trigger__bars {
+    --bar-travel: 6px;
+
+    inline-size: 18px;
+    block-size: 13.5px;
+  }
 
   .menu-overlay__regions {
     grid-template-columns: minmax(0, 1fr);
@@ -490,15 +559,16 @@ html.is-menu-open { overflow: hidden; }
   .menu-centre { display: none; }
 }
 
-@media (max-width: 767px) {
-  .chrome-trigger { inset-inline-start: var(--gutter-mobile); }
-
+@media (max-width: 780px) {
+  .chrome-trigger,
   .chrome-plate {
-    inset-inline-end: var(--gutter-mobile);
-    padding: var(--gap-block);
+    --chrome-axis: var(--gutter-mobile);
   }
 
-  .chrome-plate__mark { inline-size: var(--logo-min-width-mobile); }
+  /* The mark steps to 96 — the desktop FLOOR becomes the mobile rendered
+     size, still above §8's 80px mobile minimum. Clear space stays at the
+     24px floor: the cap height at 96 is 14.8px, far under it. */
+  .chrome-plate__mark { inline-size: var(--logo-size-mobile); }
 
   /* §10: overlay padding 24px. The nav keeps the full 52px scale — the
      widest bold label is 266px against 327px of column at 375px, so no
@@ -581,11 +651,13 @@ html.is-menu-open { overflow: hidden; }
   color: var(--color-on-dark-secondary);
 }
 
-@media (max-width: 1023px) {
+/* The footer's inner box is a .container in all but name (same max-width,
+   same gutters), so it moves on the layout's breakpoints with the chrome. */
+@media (max-width: 1024px) {
   .site-footer__inner { padding-inline: var(--gutter-tablet); }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 780px) {
   .site-footer__inner { padding-inline: var(--gutter-mobile); }
   .site-footer__list { gap: var(--gap-tight); }
 }

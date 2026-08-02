@@ -54,7 +54,8 @@
 </head>
 <body>
 <!--
-  The site's chrome and its one navigation surface. Spec: 09-menu.md.
+  The site's chrome and its one navigation surface. Spec: 09-menu.md,
+  amended by Board 17 (Session K, H1) — geometry, position and the field.
 
   Three things sit here, and the order below is the tab order: the trigger
   (top inline-start), the wordmark plate (top inline-end), and the overlay
@@ -62,11 +63,17 @@
   three lines on the other" — and both corners flip in RTL by logical
   properties alone; the artwork never mirrors (§8).
 
-  The chrome is NOT duplicated inside the overlay. It is one set of elements
-  painted above it, which is what makes the identity-chrome field rule
-  (E13.2) free: the plate and the pill carry a permanent #000000 field, so
-  paper reveals the field and the overlay's own black dissolves it. No scroll
-  listener, no threshold, no colour swap, nothing to desync.
+  The band is grouped by FUNCTION: the start corner is the controls (the
+  trigger — and the language switch beside it, when the bilingual build
+  lands), the end corner is the identity, the mark alone. The chrome is NOT
+  duplicated inside the overlay: it is one set of elements painted above it.
+
+  The field is now two rules, not one (E13.2 as amended). The PLATE keeps a
+  permanent #000000 field until the E8 ink master exists — the mark is
+  artwork, and §8 bars deriving the inverted master with a filter. The
+  TRIGGER ships fielded and js/chrome.js removes the field while the band
+  holds clean paper; on black the two states are identical, and photography
+  returns the field (§8).
 -->
 
 <button class="chrome-trigger" type="button"
@@ -74,6 +81,15 @@
         aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
   <span class="chrome-trigger__bars" aria-hidden="true"><i></i><i></i><i></i></span>
 </button>
+
+<!--
+  The language switch's RESERVED SLOT (Board 17 §6): it renders here, in
+  the controls corner beside the trigger, when the bilingual build lands —
+  S-1, the target language in its own script. Nothing renders until then;
+  an empty box is not shipped in the meantime (§9 rule 4). The overlay's
+  old reserved slot is RETIRED — a switch in the band and a switch in the
+  overlay is two sources for one control.
+-->
 
 <a class="chrome-plate" href="index.html">
   <img class="chrome-plate__mark"
@@ -110,10 +126,11 @@
       <a class="menu-contact__item" href="tel:+97167446633"><span dir="ltr">+971 6 744 6633</span></a>
       <a class="menu-contact__item" href="mailto:info@proarc.ae"><span dir="ltr">info@proarc.ae</span></a>
       <!--
-        The AR switch is a reserved slot, not a control: the overlay is the
-        one site-wide chrome surface, so the language switch belongs here
-        when the bilingual build lands. Nothing renders until then, and an
-        empty box is not shipped in the meantime (§9 rule 4).
+        The AR switch slot that lived here is RETIRED (Board 17 §6): the
+        language switch belongs in the band, beside the trigger — see the
+        reserved slot above. Two slots is two sources for one control, the
+        same fault as the phone and email being hand-written here while
+        Contact derived them from data/contact.json, which Session I closed.
 
         The address line is CUT and the cut is a decision (§8): v1's
         "13003, Ajman, UAE" is a PO Box wearing an address label on every
@@ -501,7 +518,9 @@
 </footer>
 
 <!--
-  R2 ships one script, and it is the menu.
+  R2 ships two scripts: the menu, and the chrome's observation strip.
+  js/chrome.js only ARMS a state the page already ships complete (the
+  fielded trigger), so it costs none of the guarantees below.
 
   What was here in v1 and is deliberately gone: GSAP, ScrollTrigger and
   Lenis, pulled from three external CDNs, driving js/reveals.js (elements
@@ -528,6 +547,7 @@
 -->
 
 <script src="js/menu.js" defer></script>
+<script src="js/chrome.js" defer></script>
 <script src="js/work.js" defer></script>
 
 </body>

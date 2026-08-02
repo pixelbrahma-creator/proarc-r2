@@ -23,12 +23,14 @@ Design tokens live in `src/styles/tokens.css`. Every type and colour value in
 the codebase comes from a token. If a value you need is not a token, **stop
 and ask** — do not invent one.
 
-> One token has been added since v1.3 was signed: **`--fs-menu-nav` (52px,
-> fixed at every breakpoint)**. The menu overlay's nav list cannot borrow
-> `--fs-h1`, which collapses to 40px and then 34px, and 09-menu §5 decides
-> 52-at-every-width on measured label metrics. It implements a signed clause
-> rather than introducing a value, but it is the only such addition — treat
-> the next one as a guideline revision.
+> Tokens added since v1.3 was signed, each a recorded decision rather than a
+> build-time value: **`--fs-menu-nav`** (52px fixed; 09-menu §5, measured
+> label metrics — `--fs-h1` collapses and the nav must not), and the **Board
+> 17 brand set** (2 Aug, Mahesh): `--logo-size-desktop/tablet/mobile`
+> (160/128/96 — the rendered decision above §8's 96/80 floors, which stay as
+> the record) and `--logo-clear-space-desktop` (25px — §8's own
+> max(24, cap height) rule overtaking the floor at 160). Anything further is
+> a guideline revision.
 
 ---
 
@@ -167,6 +169,18 @@ inline-start rule.
 - Never mirrored, flipped, or recoloured. In RTL its position moves; the
   artwork does not change.
 - Minimum rendered width 96px desktop, 80px mobile. Minimum clear space 24px.
+- **Rendered size is decided (Board 17): 160px desktop / 128 at ≤1024 / 96 at
+  ≤780, clear space 25px at 160 and 24px below** — via the `--logo-size-*`
+  tokens, never restated locally.
+- **The chrome is ground-aware (trigger only).** The page ships FIELDED — the
+  safe state — and `js/chrome.js` arms `html.chrome-ink` on clean paper. The
+  PLATE keeps its permanent black field until the E8 ink master is supplied;
+  do not derive an inverted mark with a filter, ever. The open overlay forces
+  the black state by CSS source order in `components.css` — keep those rules
+  AFTER the `chrome-ink` ones.
+- **The chrome sits on the content axis** (container edge + gutter, the
+  `--chrome-axis` calc) and moves on the LAYOUT's breakpoints (1024/780).
+  Never reintroduce a bare-gutter offset or a 1023/767 chrome breakpoint.
 
 ## Build discipline
 

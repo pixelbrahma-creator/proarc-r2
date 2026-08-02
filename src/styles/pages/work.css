@@ -106,6 +106,18 @@
   padding-block-start: var(--gap-component);
 }
 
+@media (max-width: 1024px) {
+  /* The 4f362d2 clearance, which this arrival missed: the tokens step down
+     here faster than the chrome does, and the H1's first line runs under
+     the plate's edge once both share horizontal space — measured 21.6px of
+     ink inside the plate's band at 375 with the Board-17 plate (and ~6px
+     with the old one; the collision predates the resize). Same restated
+     formula as the other five arrivals. */
+  .wk-head--arrival {
+    padding-block-start: calc(var(--gap-component) + var(--gap-heading) + var(--gap-block));
+  }
+}
+
 /* base.css still carries v1's "every h1 is uppercase Hero Display" rule.
    The Work surfaces' decided H1 is Editorial, SENTENCE CASE ("Learns." —
    03-work §4.2.3), so the inherited transform is switched off here, scoped.

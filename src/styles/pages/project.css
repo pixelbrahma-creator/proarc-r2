@@ -34,6 +34,18 @@
   padding-block-start: var(--gap-component);
 }
 
+@media (max-width: 1024px) {
+  /* The 4f362d2 clearance, third missed surface (after the Work arrival):
+     the record's name sits in the column the plate hangs over, and the
+     Board-17 plate (93.4px in this band) left its ink 5.3px clear on all
+     47 records. One clear-space step restores the margin the old plate
+     had; below 780 the lede stacks and the padding reads as the same 88px
+     every other arrival takes. */
+  .pd-lede {
+    padding-block-start: calc(var(--gap-component) + var(--gap-block));
+  }
+}
+
 .pd-column {
   padding-inline-end: var(--gutter-desktop);
 }

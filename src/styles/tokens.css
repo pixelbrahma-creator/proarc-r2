@@ -154,10 +154,23 @@
 
   /* ---------------------------------------------------------------------
      Brand
+
+     The min-width pair is §8's floor and stays as the record. The rendered
+     size is a decision (Board 17, Session K, H1-a): at 96px the word
+     "proarc" — the bottom 44% of the artwork — sets a 10.5px x-height,
+     below the site's own 12px text floor. 160px is where the word reaches
+     heading scale (24.7px ink) AND where §8's own clear-space rule (the
+     greater of 24px and the word's cap height, size × 51/330) overtakes
+     the 24px floor — so both numbers are derived, not picked. Below 160
+     the cap height falls back under the floor and 24px governs again.
      --------------------------------------------------------------------- */
   --logo-min-width-desktop: 96px;
   --logo-min-width-mobile:  80px;
+  --logo-size-desktop:     160px;
+  --logo-size-tablet:      128px;
+  --logo-size-mobile:       96px;
   --logo-clear-space:       24px;
+  --logo-clear-space-desktop: 25px; /* max(24, 160 × 51/330) = 24.7 → 25 */
 }
 
 /* =========================================================================

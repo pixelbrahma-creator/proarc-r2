@@ -1,5 +1,7 @@
 <!--
-  R2 ships one script, and it is the menu.
+  R2 ships two scripts: the menu, and the chrome's observation strip.
+  js/chrome.js only ARMS a state the page already ships complete (the
+  fielded trigger), so it costs none of the guarantees below.
 
   What was here in v1 and is deliberately gone: GSAP, ScrollTrigger and
   Lenis, pulled from three external CDNs, driving js/reveals.js (elements
@@ -26,4 +28,5 @@
 -->
 
 <script src="{{assetPrefix}}js/menu.js" defer></script>
+<script src="{{assetPrefix}}js/chrome.js" defer></script>
 {{#each pageScripts}}<script src="{{assetPrefix}}js/{{this}}.js" defer></script>{{/each}}
