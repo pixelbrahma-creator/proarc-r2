@@ -57,21 +57,60 @@
     root.classList.toggle('chrome-ink', inBand.size === 0);
   }
 
+  /* -----------------------------------------------------------------
+     The mark's two states. The arrival element is the page's own first
+     band — main's first child, or, where that child is a page-spanning
+     .surface-dark wrapper (Services, /ajman), ITS first child. While it
+     intersects the chrome band the mark is at arrival size; once it has
+     scrolled past, html.chrome-quiet steps the mark to the reading size.
+     The edge is the page's own, never a guessed pixel threshold. Landing
+     mid-page (back button, anchors) starts quiet, which is correct.
+     ----------------------------------------------------------------- */
+  var arrivalObserver = null;
+
+  function arrivalTarget() {
+    var main = document.querySelector('main');
+    if (!main) return null;
+    var t = main.firstElementChild;
+    if (t && t.classList.contains('surface-dark') && t.firstElementChild) {
+      t = t.firstElementChild;
+    }
+    return t;
+  }
+
+  function onArrival(entries) {
+    root.classList.toggle('chrome-quiet', !entries[entries.length - 1].isIntersecting);
+  }
+
   function arm() {
     if (observer) observer.disconnect();
+    if (arrivalObserver) arrivalObserver.disconnect();
     inBand.clear();
 
     /* The band is the plate's RENDERED height — measure the box, never
-       the declared value. Everything below it is clipped out of the root
-       by the negative bottom margin. */
-    var band = Math.ceil(plate.getBoundingClientRect().height) || 112;
+       the declared value. The quiet state shrinks the plate, so the band
+       is always measured at ARRIVAL size (the CSS var, not the live box)
+       — otherwise the flip back would use a shorter band than the flip
+       out, and the state would chatter at the boundary. */
+    var arrivalMark = parseFloat(
+      getComputedStyle(plate).getPropertyValue('--mark-size')
+    );
+    var pad = 2 * parseFloat(getComputedStyle(plate).paddingBlockStart);
+    var band = arrivalMark > 0
+      ? Math.ceil(arrivalMark * (117 / 330) + pad)
+      : Math.ceil(plate.getBoundingClientRect().height) || 112;
     var below = Math.max(0, window.innerHeight - band);
-
-    observer = new IntersectionObserver(onEntries, {
+    var opts = {
       root: null,
       rootMargin: '0px 0px -' + below + 'px 0px',
       threshold: 0,
-    });
+    };
+
+    observer = new IntersectionObserver(onEntries, opts);
+    arrivalObserver = new IntersectionObserver(onArrival, opts);
+
+    var entry = arrivalTarget();
+    if (entry) arrivalObserver.observe(entry);
 
     var targets = document.querySelectorAll(NOT_PAPER);
     if (targets.length === 0) {
