@@ -478,4 +478,4 @@ function viewData(srcName, prefix) {
 // rooms show the same figure this file already derives for the Work
 // surfaces. Home re-deriving it is how two surfaces start disagreeing about
 // one photograph.
-module.exports = { hasViewData, viewData, buildingNoun, rowPlace, searchText, plate, leadImage };
+module.exports = { hasViewData, viewData, buildingNoun, rowPlace, searchText, plate, leadImage, image };

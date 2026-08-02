@@ -147,18 +147,21 @@
   Home — index.html. Spec: 01-home.md. Copy authority:
   ../_bmad/wds/E-Brand-Framework/04-copy-direction.md v3.3 §1, verbatim.
 
-  The page in one line: the claim → the photograph → the sentence → four
-  rooms → the mosque → the map → the invitation. Every section carries one
-  idea, one visual and one link, and NO DESTINATION REPEATS — which is why
-  the room prints are not links (their verb is), why Seaside Hills is
-  absent from the lives selection (the claim's caption already links it),
-  and why the map's marks are facts rather than controls.
+  The page in one line: the opening screen → the sentence → four rooms →
+  the mosque → the map → the invitation. Every section carries one idea, one
+  visual and one link, and NO DESTINATION REPEATS — which is why the room
+  prints are not links (their verb is), why the opening band's labels are not
+  links either, and why the map's marks are facts rather than controls.
 
-  Three grounds, three switches, all on section boundaries (§2): paper for
-  the claim and its caption, black from the sentence to the map, paper for
-  the invitation, then the footer returns to black. The W1 plate is a
-  visible black rectangle over the claim and dissolves into the page's own
-  black below it — by ground, not by script.
+  Two grounds now, one switch (§2): black from the opening to the map, paper
+  for the invitation, then the footer returns to black. Board 20 retired the
+  paper claim and the photograph under it, so the W1 plate no longer sits on
+  paper anywhere on this page — it dissolves into the page's own black from
+  the first pixel, by ground rather than by script.
+
+  ⚠ Still open, and visible on the page: the sentence in §2 says what the
+  opening now says. One of the two has to take a new job or go, and that is a
+  copy decision under 04-copy-direction, not a build one.
 
   The four rooms ship in their FALLBACK forms: G6, the four at-tier
   photographs, has no date. learns is the names wall; shops, works and
@@ -167,30 +170,32 @@
 -->
 <main id="main" class="hm">
 
-  <!-- 1 · The claim — paper, squat. The photograph must be in view without
-       scrolling at 1440, so this block is capped rather than filling the
-       viewport: a full-height claim turns the page back into the splash
-       screen this hero replaced. No link, no eyebrow, no scroll cue. -->
-  <section class="hm-claim-band">
+  <!-- 1 · The opening — one screen, black, and the page's whole claim. The
+       sentence carries practice, date, place and all five verbs at once; the
+       band beneath it is anchored to the fold, so the words and the evidence
+       are both in view without scrolling at 1440.
+
+       It replaces a paper claim above a single full-bleed photograph. That
+       photograph was cut by the fold at every width by construction — at
+       1.69:1 it renders 850px tall against an 813px viewport, so ANY type
+       above it is cut even with nothing between them. E1.4's paper opening is
+       permissive, not required; unused, Home simply returns to E1's own row
+       for the narrative page, and black now runs from here to the map.
+
+       The chrome is ground-aware, so on this ground the plate and the trigger
+       fields dissolve into the page and the corner reads as one surface.
+
+       The labels name and do not link: every destination they would reach is
+       already the one link of a section below, and Offices has no page at all
+       under the five-built rule. -->
+  <section class="hm-open surface-dark">
     <div class="container">
-      <h1 class="hm-claim">The buildings a city grows up in.</h1>
-      <p class="hm-claim__support t-body-lg">Since 2006, in Ajman.</p>
+      <h1 class="hm-open__line t-hero">Since 2006, Proarc has shaped how Ajman learns, shops, works, lives and prays.</h1>
     </div>
+    <div class="hm-open__band"><div class="hm-open__zone hm-open__zone--pair"><div class="hm-open__cells"><figure class="hm-open__cell"><img class="hm-open__img hm-open__img--habitatschool" src="images/projects/habitatschool/gallery-04.webp" width="1920" height="1197" alt="Habitat School" fetchpriority="high" decoding="async"></figure><figure class="hm-open__cell"><img class="hm-open__img hm-open__img--cityuniversity" src="images/projects/cityuniversity/hero.webp" width="1600" height="1067" alt="City University Campus" fetchpriority="high" decoding="async"></figure></div><p class="hm-open__label">Schools and universities</p></div><div class="hm-open__zone"><div class="hm-open__cells"><figure class="hm-open__cell"><img class="hm-open__img hm-open__img--souksalah" src="images/projects/souksalah/hero.webp" width="1600" height="1067" alt="Souk Salah" fetchpriority="high" decoding="async"></figure></div><p class="hm-open__label">Malls &amp; shops</p></div><div class="hm-open__zone"><div class="hm-open__cells"><figure class="hm-open__cell"><img class="hm-open__img hm-open__img--ajmanbank" src="images/projects/ajmanbank/hero.webp" width="1600" height="1067" alt="Ajman Bank Headquarters" fetchpriority="high" decoding="async"></figure></div><p class="hm-open__label">Offices</p></div><div class="hm-open__zone"><div class="hm-open__cells"><figure class="hm-open__cell"><img class="hm-open__img hm-open__img--seasidehills" src="images/projects/seasidehills/gallery-02.webp" width="1920" height="1227" alt="Seaside Hills Residence" fetchpriority="high" decoding="async"></figure></div><p class="hm-open__label">Homes</p></div><div class="hm-open__zone"><div class="hm-open__cells"><figure class="hm-open__cell"><img class="hm-open__img hm-open__img--alghalamosque" src="images/projects/alghalamosque/hero.webp" width="800" height="1200" alt="Al Ghala Mosque" fetchpriority="high" decoding="async"></figure></div><p class="hm-open__label">The mosque</p></div></div>
   </section>
 
-  <!-- 2 · The photograph — full bleed, at its own aspect ratio, never
-       cropped (E3.6). Nothing is set on it: the caption sits below it on
-       paper, which is where the section's one link lives. -->
-  <figure class="hm-hero">
-    <img class="hm-hero__img" src="images/projects/seasidehills/hero.webp" srcset="images/projects/seasidehills/hero-md.webp 1600w, images/projects/seasidehills/hero.webp 1920w" sizes="100vw"
-         width="1920" height="1133" alt="Seaside Hills Residence" fetchpriority="high" decoding="async">
-    <figcaption class="hm-hero__caption container">
-      <a class="hm-hero__name" href="projects/seasidehills.html">Seaside Hills Residence <span aria-hidden="true">&rarr;</span></a>
-      <span class="hm-hero__place t-caption">Al Zorah</span>
-    </figcaption>
-  </figure>
-
-  <!-- 3 · Black begins here, at the section boundary below the caption. -->
+  <!-- 2 · The black continues, at the section boundary below the band. -->
   <div class="hm-dark surface-dark">
 
     <section class="hm-sentence container">
@@ -268,7 +273,7 @@
           <p class="hm-room__evidence">Azha Garden Residence</p>
         </div>
         
-        <p class="hm-room__quiet">Rose Tower <span class="hm-sep">&middot;</span> Exclusive Villas <span class="hm-sep">&middot;</span> Emirates City D1 Tower&hellip;</p>
+        <p class="hm-room__quiet">Seaside Hills Residence <span class="hm-sep">&middot;</span> Rose Tower <span class="hm-sep">&middot;</span> Exclusive Villas&hellip;</p>
         
       </div>
     </section>

@@ -1,14 +1,17 @@
 /* ===========================================================
    Home — Screen 01, `01-home.md`.
 
-   One stylesheet for one page, and the page carries three
-   grounds (§2): paper for the claim and its caption strip,
-   black from the sentence to the map, paper for the
-   invitation. Every switch lands on a section boundary; the
-   footer's own black is the third.
+   One stylesheet for one page. Since Board 20 (2 Aug) the page
+   carries TWO grounds (§2): black from the opening screen to
+   the map, paper for the invitation, and the footer's own
+   black closes it. The paper claim and the single at-tier
+   photograph it sat above are retired — that photograph was
+   cut by the fold at every width by construction — so E1.4's
+   paper opening is simply unused here and Home falls back to
+   E1's own row for the narrative page.
 
-   Nothing is ever set on a photograph here — the hero's
-   caption sits below it and each room's evidence name sits in
+   Nothing is ever set on a photograph here — the band's labels
+   sit beneath its cells and each room's evidence name sits in
    the strip beneath the print, so the hard rule is satisfied
    by composition and no scrim exists on this page.
 
@@ -22,87 +25,188 @@
    =========================================================== */
 
 /* -----------------------------------------------------------
-   1 · The claim — paper, squat (§4.1)
+   1 · The opening screen — the sentence and the band (§4.1)
+   Board 20 rev 7, 2 Aug.
    ----------------------------------------------------------- */
 
-/* Squat is specified, not incidental: the photograph must be in view
-   without scrolling at 1440. The band is padded, never sized to the
-   viewport — a full-height claim turns the page back into the splash
-   screen this hero replaced. */
+/* One screen: the sentence at the top, the band anchored to the fold, and
+   the air BETWEEN them rather than dumped below the band. The column is
+   what does that — `margin-block-start: auto` on the band takes whatever
+   the sentence leaves, so the arrangement re-balances itself when the type
+   reflows instead of needing a second measured value per breakpoint. */
+.hm-open {
+  display: flex;
+  flex-direction: column;
+  min-block-size: 100vh;
+  padding-block-start: calc(var(--gap-component) + var(--gap-heading) + var(--gap-block));
+  background: var(--color-surface-dark);
+}
+
 /* The top padding CLEARS THE CHROME, at every width. The plate hangs from
    the top edge into the page (§3.1) and the trigger sits opposite it, so
-   the claim has to begin below them both — at 1440 the two happen to miss
-   each other, but between about 1025 and 1200 the claim's first line runs
-   straight under the plate, and at 375 it disappears behind it. Measured
-   against the rendered ink, not the element box: the box is 960px wide
-   while the line is 870, so a box test passes a page that collides. */
-.hm-claim-band {
-  padding-block: calc(var(--gap-component) + var(--gap-heading)) var(--gap-heading);
-  background: var(--color-surface);
-}
+   the sentence has to begin below them both. Measured against the rendered
+   ink, not the element box: a box test passes a page that collides.
 
-/* The site's first Mega Splash. --fs-mega has existed since the token
-   layer was written and no page had reached for it until Home; it
-   collapses to H1 at 34px on phones, which is the intentional collapse
-   (spec §11), and the support line holds at its 16px floor beside it. */
-.hm-claim {
+   The register is .t-hero — the system's uppercase display class, lifted to
+   white by `.surface-dark`. Only its measure is overridden: --measure-hero
+   is 20ch, which is right for a five-word claim and wrong for a 78-character
+   sentence. Unset, the line takes the container's own content width, and the
+   sentence falls in THREE lines rather than four — the line count breaks on
+   the measure, not on the size, which is why this opening needs no font size
+   of its own and no new token. */
+.hm-open__line {
   margin: 0;
-  max-inline-size: var(--measure-hero);
-  font-size: var(--fs-mega);
-  font-weight: var(--fw-bold);
-  line-height: var(--lh-mega);
-  letter-spacing: var(--ls-hero);
-  text-transform: uppercase;
-  color: var(--color-ink);
+  max-inline-size: none;
 }
 
-.hm-claim__support {
-  margin: var(--gap-block) 0 0;
-  color: var(--color-ink-secondary);
+/* Full bleed: the band is the header, so it reaches both page edges and is
+   deliberately outside .container. */
+.hm-open__band {
+  display: flex;
+  gap: var(--gap-block);
+  margin-block-start: auto;
+  padding-block-end: var(--gap-component);
 }
 
-/* -----------------------------------------------------------
-   2 · The photograph (§4.2)
-   ----------------------------------------------------------- */
+/* A zone is one territory. The paired zone holds two cells and must come out
+   exactly twice a single zone PLUS the gap between them, or its cells are
+   narrower, its images shorter, and its label falls out of line with the
+   others. That is what the flex-basis is: growth alone cannot express it. */
+.hm-open__zone {
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
 
-.hm-hero {
+.hm-open__zone--pair {
+  flex: 2 1 var(--gap-inline);
+}
+
+/* No cell carries a flex value of its own. Inside a zone every cell already
+   shares one proportion, so equal growth is correct — and an authored
+   per-cell value would be an inline style that no stylesheet rule can
+   override, which is exactly how this band lost its alignment once already. */
+.hm-open__cells {
+  display: flex;
+  gap: var(--gap-inline);
+}
+
+.hm-open__cell {
+  flex: 1 1 0;
+  min-inline-size: 0;
   margin: 0;
-  background: var(--color-surface);
 }
 
-/* Full bleed, at its own aspect ratio, never cropped (E3.6). G4's two
-   art-directed crops are still owed; until they land one composition
-   serves both widths — judged, never cropped by CSS. */
-.hm-hero__img {
+/* 4:5, one proportion for the whole band — which is the first of E3.6's two
+   conditions for a fixed band, and the art-directed crop below is the second.
+   Nothing is set on any of these photographs, so no scrim and no contrast
+   measurement is owed. */
+.hm-open__img {
+  display: block;
   inline-size: 100%;
   block-size: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
 }
 
-/* Off-image, always — #A6A6A6 over a photograph falls to 3.46:1 and was
-   R1's first accessibility failure. This strip is ink on paper. */
-.hm-hero__caption {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--gap-block);
-  padding-block: var(--gap-block) var(--gap-component);
+/* The crop centres. Each is a judged position, not a default: a centre crop
+   is a guess, and three of these six also changed which FRAME they cut from
+   (see build/lib/home.js). Reasoning per cell is in the punch list, H2-f. */
+.hm-open__img--habitatschool,
+.hm-open__img--cityuniversity {
+  object-position: 50% center;
 }
 
-.hm-hero__name {
+/* The souk is a one-point perspective: centred on its vanishing point. */
+.hm-open__img--souksalah {
+  object-position: 41% center;
+}
+
+/* The tower's mass runs 0.30–0.65 of the frame, so its centre is not the
+   frame's. */
+.hm-open__img--ajmanbank {
+  object-position: 46% center;
+}
+
+/* The stepped corner, not the long façade. */
+.hm-open__img--seasidehills {
+  object-position: 74% center;
+}
+
+/* The one cell that gives up NO width: this source is natively 800×1200,
+   already taller than 4:5, so it crops top to bottom. Anchored high so the
+   minaret keeps its finial — what is dropped is foreground paving. */
+.hm-open__img--alghalamosque {
+  object-position: center 12%;
+}
+
+/* Named, not linked — the band shows and the sections below navigate. */
+.hm-open__label {
+  margin: var(--gap-tight) 0 0;
+  padding-inline-start: 2px;
   font-size: var(--fs-metadata);
-  font-weight: var(--fw-semibold);
-  color: var(--color-ink);
-}
-
-.hm-hero__name:hover,
-.hm-hero__name:focus-visible {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
-}
-
-.hm-hero__place {
+  font-weight: var(--fw-bold);
   text-transform: uppercase;
+  color: var(--color-on-dark);
+}
+
+/* Below the desktop layout the fold stops being the point: six cells across
+   a tablet are too small to be photographs of anything. The screen gives up
+   its viewport height and the zones wrap — territories keep their cells
+   together, so a pair never splits across rows. */
+@media (max-width: 1023px) {
+  /* The spacing tokens themselves shrink below 1024 (gap-heading 64 -> 40 ->
+     24), so the desktop calc that clears the chrome by 62px would clear it by
+     18 here and by 4 at 375 — the plate's clear space very nearly landing on
+     the sentence's first line. Restated per breakpoint against the RENDERED
+     plate, which is what the old claim band's comment warned about. */
+  .hm-open {
+    min-block-size: 0;
+    padding-block-start: calc(var(--gap-component) + var(--gap-heading) + var(--gap-component));
+    padding-block-end: var(--gap-component);
+  }
+
+  /* The zone gap drops to the cell gap once the band wraps. Two singles
+     sharing a row must come out at exactly the width the paired zone gives
+     its two cells, and they only do that when both gaps are the same value —
+     otherwise every second row is 6px shorter than the one above it. */
+  /* And it stops bleeding. Full width is the DESKTOP header's whole point —
+     the cell reaches the page edge and its label sits with it, which reads as
+     a caption to a bleeding image. Wrapped into rows it reads as a label
+     jammed against the screen edge, so the band takes the page's own gutter
+     from here down. */
+  .hm-open__band {
+    flex-wrap: wrap;
+    /* Column gap and ROW gap are different jobs here. The column gap has to
+       equal the cell gap or the rows come out different widths; the row gap
+       has to be bigger than the label beneath a row, or the label reads as a
+       heading for the row below it rather than a caption for its own. */
+    gap: var(--gap-component) var(--gap-inline);
+    margin-block-start: var(--gap-heading);
+    padding-inline: var(--gutter-tablet);
+    padding-block-end: 0;
+  }
+
+  .hm-open__zone {
+    flex: 1 1 40%;
+  }
+
+  .hm-open__zone--pair {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .hm-open {
+    padding-block-start: calc(var(--gap-component) * 2 + var(--gap-heading));
+  }
+
+  .hm-open__band {
+    padding-inline: var(--gutter-mobile);
+  }
+
+  .hm-open__label {
+    font-size: var(--fs-caption);
+  }
 }
 
 /* -----------------------------------------------------------

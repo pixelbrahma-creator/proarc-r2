@@ -142,9 +142,12 @@ const ROOMS = [
     form: 'print',
     lead: 'azhagarden',
     quietCount: 3,
-    // §5.2: Seaside Hills is deliberately absent — the claim's photograph
-    // already links it, and no destination repeats on this page.
-    exclude: ['seasidehills'],
+    // §5.2 excluded Seaside Hills here because the claim's photograph already
+    // LINKED it and no destination repeats on this page. Board 20 retired that
+    // photograph and its caption, so the reason is gone: the opening band shows
+    // Seaside Hills but names nothing and links nothing. Leaving the exclusion
+    // would have dropped the building from Home's words for a rule that no
+    // longer applies — the quiet kind of stale that survives a green build.
   },
 ];
 
@@ -267,6 +270,86 @@ function mapData() {
 }
 
 /* ------------------------------------------------------------------ *
+ * The opening band — five territories, six photographs, one proportion
+ * ------------------------------------------------------------------ */
+
+/**
+ * Board 20 rev 7 (Mahesh, 2 Aug). The opening screen is the sentence and,
+ * anchored to the fold beneath it, a full-bleed band that shows what the
+ * sentence's five verbs are about. It replaces the paper claim and the single
+ * at-tier photograph, which was cut by the fold at every width.
+ *
+ * **This is a curation, not a derivation**, which is why the table is authored
+ * here rather than computed: which frame of a record leads the band is a
+ * judgement about a 222px cell, and it is not the judgement that picked the
+ * record's own lead image. Three of the six are NOT the record's hero — a hero
+ * is chosen to be a hero (wide, establishing, room for type over it) and none
+ * of that survives at this size. The crop centres live beside them in
+ * `home.css` as `object-position`, because a value that positions ink is a
+ * style value; the reasoning for each is in `00t-Chisel-Punch-List.md` H2-f.
+ *
+ * **E3.6 permits the band, on both of its conditions rather than one**: every
+ * cell shares one proportion (4:5) AND an art-directed crop exists per record.
+ * Nothing is set on any of these photographs, so §1.5's panel and scrim are
+ * not needed and no contrast measurement is owed.
+ *
+ * The labels are NOT links. Every destination they would reach is already the
+ * one link of a section below (the page's rule is that no destination repeats),
+ * and Offices has no page at all under the five-built rule — three records mint
+ * no sector page. The band shows; the rooms below navigate.
+ */
+const OPEN_BAND = [
+  { label: 'Schools and universities', pair: true, cells: ['habitatschool', 'cityuniversity'] },
+  { label: 'Malls & shops', cells: ['souksalah'] },
+  { label: 'Offices', cells: ['ajmanbank'] },
+  { label: 'Homes', cells: ['seasidehills'] },
+  { label: 'The mosque', cells: ['alghalamosque'] },
+];
+
+/** Which frame of each record leads the band: the hero, or a gallery slot. */
+const OPEN_BAND_FRAME = {
+  habitatschool: { gallery: 2 },
+  cityuniversity: 'hero',
+  souksalah: 'hero',
+  ajmanbank: 'hero',
+  seasidehills: { gallery: 0 },
+  alghalamosque: 'hero',
+};
+
+function openBandCell(db, manifest, prefix, slug) {
+  const record = findRecord(db.projects, slug);
+  const images = manifest.projects[slug];
+  if (!images) throw new Error(`home: ${slug} is not in the manifest.`);
+
+  const pick = OPEN_BAND_FRAME[slug];
+  const rel = pick === 'hero' ? images.hero : (images.gallery || [])[pick.gallery];
+  if (!rel) {
+    throw new Error(
+      `home: the opening band wants gallery slot ${pick.gallery} of ${slug}, which the manifest ` +
+        'does not hold. Slots are addressed by index — a compaction re-points them (see CLAUDE.md).'
+    );
+  }
+
+  const img = W.image(manifest, rel, slug, prefix);
+  return (
+    `<figure class="hm-open__cell"><img class="hm-open__img hm-open__img--${slug}" ` +
+    `src="${img.src}" width="${img.width}" height="${img.height}" ` +
+    `alt="${escapeText(record.title)}" fetchpriority="high" decoding="async"></figure>`
+  );
+}
+
+function openBandHtml(db, manifest, prefix) {
+  return OPEN_BAND.map((zone) => {
+    const cells = zone.cells.map((slug) => openBandCell(db, manifest, prefix, slug)).join('');
+    const cls = zone.pair ? 'hm-open__zone hm-open__zone--pair' : 'hm-open__zone';
+    return (
+      `<div class="${cls}"><div class="hm-open__cells">${cells}</div>` +
+      `<p class="hm-open__label">${escapeText(zone.label)}</p></div>`
+    );
+  }).join('');
+}
+
+/* ------------------------------------------------------------------ *
  * The page
  * ------------------------------------------------------------------ */
 
@@ -280,17 +363,10 @@ function viewData(prefix) {
 
   return Object.assign(
     {
-      // The claim's photograph. G4's two art-directed crops are still owed;
-      // until they land one composition serves both widths, judged rather
-      // than cropped by CSS (E3.6 — never cropped, its own aspect ratio).
-      heroSrc: hero.plateSrc,
-      heroSrcset: hero.plateSrcset,
-      heroWidth: hero.plateWidth,
-      heroHeight: hero.plateHeight,
-      heroName: hero.plateName,
-      heroPlace: hero.platePlace,
-      heroHref: hero.plateHref,
-      heroProvenance: hero.plateProvenance,
+      // The opening band. `hero` below is no longer a section of the page —
+      // the single at-tier photograph was retired at Board 20 — and survives
+      // only as the page's Open Graph image.
+      openBandHtml: openBandHtml(db, manifest, prefix),
 
       rooms: ROOMS.map((room) => roomData(db, manifest, prefix, room)),
 
