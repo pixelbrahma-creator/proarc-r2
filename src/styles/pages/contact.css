@@ -51,13 +51,19 @@
   padding-block: calc(var(--gap-component) + var(--gap-heading)) var(--gap-section);
 }
 
-@media (max-width: 1024px) {
-  /* The tokens step down at this breakpoint faster than the chrome does —
-     the plate keeps its full height while the gaps halve, and at ≤767 their
-     64px sum starts the first line's ink 2.8px inside the plate's band. The
-     clearance is restated rather than inherited, as on Home's claim band. */
+@media (max-width: 1023px) {
+  /* The restatement, keyed to 1023 and NOT 1024 (H4-c, 3 Aug). The two gap
+     tokens are themselves responsive and step at 1023, so a rule keyed one
+     pixel above them paid its full value on a SINGLE PIXEL of width and
+     less than desktop across the whole band it exists to protect — 152 at
+     1024, 104 from 768 to 1023, against 128 on desktop. A rule made of
+     tokens inherits THOSE tokens' breakpoints.
+
+     --gap-block twice returns the sum to the desktop 128 once the two 64s
+     have become 40s. The plate does not shrink when the spacing does, so
+     the clearance must not either. No new value, no new token. */
   .ct-open {
-    padding-block-start: calc(var(--gap-component) + var(--gap-heading) + var(--gap-block));
+    padding-block-start: calc(var(--gap-component) + var(--gap-heading) + var(--gap-block) * 2);
   }
 }
 

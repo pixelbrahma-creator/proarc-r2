@@ -181,17 +181,39 @@ inline-start rule.
 - **The chrome sits on the content axis** (container edge + gutter, the
   `--chrome-axis` calc) and moves on the LAYOUT's breakpoints (1024/780).
   Never reintroduce a bare-gutter offset or a 1023/767 chrome breakpoint.
-- **The arrival clearance, one rule for all fifty-eight pages (H2-b, 3 Aug):**
-  `--gap-component + --gap-heading`, restated as `+ --gap-block` at ≤1024 —
+- **The arrival clearance, one rule for all fifty-eight pages (H2-b, amended
+  H4-c 3 Aug):** `--gap-component + --gap-heading`, restated as
+  `+ --gap-block × 2` at **≤1023** —
   and **where an arrival's own column runs UNDER the plate, its first ink must
   also clear the plate's bottom edge by the plate's own clear space**
   (`--logo-clear-space-desktop` 25 at 160, 24 below). The clearance belongs to
   **whatever ink arrives first**, not to whatever is set at display size: the
   sector pages arrive on a 12px `.wk-way` label and were the tightest surfaces
   on the site because a list built by looking at headings could not see them.
-  An arrival must carry an `--arrival` modifier or the ≤1024 restatement never
+  An arrival must carry an `--arrival` modifier or the ≤1023 restatement never
   reaches it. **Measure cap ink, not the line box** — the difference is ~15px
   at display size, which is the whole margin in question.
+- **1023, not 1024, and `× 2` — both are load-bearing (H4-c).** The rule is
+  built out of `--gap-component` and `--gap-heading`, and **those two tokens
+  are themselves responsive**: `tokens-layout.css` steps them 64 → 40 at
+  **1023**. Keyed at 1024 with a single `--gap-block`, the restatement that
+  exists to give the narrower band MORE clearance delivered 152 on one pixel
+  of width and **104 across the whole 768–1023 band, against 128 on desktop**
+  — and 88 below 767, where every arrival on the site cleared the plate by
+  13.8–19.9px against the 24px it owes. **A rule made of tokens inherits
+  THOSE tokens' breakpoints.** If you move a gap token's breakpoint, this
+  rule has to be re-derived; it is not independent of them.
+- **Verify it with `_bmad/tools/p21-arrival-clearance.js`, never by hand at
+  three widths.** H2-b checked 1440 / 1024 / 768 and passed, and **all three
+  of those widths sit in a pocket where the broken rule looks right, each for
+  a different reason** — 1024 is the one-pixel sliver, 768 is inside the
+  13px window where the chrome has already stepped to the mobile mark (780)
+  but the type tokens have not (767), and 1440 is plain desktop. p21 measures
+  both sides of 1024/1023, 781/780/779 and 768/767 on every route, and
+  asserts that no arrival steps more than 24px across a single pixel.
+  **Home's opening is exempt from the cliff assertion and the reason is in
+  the probe** — `.hm-open`'s padding is a clearance FLOOR that the sentence
+  floats above via `margin-block: auto`, not the position it takes.
 
 ## Build discipline
 

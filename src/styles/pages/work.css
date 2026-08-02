@@ -130,16 +130,20 @@
   padding-block-start: calc(var(--gap-component) + var(--gap-heading));
 }
 
-@media (max-width: 1024px) {
-  /* The 4f362d2 clearance, which this arrival missed: the tokens step down
-     here faster than the chrome does, and the H1's first line runs under
-     the plate's edge once both share horizontal space — measured 21.6px of
-     ink inside the plate's band at 375 with the Board-17 plate (and ~6px
-     with the old one; the collision predates the resize). Same restated
-     formula as the other five arrivals. */
+@media (max-width: 1023px) {
+  /* The restatement, keyed to 1023 and NOT 1024 (H4-c, 3 Aug). The two gap
+     tokens are themselves responsive and step at 1023, so a rule keyed one
+     pixel above them paid its full value on a SINGLE PIXEL of width and
+     less than desktop across the whole band it exists to protect — 152 at
+     1024, 104 from 768 to 1023, against 128 on desktop. A rule made of
+     tokens inherits THOSE tokens' breakpoints.
+
+     --gap-block twice returns the sum to the desktop 128 once the two 64s
+     have become 40s. The plate does not shrink when the spacing does, so
+     the clearance must not either. No new value, no new token. */
   .wk-head--arrival,
   .wk-way--arrival {
-    padding-block-start: calc(var(--gap-component) + var(--gap-heading) + var(--gap-block));
+    padding-block-start: calc(var(--gap-component) + var(--gap-heading) + var(--gap-block) * 2);
   }
 }
 
