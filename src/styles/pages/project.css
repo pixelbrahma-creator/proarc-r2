@@ -26,23 +26,47 @@
    shrink the photograph — and shrink it by a different amount than the
    gallery's lead image, which §6 requires to be exactly as wide and on
    exactly the same edge. */
+/* ---- THE ARRIVAL CLEARANCE (H2-b, measured) ----
+
+   This is the one arrival on the site whose own column runs UNDER the
+   plate: the column spans 915→1360 at 1440 against a plate at 990→1200.
+   So its clearance is measured against the PLATE's bottom edge, not the
+   trigger bars' — and the margin it owes is the plate's own clear space
+   (`--logo-clear-space-desktop`, 25px at 160; Board 17).
+
+   At `--gap-component` alone that failed on every record and it was visible,
+   not marginal: the back link's ink ran INSIDE the plate's rectangle on 30
+   of the 47 (up to 55.5px of "← Malls & shops" hidden behind the black
+   field), and the name's first line sat 1.0–1.7px inside the same band on
+   all of them. Live at every width above 1024.
+
+   The value is derived twice and the two agree. The plate's clear space
+   asks for ≥123.8 here; `--gap-component + --gap-heading` is 128, which is
+   what the other arrivals have carried since 4f362d2. So the record page
+   needs no number of its own — measured after: back ink 29.2 below the
+   plate, name 63.1, both clear of the 25px clear space.
+
+   Nothing moves relative to anything else. The photograph does NOT bleed
+   from the top — its top edge is this padding (64→128), the same line the
+   back link's box has always started on — so the whole lede translates and
+   the column keeps its footing on the photograph's top edge. */
 .pd-lede {
   display: grid;
   grid-template-columns: 58% 1fr;
   column-gap: var(--gutter-desktop);
   align-items: start;
-  padding-block-start: var(--gap-component);
+  padding-block-start: calc(var(--gap-component) + var(--gap-heading));
 }
 
 @media (max-width: 1024px) {
-  /* The 4f362d2 clearance, third missed surface (after the Work arrival):
-     the record's name sits in the column the plate hangs over, and the
-     Board-17 plate (93.4px in this band) left its ink 5.3px clear on all
-     47 records. One clear-space step restores the margin the old plate
-     had; below 780 the lede stacks and the padding reads as the same 88px
-     every other arrival takes. */
+  /* The 4f362d2 clearance, third missed surface (after the Work arrival).
+     The plate is 93.4px in this band and the name — not the back link —
+     is what reaches under it; at the old `--gap-component + --gap-block`
+     it cleared the plate's edge by 8.4px, inside the 24px clear space
+     rather than through it. The restated formula every other arrival
+     takes puts it 48.4 clear. */
   .pd-lede {
-    padding-block-start: calc(var(--gap-component) + var(--gap-block));
+    padding-block-start: calc(var(--gap-component) + var(--gap-heading) + var(--gap-block));
   }
 }
 

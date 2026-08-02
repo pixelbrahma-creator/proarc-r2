@@ -306,12 +306,36 @@ function mapData() {
  * and Offices has no page at all under the five-built rule — three records mint
  * no sector page. The band shows; the rooms below navigate.
  */
+/*
+ * THE LABELS ARE LINKS — decided by Mahesh, 2 Aug, amending the 29 Jul lock.
+ *
+ * The band shipped with inert labels because every destination they would
+ * reach is already the one link of a section below, and the page's rule was
+ * that no destination repeats. That rule is now amended rather than broken,
+ * and the amendment has a shape a sweep can hold:
+ *
+ *   a band label links ONLY to the destination its own section below
+ *   carries, so the band is a second route to the same five places and
+ *   never a sixth destination. Every href here MUST appear below; nothing
+ *   on the page may be reached three times.
+ *
+ * This is the second amendment to the one-link lock (the practice beat's two
+ * doors were the first) and it is the larger of the two, so it is bounded by
+ * three assertions in sweep-home.js rather than the beat's two.
+ *
+ * 🔴 OFFICES IS INTERIM. Its label points at the arrival, which is where the
+ * works room's verb goes today, because `/projects/offices` cannot be built:
+ * the exhibition anatomy spends three records on photographs and takes its
+ * catalogue from `set.slice(3)`, so a three-record set leaves the catalogue
+ * empty — which is why work.js throws below four. One href changes here when
+ * that anatomy is decided.
+ */
 const OPEN_BAND = [
-  { label: 'Schools and universities', pair: true, cells: ['habitatschool', 'cityuniversity'] },
-  { label: 'Malls & shops', cells: ['souksalah'] },
-  { label: 'Offices', cells: ['ajmanbank'] },
-  { label: 'Homes', cells: ['seasidehills'] },
-  { label: 'The mosque', cells: ['alghalamosque'] },
+  { label: 'Schools and universities', href: 'projects/schools.html', pair: true, cells: ['habitatschool', 'cityuniversity'] },
+  { label: 'Malls & shops', href: 'projects/malls.html', cells: ['souksalah'] },
+  { label: 'Offices', href: 'projects.html', cells: ['ajmanbank'] },
+  { label: 'Homes', href: 'projects/homes.html', cells: ['seasidehills'] },
+  { label: 'The mosque', href: 'projects/alghalamosque.html', cells: ['alghalamosque'] },
 ];
 
 /**
@@ -375,9 +399,15 @@ function openBandHtml(db, manifest, prefix) {
   return OPEN_BAND.map((zone) => {
     const cells = zone.cells.map((slug) => openBandCell(db, manifest, prefix, slug)).join('');
     const cls = zone.pair ? 'hm-open__zone hm-open__zone--pair' : 'hm-open__zone';
+    /* The label keeps its own register — 12px, 700, uppercase — and takes
+       the site's black-ground link idiom on top of it: a drawn rule that
+       thickens, never a colour and never an arrow. Five arrows across the
+       fold would make the band a menu, which is the reading Board 20's
+       frame removed when it dropped them. */
     return (
       `<div class="${cls}"><div class="hm-open__cells">${cells}</div>` +
-      `<p class="hm-open__label">${escapeText(zone.label)}</p></div>`
+      `<p class="hm-open__label"><a class="hm-open__labellink" href="${prefix}${zone.href}">` +
+      `${escapeText(zone.label)}</a></p></div>`
     );
   }).join('');
 }

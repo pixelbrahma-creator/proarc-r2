@@ -181,6 +181,17 @@ inline-start rule.
 - **The chrome sits on the content axis** (container edge + gutter, the
   `--chrome-axis` calc) and moves on the LAYOUT's breakpoints (1024/780).
   Never reintroduce a bare-gutter offset or a 1023/767 chrome breakpoint.
+- **The arrival clearance, one rule for all fifty-eight pages (H2-b, 3 Aug):**
+  `--gap-component + --gap-heading`, restated as `+ --gap-block` at ≤1024 —
+  and **where an arrival's own column runs UNDER the plate, its first ink must
+  also clear the plate's bottom edge by the plate's own clear space**
+  (`--logo-clear-space-desktop` 25 at 160, 24 below). The clearance belongs to
+  **whatever ink arrives first**, not to whatever is set at display size: the
+  sector pages arrive on a 12px `.wk-way` label and were the tightest surfaces
+  on the site because a list built by looking at headings could not see them.
+  An arrival must carry an `--arrival` modifier or the ≤1024 restatement never
+  reaches it. **Measure cap ink, not the line box** — the difference is ~15px
+  at display size, which is the whole margin in question.
 
 ## Build discipline
 
@@ -305,6 +316,18 @@ own `pageScript`.
 > (0.42) straight into the CSS moved a 4:5 cell 4.5% to the right and cut
 > "Ajman" off its own sign. Judged centres live in the punch list's crop table;
 > object-positions live in the stylesheet; they are different numbers.
+
+> **The probe harness has two invocation traps, and both read as findings.**
+> `probe.js`'s **5th positional CLI arg is the reduced-motion flag, not the
+> height** — `node probe.js url script 1440 900` silently runs the page under
+> `prefers-reduced-motion: reduce`, so every motion assertion fails with a
+> confident, plausible message (p9-home reported the map "armed at load" on an
+> untouched Home; it is 45/45). Use `… 1440`, or `… 1440 "" 900`. And the
+> Chrome profile is **keyed on the port and persists**, so a stylesheet edit is
+> invisible to a re-run on a port used before it: the probe reports the old
+> layout and the change looks inert — a 64→128px padding read as unchanged at
+> 1440 while the same edit appeared at 1024 and 768. `Network.setCacheDisabled`
+> now closes the second one; the first is still positional, so count the args.
 
 > **A tripwire mutation that no longer matches is invisible in the summary.**
 > `--tripwire` corrupts the built HTML to prove the sweep can fail, and it

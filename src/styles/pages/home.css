@@ -179,6 +179,31 @@
   color: var(--color-on-dark);
 }
 
+/* The label is a link (2 Aug, Mahesh). It keeps the label's register — the
+   type does not change — and takes only the black-ground link idiom: the
+   rule is DRAWN under it and thickens on hover, the same gesture .hm-link
+   carries in the beat and the rooms. No colour (the site is monochrome),
+   no arrow (five of them would read as a menu across the fold), and no
+   change of weight, so the band still reads as five captions that happen
+   to be reachable rather than as a navigation row above the sentence. */
+.hm-open__labellink {
+  display: inline-block;
+  border-block-end: 1px solid currentcolor;
+  padding-block-end: 2px;
+  color: inherit;
+  transition: border-block-end-width var(--dur-fast) var(--ease-out);
+}
+
+.hm-open__labellink:hover,
+.hm-open__labellink:focus-visible {
+  border-block-end-width: 2px;
+}
+
+.hm-open__labellink:focus-visible {
+  outline: 2px solid var(--color-on-dark);
+  outline-offset: 4px;
+}
+
 /* Below the desktop layout the fold stops being the point: six cells across
    a tablet are too small to be photographs of anything. The screen gives up
    its viewport height and the zones wrap — territories keep their cells

@@ -24,6 +24,15 @@
   text-transform: uppercase;
 }
 
+/* On the three sector pages the wayfinding line IS the arrival — it is the
+   first ink on the page, ahead of the print and a long way ahead of the H1.
+   The clearance belongs to whatever ink arrives first, not to whatever is
+   set at display size, so this line takes the same one every other arrival
+   takes. See the arrival-clearance block below the head. */
+.wk-way--arrival {
+  padding-block-start: calc(var(--gap-component) + var(--gap-heading));
+}
+
 .wk-way__back {
   color: var(--color-ink-secondary);
 }
@@ -102,8 +111,23 @@
   padding-block-start: var(--gap-component);
 }
 
-.wk-head--arrival {
-  padding-block-start: var(--gap-component);
+/* ---- THE ARRIVAL CLEARANCE, for all four Work arrivals at once ----
+
+   H2-b, measured. `--gap-component + --gap-heading` is not a new value: it
+   is what Services, About, Contact, /careers and /ajman have carried since
+   4f362d2, and it puts the first line's cap ink 97.6–98.4 below the trigger
+   bars. These four sat at 33.9 (the arrival), 34.4 (the ledger) and 29.6
+   (the three sector pages) — a third of the air, on the pages a reader
+   reaches most often.
+
+   Two of them were arrivals that had never been MARKED as one: the ledger's
+   head carries no modifier, and the sector pages lead with `.wk-way`. The
+   ≤1024 restatement below therefore never reached them either, which is why
+   at 768 their first ink cleared the bars by 10.3–11.8px against 75.2–75.8
+   everywhere else. Marking them is the fix; the value was already decided. */
+.wk-head--arrival,
+.wk-way--arrival {
+  padding-block-start: calc(var(--gap-component) + var(--gap-heading));
 }
 
 @media (max-width: 1024px) {
@@ -113,7 +137,8 @@
      ink inside the plate's band at 375 with the Board-17 plate (and ~6px
      with the old one; the collision predates the resize). Same restated
      formula as the other five arrivals. */
-  .wk-head--arrival {
+  .wk-head--arrival,
+  .wk-way--arrival {
     padding-block-start: calc(var(--gap-component) + var(--gap-heading) + var(--gap-block));
   }
 }
