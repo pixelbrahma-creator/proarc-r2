@@ -714,7 +714,7 @@
      have become 40s. The plate does not shrink when the spacing does, so
      the clearance must not either. No new value, no new token. */
   .hm-claim-band {
-    padding-block-start: calc(var(--gap-component) + var(--gap-heading) + var(--gap-block) * 2);
+    padding-block-start: var(--arrival-clearance);
   }
 }
 

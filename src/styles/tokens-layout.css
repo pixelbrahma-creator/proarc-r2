@@ -49,6 +49,31 @@
   --gap-section:      200px;
   --gap-section-major:280px;
 
+  /* ---- THE ARRIVAL CLEARANCE — ONE SITE (P3 / H4-h, 3 Aug) ----
+
+     Every arrival on all fifty-eight pages clears the fixed chrome by this.
+     It used to be spelled out as the same calc() SIXTEEN times across eight
+     stylesheets — eight base statements and eight ≤1023 restatements — and
+     that duplication is exactly how H4-c's fault reached every page at once
+     and why repairing it had to touch eight files.
+
+     🔴 It is defined HERE, beside --gap-component and --gap-heading, because
+     it is MADE of them and therefore inherits THEIR breakpoints. That is the
+     whole of H4-c: keyed at 1024 while the gaps step at 1023, the
+     restatement that exists to give the narrower band MORE clearance
+     delivered 104 against desktop's 128. Co-location is the guard — move a
+     gap token's breakpoint and this token is visibly in the same block.
+
+     H4-h(A) proposed deriving this from the PLATE instead
+     (--logo-size-* + --logo-clear-space-*). MEASURED AND REFUSED — see
+     H5-c. The plate shrinks faster than the arrival should: plate+clear is
+     131.7 at 1440 but 117.4 at 1023 and 106.0 at 768, which reinstates the
+     narrower-band-gets-less asymmetry H4-c had just repaired. The clearance
+     has two jobs — clear the plate, and give every page one arrival — and
+     only the first is plate-shaped. So the de-duplication is taken and the
+     re-basing is not. */
+  --arrival-clearance: calc(var(--gap-component) + var(--gap-heading));
+
   /* ---- v1.2 §2.4 layout frame ----
      1120px is the locked value. Ravi's v1 branch carries 1250px from a
      client request (commit b8ea7a7, "1250px content width, centered
@@ -78,6 +103,16 @@
     --gap-component:      40px;
     --pad-card:           32px;
     --pad-overlay-panel:  32px;
+
+    /* The restatement, and BOTH halves of it are load-bearing (H4-c): 1023
+       rather than 1024, because the two gaps it is made of step here; and
+       `* 2` rather than one --gap-block, because a single one leaves the
+       narrow band SHORT of desktop. It carries to ≤767 unrestated — the
+       mobile block below moves --gap-heading to 24, so this same expression
+       resolves to 112 there without a third statement. */
+    --arrival-clearance: calc(
+      var(--gap-component) + var(--gap-heading) + var(--gap-block) * 2
+    );
   }
 }
 

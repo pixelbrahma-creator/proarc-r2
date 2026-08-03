@@ -5,10 +5,18 @@
    between records is the photograph's own proportion, which is
    why there is no per-record rule anywhere in this file.
 
-   Ground: paper (E1). The single dark surface is the closing
-   band, which shares its ground with the footer (E1.2a) and is
-   separated from it by scale and the footer's own hairline —
+   Ground: paper (E1) for the ARGUMENT — the lede, the prose and
+   the gallery. The page's APPARATUS takes black, and since 3 Aug
+   (H5-a) that is three bands in one run: the neighbours rail, the
+   closing band and the footer. They share a ground by E1.2a and
+   are separated by structure and the footer's own hairline —
    never by a change of ground.
+
+   The rail is black because it is the site navigating BETWEEN
+   records; the specs and the gallery are paper because they are
+   evidence about THIS one. Never "to break the monotony" — E1
+   bars a ground chosen because it looks better, and that
+   phrasing reopens every band on all fifty-eight pages.
    =========================================================== */
 
 /* -----------------------------------------------------------
@@ -55,24 +63,13 @@
   grid-template-columns: 58% 1fr;
   column-gap: var(--gutter-desktop);
   align-items: start;
-  padding-block-start: calc(var(--gap-component) + var(--gap-heading));
+  padding-block-start: var(--arrival-clearance);
 }
 
-@media (max-width: 1023px) {
-  /* The restatement, keyed to 1023 and NOT 1024 (H4-c, 3 Aug). The two gap
-     tokens are themselves responsive and step at 1023, so a rule keyed one
-     pixel above them paid its full value on a SINGLE PIXEL of width and
-     less than desktop across the whole band it exists to protect — 152 at
-     1024, 104 from 768 to 1023, against 128 on desktop. A rule made of
-     tokens inherits THOSE tokens' breakpoints.
-
-     --gap-block twice returns the sum to the desktop 128 once the two 64s
-     have become 40s. The plate does not shrink when the spacing does, so
-     the clearance must not either. No new value, no new token. */
-  .pd-lede {
-    padding-block-start: calc(var(--gap-component) + var(--gap-heading) + var(--gap-block) * 2);
-  }
-}
+/* The ≤1023 restatement that used to sit here is GONE — the value now lives in
+   --arrival-clearance (tokens-layout.css), which restates itself at the gap
+   tokens' own breakpoint. Seven files carried this identical block; the whole
+   point of P3 is that there is one place to change it. */
 
 .pd-column {
   padding-inline-end: var(--gutter-desktop);
@@ -253,8 +250,67 @@
    block's head.
    ----------------------------------------------------------- */
 
+/* The paper→black transition takes the site's existing idiom, the one the
+   closing band has carried on all fifty-four pages that hold it: a
+   `--gap-section` of PAPER before the ground turns, then the black band's
+   own `--gap-section-major / 2` of entry padding. 200 + 140. */
 .pd-neighbours {
-  padding-block-start: var(--gap-section);
+  margin-block-start: var(--gap-section);
+  padding-block-start: calc(var(--gap-section-major) / 2);
+}
+
+/* ---- P2-b — THE MARKER DRAWS ITSELF (H5-d, 3 Aug) ----
+
+   MVRDV's arrival, measured, is `scale(0.5) → 1` plus opacity over 300ms.
+   🔴 That is NOT what is built here, and the reason is a recorded decision
+   rather than a preference: `partials/scripts.html` states R2's motion
+   language as *"the site draws — all motion is line-work drawing itself"*
+   and rules out **"no decorative fades"** by name. A scale+fade is the one
+   shape that decision excludes, and it was excluded when v1's GSAP reveal
+   system was deleted rather than ported.
+
+   So the INTENT of P2-b is taken and its mechanism is not. The marker is
+   OUTLINE type — it is already line-work — so it draws: the stroke wipes on
+   from the inline-start edge, the same vocabulary as the menu's wipe. No
+   fade, no scale, no translate, and the text stays real text, which an SVG
+   `stroke-dashoffset` version would have cost.
+
+   Ships FINISHED: `js/project.js` adds the armed class, so a script that
+   never runs leaves the marker fully drawn rather than invisible. */
+/* 🔴 The RESTING state is an explicit inset(), not the absence of a clip.
+   `clip-path` does not interpolate between `inset(...)` and `none` — they are
+   discrete, so the wipe snapped instead of running and getAnimations()
+   reported zero while the end state looked perfect. Both endpoints must be
+   inset() functions.
+
+   The -4px bleed is not slack: the 1px text-stroke is centred on the glyph
+   outline, so half of it sits OUTSIDE the box on the first and last letters,
+   and a flush inset(0) shaves it. */
+.pd-neighbours__head {
+  clip-path: inset(-4px);
+  transition: clip-path var(--dur-fast) var(--ease-out);
+}
+
+/* Physical insets, because clip-path has no logical form. RTL is therefore
+   restated rather than left to inherit a left-to-right wipe. */
+.pd-neighbours--armed .pd-neighbours__head {
+  clip-path: inset(-4px 100% -4px -4px);
+}
+
+[dir="rtl"] .pd-neighbours--armed .pd-neighbours__head {
+  clip-path: inset(-4px -4px -4px 100%);
+}
+
+/* Zeroing a duration does not un-arm anything, and the armed state IS a
+   hidden marker — so under reduced motion the clip is refused outright.
+   js/project.js checks the same query and never arms; this is the second
+   half, for an armed class that arrives any other way. */
+@media (prefers-reduced-motion: reduce) {
+  .pd-neighbours--armed .pd-neighbours__head,
+  [dir="rtl"] .pd-neighbours--armed .pd-neighbours__head {
+    clip-path: none;
+    transition: none;
+  }
 }
 
 .pd-neighbours__head {
@@ -309,6 +365,20 @@
 .pd-band {
   margin-block-start: var(--gap-section);
   padding-block: calc(var(--gap-section-major) / 2) var(--gap-component);
+}
+
+/* Where the rail precedes it the two are ONE black run, and the margin above
+   would paint a 200px stripe of PAPER between two black bands: a margin box
+   takes the PAGE's ground, never its own element's. So the separation moves
+   inside the black and stays exactly one token wide.
+
+   This is a sibling selector rather than a blanket change because
+   `projects/alghalamosque.html` carries no rail — it is the only mosque, so
+   it has no sector siblings — and on that one page the band still follows
+   paper and still owes the margin. Verify there, not by reasoning. */
+.pd-neighbours + .pd-band {
+  margin-block-start: 0;
+  padding-block-start: var(--gap-section);
 }
 
 .pd-band__line {

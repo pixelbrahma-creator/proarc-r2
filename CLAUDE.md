@@ -124,7 +124,15 @@ Summarised. The clause text governs; read it.
 - Metadata and spec lists are real `<table>` markup with `<th scope="row">`.
 - Set `lang` and `dir` on `<html>` and on every inline language switch.
 - Never `user-select: none` on content type.
-- Respect `prefers-reduced-motion`; no text animates in by default.
+- Respect `prefers-reduced-motion`; no text animates in by default. **The one
+  decided exception is the record page's neighbours marker** (P2-b/H5-d): it
+  is outline type, and it DRAWS — a `clip-path` wipe, the menu's own
+  vocabulary. MVRDV's scale+**fade** was refused because this file's motion
+  language rules out decorative fades. Two traps if another surface copies it:
+  **never observe the element the reveal clips** (Chrome folds `clip-path`
+  into the intersection rect, so the observer never fires), and **`clip-path`
+  does not interpolate to `none`** — both resting and armed states must be
+  `inset()`.
 - No inline `style=""` attributes in `pages-src/` or `partials/` — every
   styled value lives in `src/styles/` where stylelint can see it.
 - No numbered markers on non-sequences. No grids of identical cards.
@@ -181,8 +189,16 @@ inline-start rule.
 - **The chrome sits on the content axis** (container edge + gutter, the
   `--chrome-axis` calc) and moves on the LAYOUT's breakpoints (1024/780).
   Never reintroduce a bare-gutter offset or a 1023/767 chrome breakpoint.
-- **The arrival clearance, one rule for all fifty-eight pages (H2-b, amended
-  H4-c 3 Aug):** `--gap-component + --gap-heading`, restated as
+- **The arrival clearance is now ONE TOKEN, `--arrival-clearance`** (P3/H5-c,
+  3 Aug), defined in `tokens-layout.css` beside the gap tokens it is made of.
+  It replaced sixteen spelled-out `calc()`s across eight stylesheets and
+  deleted seven per-page `@media (max-width: 1023px)` blocks — the token
+  restates itself, so a page never should. **Never re-spell the calc in a page
+  stylesheet.** Deriving it from the PLATE instead was measured and refused:
+  plate+clear is 131.7 at 1440 but 117.4 at 1023 and 106.0 at 768, which
+  reinstates the narrower-band-gets-less asymmetry H4-c repaired.
+- **The rule it carries, for all fifty-eight pages (H2-b, amended H4-c 3 Aug):**
+  `--gap-component + --gap-heading`, restated as
   `+ --gap-block × 2` at **≤1023** —
   and **where an arrival's own column runs UNDER the plate, its first ink must
   also clear the plate's bottom edge by the plate's own clear space**

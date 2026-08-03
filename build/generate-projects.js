@@ -157,6 +157,9 @@ function main() {
       ]),
       assetPrefix: ASSET_PREFIX,
       pageStylesheet: 'project',
+      // P2-b: the neighbours marker draws itself. An enhancement the page
+      // opts into, per scripts.html — the finished marker ships in the HTML.
+      pageScript: 'project',
       ground: 'paper',
       // The whole project block lights WORK; only an exact match takes
       // aria-current, and a record is not the page that link leads to.

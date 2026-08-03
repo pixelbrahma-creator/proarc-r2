@@ -319,6 +319,22 @@ function canonicalClient(variants) {
     })[0];
 }
 
+/**
+ * The head is set as a MARKER at display size (P2-c, 3 Aug), so it drops a
+ * trailing parenthetical expansion: "READ (R Education and Academic
+ * Development)" is 51 characters and rendered FOUR lines of 84px hollow type,
+ * 336px tall against a 801px rail — a legal disclosure shouted over two
+ * thumbnails. Nothing is lost: the full form is the record's own `client`
+ * value and still renders in the Client spec row on the same page, which is
+ * where an expansion belongs.
+ *
+ * This strips a parenthetical; it never invents a short form. A client whose
+ * name has no parenthetical is returned untouched.
+ */
+function markerName(name) {
+  return name.replace(/\s*\([^)]*\)\s*$/, '').trim() || name;
+}
+
 function neighbours(project, all) {
   const self = project.slug;
 
@@ -327,7 +343,7 @@ function neighbours(project, all) {
     : [];
   if (sameClient.length) {
     const variants = [project, ...sameClient].map((p) => p.client);
-    return { head: `Also for ${canonicalClient(variants)}`, records: sameClient.slice(0, 3) };
+    return { head: `Also for ${markerName(canonicalClient(variants))}`, records: sameClient.slice(0, 3) };
   }
 
   const district = districtOf(project);

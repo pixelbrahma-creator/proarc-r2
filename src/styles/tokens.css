@@ -275,6 +275,51 @@ html:lang(ar) *,
   color: var(--color-ink);
 }
 
+/* Mega Splash, hollow — the SECTION MARKER. P2-c, boarded at H5-b (3 Aug).
+
+   §3's scale gives Mega Splash a size (84/60/34) and §7.6 a line-height, but
+   §4's role table has NO Mega row — no tracking, no measure, no colour. The
+   role has been a size without a specification, and since Home's rebuild it
+   has had no surface either. This is its site.
+
+   Tracking BORROWS --ls-hero rather than minting --ls-mega: 84 and 52 are the
+   same display family and one is not optically far enough from the other to
+   earn a second value. Minting one would be inventing a number the guideline
+   never set. Weight is 700 from §2's weight table, which does name Mega. */
+.t-marker {
+  font-size: var(--fs-mega);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-hero);
+  line-height: var(--lh-mega);
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+/* The hollow fill, and the @supports is load-bearing rather than defensive:
+   an unsupported -webkit-text-stroke leaves `color: transparent` standing, so
+   the failure is an INVISIBLE heading, not a solid one — total and silent.
+   Inside the query the fill only goes transparent where the stroke paints. */
+@supports (-webkit-text-stroke: 1px currentcolor) {
+  .surface-dark .t-marker {
+    -webkit-text-stroke: 1px var(--color-on-dark);
+    color: transparent;
+  }
+}
+
+/* §3.4: "Below 768px there is no Mega Splash", and any layout depending on
+   Mega reading differently from H1 must be REDESIGNED, not rescaled. So the
+   hollow goes with the size: at 34px a 1px stroke is a grey suggestion of a
+   word rather than a marker, and the counters close up. The register resolves
+   to solid — which is what H1 would have been. Placed after the @supports
+   block deliberately; both selectors carry the same specificity, so this one
+   wins on source order and nothing here depends on !important. */
+@media (max-width: 767px) {
+  .surface-dark .t-marker {
+    -webkit-text-stroke-width: 0;
+    color: var(--color-on-dark);
+  }
+}
+
 .t-h2 {
   font-size: var(--fs-h2);
   font-weight: var(--fw-semibold);
