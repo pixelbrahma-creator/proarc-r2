@@ -153,17 +153,43 @@ function buildBlocks(db, marks, prefix) {
  * those are genuinely two different geometries.
  *
  * No coastline, no boundaries, no joining lines: Option B is "the identical
- * build minus the linework" (§3.6). AND NO LABELS — decided at this build,
- * on Home's own reasoning: E7.1 puts a label at a true 12px, and ten of them
- * with no boundaries to anchor them is a scatter of words, worse in a column
- * narrower than Home's. §3.7 already makes the ledger the legend below 768;
- * in Option B it is the legend at every width, and the labels arrive with
- * the boundaries that can hold them.
+ * build minus the linework" (§3.6).
+ *
+ * THE LABELS ARE BACK (Mahesh, 3 Aug), reversing this build's own decision.
+ * That decision read: E7.1 puts a label at a true 12px, and ten of them with
+ * no boundaries to anchor them is a scatter of words. The reversal is a
+ * judgement about the drawing, made on the drawing — the field is sparse
+ * enough that ten names read as a map rather than as scatter, and the ledger
+ * being the legend is no reason for the map to be mute.
+ *
+ * WHAT THE ORIGINAL OBJECTION GOT RIGHT, AND WHAT IT COSTS TO HONOUR:
+ * a label inside this SVG is in USER UNITS, so it scales with the viewBox
+ * while the 12px floor does not. ajman.css therefore restates --label-size
+ * at each of the field's four known widths, exactly as --mark-scale is
+ * restated, and drops the labels entirely at the width where the arithmetic
+ * stops working. See the block beside --mark-scale for the numbers.
+ *
+ * A label is anchored to its CLUSTER, not to the district's nominal centre:
+ * the centroid of the marks that are actually drawn, dropped clear of the
+ * lowest of them. A name floating beside an empty patch of field, because a
+ * centre was authored where no building stands, is the fault this avoids.
  *
  * `data-district` is what makes the ledger's block the map's control (§3.4
  * as Option B rewrites it): with no polygons there is nothing on the map to
- * touch, so the map answers the ledger rather than indexing it.
+ * touch, so the map answers the ledger rather than indexing it. The labels
+ * carry the same `data-district` and the same rest-and-current grammar as
+ * the marks, so a current block now lifts a NAME as well as a cluster.
+ *
+ * The svg stays `aria-hidden`. These names are a second rendering of the
+ * ledger directly beneath them, and announcing all ten twice is worse for a
+ * screen reader than announcing them once as the text they already are.
  */
+
+/* Baseline drop from the cluster's lowest mark, in user units. The mark is
+   r=5 scaled up to 1.4 at its largest LABELLED width, so its underside is 7
+   below centre; a ~12-unit cap then starts around 14 below and the name
+   clears the drawing by roughly the mark's own diameter. */
+const LABEL_DROP = 26;
 function mapData(marks) {
   if (!marks.marks.length) {
     throw new Error(
@@ -180,9 +206,39 @@ function mapData(marks) {
     )
     .join('');
 
+  const byDistrict = new Map();
+  marks.marks.forEach((m) => {
+    if (!byDistrict.has(m.district)) byDistrict.set(m.district, []);
+    byDistrict.get(m.district).push(m);
+  });
+
+  // A district with no mark gets no label: there is nothing on the field for
+  // the name to be the name OF, and a floating word is the scatter the
+  // original decision was right to fear.
+  const labels = marks.districts
+    .filter((d) => byDistrict.has(d.name))
+    .map((d) => {
+      const ks = byDistrict.get(d.name);
+      const cx = Math.round(ks.reduce((sum, k) => sum + k.x, 0) / ks.length);
+      const cy = Math.max.apply(null, ks.map((k) => k.y));
+      return (
+        `<text class="aj-map__label" data-district="${slugify(d.name)}" ` +
+        `x="${cx}" y="${cy + LABEL_DROP}">${escapeText(d.name)}</text>`
+      );
+    })
+    .join('');
+
+  if (!labels) {
+    throw new Error(
+      'ajman: the map drew marks but produced no labels — every drawn cluster owes a name. ' +
+        'A district in data/districts.json is not matching the marks built from it.'
+    );
+  }
+
   return {
     mapViewBox: marks.viewBox,
     mapMarksHtml: circles,
+    mapLabelsHtml: labels,
     mapMarkCount: marks.marks.length,
   };
 }

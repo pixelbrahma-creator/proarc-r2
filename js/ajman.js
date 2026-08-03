@@ -114,7 +114,11 @@
   // outside the Emirate carry no data-district because they have no mark:
   // E7.2 places none by inference, and a block that lit while the map said
   // nothing would claim those buildings were on it.
-  var marks = standing.querySelectorAll('.aj-mark[data-district]');
+  // Marks AND labels: both carry data-district and both take the current
+  // state, so a current block lifts a name and its cluster together. The
+  // modifier is `is-current` rather than `aj-mark--current` because it now
+  // lands on two different elements.
+  var marks = standing.querySelectorAll('.aj-mark[data-district], .aj-map__label[data-district]');
   if (!marks.length) return;
 
   var byDistrict = {};
@@ -138,13 +142,13 @@
 
     if (applied && byDistrict[applied]) {
       for (var i = 0; i < byDistrict[applied].length; i++) {
-        byDistrict[applied][i].classList.remove('aj-mark--current');
+        byDistrict[applied][i].classList.remove('is-current');
       }
     }
 
     if (next && byDistrict[next]) {
       for (var j = 0; j < byDistrict[next].length; j++) {
-        byDistrict[next][j].classList.add('aj-mark--current');
+        byDistrict[next][j].classList.add('is-current');
       }
       standing.setAttribute('data-current', next);
     } else {
