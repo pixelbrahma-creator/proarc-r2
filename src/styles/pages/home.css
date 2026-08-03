@@ -131,7 +131,22 @@
 /* The crop centres. Each is a judged position, not a default: a centre crop
    is a guess, and three of these six also changed which FRAME they cut from
    (see build/lib/home.js). Reasoning per cell is in the punch list, H2-f. */
-.hm-open__img--habitatschool,
+/* 🔴 HABITAT SCHOOL IS CROPPED TO ITS SIGN, NOT TO ITS CENTRE (3 Aug).
+   This cell shared `50% center` with City University and it was wrong for
+   this photograph: the fascia carries the building's name in both scripts,
+   and a centre crop lands mid-word — the tile shipped reading "T SCHOOL".
+   A cut word does not read as a decision, it reads as a mistake, and it is
+   the kind of fault a composition metric cannot see because the frame is
+   otherwise well filled.
+
+   At 0% the English name is whole with its mark. The Arabic completes at
+   the OTHER end (100%), so the two scripts cannot both survive one value —
+   noted for whoever builds the AR side, which does not exist yet and for
+   which no `[dir="rtl"]` rule is therefore invented here. */
+.hm-open__img--habitatschool {
+  object-position: 0% center;
+}
+
 .hm-open__img--cityuniversity {
   object-position: 50% center;
 }
