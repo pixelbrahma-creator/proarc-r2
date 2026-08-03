@@ -125,12 +125,34 @@ function pageScripts(pageData) {
 }
 
 /**
+ * A route's pageStylesheet may name ONE stylesheet or SEVERAL — the same
+ * shape, and the same reason, as pageScripts() above.
+ *
+ * index1 is the first route to need two: it is an OPTION on Home, so it
+ * takes home.css whole and states only its differences in home-alt.css.
+ * A second full copy of a 900-line stylesheet is how two surfaces start
+ * disagreeing about one page.
+ *
+ * A string still resolves to a one-element list, so every route that
+ * existed is unchanged and every page it renders comes out byte-identical.
+ */
+function pageStyles(pageData) {
+  const declared = pageData && pageData.pageStylesheet;
+  if (!declared) return [];
+  const list = Array.isArray(declared) ? declared : [declared];
+  return list.filter((name) => typeof name === 'string' && name.trim());
+}
+
+/**
  * Renders the shared partials against page-level data.
  *
  * pageData: { title, description, canonical, ogImage, assetPrefix,
- *             navLit, navExact, ground, pageStylesheet, pageScript }
+ *             navLit, navExact, ground, pageStylesheet, pageScript, robots }
  *
- * pageScript is a string or an array of strings; see pageScripts() above.
+ * pageScript and pageStylesheet are each a string or an array of strings.
+ * `robots` defaults to the site's own answer — every route is indexable
+ * unless it says otherwise, and the only routes that say otherwise are
+ * client OPTIONS, which are shown rather than published.
  */
 function renderShell(pageData) {
   // The machine contract is derived HERE, in the one place both generators
@@ -138,11 +160,12 @@ function renderShell(pageData) {
   // the Twitter card type following whether there is an image at all. All
   // fifty-eight pages shipped a RELATIVE og:image before this, which is not
   // a URL a scraper can fetch — every share card on the site was blank.
-  const data = Object.assign({ assetPrefix: '' }, pageData, seo.shellData(pageData), chromeContact(), {
+  const data = Object.assign({ assetPrefix: '', robots: 'index, follow' }, pageData, seo.shellData(pageData), chromeContact(), {
     navItems: navItems(pageData),
     constellation: constellation(),
     preview: preview(pageData.assetPrefix || ''),
     pageScripts: pageScripts(pageData),
+    pageStyles: pageStyles(pageData),
   });
 
   return {

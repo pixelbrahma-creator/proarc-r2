@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<!-- @include head -->
+</head>
+<body>
+<!-- @include header -->
+
+<!--
+  index1.html — A SECOND READING OF HOME. A CLIENT OPTION, NOT A ROUTE.
+
+  Spec: 01-home.md, amended only where the client's brief amends it (3 Aug,
+  through Mahesh). Copy authority is unchanged:
+  ../_bmad/wds/E-Brand-Framework/04-copy-direction.md v3.3 §1.
+
+  It declares `robots: noindex` and stays out of sitemap.xml
+  (build/lib/seo.js OPTION_ROUTES). When the option is decided it is either
+  promoted into index.html or deleted. It is not a page that quietly stays.
+
+  WHAT THE BRIEF CHANGED, and nothing else changed with it:
+
+    1 · The practice beat turns to PAPER with black type, loses the drawing,
+        and keeps one link. Under the sentence, one line names the services —
+        read off pages-src/services.html at build, never retyped. Without the
+        drawing the beat is short, which is the point of it.
+
+    2 · Each room becomes a FULL-BLEED photograph with a black band beneath
+        it carrying the verb and EVERY name in that sector. That is not a new
+        idea: 01-home §5.2 already says each room "graduates to a full-bleed
+        photograph the day its image lands, with nothing around it
+        restructured". This is that graduation, shown early.
+
+    3 · The mosque is EXEMPT, on the client's own instruction. It is right:
+        the Prays moment is a set of one, so it has no names to band and no
+        second building to photograph. It keeps its own form.
+
+  WHAT DID NOT CHANGE: the opening screen, the mosque, the map, the
+  invitation and every href are taken from index.html verbatim, so a reader
+  comparing the two pages is comparing the two ideas and not two builds.
+
+  THE GROUND ALTERNATES NOW, and that is the visible consequence: black
+  opening → paper beat → photograph → black band → photograph → black band …
+  Each ground is a decided property of its band (E1), never a change of pace:
+  the beat is paper because it is the practice speaking in its own voice, and
+  every band under a photograph is black because it is that photograph's
+  evidence.
+-->
+<main id="main" class="hm hm--alt">
+
+  <!-- 1 · The opening — one screen, black, and the page's whole claim. The
+       sentence carries practice, date, place and all five verbs at once; the
+       band beneath it is anchored to the fold, so the words and the evidence
+       are both in view without scrolling at 1440.
+
+       It replaces a paper claim above a single full-bleed photograph. That
+       photograph was cut by the fold at every width by construction — at
+       1.69:1 it renders 850px tall against an 813px viewport, so ANY type
+       above it is cut even with nothing between them. E1.4's paper opening is
+       permissive, not required; unused, Home simply returns to E1's own row
+       for the narrative page, and black now runs from here to the map.
+
+       The chrome is ground-aware, so on this ground the plate and the trigger
+       fields dissolve into the page and the corner reads as one surface.
+
+       The labels name and do not link: every destination they would reach is
+       already the one link of a section below, and Offices has no page at all
+       under the five-built rule. -->
+  <section class="hm-open surface-dark">
+    <div class="container">
+      <h1 class="hm-open__line t-hero">Since 2006, Proarc has shaped how Ajman learns, shops, works, lives and prays.</h1>
+    </div>
+    <div class="hm-open__band">{{openBandHtml}}</div>
+  </section>
+
+  <!-- 2 · The practice, ON PAPER. The drawing is gone at the client's
+       request, so the beat is one column and short — the sentence, the
+       services on one line, and one door.
+
+       ONE LINK, not two. index.html carries "Who we are" AND "What we do"
+       as a deliberate amendment to the one-link rule, because its sentence
+       makes two claims and each link proves a different one. Here the
+       services LINE proves the second claim in words, so the second link
+       would be a third statement of the same thing — and the one-link rule
+       is the page's default, not the exception.
+
+       The services line is NOT typed here. build/lib/home.js reads it off
+       pages-src/services.html, so the six names cannot drift from the page
+       that publishes them. -->
+  <section class="ha-beat">
+    <div class="container">
+      <h2 class="ha-beat__line t-editorial">Proarc designs the vision, navigates all approvals, and manages the build on site.</h2>
+      <p class="ha-beat__services">{{servicesLine}}</p>
+      <p class="ha-beat__route"><a class="ha-link" href="{{aboutHref}}">Who we are <span aria-hidden="true">&rarr;</span></a></p>
+    </div>
+  </section>
+
+  <!-- 3 · The four rooms, at full bleed. One pattern four times, in the
+       sentence's order: learns · shops · works · lives.
+
+       The photograph runs edge to edge and carries NOTHING on it — rule 8,
+       and the same arrangement the hairline print used. The black band under
+       it is where the words live: the verb is the room's one link, the
+       building in the photograph is named at the band's other end, and the
+       set's names run beneath.
+
+       EVERY NAME, and no ellipsis. The ellipsis on this page means "a
+       selection"; this band is not one. It is still not every RECORD —
+       O5's corroborated pairs are suppressed sitewide — so it prints every
+       name the site prints for that sector, and states no total (E12). -->
+  {{#each roomsFull}}
+  <section class="ha-room">
+    <figure class="ha-room__frame">
+      <img class="ha-room__img" src="{{fullSrc}}"{{#if fullSrcset}} srcset="{{fullSrcset}}" sizes="100vw"{{/if}}
+           width="{{fullWidth}}" height="{{fullHeight}}" alt="{{roomEvidence}}" loading="lazy" decoding="async">
+    </figure>
+    <div class="ha-room__band surface-dark">
+      <div class="container">
+        <div class="ha-room__strip">
+          <h3 class="ha-room__verb"><a class="hm-link" href="{{roomHref}}">{{roomVerb}} <span aria-hidden="true">&rarr;</span></a></h3>
+          <p class="ha-room__evidence">{{roomEvidence}}{{#if roomProvenance}} <span class="hm-sep">&middot;</span> {{roomProvenance}}{{/if}}</p>
+        </div>
+        <p class="ha-room__names">{{roomNamesHtml}}</p>
+      </div>
+    </div>
+  </section>
+  {{/each}}
+
+  <!-- 4 · The mosque, the map. Black, and unchanged from index.html —
+       the mosque is the client's own stated exemption. -->
+  <div class="hm-dark surface-dark">
+
+    <!-- 5 · The Prays moment — the fifth verb, one building behind it, so
+         the line ends in a full stop and never the selection-ellipsis. The
+         heading is a heading (a set of one has no page); the mosque's name
+         is the moment's one link. Civic work is shown, never narrated. -->
+    <section class="hm-prays container">
+      <h3 class="hm-prays__verb">And prays.</h3>
+      <p class="hm-prays__line">Prayer runs through it all. <a class="hm-link-inline" href="{{mosqueHref}}">Al Ghala Mosque</a>, Al Jurf &mdash; completed 2009.</p>
+    </section>
+
+    <!-- 6 · The map — Option B, the constellation. The marks are the
+         page's own, generated from the records at a true 5px (E7.1); no
+         mark is placed by inference (E7.2) and no mark carries a date
+         (E7.3), so they sweep west to east and no counter runs. No section
+         label: the link line is the caption. -->
+    <section class="hm-map container" aria-label="Proarc&rsquo;s buildings across the Emirate">
+      <div class="hm-map__field" data-map>
+        <svg class="hm-map__svg" viewBox="{{mapViewBox}}" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet">{{mapMarksHtml}}</svg>
+      </div>
+      <p class="hm-map__line"><a class="hm-link" href="{{ajmanHref}}">One Emirate, drawn <span aria-hidden="true">&rarr;</span></a></p>
+    </section>
+
+  </div>
+
+  <!-- 5 · The invitation — paper, the inverse of the page, and the one lit
+       surface on it. Unchanged from index.html; the footer returns to black
+       below it. -->
+  <section class="hm-invitation" aria-label="Start a project">
+    <div class="container">
+      <p class="hm-invitation__line">Have a project in mind? Let&rsquo;s talk.</p>
+      <a class="hm-invitation__action" href="{{contactHref}}">Contact</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- @include footer -->
+<!-- @include scripts -->
+</body>
+</html>

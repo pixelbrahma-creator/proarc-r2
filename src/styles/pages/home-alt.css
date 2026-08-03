@@ -1,0 +1,220 @@
+/* ===========================================================
+   index1 — A SECOND READING OF HOME. A CLIENT OPTION.
+
+   Loaded AFTER home.css, and it states only the differences. Everything
+   index1 shares with Home — the opening screen, the mosque, the map, the
+   invitation, the chrome — comes from home.css and is not restated here,
+   so a change to the real page reaches the option automatically and the
+   two cannot silently drift apart.
+
+   The brief (client, through Mahesh, 3 Aug):
+     · the practice beat on PAPER with black type, no drawing, one link,
+       and one line naming the services;
+     · each room a FULL-BLEED photograph with a black band under it
+       carrying the verb and every name in the sector;
+     · the mosque exempt.
+
+   🔴 NOTHING HERE IS A NEW VALUE. Every size, colour and space is a token
+   the system already carries. An option is a rearrangement of the system,
+   not a second system — the moment it needs a value of its own it stops
+   being comparable with the page it is an option ON.
+   =========================================================== */
+
+/* -----------------------------------------------------------
+   1 · The practice beat, on paper
+   ----------------------------------------------------------- */
+
+/* PAPER IS THIS BAND'S DECIDED PROPERTY, not a change of pace (E1). The
+   beat is the practice speaking in its own voice between two surfaces of
+   evidence, and it is the only band on the page that is neither a
+   photograph nor a drawing — so it is the one band that is nobody's
+   evidence.
+
+   It takes --gap-section, the site's own section rhythm, on both edges.
+   --gap-section-major was tried first and looked at: at 280 either side the
+   band runs 810px for three elements, which is a whole screen of paper for
+   one sentence — and "the height will be shorter" is half of what the brief
+   asked for. The statement gap is for a statement standing alone; this one
+   stands between two photographs that bound it, and they do the work the
+   extra 160px was buying. */
+.ha-beat {
+  padding-block: var(--gap-section);
+  background: var(--color-surface);
+}
+
+/* The colour is STATED. base.css gives every heading --color-ink, but
+   tokens.css lifts the .t-* display classes to white under .surface-dark,
+   and this page carries .surface-dark on the bands either side. Left
+   unstated, a future reordering that nests this band would turn the
+   sentence white on white — the inverse of the fault CLAUDE.md records for
+   headings on black, and silent in exactly the same way. */
+.ha-beat__line {
+  margin: 0;
+  color: var(--color-ink);
+}
+
+/* The services, on ONE line. It is a list of names, not reading prose, so
+   it takes the metadata register and the body measure — the display
+   measure (24ch) would stack six names into a column, which is the fault
+   the names wall already records.
+
+   NOT uppercase, and that is a decision. --ls-nav's tracking belongs to
+   navigation and to labels; these six are the practice's own words in
+   running order, and setting them as a nav strip would make them read as
+   six destinations when the page offers one. */
+.ha-beat__services {
+  max-inline-size: var(--measure-body);
+  margin: var(--gap-block) 0 0;
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-body);
+  color: var(--color-ink-secondary);
+}
+
+.ha-beat__route {
+  margin: var(--gap-heading) 0 0;
+}
+
+/* .hm-link is white by declaration — it was written for black. On paper it
+   is the same control in ink: same size, same weight, same tracking, same
+   1px rule that THICKENS rather than fades, so the two grounds share one
+   idiom rather than two. */
+.ha-link {
+  display: inline-block;
+  border-block-end: 1px solid currentcolor;
+  padding-block-end: 2px;
+  font-size: var(--fs-metadata);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  color: var(--color-ink);
+  transition: border-block-end-width var(--dur-fast) var(--ease-out);
+}
+
+.ha-link:hover,
+.ha-link:focus-visible {
+  border-block-end-width: 2px;
+}
+
+.ha-link:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 4px;
+}
+
+/* -----------------------------------------------------------
+   2 · The rooms — full bleed, then the names on black
+   ----------------------------------------------------------- */
+
+/* The room is the photograph AND the band under it: one object, so the
+   section carries no padding of its own and the two edges meet. The gap
+   between one room and the next is the black band's own bottom padding —
+   there is no seam to space. */
+.ha-room {
+  background: var(--color-surface-dark);
+}
+
+.ha-room__frame {
+  margin: 0;
+}
+
+/* FULL BLEED, and cropped by HEIGHT. The frames are 1.5:1 to 1.9:1 and the
+   band is wider than any of them, so the crop this takes is vertical —
+   which is the useful direction here: it is what drops the car park out of
+   the bottom of a street elevation and keeps the building and its sky.
+   `object-position` then chooses top-to-bottom, the opposite of the band
+   above, where the cell is TALLER than the frame and the same property
+   chooses left-to-right. Same property, different axis, because the
+   overflow is on a different side — worth stating, because reading the
+   band's crop table as if it applied here would move every one of these
+   the wrong way.
+
+   40% rather than centre, for the same reason: a street elevation's
+   subject sits above its middle, and the bottom of these four frames is
+   road, car park or paving in three of them. It is one value for all four
+   because the option is a layout question — a per-frame crop table is what
+   this earns IF the layout is taken. */
+.ha-room__img {
+  display: block;
+  inline-size: 100%;
+  block-size: 62vh;
+  min-block-size: 320px;
+  object-fit: cover;
+  object-position: center 40%;
+}
+
+/* The band. Its top padding is smaller than its bottom: the words belong to
+   the photograph above them, and equal padding would float them between two
+   pictures with no owner. */
+.ha-room__band {
+  padding-block: var(--gap-component) var(--gap-section);
+}
+
+/* The verb leads; the building in the photograph is named opposite it. The
+   same strip home.css already uses, so the two readings caption a
+   photograph identically. */
+.ha-room__strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gap-block);
+}
+
+.ha-room__verb {
+  margin: 0;
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-h3);
+  letter-spacing: var(--ls-h3);
+  color: var(--color-on-dark);
+}
+
+.ha-room__evidence {
+  margin: 0;
+  font-size: var(--fs-metadata);
+  line-height: var(--lh-metadata);
+  color: var(--color-on-dark-secondary);
+}
+
+/* The names. A wall of names is a FIELD, not reading prose — the display
+   measure would stack sixteen homes into a column — so it takes the body
+   measure at H2 scale, which is the treatment learns' wall already carries
+   on the real page. Here all four rooms get it, which is the option's
+   whole idea: every sector shows its names, not a selection of them. */
+.ha-room__names {
+  max-inline-size: var(--measure-body);
+  margin: var(--gap-heading) 0 0;
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-editorial);
+  letter-spacing: var(--ls-editorial);
+  color: var(--color-on-dark-body);
+}
+
+/* -----------------------------------------------------------
+   3 · Tablet and phone
+   ----------------------------------------------------------- */
+
+@media (max-width: 1023px) {
+  /* A 62vh crop on a short landscape phone is a letterbox. Below the
+     desktop layout the photograph takes a fixed band instead, so it stays
+     a photograph rather than a strip. */
+  .ha-room__img {
+    block-size: 46vh;
+    min-block-size: 260px;
+  }
+}
+
+@media (max-width: 767px) {
+  .ha-room__img {
+    block-size: 38vh;
+    min-block-size: 220px;
+  }
+
+  /* Sixteen names at 32px is most of a phone screen. The names step to the
+     large-body register, which at ≤767 is 20px and is the same step the
+     rest of the site takes here. */
+  .ha-room__names {
+    font-size: var(--fs-body-lg);
+  }
+}

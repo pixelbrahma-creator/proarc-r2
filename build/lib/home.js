@@ -260,6 +260,143 @@ function roomData(db, manifest, prefix, room) {
 }
 
 /* ------------------------------------------------------------------ *
+ * index1 — THE SECOND READING OF HOME (a client option, 3 Aug)
+ *
+ * Mahesh's brief, from the client: the beat turns to paper with black type
+ * and loses the drawing; it keeps the sentence, gains one line naming the
+ * services, and one link. Then each room becomes a FULL-BLEED photograph
+ * with a black band under it carrying the verb and the set's names.
+ *
+ * That last part is not a new idea — 01-home §5.2 says the four rooms ship
+ * in their fallback forms and each "graduates to a full-bleed photograph
+ * the day its image lands, with nothing around it restructured". This is
+ * that graduation, put to the client early rather than waited for.
+ *
+ * WHAT IS NOT INVENTED HERE. The names are the sets in Proarc's own order,
+ * the photographs are named frames of named records, and the services line
+ * is READ OFF the Services page rather than retyped — see servicesLine().
+ * ------------------------------------------------------------------ */
+
+/**
+ * Which photograph leads each room at full bleed.
+ *
+ * Three of the four are the room's EXISTING photograph, promoted from a
+ * hairline-framed print to the full width — nothing is re-curated for this
+ * option, so a reader comparing the two pages is comparing the layout and
+ * not the picture editing.
+ *
+ * 🔴 learns is the exception, because learns has no photograph today: its
+ * fallback form is the names wall. The frame is named rather than derived,
+ * for the reason OPEN_BAND_FRAME states — an index slides onto a
+ * neighbouring photograph in silence, a name cannot.
+ *
+ * WHY cityschool/gallery-03 AND NOT THE SET'S OWN LEAD. The set leads on
+ * habitatschool, and both of that record's usable frames are spent or weak
+ * on this page: the hero is already in the opening band (and "no photograph
+ * ships twice on this page" is asserted), gallery-02 is the same building's
+ * street elevation with the same signage — the souksalah problem, one
+ * territory twice — over a road and kerb foreground, and gallery-03 is a
+ * sports hall interior that reads as a warehouse. City School is the next
+ * record in the set whose frames are untouched by this page, and
+ * gallery-03 is its widest (1920×1024): a full stepped elevation, sunlit,
+ * the name on the fascia whole rather than cut. Its car park is the bottom
+ * third, which a full-bleed band crops away vertically — the one crop
+ * direction a bleeding image actually gives you.
+ */
+const ROOMS_FULL_FRAME = {
+  schools: { record: 'cityschool', frame: 'gallery-03' },
+  shops: { record: 'citylifekhor' },
+  works: { record: 'ajmanbank', frame: 'gallery-02' },
+  homes: { record: 'azhagarden' },
+};
+
+/**
+ * THE SERVICES LINE IS READ OFF THE SERVICES PAGE, never retyped.
+ *
+ * Six names, in the order that page states them. Typed here instead, this
+ * line would be the seventh copy of a list the site already publishes, and
+ * the first one nothing checks — which is exactly how /careers' route
+ * description kept a sentence for months after both visible surfaces
+ * deleted it.
+ *
+ * It reads the SOURCE rather than the built page: build:pages compiles the
+ * routes in meta order, so services.html may not exist yet when index1 is
+ * rendered, and a reader that depends on build order is a reader that works
+ * until someone reorders a JSON file.
+ */
+function servicesLine() {
+  const src = fs.readFileSync(path.join(ROOT, 'pages-src', 'services.html'), 'utf8');
+  /* matchAll, for the CAPTURE. A global .match() returns whole matches and
+     throws the groups away, so trimming one by hand left the delimiter on
+     every name — the page shipped "Master planning<". Same family as every
+     other regex-as-parser fault here: it produced a plausible string. */
+  const names = [...src.matchAll(/class="sv-block__name[^"]*">([^<]+)</g)].map((m) => m[1].trim());
+  if (names.length < 2) {
+    throw new Error(
+      'home: index1 names the services, and pages-src/services.html yielded ' +
+        `${names.length} of them. The line is read off that page rather than retyped, so a markup ` +
+        'change there has to be followed here rather than silently shipping a shorter list.'
+    );
+  }
+  return names.map(escapeText).join(' <span class="hm-sep">&middot;</span> ');
+}
+
+/**
+ * Every name in the set, in Proarc's order, with NO ellipsis and no total.
+ *
+ * The ellipsis on this page means "a selection" (selectionHtml above). This
+ * band is not a selection, so it does not wear one — but it is still not
+ * every RECORD: O5's corroborated pairs are suppressed sitewide, so what
+ * ships is every name the site prints for that sector. Saying "all fifteen"
+ * anywhere near it would be false as well as barred by E12.
+ */
+function setNamesHtml(records) {
+  return records.map((p) => escapeText(p.title)).join(' <span class="hm-sep">&middot;</span> ');
+}
+
+function roomFullData(db, manifest, prefix, room) {
+  const set = selectableSet(db.projects, room);
+  const pick = ROOMS_FULL_FRAME[room.key];
+  if (!pick) throw new Error(`home: index1 has no full-bleed frame for the ${room.key} room.`);
+
+  const record = findRecord(db.projects, pick.record);
+  const images = manifest.projects[record.slug];
+  if (!images) throw new Error(`home: ${record.slug} is not in the manifest.`);
+
+  const plate = W.plate(record, manifest, prefix);
+  if (pick.frame) {
+    const shipping = images.gallery || [];
+    const rel = shipping.find((f) => f.replace(/^.*\//, '').replace(/\.webp$/, '') === pick.frame);
+    if (!rel) {
+      throw new Error(
+        `home: index1's ${room.key} room names ${pick.frame} of ${record.slug}, which that record does not ship. ` +
+          `It ships ${shipping.length ? shipping.map((f) => f.replace(/^.*\//, '')).join(', ') : 'nothing'}.`
+      );
+    }
+    const img = W.image(manifest, rel, record.slug, prefix);
+    plate.plateSrc = img.src;
+    plate.plateSrcset = '';
+    plate.plateWidth = img.width;
+    plate.plateHeight = img.height;
+  }
+
+  return {
+    roomVerb: room.verb,
+    roomHref: prefix + room.href,
+    // The photograph carries NO words. The name of what is in it sits in
+    // the black band below, with the rest of the set — rule 8, and the same
+    // arrangement the framed print already used.
+    roomEvidence: escapeText(record.title),
+    roomProvenance: plate.plateProvenance,
+    fullSrc: plate.plateSrc,
+    fullSrcset: plate.plateSrcset,
+    fullWidth: plate.plateWidth,
+    fullHeight: plate.plateHeight,
+    roomNamesHtml: setNamesHtml(set),
+  };
+}
+
+/* ------------------------------------------------------------------ *
  * The map — Option B, the constellation (01-home §6.1, E7.1–E7.3)
  * ------------------------------------------------------------------ */
 
@@ -505,13 +642,27 @@ function openBandHtml(db, manifest, prefix) {
  * The page
  * ------------------------------------------------------------------ */
 
-function viewData(prefix) {
+/**
+ * `srcName` is the route, so index1 can take Home's data and state only its
+ * differences. Both readings share one source for the band, the mosque, the
+ * map and every href — an option that re-derives them is an option whose
+ * differences stop being legible.
+ */
+function viewData(prefix, srcName) {
   const db = loadDb();
   const manifest = loadManifest();
 
   const seaside = findRecord(db.projects, 'seasidehills');
   const hero = W.plate(seaside, manifest, prefix);
   const map = mapData();
+
+  const alt =
+    srcName === 'index1'
+      ? {
+          servicesLine: servicesLine(),
+          roomsFull: ROOMS.map((room) => roomFullData(db, manifest, prefix, room)),
+        }
+      : {};
 
   return Object.assign(
     {
@@ -535,12 +686,13 @@ function viewData(prefix) {
 
       ogImage: hero.plateSrc,
     },
-    map
+    map,
+    alt
   );
 }
 
 function hasViewData(srcName) {
-  return srcName === 'index';
+  return srcName === 'index' || srcName === 'index1';
 }
 
 module.exports = { hasViewData, viewData, selectionHtml, mapData, O5_SECOND_OF_PAIR };

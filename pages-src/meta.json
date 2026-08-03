@@ -39,6 +39,28 @@
     "pageScript": "home"
   },
 
+  "_index1": [
+    "A CLIENT OPTION, not a route of the site (3 Aug). index1 is a second reading of Home:",
+    "the practice beat on paper with no drawing, then each sector as a full-bleed photograph",
+    "over a black band carrying its verb and its names. It is built and public because that is",
+    "the only honest way to judge a page, and it declares `robots` noindex + stays out of",
+    "sitemap.xml (build/lib/seo.js OPTION_ROUTES). When the option is decided it is either",
+    "promoted into index or deleted \u2014 it is not a page that quietly stays."
+  ],
+
+  "index1": {
+    "outFile": "index1.html",
+    "title": "Proarc \u2014 a second reading of the home page",
+    "description": "A client option on Home: the practice on paper, then each sector as a full-bleed photograph over its own names.",
+    "canonical": "https://proarc.ae/index1",
+    "ground": "black",
+    "navLit": "",
+    "navExact": false,
+    "robots": "noindex, nofollow",
+    "pageStylesheet": ["home", "home-alt"],
+    "pageScript": "home"
+  },
+
   "projects": {
     "outFile": "projects.html",
     "title": "Selected work — Proarc",

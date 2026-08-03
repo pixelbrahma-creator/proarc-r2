@@ -48,6 +48,21 @@ const DESCRIPTION_MAX = 160;
 const DESCRIPTION_MIN = 15;
 const TITLE_MAX = 60;
 
+/**
+ * CLIENT OPTIONS — pages that are SHOWN and not published.
+ *
+ * `index1.html` is a second reading of Home, built to be looked at beside
+ * the first. It is a real built page on a real URL because that is the only
+ * honest way to judge one, and it is NOT a route of the site: it carries
+ * `noindex`, it stays out of sitemap.xml, and when a decision is taken it is
+ * either promoted into `index` or deleted.
+ *
+ * 🔴 Named here rather than pattern-matched on the filename. A rule that
+ * exempts anything matching /option|preview|tmp/ eventually exempts a real
+ * page someone named badly; a list of one cannot.
+ */
+const OPTION_ROUTES = ['index1.html'];
+
 function readJson(...parts) {
   return JSON.parse(fs.readFileSync(path.join(ROOT, ...parts), 'utf8'));
 }
@@ -261,6 +276,7 @@ module.exports = {
   DESCRIPTION_MAX,
   DESCRIPTION_MIN,
   TITLE_MAX,
+  OPTION_ROUTES,
   PRACTICE_ID,
   absoluteAsset,
   shellData,

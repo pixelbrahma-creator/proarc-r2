@@ -62,7 +62,9 @@ function main() {
     if (work.hasViewData(srcName)) {
       data = Object.assign({}, pageData, work.viewData(srcName, pageData.assetPrefix));
     } else if (home.hasViewData(srcName)) {
-      data = Object.assign({}, pageData, home.viewData(pageData.assetPrefix));
+      // The route is passed through: index1 is a second reading of Home and
+      // takes Home's data, stating only its own differences.
+      data = Object.assign({}, pageData, home.viewData(pageData.assetPrefix, srcName));
     } else if (ajman.hasViewData(srcName)) {
       data = Object.assign({}, pageData, ajman.viewData(pageData.assetPrefix));
     } else if (services.hasViewData(srcName)) {

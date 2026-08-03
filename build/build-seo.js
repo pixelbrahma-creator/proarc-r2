@@ -126,7 +126,15 @@ function audit(routes) {
       fail(`${r.file}: twitter:card is "${r.twitterCard}" with${r.ogImage ? '' : 'out'} an og:image; expected "${wantCard}".`);
     }
     if (r.ogTitle !== r.title) fail(`${r.file}: og:title disagrees with <title>.`);
-    if (/noindex/i.test(r.robots)) fail(`${r.file}: robots says noindex; every route on this site is indexable.`);
+    /* Every route of the SITE is indexable. A client OPTION is not a route
+       of the site — it is a surface shown to Mahesh and then either adopted
+       or deleted — so it declares `robots` in the route contract, is kept
+       out of the sitemap below, and is exempt here. The exemption is by
+       DECLARATION, not by filename: an accidental noindex on a real page
+       still stops the build, which is the whole point of this check. */
+    if (/noindex/i.test(r.robots) && !seo.OPTION_ROUTES.includes(r.file)) {
+      fail(`${r.file}: robots says noindex; every route on this site is indexable.`);
+    }
 
     if (r.description.length > seo.DESCRIPTION_MAX) {
       fail(`${r.file}: description is ${r.description.length} chars, past the ${seo.DESCRIPTION_MAX}-char snippet.`);
@@ -202,7 +210,10 @@ function audit(routes) {
 /* ------------------------------------------------------------------ */
 
 function writeSitemap(routes) {
+  /* A client OPTION is shown, never published, so it is not in the sitemap.
+     See seo.OPTION_ROUTES for what that means and why it is a named list. */
   const urls = routes
+    .filter((r) => !seo.OPTION_ROUTES.includes(r.file))
     .map((r) => r.canonical)
     .filter(Boolean)
     .sort((a, b) => (a.length - b.length) || a.localeCompare(b));
