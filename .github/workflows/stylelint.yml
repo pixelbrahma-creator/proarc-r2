@@ -6,11 +6,25 @@ on:
       - "src/**/*.css"
       - ".stylelintrc.json"
       - ".github/workflows/stylelint.yml"
+      # The gate installs with `npm ci`, so what it installs is part of the
+      # gate. Without these two the job cannot re-prove itself after a
+      # dependency change — and it spent its whole life red for exactly that
+      # reason: package-lock.json was never committed, so `npm ci` failed at
+      # EUSAGE on every push and the lint step was never once reached.
+      - "package-lock.json"
+      - "package.json"
   pull_request:
     paths:
       - "src/**/*.css"
       - ".stylelintrc.json"
       - ".github/workflows/stylelint.yml"
+      # The gate installs with `npm ci`, so what it installs is part of the
+      # gate. Without these two the job cannot re-prove itself after a
+      # dependency change — and it spent its whole life red for exactly that
+      # reason: package-lock.json was never committed, so `npm ci` failed at
+      # EUSAGE on every push and the lint step was never once reached.
+      - "package-lock.json"
+      - "package.json"
 
 jobs:
   lint:
