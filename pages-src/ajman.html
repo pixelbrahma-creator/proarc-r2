@@ -57,12 +57,22 @@
          and /contact already took — an arrival answered by the evidence
          beneath it rather than by a sentence about the evidence.
 
-         ⚠️ KNOWN AND ACCEPTED (Mahesh, 3 Aug): this line is also the
-         footer line site-wide, so this page states it twice until the
-         footer copy is revised. Deliberate, not a build fault. -->
+         THE SUPPORTING LINE IS GONE, AND ITS ABSENCE IS THE DECISION
+         (Mahesh, 3 Aug). It read "The buildings a city grows up in." —
+         which is the footer's line site-wide, so this page was the only
+         one that said the same sentence twice, once at the top and once
+         at the bottom. Briefly recorded here as accepted; that was
+         reversed the same day. The arrival now rests on the H1 alone
+         until the page-by-page copy sweep gives it a line of its own.
+
+         The `.aj-statement__support` rule is deliberately KEPT in
+         `ajman.css` for that line to land on. It is not dead code, it is a
+         waiting socket — and it carries a fix that is expensive to
+         rediscover: `.t-body-lg` is not in tokens.css's dark-lift list, so
+         a supporting line dropped in here without that rule computes
+         #111111 on #000000 and vanishes. -->
     <section class="aj-statement container">
       <h1 class="aj-statement__line t-editorial">One Emirate.<br>Since 2006.</h1>
-      <p class="aj-statement__support t-body-lg">The buildings a city grows up in.</p>
     </section>
 
     <!-- 2 · The standing map and the district ledger — ONE COMPONENT (§3.1,

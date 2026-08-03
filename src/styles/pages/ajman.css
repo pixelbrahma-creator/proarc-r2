@@ -56,7 +56,13 @@
   margin: 0;
 }
 
-/* .t-body-lg is NOT in tokens.css's dark lift list, so this line would
+/* ⚠️ CURRENTLY UNUSED, AND KEPT ON PURPOSE (3 Aug). The supporting line was
+   removed from `pages-src/ajman.html` because it repeated the site footer's
+   own sentence; the copy sweep will give this page a line of its own and it
+   lands back here. Deleting this rule in a tidy-up would silently reinstate
+   the bug below the moment that happens.
+
+   .t-body-lg is NOT in tokens.css's dark lift list, so this line would
    compute #111111 on #000000 and vanish. §4.1 fixes it at #EDEDED. */
 .aj-statement__support {
   margin: var(--gap-block) 0 0;
