@@ -207,7 +207,12 @@
       ],
       "builtUpArea": "25,000 sqm",
       "status": "Completed",
-      "configuration": "Ground + First + 2 Parking + Roof"
+      "configuration": "Ground + First + 2 Parking + Roof",
+      "images": {
+        "gallery": [
+          "gallery-02"
+        ]
+      }
     },
     {
       "slug": "marksavealtallah",
@@ -239,7 +244,10 @@
       ],
       "builtUpArea": "25,000 sqm",
       "status": "Completed",
-      "configuration": "Ground + First + 2 Parking + Roof"
+      "configuration": "Ground + First + 2 Parking + Roof",
+      "images": {
+        "gallery": []
+      }
     },
     {
       "slug": "homesrus",
@@ -550,7 +558,13 @@
       "client": "R Holding",
       "builtUpArea": "XXXXX sq. ft.",
       "status": "Completed",
-      "year": "Under Proposal"
+      "year": "Under Proposal",
+      "images": {
+        "gallery": [
+          "gallery-03",
+          "gallery-04"
+        ]
+      }
     },
     {
       "slug": "cityschool",
@@ -586,7 +600,11 @@
       "status": "Completed",
       "year": "2011",
       "images": {
-        "hero": "gallery-03"
+        "hero": "gallery-03",
+        "gallery": [
+          "gallery-02",
+          "gallery-04"
+        ]
       }
     },
     {
@@ -661,7 +679,12 @@
       "client": "Ajman Municipality",
       "builtUpArea": "756 sq.m",
       "status": "Completed",
-      "year": "2015"
+      "year": "2015",
+      "images": {
+        "gallery": [
+          "gallery-03"
+        ]
+      }
     },
     {
       "slug": "woodlem",
