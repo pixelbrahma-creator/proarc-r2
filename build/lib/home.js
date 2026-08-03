@@ -136,6 +136,10 @@ const ROOMS = [
     href: 'projects.html',
     form: 'print',
     lead: 'ajmanbank',
+    // The room names its frame because the band took the hero (see
+    // OPEN_BAND_FRAME). A room without a `frame` takes the record's lead
+    // image, exactly as every other surface on the site does.
+    frame: 'gallery-02',
     // NO quiet line. The set holds three records: the lead, The Black
     // Square, and rholding — which is a proposal, not a building (F-1,
     // its own summary says so). One name followed by an ellipsis promises
@@ -211,6 +215,30 @@ function roomData(db, manifest, prefix, room) {
   const images = manifest.projects[lead.slug];
   if (!images) throw new Error(`home: ${lead.slug} is not in the manifest.`);
   const plate = W.plate(lead, manifest, prefix);
+
+  /* A room may NAME its frame, and the name resolves or the build stops —
+     the same doctrine as OPEN_BAND_FRAME, for the same reason: an index
+     slides onto a neighbouring photograph in silence when a curation
+     changes, and a name cannot. Only the four image fields move; the plate's
+     name, place, href and E9 provenance are the record's and are untouched.
+     A named gallery frame ships alone, with no srcset — the `-md` variant
+     exists for the hero only, and a one-candidate srcset would be a lie the
+     browser has to parse. */
+  if (room.frame) {
+    const shipping = images.gallery || [];
+    const rel = shipping.find((f) => f.replace(/^.*\//, '').replace(/\.webp$/, '') === room.frame);
+    if (!rel) {
+      throw new Error(
+        `home: the ${room.key} room names ${room.frame} of ${lead.slug}, which that record does not ship. ` +
+          `It ships ${shipping.length ? shipping.map((f) => f.replace(/^.*\//, '')).join(', ') : 'nothing'}.`
+      );
+    }
+    const img = W.image(manifest, rel, lead.slug, prefix);
+    plate.plateSrc = img.src;
+    plate.plateSrcset = '';
+    plate.plateWidth = img.width;
+    plate.plateHeight = img.height;
+  }
 
   return {
     roomVerb: room.verb,
@@ -330,8 +358,31 @@ function mapData() {
  * empty — which is why work.js throws below four. One href changes here when
  * that anatomy is decided.
  */
+/* 🔴 THE UNIVERSITY CELL IS `edu-cityuniversity`, NOT `cityuniversity` (3 Aug,
+   Mahesh: not happy with the tile). Both records are a City University and
+   they are O5's own pair — the letter asks whether they are one building or
+   two. Nothing about that question is settled by this cell, because the band
+   prints no names: it chooses a PHOTOGRAPH, and the two records' libraries
+   are not equally good.
+
+   The kept twin's frames are: the hero and gallery-02, which are the same
+   entrance under the same orange fascia with bollards and a parked car;
+   gallery-03, a white pergola that reads as a shaded walk rather than as a
+   university; and gallery-04, an evening aerial that reads as a render.
+   `edu-cityuniversity/gallery-02` is the symmetrical academic block with its
+   lawn — no signage, no cars, no dead ground, and it says *university* at
+   tile scale, which is the whole job of a cell under a label that says
+   "and universities".
+
+   Two things to know rather than to fix. The record is the second-of-pair
+   that O5_SECOND_OF_PAIR suppresses from the Learns wall — no word is
+   printed twice, because a band cell prints no word at all. And the letter's
+   list C asks whether this record's LEAD image is a photograph or a render;
+   gallery-02 is not that frame, and it carries the shadow falloff, kerbs and
+   planting of a photograph. If the answer comes back "render", this cell
+   changes with every other frame of that record. */
 const OPEN_BAND = [
-  { label: 'Schools and universities', href: 'projects/schools.html', pair: true, cells: ['habitatschool', 'cityuniversity'] },
+  { label: 'Schools and universities', href: 'projects/schools.html', pair: true, cells: ['habitatschool', 'edu-cityuniversity'] },
   { label: 'Malls & shops', href: 'projects/malls.html', cells: ['souksalah'] },
   { label: 'Offices', href: 'projects.html', cells: ['ajmanbank'] },
   { label: 'Homes', href: 'projects/homes.html', cells: ['seasidehills'] },
@@ -380,11 +431,25 @@ const OPEN_BAND = [
    habitatschool now takes its HERO, and the band does not change: the frame
    it used to name (gallery-04) was the hero's own near-twin, which is why
    the record dropped it. */
+/* 🔴 THE BANK'S TWO FRAMES ARE SWAPPED (3 Aug, Mahesh: not happy with the
+   tile). The band held `gallery-02` and the works room held the hero, and
+   that is the wrong way round by this file's own stated rule — THE FOLD
+   KEEPS THE STRONGEST FRAME, because it is the page's first image of that
+   territory. gallery-02 is the daylight tower read with a row of parked cars
+   across its bottom edge, and in a 4:5 cell they cannot be cropped out: a
+   landscape frame in a portrait cell overflows HORIZONTALLY, so the whole
+   height ships and `object-position` chooses left-to-right and nothing else.
+   The hero is the same building with sky where the car park was.
+
+   The room takes gallery-02 in exchange, where a wide print at a quieter
+   place on the page carries the cars without trouble. Nothing is added and
+   nothing is lost: the two surfaces still show two different photographs of
+   one building, which is the rule this swap was always serving. */
 const OPEN_BAND_FRAME = {
   habitatschool: 'hero',
-  cityuniversity: 'hero',
+  'edu-cityuniversity': { gallery: 'gallery-02' },
   souksalah: 'hero',
-  ajmanbank: { gallery: 'gallery-02' },
+  ajmanbank: 'hero',
   seasidehills: { gallery: 'gallery-02' },
   alghalamosque: 'hero',
 };

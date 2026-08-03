@@ -147,7 +147,13 @@
   object-position: 0% center;
 }
 
-.hm-open__img--cityuniversity {
+/* The university cell changed record and frame on 3 Aug (Mahesh) — see
+   build/lib/home.js. The academic block is symmetrical and its lawn runs the
+   full width, so the centre is the judged position here as well as the
+   default one; it is written out because a value that agrees with the
+   default by accident and one that agrees with it by measurement look
+   identical, and only one of them survives a reframe. */
+.hm-open__img--edu-cityuniversity {
   object-position: 50% center;
 }
 
@@ -156,12 +162,18 @@
   object-position: 41% center;
 }
 
-/* The tower's mass runs 0.121–0.723 of this frame, so its centre is 0.42
-   and not the frame's. (The hero's own mass ran 0.30–0.65 for a centre of
-   0.48; the band moved off the hero because the works room below leads on
-   it, and no photograph ships twice on this page — see build/lib/home.js.)
+/* 🔴 THE BAND IS BACK ON THE HERO (3 Aug, Mahesh) — gallery-02 carried a row
+   of parked cars along its bottom edge, and a landscape frame in a 4:5 cell
+   overflows HORIZONTALLY, so the whole height ships and no value here can
+   crop them out. The works room takes gallery-02 in exchange; the two
+   surfaces still show two different photographs of one building.
 
-   ⚠ 42 is the CENTRE; 32 is the percentage that puts the window there.
+   The hero's own mass runs 0.30–0.65, so its centre is 0.48 — the number
+   that was already recorded for this frame when the band moved off it, and
+   it needed no re-derivation. Rendered at 35 / 46 / 55 and looked at: 46 is
+   the derived one and it is also the one that keeps the white blade whole.
+
+   ⚠ 48 is the CENTRE; 46 is the percentage that puts the window there.
    `object-position` does not name a point in the source — it distributes
    the OVERFLOW, so the window's centre lands at p·(1−w) + w/2 where w is
    the 4:5 window as a fraction of the source width. Every value in this
@@ -169,7 +181,7 @@
    crop table; writing the crop centre straight into the CSS moved this
    cell 4.5% right and cut "Ajman" off its own sign. */
 .hm-open__img--ajmanbank {
-  object-position: 32% center;
+  object-position: 46% center;
 }
 
 /* The stepped corner, not the long façade. */
@@ -202,16 +214,53 @@
    change of weight, so the band still reads as five captions that happen
    to be reachable rather than as a navigation row above the sentence. */
 .hm-open__labellink {
+  position: relative;
   display: inline-block;
   border-block-end: 1px solid currentcolor;
   padding-block-end: 2px;
   color: inherit;
-  transition: border-block-end-width var(--dur-fast) var(--ease-out);
 }
 
-.hm-open__labellink:hover,
-.hm-open__labellink:focus-visible {
-  border-block-end-width: 2px;
+/* 🔴 THE HOVER DRAWS, AND THE WHOLE TERRITORY CARRIES IT (3 Aug, Mahesh: the
+   text underneath needs a mouse-over). It had one — the rule went 1px to 2px
+   — and a one-pixel step that arrives everywhere at once is not perceptible
+   as a response: nothing moves, so nothing answers. The gesture is now the
+   menu's own (`.menu-nav__row::after`): a rule that DRAWS from the reading
+   edge across the label's width. The resting hairline stays, so the label is
+   still visibly a link before anything is hovered.
+
+   The TRIGGER is the zone, not the link. A reader points at the photograph,
+   not at the twelve-pixel caption under it, and the picture and its name are
+   one door in the reader's mind — but only the label is focusable, so this
+   adds no link, no tab stop and no second destination, and the band's five
+   links are still five. `:focus-within` gives the keyboard exactly what the
+   mouse gets, which this file owes under the site's own rule.
+
+   Reduced motion needs no rule here: tokens.css clamps every transition to
+   0.01ms, so the rule arrives instead of drawing, and the state still reads. */
+.hm-open__labellink::after {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: -2px;
+  display: block;
+  block-size: 2px;
+  background: currentcolor;
+  transform: scaleX(0);
+
+  /* transform-origin has no logical keyword, so the drawing edge is a
+     percentage flipped by direction — the menu's own one-value flip. */
+  transform-origin: 0 50%;
+  transition: transform var(--dur-fast) var(--ease-out);
+  content: "";
+}
+
+[dir="rtl"] .hm-open__labellink::after {
+  transform-origin: 100% 50%;
+}
+
+.hm-open__zone:hover .hm-open__labellink::after,
+.hm-open__zone:focus-within .hm-open__labellink::after {
+  transform: scaleX(1);
 }
 
 .hm-open__labellink:focus-visible {
