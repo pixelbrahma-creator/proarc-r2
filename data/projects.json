@@ -403,7 +403,13 @@
       "status": "Completed",
       "imagePrefix": "Exclusive-villas",
       "images": {
-        "hero": "gallery-02"
+        "hero": "gallery-02",
+        "gallery": [
+          "gallery-01",
+          "gallery-04",
+          "gallery-05",
+          "gallery-06"
+        ]
       }
     },
     {
@@ -470,7 +476,13 @@
       "client": "Sheikh Ahmed Bin Khalid Al Mullah",
       "builtUpArea": "98,943 sq.ft.",
       "status": "Completed",
-      "year": "2016"
+      "year": "2016",
+      "images": {
+        "gallery": [
+          "gallery-02",
+          "gallery-03"
+        ]
+      }
     },
     {
       "slug": "citylifekhor",
@@ -592,7 +604,13 @@
       "client": "Sheikh Humaid bin rashid al nuaimi",
       "builtUpArea": "281,755 sq.ft",
       "status": "Completed",
-      "year": "2014"
+      "year": "2014",
+      "images": {
+        "gallery": [
+          "gallery-02",
+          "gallery-03"
+        ]
+      }
     },
     {
       "slug": "cityuniversity",
@@ -692,7 +710,12 @@
         "Emirates City D1 Towers also known as Lavender towers is a 30-story high building part of the Emirates City layout plan. Located in Ajman’s most elite residential neighborhoods making it a prime location to reside. The freehold property set strategically between two major highways makes it easily accessible for commuters. The tower consists of G+ 5 Parking+33 Typical Floors and health Club and swimming pool on the top floors. It consists of One bedroom, Two bedroom, Three bedroom and Four-bedroom apartments with different types of arrangements and configurations. The design of the building maximizes its area to provide luxurious and spacious space for the residents."
       ],
       "client": "R Holding",
-      "status": "Completed"
+      "status": "Completed",
+      "images": {
+        "gallery": [
+          "gallery-03"
+        ]
+      }
     },
     {
       "slug": "alghalamosque",

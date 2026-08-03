@@ -224,12 +224,25 @@
   inline-size: 58%;
 }
 
+/* ONE RHYTHM INSIDE THE GALLERY (H8-b, 3 Aug). The lead sat `--gap-block`
+   (24) above the row beneath it while the tiles in that same row sat
+   `--gutter-desktop` (80) apart — the lead was bound 3.3× more tightly to
+   the first row than the tiles were to each other, which is what read as
+   the two lower frames being stuck to it.
+
+   The gap and the lead's clearance are now ONE local value, so they cannot
+   drift apart at a breakpoint. It binds an existing token per breakpoint
+   rather than introducing a value: 80 / 40 / 20, stepping at this file's
+   own 1024 and 820. The gutter tokens are fixed, not responsive, so this
+   rule does not inherit a breakpoint from them. */
 .pd-gallery__rest {
+  --gallery-gap: var(--gutter-desktop);
+
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--gutter-desktop);
+  gap: var(--gallery-gap);
   align-items: start;
-  padding-block-start: var(--gap-block);
+  padding-block-start: var(--gallery-gap);
 }
 
 .pd-gallery__cell {
@@ -515,7 +528,7 @@
   }
 
   .pd-gallery__rest {
-    gap: var(--gutter-tablet);
+    --gallery-gap: var(--gutter-tablet);
   }
 
   .pd-neighbours__list {
@@ -544,8 +557,9 @@
   }
 
   .pd-gallery__rest {
+    --gallery-gap: var(--gutter-mobile);
+
     grid-template-columns: 1fr;
-    gap: var(--gutter-mobile);
   }
 
   .pd-neighbours__list {

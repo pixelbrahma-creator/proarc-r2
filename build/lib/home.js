@@ -364,12 +364,28 @@ const OPEN_BAND = [
  *   what ruled `citymalluaq` out, not the set's order), and a dusk exterior
  *   that reads as a mall where the souk's interior corridor does not.
  */
+/* 🔴 A SLOT IS NAMED, NEVER INDEXED (3 Aug, H8-c). This map held INDICES
+   into the manifest's shipping list — `{ gallery: 2 }` — which is the exact
+   fault `build/lib/images.js` was rewritten to abolish, surviving in a
+   second surface that its rewrite never reached. It fired the first time a
+   curation changed: habitatschool dropped one frame, index 2 stopped
+   existing, and the build refused.
+
+   Refusing was right, and it is also the mild version. Had the record
+   dropped a LATER slot instead, index 2 would still have resolved — onto a
+   different photograph, silently, with no error and no probe to catch it.
+   A name cannot do that: it resolves to the frame someone chose, or it
+   throws.
+
+   habitatschool now takes its HERO, and the band does not change: the frame
+   it used to name (gallery-04) was the hero's own near-twin, which is why
+   the record dropped it. */
 const OPEN_BAND_FRAME = {
-  habitatschool: { gallery: 2 },
+  habitatschool: 'hero',
   cityuniversity: 'hero',
   souksalah: 'hero',
-  ajmanbank: { gallery: 0 },
-  seasidehills: { gallery: 0 },
+  ajmanbank: { gallery: 'gallery-02' },
+  seasidehills: { gallery: 'gallery-02' },
   alghalamosque: 'hero',
 };
 
@@ -379,12 +395,20 @@ function openBandCell(db, manifest, prefix, slug) {
   if (!images) throw new Error(`home: ${slug} is not in the manifest.`);
 
   const pick = OPEN_BAND_FRAME[slug];
-  const rel = pick === 'hero' ? images.hero : (images.gallery || [])[pick.gallery];
-  if (!rel) {
-    throw new Error(
-      `home: the opening band wants gallery slot ${pick.gallery} of ${slug}, which the manifest ` +
-        'does not hold. Slots are addressed by index — a compaction re-points them (see CLAUDE.md).'
-    );
+  let rel;
+  if (pick === 'hero') {
+    rel = images.hero;
+  } else {
+    const shipping = images.gallery || [];
+    rel = shipping.find((f) => f.replace(/^.*\//, '').replace(/\.webp$/, '') === pick.gallery);
+    if (!rel) {
+      throw new Error(
+        `home: the opening band names ${pick.gallery} of ${slug}, which that record does not ship. ` +
+          `It ships ${shipping.length ? shipping.map((f) => f.replace(/^.*\//, '')).join(', ') : 'nothing'}. ` +
+          'Either the curation dropped it (data/projects.json images.gallery) or the name is wrong — ' +
+          'a band frame names a photograph, so a missing one stops the build rather than sliding onto its neighbour.'
+      );
+    }
   }
 
   const img = W.image(manifest, rel, slug, prefix);
