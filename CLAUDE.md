@@ -254,12 +254,30 @@ precedent is explicit that a drawing may show what prose may not say.
 
 **Its SVG box ends on the ground line** — the bottom pad is half the datum's
 stroke, which is all the datum needs not to be clipped. That is load-bearing:
-the beat aligns the words' last line to the bottom of that box (`align-items:
-end` in `home.css` §4), so the route links' rules and the mark's ground read as
-one horizontal, 0.03px apart, with **no offset on either side**. Restore a pad
+the beat puts the words' column and the mark's box on the same two edges
+(`align-items: stretch` + `space-between` in `home.css` §4), so the route
+links' rules and the mark's ground read as one horizontal with **no offset on
+either side**, and the sentence hangs from the drawing's apex. Restore a pad
 there and the shared datum silently becomes near-alignment. The top keeps ten
 units — the apex is a mitred point, and a miter runs past the path that closes
 it.
+
+> **H10, 3 Aug — the beat is bounded by TWO horizontals, and both are
+> asserted now.** `align-items: end` carried the ground line alone and the
+> words' 269px column fell 251px to reach it, so the reader met **519px of
+> black** after the band's last label. `stretch` + `space-between` keeps the
+> datum and adds its twin. **`--fs`-style constants govern here too: 380px is
+> the drawing's decided height and it sets the gap between the sentence and
+> its route links** — at 520 that gap is 315 and reads as two unrelated
+> things; at 270 the mark renders 95px wide. **The approach is measured ink
+> to ink**, `calc(var(--gap-section) - var(--gap-component))`, because the
+> band already ends with a tail of its own and 200 was being stacked on top
+> of it. That one is keyed at **1024, not 1025** — it subtracts the BAND's
+> tail and the band wraps at 1023, where the grid below it is keyed to the
+> MARK, which is `display:none` until 1025. **Verify with `p9-home.js`, which
+> now measures the DRAWN datum line rather than the SVG's box** — written
+> against the box it passed a beat pushed 12px off its floor, because the
+> words' column stretches to a padded box and the delta stays 0.00.
 
 Home's data comes from **`build/lib/home.js`** on the same terms: it consumes
 `records.js`, `work.js` (the plate) and `districts.js` (the marks) and derives

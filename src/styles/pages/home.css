@@ -389,19 +389,54 @@
    block-size below, so the column is whatever that leaves and the two never
    disagree about it.
 
-   THE TWO COLUMNS SHARE A GROUND LINE. `end` stands the words' last line on
-   the bottom of the mark's box, and crest.js ends that box on the drawing's
-   own datum — so the route links' rules and the mark's ground are one
-   horizontal, and the words rise from the same line the drawing stands on.
-   It is an alignment by construction, not a nudge: neither side carries an
-   offset, and a redrawn mark cannot break it.
+   THE TWO COLUMNS SHARE BOTH LINES. The ground line is the decided one
+   (2 Aug, Mahesh): crest.js ends the mark's box on the drawing's own datum,
+   so the route links' rules and the mark's ground are one horizontal, with
+   no offset on either side. Centred was the first pass and it read as two
+   objects sharing a row; the hairline that used to open the beat went with
+   it, because the ground line does the job it was drawn to do.
 
-   Centred was the first pass and it read as two objects sharing a row. The
-   hairline that used to open the beat is gone with it (2 Aug, Mahesh): it
-   bounded nothing on its right half, and the ground line does the job it
-   was drawn to do, from the side the drawing is already on. */
+   `end` used to carry that ground line ALONE, and it cost the whole void
+   above the sentence (H10, 3 Aug, Mahesh on the live page). The words'
+   column is 269px tall against a 520px drawing, so `end` dropped the text
+   251px to reach the datum: the reader met 519px of black after the band's
+   last label, and the two columns' TOP halves related to nothing.
+
+   `stretch` + `space-between` gives the beat its second horizontal instead.
+   The words now hang from the drawing's top and the route still stands on
+   the drawing's ground — the datum is unchanged and still an alignment by
+   construction, and the beat is bounded top and bottom rather than only
+   underneath. 519 → 203.
+
+   Both halves of that only work at one drawing height: at 520 the 251px
+   reappears INSIDE this column, between the sentence and its own two links.
+   The block-size below is the other half of this decision, not a separate
+   value. */
 .hm-sentence {
   padding-block: var(--gap-section) 0;
+}
+
+/* The approach is measured INK TO INK. The band ends with a tail of its own
+   — `.hm-open__band`'s `padding-block-end` — and `--gap-section` was then
+   stacked on top of it, so the reader was given 264 where the site's rhythm
+   says 200. This is the one page-local statement of that rhythm on the site
+   and it is deliberate: the band's tail is PART of the section gap here,
+   not added to it. It is still made of the tokens, so it moves when they
+   do; it does not restate their value.
+
+   🔴 1024, NOT 1025, and it is not a typo — it is H4-c's lesson applied.
+   This rule is subtracting the BAND's tail, so it is keyed where the band
+   changes, and the band wraps (losing that tail to `padding-block-end: 0`
+   and gaining a `--gap-heading` margin instead) at 1023. The grid below is
+   keyed at 1025 because it is about the MARK, which is `display: none`
+   until then. Two adjacent breakpoints, each derived from what its own rule
+   is made of. Keyed with the grid at 1025 instead, 1024 — a real iPad
+   landscape width — keeps the whole double-count on a one-pixel band and
+   the approach steps 144 → 200 → 136 across two pixels. */
+@media (min-width: 1024px) {
+  .hm-sentence {
+    padding-block-start: calc(var(--gap-section) - var(--gap-component));
+  }
 }
 
 @media (min-width: 1025px) {
@@ -409,7 +444,17 @@
     display: grid;
     grid-template-columns: 1fr auto;
     column-gap: var(--gap-component);
-    align-items: end;
+    align-items: stretch;
+  }
+
+  /* The words' column fills the row and puts its two ends on the row's two
+     edges. The sentence keeps the top, the route keeps the datum, and the
+     space between them is whatever the drawing's height leaves — which is
+     why that height is a decision and not a default. */
+  .hm-sentence__col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 }
 
@@ -433,7 +478,15 @@
 
 /* Sized by HEIGHT, never by width: the drawing's proportion is the
    portfolio's own and it changes when the data does, so pinning its width
-   would let a future count decide how tall the beat is. */
+   would let a future count decide how tall the beat is.
+
+   380 is the beat's OTHER decided number (H10, 3 Aug, Mahesh, off rendered
+   options). It is not derived and it cannot be: it sets the row's height,
+   and the row's height is the gap between the sentence and its route links
+   — 520 leaves 315 there and reads as two unrelated things, 270 aligns by
+   arithmetic but renders the mark 95px wide, an icon beside a 52px
+   sentence. Every 1px moved here is 1px moved in that gap, so move it by
+   looking at the beat, never to make another number come out round. */
 .hm-crest {
   display: none;
   color: var(--color-on-dark);
@@ -447,7 +500,7 @@
 
 .hm-crest__svg {
   display: block;
-  block-size: 520px;
+  block-size: 380px;
   inline-size: auto;
   max-inline-size: 100%;
 }
