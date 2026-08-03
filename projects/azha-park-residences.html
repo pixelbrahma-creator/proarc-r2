@@ -216,9 +216,33 @@
   <section class="pd-neighbours surface-dark" aria-labelledby="pd-neighbours-head">
     <div class="container">
       <h2 class="pd-neighbours__head t-marker" id="pd-neighbours-head">Also in Aamra</h2>
-      <ul class="pd-neighbours__list">
-        <li class="pd-neighbours__item"><a class="pd-neighbours__link" href="azhagarden.html"><img class="pd-neighbours__thumb" src="../images/projects/azhagarden/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Azha Garden Residence</span><span class="pd-neighbours__meta t-caption">Aamra, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="bluebell-residence.html"><img class="pd-neighbours__thumb" src="../images/projects/bluebell-residence/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Bluebell Residence</span><span class="pd-neighbours__meta t-caption">Aamra, Ajman · Visualisation</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="one-678.html"><img class="pd-neighbours__thumb" src="../images/projects/one-678/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">One 678</span><span class="pd-neighbours__meta t-caption">Aamra, Ajman · Visualisation</span></a></li>
-      </ul>
+      
+      <!--
+        P1-b (H7) — the relation row. Ships [hidden] and js/project.js reveals
+        it, the same contract as Work's chips: a reader without JS gets the
+        default set and never meets a control that does nothing. aria-pressed
+        is the house pattern; the selected state is weight AND fill, never
+        colour alone.
+      -->
+      <div class="pd-neighbours__relations" role="group" aria-label="Show related projects by" hidden>
+        <button class="pd-rel" type="button" aria-pressed="true" aria-controls="rel-district" data-rel="district" data-head="Also in Aamra">Aamra</button><button class="pd-rel" type="button" aria-pressed="false" aria-controls="rel-sector" data-rel="sector" data-head="More homes">Homes</button>
+      </div>
+      
+      
+      <div class="pd-neighbours__set" id="rel-district" data-rel="district">
+        <ul class="pd-neighbours__list">
+          <li class="pd-neighbours__item"><a class="pd-neighbours__link" href="azhagarden.html"><img class="pd-neighbours__thumb" src="../images/projects/azhagarden/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Azha Garden Residence</span><span class="pd-neighbours__meta t-caption">Aamra, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="bluebell-residence.html"><img class="pd-neighbours__thumb" src="../images/projects/bluebell-residence/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Bluebell Residence</span><span class="pd-neighbours__meta t-caption">Aamra, Ajman · Visualisation</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="one-678.html"><img class="pd-neighbours__thumb" src="../images/projects/one-678/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">One 678</span><span class="pd-neighbours__meta t-caption">Aamra, Ajman · Visualisation</span></a></li>
+        </ul>
+        
+      </div>
+      
+      <div class="pd-neighbours__set" id="rel-sector" data-rel="sector" hidden>
+        <ul class="pd-neighbours__list">
+          <li class="pd-neighbours__item"><a class="pd-neighbours__link" href="one-678.html"><img class="pd-neighbours__thumb" src="../images/projects/one-678/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">One 678</span><span class="pd-neighbours__meta t-caption">Aamra, Ajman · Visualisation</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="deca-035.html"><img class="pd-neighbours__thumb" src="../images/projects/deca-035/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">DECA 035 — Al Zorah Marina Residences</span><span class="pd-neighbours__meta t-caption">Al Zorah, Ajman · Visualisation</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="star-giga-tower.html"><img class="pd-neighbours__thumb" src="../images/projects/star-giga-tower/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Star Giga Tower</span><span class="pd-neighbours__meta t-caption">Emirates City, Ajman · Visualisation</span></a></li>
+        </ul>
+        <p class="pd-neighbours__rest"><a class="pd-neighbours__restlink t-meta-value" href="../projects/homes.html">All homes <span aria-hidden="true">&rarr;</span></a></p>
+      </div>
+      
     </div>
   </section>
   

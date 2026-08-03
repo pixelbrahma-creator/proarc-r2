@@ -214,9 +214,33 @@
   <section class="pd-neighbours surface-dark" aria-labelledby="pd-neighbours-head">
     <div class="container">
       <h2 class="pd-neighbours__head t-marker" id="pd-neighbours-head">Also in Al Tallah</h2>
-      <ul class="pd-neighbours__list">
-        <li class="pd-neighbours__item"><a class="pd-neighbours__link" href="edu-habitataltallah.html"><img class="pd-neighbours__thumb" src="../images/projects/edu-habitataltallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Habitat School, Al Tallah</span><span class="pd-neighbours__meta t-caption">Al Tallah, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="marksavealtallah.html"><img class="pd-neighbours__thumb" src="../images/projects/marksavealtallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Mark &amp; Save, Al Tallah</span><span class="pd-neighbours__meta t-caption">Al Tallah, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="citylifealtallah.html"><img class="pd-neighbours__thumb" src="../images/projects/citylifealtallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">City Life, Al Tallah</span><span class="pd-neighbours__meta t-caption">Al Tallah, Ajman</span></a></li>
-      </ul>
+      
+      <!--
+        P1-b (H7) — the relation row. Ships [hidden] and js/project.js reveals
+        it, the same contract as Work's chips: a reader without JS gets the
+        default set and never meets a control that does nothing. aria-pressed
+        is the house pattern; the selected state is weight AND fill, never
+        colour alone.
+      -->
+      <div class="pd-neighbours__relations" role="group" aria-label="Show related projects by" hidden>
+        <button class="pd-rel" type="button" aria-pressed="true" aria-controls="rel-district" data-rel="district" data-head="Also in Al Tallah">Al Tallah</button><button class="pd-rel" type="button" aria-pressed="false" aria-controls="rel-sector" data-rel="sector" data-head="More schools">Schools</button>
+      </div>
+      
+      
+      <div class="pd-neighbours__set" id="rel-district" data-rel="district">
+        <ul class="pd-neighbours__list">
+          <li class="pd-neighbours__item"><a class="pd-neighbours__link" href="edu-habitataltallah.html"><img class="pd-neighbours__thumb" src="../images/projects/edu-habitataltallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Habitat School, Al Tallah</span><span class="pd-neighbours__meta t-caption">Al Tallah, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="marksavealtallah.html"><img class="pd-neighbours__thumb" src="../images/projects/marksavealtallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Mark &amp; Save, Al Tallah</span><span class="pd-neighbours__meta t-caption">Al Tallah, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="citylifealtallah.html"><img class="pd-neighbours__thumb" src="../images/projects/citylifealtallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">City Life, Al Tallah</span><span class="pd-neighbours__meta t-caption">Al Tallah, Ajman</span></a></li>
+        </ul>
+        <p class="pd-neighbours__rest"><a class="pd-neighbours__restlink t-meta-value" href="../ajman.html#district-al-tallah">All of Al Tallah <span aria-hidden="true">&rarr;</span></a></p>
+      </div>
+      
+      <div class="pd-neighbours__set" id="rel-sector" data-rel="sector" hidden>
+        <ul class="pd-neighbours__list">
+          <li class="pd-neighbours__item"><a class="pd-neighbours__link" href="cityschool.html"><img class="pd-neighbours__thumb" src="../images/projects/cityschool/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">City School</span><span class="pd-neighbours__meta t-caption">Al Tallah, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="habitatschool.html"><img class="pd-neighbours__thumb" src="../images/projects/habitatschool/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Habitat School</span><span class="pd-neighbours__meta t-caption">Al Jurf, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="cityuniversity.html"><img class="pd-neighbours__thumb" src="../images/projects/cityuniversity/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">City University Campus</span><span class="pd-neighbours__meta t-caption">Ajman</span></a></li>
+        </ul>
+        <p class="pd-neighbours__rest"><a class="pd-neighbours__restlink t-meta-value" href="../projects/schools.html">All schools <span aria-hidden="true">&rarr;</span></a></p>
+      </div>
+      
     </div>
   </section>
   

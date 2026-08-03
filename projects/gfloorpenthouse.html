@@ -214,9 +214,33 @@
   <section class="pd-neighbours surface-dark" aria-labelledby="pd-neighbours-head">
     <div class="container">
       <h2 class="pd-neighbours__head t-marker" id="pd-neighbours-head">Also in Al Zorah</h2>
-      <ul class="pd-neighbours__list">
-        <li class="pd-neighbours__item"><a class="pd-neighbours__link" href="seasidehills.html"><img class="pd-neighbours__thumb" src="../images/projects/seasidehills/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Seaside Hills Residence</span><span class="pd-neighbours__meta t-caption">Al Zorah, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="exclusivevillas.html"><img class="pd-neighbours__thumb" src="../images/projects/exclusivevillas/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Exclusive Villas</span><span class="pd-neighbours__meta t-caption">Al Zorah, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="sealine.html"><img class="pd-neighbours__thumb" src="../images/projects/sealine/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Sealine Residences</span><span class="pd-neighbours__meta t-caption">Al Zorah, Ajman</span></a></li>
-      </ul>
+      
+      <!--
+        P1-b (H7) — the relation row. Ships [hidden] and js/project.js reveals
+        it, the same contract as Work's chips: a reader without JS gets the
+        default set and never meets a control that does nothing. aria-pressed
+        is the house pattern; the selected state is weight AND fill, never
+        colour alone.
+      -->
+      <div class="pd-neighbours__relations" role="group" aria-label="Show related projects by" hidden>
+        <button class="pd-rel" type="button" aria-pressed="true" aria-controls="rel-district" data-rel="district" data-head="Also in Al Zorah">Al Zorah</button><button class="pd-rel" type="button" aria-pressed="false" aria-controls="rel-sector" data-rel="sector" data-head="More homes">Homes</button>
+      </div>
+      
+      
+      <div class="pd-neighbours__set" id="rel-district" data-rel="district">
+        <ul class="pd-neighbours__list">
+          <li class="pd-neighbours__item"><a class="pd-neighbours__link" href="seasidehills.html"><img class="pd-neighbours__thumb" src="../images/projects/seasidehills/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Seaside Hills Residence</span><span class="pd-neighbours__meta t-caption">Al Zorah, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="exclusivevillas.html"><img class="pd-neighbours__thumb" src="../images/projects/exclusivevillas/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Exclusive Villas</span><span class="pd-neighbours__meta t-caption">Al Zorah, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="sealine.html"><img class="pd-neighbours__thumb" src="../images/projects/sealine/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Sealine Residences</span><span class="pd-neighbours__meta t-caption">Al Zorah, Ajman</span></a></li>
+        </ul>
+        <p class="pd-neighbours__rest"><a class="pd-neighbours__restlink t-meta-value" href="../ajman.html#district-al-zorah">All of Al Zorah <span aria-hidden="true">&rarr;</span></a></p>
+      </div>
+      
+      <div class="pd-neighbours__set" id="rel-sector" data-rel="sector" hidden>
+        <ul class="pd-neighbours__list">
+          <li class="pd-neighbours__item"><a class="pd-neighbours__link" href="exclusivevillas.html"><img class="pd-neighbours__thumb" src="../images/projects/exclusivevillas/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Exclusive Villas</span><span class="pd-neighbours__meta t-caption">Al Zorah, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="gateway.html"><img class="pd-neighbours__thumb" src="../images/projects/gateway/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Gateway Residences</span><span class="pd-neighbours__meta t-caption">Marina &amp; Creek, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="sealine.html"><img class="pd-neighbours__thumb" src="../images/projects/sealine/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Sealine Residences</span><span class="pd-neighbours__meta t-caption">Al Zorah, Ajman</span></a></li>
+        </ul>
+        <p class="pd-neighbours__rest"><a class="pd-neighbours__restlink t-meta-value" href="../projects/homes.html">All homes <span aria-hidden="true">&rarr;</span></a></p>
+      </div>
+      
     </div>
   </section>
   

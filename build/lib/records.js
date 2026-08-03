@@ -14,6 +14,9 @@
 const fs = require('fs');
 const path = require('path');
 const { resolveDistrict } = require('./districts');
+// P1-b: the district tail link anchors into /ajman's ledger, whose block keys
+// come from this same slugifier — one implementation, so the two cannot drift.
+const { slugify } = require('./slugify');
 
 const ROOT = path.join(__dirname, '..', '..');
 const geo = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'districts.json'), 'utf8'));
@@ -335,40 +338,104 @@ function markerName(name) {
   return name.replace(/\s*\([^)]*\)\s*$/, '').trim() || name;
 }
 
-function neighbours(project, all) {
-  const self = project.slug;
+/** The rail's decided geometry: three across, one row. Not a cap on what the
+ *  reader can reach — a relation with more than three carries a tail link to
+ *  the surface that holds all of them (see `more` below). */
+const SHOWN = 3;
 
-  const sameClient = clientKey(project)
-    ? all.filter((p) => p.slug !== self && clientKey(p) === clientKey(project))
-    : [];
-  if (sameClient.length) {
-    const variants = [project, ...sameClient].map((p) => p.client);
-    return { head: `Also for ${markerName(canonicalClient(variants))}`, records: sameClient.slice(0, 3) };
+/**
+ * P1-b (H7, 3 Aug) — EVERY relation this record holds, not the first one.
+ *
+ * §7 used to read "one relation per page, first match wins". Measured, that
+ * discarded 579 of 704 reachable related records and produced both faults
+ * Mahesh reported: 11 short rails, and SEVEN CLOSED GROUPS whose members only
+ * ever show each other (the four City Lifes, the four offices, Al Zorah,
+ * Aamra, Al Jurf, Emirates City, READ). A reader inside one could not get out
+ * through the rail — it was a trap, not a door.
+ *
+ * ORDER IS UNCHANGED — client, then district, then sector — so `relations[0]`
+ * is byte-for-byte what the page shipped before, and the default view cannot
+ * regress. Everything after it is new reach.
+ *
+ * 🔴 THREE ACROSS, NOT SIX. Mahesh asked for more where the relation is big.
+ * Measured, "big" only ever means district (max 5) and sector (max 15) —
+ * a client set never exceeds three, so it could never have paid. Six
+ * thumbnails in two rows would be a **grid of identical cards**, which the
+ * structural rules bar outright, and six of fifteen is still arbitrary
+ * truncation. So a large relation keeps its three and gains a TAIL LINK to
+ * the surface that already holds the whole set — the sector page, or
+ * /ajman's ledger for a district. The reader reaches all fifteen, not six.
+ */
+function relationsFor(project, all) {
+  const self = project.slug;
+  const out = [];
+
+  const ck = clientKey(project);
+  if (ck) {
+    const m = all.filter((p) => p.slug !== self && clientKey(p) === ck);
+    if (m.length) {
+      const name = markerName(canonicalClient([project, ...m].map((p) => p.client)));
+      // No tail link: a client set is at most three, so there is never a rest.
+      out.push({ key: 'client', label: name, head: `Also for ${name}`, members: m, more: null });
+    }
   }
 
   const district = districtOf(project);
   if (district) {
-    const sameDistrict = all.filter((p) => p.slug !== self && districtOf(p) === district);
-    if (sameDistrict.length) {
-      return { head: `Also in ${district}`, records: sameDistrict.slice(0, 3) };
+    const m = all.filter((p) => p.slug !== self && districtOf(p) === district);
+    if (m.length) {
+      out.push({
+        key: 'district',
+        label: district,
+        head: `Also in ${district}`,
+        members: m,
+        // The ledger is grouped by district and each block is anchored.
+        more: { href: `ajman.html#district-${slugify(district)}`, label: `All of ${district}` },
+      });
     }
   }
 
   const key = sectorKey(project);
   const sector = SECTORS[key];
-  if (!sector.more) return null; // the mosque: a name, not a set
-
-  // Rotation by position in the set, so no two pages of a sector show the
-  // same three and a rebuild produces the same page (v4 §8.7). Nothing
-  // random — these are static files.
-  const members = all.filter((p) => sectorKey(p) === key);
-  const i = members.findIndex((p) => p.slug === self);
-  const rotated = [];
-  for (let n = 1; n < members.length && rotated.length < 3; n++) {
-    rotated.push(members[(i + n) % members.length]);
+  if (sector.more) {
+    // Rotation by position in the set, so no two pages of a sector open on
+    // the same three and a rebuild produces the same page (v4 §8.7).
+    const members = all.filter((p) => sectorKey(p) === key);
+    const i = members.findIndex((p) => p.slug === self);
+    const rotated = [];
+    for (let n = 1; n < members.length; n++) rotated.push(members[(i + n) % members.length]);
+    if (rotated.length) {
+      out.push({
+        key: 'sector',
+        label: sector.noun,
+        head: sector.more,
+        members: rotated,
+        // `works` has no sector page under the five-built rule, and its set is
+        // three, so it needs no tail link either.
+        more: sector.page ? { href: sector.page, label: `All ${sector.noun.toLowerCase()}` } : null,
+      });
+    }
   }
-  if (!rotated.length) return null;
-  return { head: sector.more, records: rotated };
+
+  return out;
+}
+
+function neighbours(project, all) {
+  const relations = relationsFor(project, all);
+  if (!relations.length) return null; // the mosque: a name, not a set
+
+  const shaped = relations.map((r) => ({
+    key: r.key,
+    label: r.label,
+    head: r.head,
+    total: r.members.length,
+    records: r.members.slice(0, SHOWN),
+    more: r.members.length > SHOWN ? r.more : null,
+  }));
+
+  // head/records keep the pre-P1-b shape so nothing downstream has to know
+  // about relations to render the default view.
+  return { relations: shaped, head: shaped[0].head, records: shaped[0].records };
 }
 
 /* ------------------------------------------------------------------ *

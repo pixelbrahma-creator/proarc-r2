@@ -317,6 +317,74 @@
   margin: 0 0 var(--gap-heading);
 }
 
+/* ---- P1-b — the relation row (H7, 3 Aug) ----
+
+   The rail used to show ONE relation, first match wins, and that discarded
+   579 of the 704 related records the set actually holds. Worse, it produced
+   seven closed groups whose members only ever showed each other — a reader
+   inside the four City Lifes could not leave through the rail.
+
+   The row sits between the marker and the thumbnails, which is where MVRDV
+   puts its own filter row. It ships `hidden` and js/project.js reveals it,
+   so a no-JS reader gets the default set and never meets a dead control.
+
+   Squared, uppercase, caption-scale — Work's chip vocabulary, restated for
+   the dark ground rather than inherited from it (E2: dark roles are assigned,
+   never derived by inverting the light ones). */
+.pd-neighbours__relations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-inline);
+  margin-block-end: var(--gap-heading);
+}
+
+.pd-rel {
+  padding: var(--gap-inline) var(--gap-tight);
+  border: 1px solid var(--color-on-dark);
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-caption);
+  text-transform: uppercase;
+  color: var(--color-on-dark);
+  border-radius: 0;
+  cursor: pointer;
+}
+
+/* State is FILL plus WEIGHT, and aria-pressed carries it for the machine.
+   Never colour alone — and on this ground there is no colour to reach for. */
+.pd-rel[aria-pressed="true"] {
+  background: var(--color-on-dark);
+  font-weight: var(--fw-bold);
+  color: var(--color-ink);
+}
+
+.pd-rel:focus-visible {
+  outline: 2px solid var(--color-on-dark);
+  outline-offset: 2px;
+}
+
+/* The tail link for a relation the rail cannot hold. Three across is the
+   decided geometry and six thumbnails in two rows would be a grid of
+   identical cards, so a large relation keeps its three and points at the
+   surface that holds all of them. */
+.pd-neighbours__rest {
+  margin: var(--gap-block) 0 0;
+}
+
+.pd-neighbours__restlink {
+  color: var(--color-on-dark);
+  text-decoration: none;
+  border-block-end: 1px solid var(--color-on-dark);
+  padding-block-end: 2px;
+}
+
+.pd-neighbours__restlink:hover,
+.pd-neighbours__restlink:focus-visible {
+  font-weight: var(--fw-bold);
+}
+
 .pd-neighbours__list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

@@ -214,9 +214,33 @@
   <section class="pd-neighbours surface-dark" aria-labelledby="pd-neighbours-head">
     <div class="container">
       <h2 class="pd-neighbours__head t-marker" id="pd-neighbours-head">Also for R Holding</h2>
-      <ul class="pd-neighbours__list">
-        <li class="pd-neighbours__item"><a class="pd-neighbours__link" href="blacksquare.html"><img class="pd-neighbours__thumb" src="../images/projects/blacksquare/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">The Black Square</span><span class="pd-neighbours__meta t-caption">Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="emiratescity.html"><img class="pd-neighbours__thumb" src="../images/projects/emiratescity/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Emirates City D1 Tower</span><span class="pd-neighbours__meta t-caption">Emirates City, Ajman</span></a></li>
-      </ul>
+      
+      <!--
+        P1-b (H7) — the relation row. Ships [hidden] and js/project.js reveals
+        it, the same contract as Work's chips: a reader without JS gets the
+        default set and never meets a control that does nothing. aria-pressed
+        is the house pattern; the selected state is weight AND fill, never
+        colour alone.
+      -->
+      <div class="pd-neighbours__relations" role="group" aria-label="Show related projects by" hidden>
+        <button class="pd-rel" type="button" aria-pressed="true" aria-controls="rel-client" data-rel="client" data-head="Also for R Holding">R Holding</button><button class="pd-rel" type="button" aria-pressed="false" aria-controls="rel-sector" data-rel="sector" data-head="More offices">Offices</button>
+      </div>
+      
+      
+      <div class="pd-neighbours__set" id="rel-client" data-rel="client">
+        <ul class="pd-neighbours__list">
+          <li class="pd-neighbours__item"><a class="pd-neighbours__link" href="blacksquare.html"><img class="pd-neighbours__thumb" src="../images/projects/blacksquare/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">The Black Square</span><span class="pd-neighbours__meta t-caption">Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="emiratescity.html"><img class="pd-neighbours__thumb" src="../images/projects/emiratescity/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Emirates City D1 Tower</span><span class="pd-neighbours__meta t-caption">Emirates City, Ajman</span></a></li>
+        </ul>
+        
+      </div>
+      
+      <div class="pd-neighbours__set" id="rel-sector" data-rel="sector" hidden>
+        <ul class="pd-neighbours__list">
+          <li class="pd-neighbours__item"><a class="pd-neighbours__link" href="blacksquare.html"><img class="pd-neighbours__thumb" src="../images/projects/blacksquare/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">The Black Square</span><span class="pd-neighbours__meta t-caption">Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="ajmanbank.html"><img class="pd-neighbours__thumb" src="../images/projects/ajmanbank/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Ajman Bank Headquarters</span><span class="pd-neighbours__meta t-caption">Ajman</span></a></li>
+        </ul>
+        
+      </div>
+      
     </div>
   </section>
   

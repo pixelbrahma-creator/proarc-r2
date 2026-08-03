@@ -71,3 +71,76 @@
 
   observer.observe(rail);
 })();
+
+/* =========================================================================
+   P1-b — the relation row (H7, 3 Aug).
+
+   The rail holds every relation the record has (client, district, sector);
+   relations[0] is rendered visible and the rest are rendered `hidden`. This
+   file's whole job is to reveal the row and swap which set is showing.
+
+   ENHANCEMENT ONLY, the same contract as the marker above it and as Work's
+   chips: the row itself ships `hidden`, so a reader without this file sees
+   exactly the pre-P1-b page — the default relation, complete and linked —
+   and never meets a control that does nothing.
+
+   🔴 The marker is the label, not decoration. Switching relation rewrites the
+   heading and REPLAYS THE WIPE, which is why P1-b needed no new mechanism:
+   P2-b already built one and it had no reason to fire twice until now.
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  var rail = document.querySelector('.pd-neighbours');
+  if (!rail) return;
+
+  var row = rail.querySelector('.pd-neighbours__relations');
+  var head = rail.querySelector('.pd-neighbours__head');
+  if (!row || !head) return; // one relation: no choice to offer, no row shipped
+
+  var buttons = [].slice.call(row.querySelectorAll('.pd-rel'));
+  var sets = [].slice.call(rail.querySelectorAll('.pd-neighbours__set'));
+  if (buttons.length < 2 || !sets.length) return;
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  row.hidden = false;
+
+  function select(key) {
+    var already = false;
+
+    buttons.forEach(function (b) {
+      var on = b.getAttribute('data-rel') === key;
+      if (on && b.getAttribute('aria-pressed') === 'true') already = true;
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    if (already) return;
+
+    sets.forEach(function (s) {
+      s.hidden = s.getAttribute('data-rel') !== key;
+    });
+
+    var chosen = null;
+    for (var i = 0; i < buttons.length; i++) {
+      if (buttons[i].getAttribute('data-rel') === key) { chosen = buttons[i]; break; }
+    }
+    if (!chosen) return;
+
+    head.textContent = chosen.getAttribute('data-head') || head.textContent;
+
+    /* Redraw. Under reduced motion the text simply changes — arming here
+       would clip the heading to nothing and never release it, which is the
+       exact failure the reveal above refuses for the same reason. */
+    if (reduce && reduce.matches) return;
+
+    rail.classList.add('pd-neighbours--armed');
+    void rail.offsetHeight; /* commit the clip in its own pass, or it snaps */
+    rail.classList.remove('pd-neighbours--armed');
+  }
+
+  row.addEventListener('click', function (e) {
+    var btn = e.target.closest ? e.target.closest('.pd-rel') : null;
+    if (!btn || !row.contains(btn)) return;
+    select(btn.getAttribute('data-rel'));
+  });
+})();

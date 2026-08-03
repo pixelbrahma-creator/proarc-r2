@@ -210,9 +210,33 @@
   <section class="pd-neighbours surface-dark" aria-labelledby="pd-neighbours-head">
     <div class="container">
       <h2 class="pd-neighbours__head t-marker" id="pd-neighbours-head">Also in Al Jurf</h2>
-      <ul class="pd-neighbours__list">
-        <li class="pd-neighbours__item"><a class="pd-neighbours__link" href="marksavealjurf.html"><img class="pd-neighbours__thumb" src="../images/projects/marksavealjurf/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Mark &amp; Save, Al Jurf</span><span class="pd-neighbours__meta t-caption">Al Jurf, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="royalfurniture.html"><img class="pd-neighbours__thumb" src="../images/projects/royalfurniture/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Royal Furniture</span><span class="pd-neighbours__meta t-caption">Al Jurf, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="habitatschool.html"><img class="pd-neighbours__thumb" src="../images/projects/habitatschool/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Habitat School</span><span class="pd-neighbours__meta t-caption">Al Jurf, Ajman</span></a></li>
-      </ul>
+      
+      <!--
+        P1-b (H7) — the relation row. Ships [hidden] and js/project.js reveals
+        it, the same contract as Work's chips: a reader without JS gets the
+        default set and never meets a control that does nothing. aria-pressed
+        is the house pattern; the selected state is weight AND fill, never
+        colour alone.
+      -->
+      <div class="pd-neighbours__relations" role="group" aria-label="Show related projects by" hidden>
+        <button class="pd-rel" type="button" aria-pressed="true" aria-controls="rel-district" data-rel="district" data-head="Also in Al Jurf">Al Jurf</button><button class="pd-rel" type="button" aria-pressed="false" aria-controls="rel-sector" data-rel="sector" data-head="More schools">Schools</button>
+      </div>
+      
+      
+      <div class="pd-neighbours__set" id="rel-district" data-rel="district">
+        <ul class="pd-neighbours__list">
+          <li class="pd-neighbours__item"><a class="pd-neighbours__link" href="marksavealjurf.html"><img class="pd-neighbours__thumb" src="../images/projects/marksavealjurf/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Mark &amp; Save, Al Jurf</span><span class="pd-neighbours__meta t-caption">Al Jurf, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="royalfurniture.html"><img class="pd-neighbours__thumb" src="../images/projects/royalfurniture/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Royal Furniture</span><span class="pd-neighbours__meta t-caption">Al Jurf, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="habitatschool.html"><img class="pd-neighbours__thumb" src="../images/projects/habitatschool/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Habitat School</span><span class="pd-neighbours__meta t-caption">Al Jurf, Ajman</span></a></li>
+        </ul>
+        <p class="pd-neighbours__rest"><a class="pd-neighbours__restlink t-meta-value" href="../ajman.html#district-al-jurf">All of Al Jurf <span aria-hidden="true">&rarr;</span></a></p>
+      </div>
+      
+      <div class="pd-neighbours__set" id="rel-sector" data-rel="sector" hidden>
+        <ul class="pd-neighbours__list">
+          <li class="pd-neighbours__item"><a class="pd-neighbours__link" href="edu-ajmanamerican.html"><img class="pd-neighbours__thumb" src="../images/projects/edu-ajmanamerican/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Ajman American School</span><span class="pd-neighbours__meta t-caption">Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="edu-habitataltallah.html"><img class="pd-neighbours__thumb" src="../images/projects/edu-habitataltallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Habitat School, Al Tallah</span><span class="pd-neighbours__meta t-caption">Al Tallah, Ajman</span></a></li><li class="pd-neighbours__item"><a class="pd-neighbours__link" href="edu-delhiprivate.html"><img class="pd-neighbours__thumb" src="../images/projects/edu-delhiprivate/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="pd-neighbours__name t-meta-value">Delhi Private School</span><span class="pd-neighbours__meta t-caption">Ajman</span></a></li>
+        </ul>
+        <p class="pd-neighbours__rest"><a class="pd-neighbours__restlink t-meta-value" href="../projects/schools.html">All schools <span aria-hidden="true">&rarr;</span></a></p>
+      </div>
+      
     </div>
   </section>
   

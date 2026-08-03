@@ -195,17 +195,34 @@ function main() {
       provenanceLine: provenance && gallery.length ? `${provenance}s.` : '',
       hasNeighbours: !!neighbours,
       neighboursHead: neighbours ? escapeText(neighbours.head) : '',
-      neighbours: neighbours
-        ? neighbours.records.map((n) => {
-            const t = manifest.projects[n.slug] || {};
-            const p = R.provenance(n);
-            return {
-              href: `${n.slug}.html`,
-              thumb: ASSET_PREFIX + t.thumb,
-              title: escapeText(n.title),
-              meta: escapeText(p ? `${R.displayLocation(n)} · ${p}` : R.displayLocation(n)),
-            };
-          })
+      // P1-b (H7): every relation the record holds, each with its own set.
+      // relations[0] is the pre-P1-b default and is the one rendered visible;
+      // the rest ship rendered-and-hidden so a no-JS reader gets exactly the
+      // old page and never meets a control that does nothing.
+      hasRelationChoice: !!neighbours && neighbours.relations.length > 1,
+      relations: neighbours
+        ? neighbours.relations.map((rel, i) => ({
+            relKey: rel.key,
+            relLabel: escapeText(rel.label),
+            relHead: escapeText(rel.head),
+            relFirst: i === 0,
+            relHidden: i === 0 ? '' : ' hidden',
+            relSelected: i === 0 ? 'true' : 'false',
+            relTabIndex: i === 0 ? '0' : '-1',
+            hasMore: !!rel.more,
+            moreHref: rel.more ? ASSET_PREFIX + rel.more.href : '',
+            moreLabel: rel.more ? escapeText(rel.more.label) : '',
+            records: rel.records.map((n) => {
+              const t = manifest.projects[n.slug] || {};
+              const p = R.provenance(n);
+              return {
+                href: `${n.slug}.html`,
+                thumb: ASSET_PREFIX + t.thumb,
+                title: escapeText(n.title),
+                meta: escapeText(p ? `${R.displayLocation(n)} · ${p}` : R.displayLocation(n)),
+              };
+            }),
+          }))
         : [],
       ctaSentence: escapeText(R.ctaSentence(project)),
       // The project travels in the link; contact's canonical stays /contact
