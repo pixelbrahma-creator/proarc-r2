@@ -14,7 +14,9 @@
 
     "_why_a_rough_one_is_safe_where_a_TRUE_one_was_not": "Session VIII refused to draw a real coastline, and the reason was never that a coast is hard to get — it is that a REAL coast under PLACEHOLDER cluster centres turns every one of those centres into a coordinate claim, and the page becomes more wrong for being more real. A rough coast does not do that: it is invented, the marks are invented, and the two are honest about each other. This is board 12's own footer applied consistently — 'map geometry is invented and labelled as such'. If this line is ever replaced with sourced geometry, the ten `centre` values have to land in the same pass, and ODbL attribution becomes due at that moment.",
 
-    "_shape": "The Gulf lies north-west, so the shore runs roughly north-east to south-west down the left of the field with the city inland of it. Placed against the MARKS as built, never against the authored centres — jitter moves a mark up to 30 units off its centre, so the centres are not where the drawing actually is. Measured clearances on the shipped path: Al Zorah's northernmost mark 25.3 units, then 31.3 and 37.3 for the rest of that cluster, Marina & Creek 45.8, Al Khor 60.5 — and the tightest LABEL, Marina & Creek, 29.0. Labels sit 26 units below their cluster and run about 52 wide, so they bind harder than the dots and are what the shape was fitted to. Al Zorah sitting closest is correct rather than tight: it is the coastal development.",
+    "_shape": "The Gulf lies north-west, so the shore runs roughly north-east to south-west down the left of the field with the city inland of it. Placed against the MARKS as built, never against the authored centres — jitter moves a mark up to 30 units off its centre, so the centres are not where the drawing actually is. Al Zorah sitting closest is correct rather than tight: it is the coastal development.",
+
+    "_clearances": "Re-measured 4 Aug 2026, after scatter.minSeparation moved every mark. THE SHORE IS NOW A CONSTRAINT ON THE SCATTER, not just a line the scatter was fitted around: build/lib/districts.js clears every mark of this path by the same minSeparation it clears marks of each other, so these numbers are now MAINTAINED rather than achieved once. That change caught its own need — the separation rule alone had pushed Al Zorah's cluster to 7.1 units off the water, and a mark's radius is 8.75 units at the narrowest band, so the dot would have crossed the line it was being measured against. Marks: Al Zorah 23.6, Al Khor 31.2, Marina & Creek 68.4, everything else past 150. Labels, which sit 26 units below their cluster and run about 52 wide: Al Khor 21.7, Marina & Creek 53.4, Al Zorah 63.6. The labels are NOT constrained in code — they are derived in build/lib/ajman.js from the marks, so they move when the marks do and this line is the record of where they landed. Re-measure it when the path is fine-tuned.",
 
     "_deliberately_absent": "No creek and no Emirate outline. The creek cannot be routed between the Al Khor and Marina & Creek labels without running through one of them — the corridor between them is about 18 units and a stroke plus clearance does not fit — and OSM carries no named waterway for it to be checked against. An Emirate outline is a BOUNDARY, and §3.2 is explicit that an invented boundary looks exactly like a real one to whoever is judging it. Both wait for the fine-tune pass, and both are cheaper once the client has reacted to the shape.",
 
@@ -23,9 +25,14 @@
 
   "scatter": {
     "_what": "How a district's n records are spread around its centre. Deterministic — a seeded generator, never Math.random() — so a rebuild is byte-stable and a diff means the data moved.",
+
+    "_minSeparation": "TWO MARKS ARE TWO BUILDINGS, so they have to be countable (Mahesh, 4 Aug 2026 — three pairs in Al Jurf had merged into single blobs, the closest 3.2 units apart). This is the floor on the distance between ANY two marks, across districts as well as within one, and it is in USER UNITS while the fault it prevents is in SCREEN pixels: the mark is a true 5px at every width (E7.1), so the drawing scales under it and the ≤639 band renders a unit at 320/560 = 0.571px. A 10px dot therefore needs 10 ÷ 0.571 = 17.5 units just to stop overlapping there, and 17.5 is a knife-edge of the kind the coast dash already taught this file to distrust. 20 buys a 1.6px gap at the narrowest band and 7.3px at desktop. It is NOT raised further: at 24 a label anchor lands 9.2 units from another district's mark and the names start belonging to the wrong dots, which is a worse fault than a tight gap. Measured, not guessed — the table is in the 4 Aug session record.",
+    "_whyNotABiggerMap": "Because no width fixes 3.2 units. Ten screen pixels of clearance at that separation needs the field drawn 1,770px wide. The overlap was in the generator, not in the size.",
+
     "seed": 9,
     "jitterX": 30,
     "jitterY": 26,
+    "minSeparation": 20,
     "radius": 3.5
   },
 

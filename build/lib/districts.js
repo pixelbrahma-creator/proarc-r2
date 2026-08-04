@@ -45,21 +45,26 @@ function decodeEntities(str) {
 }
 
 /**
- * The length of an `M … C … C …` path, by sampling. Only the two commands
- * the shoreline uses are handled, and ANYTHING ELSE THROWS rather than
- * returning a plausible number — a short length silently under-draws the
- * coast and leaves a stub on the page, which looks like a design decision
- * rather than a parse failure. Same doctrine as services.js refusing an
- * unrecognised level (E3.7): a parser that shrugs draws the wrong thing.
+ * An `M … C … C …` path as a dense polyline. Only the two commands the
+ * shoreline uses are handled, and ANYTHING ELSE THROWS rather than returning
+ * a plausible answer — a short length silently under-draws the coast and
+ * leaves a stub on the page, which looks like a design decision rather than a
+ * parse failure. Same doctrine as services.js refusing an unrecognised level
+ * (E3.7): a parser that shrugs draws the wrong thing.
  *
  * 240 samples per curve is far past the point where the polyline stops
  * getting longer at 0.1-unit resolution on a path this size.
+ *
+ * TWO CALLERS, ONE PARSER, and that is the point: the draw needs the path's
+ * LENGTH and the scatter needs its POSITION, and a second walker written for
+ * the second question is how a mark ends up cleared against a shoreline that
+ * is not the one being drawn.
  */
-function pathLength(d) {
+function samplePath(d) {
   const tokens = String(d).trim().split(/[\s,]+/);
   let i = 0;
   let cur = null;
-  let total = 0;
+  const points = [];
 
   const num = () => {
     const v = parseFloat(tokens[i++]);
@@ -71,22 +76,20 @@ function pathLength(d) {
     const cmd = tokens[i++];
     if (cmd === 'M') {
       cur = [num(), num()];
+      points.push(cur);
     } else if (cmd === 'C') {
       if (!cur) throw new Error('districts: coast path begins with a curve and no M');
       const p0 = cur;
       const p1 = [num(), num()];
       const p2 = [num(), num()];
       const p3 = [num(), num()];
-      let prev = p0;
       for (let s = 1; s <= 240; s++) {
         const t = s / 240;
         const u = 1 - t;
-        const pt = [
+        points.push([
           u * u * u * p0[0] + 3 * u * u * t * p1[0] + 3 * u * t * t * p2[0] + t * t * t * p3[0],
           u * u * u * p0[1] + 3 * u * u * t * p1[1] + 3 * u * t * t * p2[1] + t * t * t * p3[1],
-        ];
-        total += Math.hypot(pt[0] - prev[0], pt[1] - prev[1]);
-        prev = pt;
+        ]);
       }
       cur = p3;
     } else {
@@ -95,6 +98,15 @@ function pathLength(d) {
           'Only M and C are supported — add the command here rather than letting the draw be mis-timed.'
       );
     }
+  }
+  return points;
+}
+
+function pathLength(d) {
+  const points = samplePath(d);
+  let total = 0;
+  for (let i = 1; i < points.length; i++) {
+    total += Math.hypot(points[i][0] - points[i - 1][0], points[i][1] - points[i - 1][1]);
   }
   /* 🔴 A MARGIN, AND IT IS NOT SLACK. `vector-effect: non-scaling-stroke`
      makes the dash pattern resolve in SCREEN pixels while this number is in
@@ -159,6 +171,66 @@ function mulberry32(seed) {
   };
 }
 
+/* How far a mark must stay from the edge of the field, in user units. The
+   mark is a true 5px radius and the narrowest band draws a unit at 0.571px,
+   so 5px is 8.75 units there — a mark inside 8.75 of the edge is CLIPPED at
+   that band and whole everywhere else, which reads as a design decision
+   rather than as a fault. 10 covers it with room. */
+const EDGE_PAD = 10;
+
+/* Rejection sampling, and the two constants that make it terminate.
+   The authored jitter box holds most clusters at the authored separation;
+   Al Jurf's six marks do not fit in 60×52 at 20 units apart, so after
+   TRIES_PER_BOX failures the box grows by GROWTH_STEP and the search widens.
+   Growth is per-ATTEMPT and never persisted: a one-mark district never grows,
+   and a crowded one grows only as far as its own crowding demands (Al Jurf
+   reaches ×1.10 today, nothing else leaves ×1.00). */
+const TRIES_PER_BOX = 60;
+const GROWTH_STEP = 0.05;
+const MAX_TRIES = 20000;
+
+/**
+ * One mark's position — jittered off its district's centre, then REJECTED and
+ * re-drawn until it is at least `minSeparation` from every mark already down.
+ *
+ * 🔴 THE TEST IS ON THE ROUNDED COORDINATES, which is not a detail. Positions
+ * ship as integers, so a pair accepted at 20.01 and then rounded can land at
+ * 19.4 — the check has to run on the numbers that reach the page, not on the
+ * ones that were sampled. Same doctrine as pathLength refusing to guess: a
+ * measurement taken against the wrong artefact is worse than none.
+ *
+ * Separation is checked against EVERY mark, not just the district's own. A
+ * reader sees dots, not districts; two marks from neighbouring clusters that
+ * overlap are exactly as uncountable as two from the same one.
+ *
+ * THROWS rather than placing an overlapping mark. A build that quietly gives
+ * up puts the blob back on the page and takes the explanation away with it.
+ */
+function placeMark(district, rand, scatter, placed, vbWidth, vbHeight, coastPoints) {
+  const min = scatter.minSeparation;
+  let last = null;
+
+  for (let attempt = 0; attempt < MAX_TRIES; attempt++) {
+    const grow = 1 + Math.floor(attempt / TRIES_PER_BOX) * GROWTH_STEP;
+    const x = Math.round(district.centre[0] + (rand() * 2 - 1) * scatter.jitterX * grow);
+    const y = Math.round(district.centre[1] + (rand() * 2 - 1) * scatter.jitterY * grow);
+    last = { x, y, grow };
+
+    if (x < EDGE_PAD || x > vbWidth - EDGE_PAD || y < EDGE_PAD || y > vbHeight - EDGE_PAD) continue;
+    if (coastPoints.some((p) => Math.hypot(p[0] - x, p[1] - y) < min)) continue;
+    if (placed.every((m) => Math.hypot(m.x - x, m.y - y) >= min)) return { x, y };
+  }
+
+  throw new Error(
+    'districts: could not place a mark for "' + district.name + '" at least ' + min +
+      ' units clear of the ' + placed.length + ' already down, after ' + MAX_TRIES +
+      ' attempts (the search box had grown to ×' + last.grow.toFixed(2) + '). ' +
+      'Either scatter.minSeparation is too large for this many records, or two authored ' +
+      'centres in data/districts.json are too close to hold their clusters apart. ' +
+      'Do NOT lower minSeparation without re-reading why it is 20 — the note is in that file.'
+  );
+}
+
 function buildDistrictMarks() {
   const db = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'projects.json'), 'utf8'));
   const geo = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'districts.json'), 'utf8'));
@@ -177,13 +249,26 @@ function buildDistrictMarks() {
   // Marks are laid down in the authored district order, then in record order
   // inside a district, so the sequence the dots animate in is stable too.
   const rand = mulberry32(geo.scatter.seed);
+  const [, , vbWidth, vbHeight] = geo.viewBox.split(/\s+/).map(Number);
+
+  /* THE COAST IS A CONSTRAINT, NOT ONLY A BACKDROP. Marks are cleared of it
+     by the same distance they are cleared of each other, and the reason is
+     the one that kept a TRUE coastline off this map in the first place: a
+     dot sitting ON the shoreline is a dot claiming to be AT the shoreline,
+     and every one of these centres is a placeholder. It caught a real fault
+     the day the separation rule landed — Al Zorah's cluster was pushed to
+     7.1 units off the water, and a mark's own radius is 8.75 units at the
+     narrowest band, so the dot would have crossed the line it was measured
+     against. A map with no coast in its data still builds; the constraint
+     is simply empty. */
+  const coastPoints = geo.coast ? samplePath(geo.coast.path) : [];
+
   const marks = [];
   geo.districts.forEach((d) => {
     const slugs = counts.get(d.name);
     slugs.forEach((slug) => {
-      const x = d.centre[0] + (rand() * 2 - 1) * geo.scatter.jitterX;
-      const y = d.centre[1] + (rand() * 2 - 1) * geo.scatter.jitterY;
-      marks.push({ district: d.name, slug, x: Math.round(x), y: Math.round(y) });
+      const p = placeMark(d, rand, geo.scatter, marks, vbWidth, vbHeight, coastPoints);
+      marks.push({ district: d.name, slug, x: p.x, y: p.y });
     });
   });
 

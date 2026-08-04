@@ -391,6 +391,21 @@ On a clone, `build:manifest` is the right script.
 > full size before calling a screen done**, and look at it as a page rather
 > than as a checklist.
 
+> **A generated drawing needs a CONSTRAINT, not an arrangement.** /ajman's
+> marks are scattered off `data/districts.json` every build, so anything fixed
+> by hand is overwritten by the next building that lands. Three pairs had
+> merged into single blobs — the closest 3.2 units apart — under a fully green
+> board, because the sweep counted them, sized them, ordered them and named
+> them, and **a count cannot see a collision.** The rule now lives in the
+> generator (`scatter.minSeparation`), which rejects and re-draws any mark
+> landing too close to another **or to the coast**, and throws rather than
+> placing an overlapping one. 🔴 **State the rule in the units the fault
+> appears in.** A mark is a true 5px at every width, so the drawing scales
+> *under* it and an overlap is decided in SCREEN pixels: the ≤639 band renders
+> a unit at 0.571px, and a separation that looks generous at 1440 is a blob on
+> a phone. `sweep-ajman` therefore asserts the payoff at all four widths by
+> name, not once in user units.
+
 > **A reveal needs a rendered "before", and a STICKY element does not get one
 > off-screen.** Every drawn surface ships finished and its script *arms* it, so
 > a broken script leaves a complete page. That arming is a computed style
