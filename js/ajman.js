@@ -172,15 +172,58 @@
     return owner ? owner.getAttribute('data-district') : null;
   }
 
+  /* 🔴 A CLICK HOLDS THE SELECTION UNTIL THE READER ACTUALLY MOVES.
+
+     The map is sticky and the click scrolls the ledger, so between the two
+     the DRAWING slides under a stationary cursor — measured at 224px from
+     the landing position, where the map has furthest to travel before it
+     sticks. The pointer never moved; the map moved beneath it. Chrome then
+     fires mouseover for whatever is newly under that point, and the
+     selection jumps to a district the reader did not choose: clicking Al
+     Zorah lit Emirates City, on screen, in front of Mahesh.
+
+     So a click is treated as what it is — a deliberate choice — and an
+     incidental re-hover caused by the page moving is not allowed to
+     overrule it. The hold ends the moment the pointer genuinely moves,
+     which is the reader taking the map back.
+
+     The unlock tests the COORDINATES, not merely the event: a scroll can
+     itself emit a mousemove at an unchanged position, which would release
+     the hold during the very scroll it exists to survive. */
+  var heldBy = null;
+  var heldAt = null;
+
+  /* 🔴 RELEASING RE-EVALUATES ON THE SPOT, AND THE FIRST VERSION DID NOT.
+     For one physical movement a browser fires mouseover BEFORE mousemove, so
+     the district the reader moved onto is announced while the hold is still
+     up and is discarded — and the selection then only catches up on the NEXT
+     movement. Measured: moving onto Al Tallah left Al Zorah lit, and moving
+     on again to Hamidiya finally took. A release that does not answer the
+     pointer's CURRENT position is a release one event late. */
+  function releaseHold(event) {
+    if (!heldAt) return;
+    if (Math.abs(event.clientX - heldAt.x) < 2 && Math.abs(event.clientY - heldAt.y) < 2) return;
+    heldBy = null;
+    heldAt = null;
+
+    var under = document.elementFromPoint(event.clientX, event.clientY);
+    hovered = districtOf(under);
+    apply();
+  }
+
+  document.addEventListener('mousemove', releaseHold, { passive: true });
+
   // mouseover bubbles where mouseenter does not, so one listener covers
   // every block — including the gaps between them, which resolve to null
   // and clear the hover.
   standing.addEventListener('mouseover', function (event) {
+    if (heldBy) return;
     hovered = districtOf(event.target);
     apply();
   });
 
   standing.addEventListener('mouseleave', function () {
+    if (heldBy) return;
     hovered = null;
     apply();
   });
@@ -215,6 +258,14 @@
     if (!event.target || typeof event.target.closest !== 'function') return;
     var region = event.target.closest('.aj-hit[data-district]');
     if (!region) return;
+
+    /* Hold the clicked district before the scroll starts, not after: the
+       smooth scroll runs across many frames and every one of them can move
+       the map under the cursor. */
+    heldBy = region.getAttribute('data-district');
+    heldAt = { x: event.clientX, y: event.clientY };
+    hovered = heldBy;
+    apply();
 
     var block = blockOf[region.getAttribute('data-district')];
     if (block && typeof block.scrollIntoView === 'function') {
