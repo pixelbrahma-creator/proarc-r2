@@ -440,14 +440,14 @@ function servicesLine() {
  * surfaces' register and they are not the band's words. The band says
  * "Schools and universities", which is the pair of cells it shows.)
  */
-function sectorLabel(room) {
-  const zones = OPEN_BAND.filter((z) => z.href === room.href);
+function sectorLabel(href, what) {
+  const zones = OPEN_BAND.filter((z) => z.href === href);
   if (zones.length !== 1) {
     throw new Error(
-      `home: index1's ${room.key} room takes its sector name from the opening band by href, and ` +
-        `"${room.href}" matches ${zones.length} of the band's zones rather than exactly one. ` +
-        'The band and the rooms are the same five territories; if one of them moved, the label is a ' +
-        'guess and a reordered band would silently relabel a room.'
+      `home: index1's ${what} takes its sector name from the opening band by href, and ` +
+        `"${href}" matches ${zones.length} of the band's zones rather than exactly one. ` +
+        'The band and the sections below are the same five territories; if one of them moved, the label is a ' +
+        'guess and a reordered band would silently relabel a section.'
     );
   }
   return zones[0].label;
@@ -555,7 +555,7 @@ function roomFullData(db, manifest, prefix, room) {
   return {
     roomVerb: room.verb,
     roomHref: prefix + room.href,
-    roomSector: escapeText(sectorLabel(room)),
+    roomSector: escapeText(sectorLabel(room.href, `the ${room.key} room`)),
     // The photograph carries NO words — rule 8. `roomEvidence` is now the
     // image's alt text alone: the name it used to print in the strip is the
     // marked name in the wall below, where it is one word rather than two.
@@ -882,7 +882,27 @@ function viewData(prefix, srcName) {
       bandSrcs,
       roomsFull.map((r) => r.roomFrame)
     );
-    alt = { servicesLine: servicesLine(), roomsFull };
+    alt = {
+      servicesLine: servicesLine(),
+      roomsFull,
+      /* THE PRAYS MOMENT TAKES THE MARKER TOO (Mahesh, 4 Aug: make this
+         section look better).
+
+         The mosque stays EXEMPT from the room pattern, which is the client's
+         own instruction and is right — a set of one has no names to band and
+         no second building to photograph. What it was NOT exempt from is
+         being the sentence's fifth verb: after four bands each carrying a
+         photograph, an 84px marker and a wall of names, "And prays." arrived
+         as two lines of text inside 562px of black, and the page's five verbs
+         stopped reading as five.
+
+         The marker is the same object as the rooms', derived the same way,
+         from the band's OWN fifth zone — the one labelled "The mosque",
+         whose href is the very link this section carries. Nothing is typed
+         and nothing is invented; the territory that has been named four
+         times gets named a fifth. */
+      mosqueSector: escapeText(sectorLabel('projects/alghalamosque.html', 'the prays moment')),
+    };
   }
 
   return Object.assign(
