@@ -96,7 +96,22 @@ function pathLength(d) {
       );
     }
   }
-  return Math.ceil(total);
+  /* 🔴 A MARGIN, AND IT IS NOT SLACK. `vector-effect: non-scaling-stroke`
+     makes the dash pattern resolve in SCREEN pixels while this number is in
+     USER units, and the two are equal only at scale 1 — which the 640–820px
+     band is, exactly (the svg is authored 560 wide there for a 560-unit
+     viewBox). Measured across twelve widths the screen length runs 297 · 371 ·
+     445 · and 520 against a 520 dash: every band has room except that one,
+     which sits on the knife-edge with 0.46 units to spare.
+
+     A dash shorter than the path draws PART of the line and leaves the rest
+     as a gap — a coastline that stops halfway, at one band only, looking like
+     a deliberate shape rather than a fault. The fine-tune pass this shoreline
+     is explicitly waiting for will LENGTHEN the path, so the failure is not
+     hypothetical; it is queued. The margin costs nothing: a dash longer than
+     the path draws the whole path, and the armed offset moves the whole thing
+     clear either way. */
+  return Math.ceil(total) + 24;
 }
 
 /**
