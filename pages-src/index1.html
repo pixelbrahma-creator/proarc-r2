@@ -34,6 +34,9 @@
         the Prays moment is a set of one, so it has no names to band and no
         second building to photograph. It keeps its own form.
 
+        🔴 AMENDED 4 Aug, second pass — see item 7. The exemption is now
+        HALF taken: no names wall, but a photograph. Mahesh's call.
+
   WHAT THE 4 AUGUST PASS CHANGED, on Mahesh's reading of the live page:
 
     4 · The four photographs are RE-PICKED for full bleed. Three of them
@@ -47,6 +50,14 @@
     6 · Each verb gains its SECTOR NAME, and the names wall becomes
         reachable: every name links to its record, and the building in the
         photograph above is marked and left unlinked.
+
+    7 · THE MOSQUE GETS A PHOTOGRAPH (Mahesh, 4 Aug, second pass), which
+        overrides the client's exemption in item 3 and is recorded as a
+        decision in punch list H13. Only half of the exemption goes: the
+        section takes the fifth full-bleed frame and NO names wall, because
+        the thing the exemption was protecting — a set of one has no names
+        to band — is still true. Five verbs, five photographs, five
+        markers, four walls.
 
   WHAT DID NOT CHANGE: the opening screen, the mosque, the invitation and
   every href are taken from index.html verbatim, so a reader comparing the
@@ -136,8 +147,8 @@
        marked name in the wall is the one copy. -->
   {{#each roomsFull}}
   <section class="ha-room">
-    <figure class="ha-room__frame">
-      <img class="ha-room__img" src="{{fullSrc}}"{{#if fullSrcset}} srcset="{{fullSrcset}}" sizes="100vw"{{/if}}
+    <figure class="ha-frame">
+      <img class="ha-img" src="{{fullSrc}}"{{#if fullSrcset}} srcset="{{fullSrcset}}" sizes="100vw"{{/if}}
            width="{{fullWidth}}" height="{{fullHeight}}" alt="{{roomEvidence}}" loading="lazy" decoding="async">
     </figure>
     <div class="ha-room__band surface-dark">
@@ -150,8 +161,7 @@
   </section>
   {{/each}}
 
-  <!-- 4 · The mosque, the map. Black, and unchanged from index.html —
-       the mosque is the client's own stated exemption. -->
+  <!-- 4 · The mosque. Black. -->
   <div class="hm-dark surface-dark">
 
     <!-- 5 · The Prays moment — the fifth verb, one building behind it, so
@@ -159,14 +169,31 @@
          heading is a heading (a set of one has no page); the mosque's name
          is the moment's one link. Civic work is shown, never narrated.
 
-         IT TAKES THE MARKER TOO (Mahesh, 4 Aug). The mosque stays exempt
-         from the ROOM pattern — no full-bleed photograph, no names wall,
-         which is the client's instruction and is right for a set of one.
-         But it was never exempt from being the fifth verb, and after four
-         bands each carrying a photograph, an 84px marker and a wall, this
-         arrived as two lines of text in 562px of black. The marker is the
-         rooms' own object, derived from the band's fifth zone by the same
-         href join, so the territory named four times is named a fifth. -->
+         IT TAKES THE MARKER TOO (Mahesh, 4 Aug), and then THE PHOTOGRAPH
+         (Mahesh, 4 Aug, second pass) — which OVERRIDES the client's own
+         "mosque exempt" instruction and is Mahesh's decision, recorded in
+         punch list H13 rather than slipped in as polish.
+
+         WHAT THE EXEMPTION WAS PROTECTING IS UNTOUCHED. A set of one has
+         no names to band, so there is NO NAMES WALL here and there will
+         not be one. The mosque becomes the page's fifth FRAME, not its
+         fifth ROOM — the same distinction the marker made when
+         .ha-room__marker became .ha-marker, and the frame follows it now:
+         .ha-frame / .ha-img belong to the page's five territories, and
+         .ha-room__band to the four that are rooms.
+
+         What it stops being exempt from is the page's own evidence rule.
+         Four verbs each stood on a photograph and the fifth stood on
+         nothing, so after four full-bleed screens "And prays." read as the
+         page tailing off rather than closing.
+
+         Rule 8: the photograph carries nothing. The marker and the line
+         stay in the black band below it, exactly as the rooms' do. -->
+    <figure class="ha-frame">
+      <img class="ha-img" src="{{mosqueFullSrc}}" width="{{mosqueFullWidth}}" height="{{mosqueFullHeight}}"
+           alt="{{mosqueEvidence}}" loading="lazy" decoding="async">
+    </figure>
+
     <section class="hm-prays container">
       <h3 class="hm-prays__verb">And prays.</h3>
       <p class="ha-marker t-marker">{{mosqueSector}}</p>

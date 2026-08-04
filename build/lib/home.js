@@ -387,6 +387,53 @@ const ROOMS_FULL_FRAME = {
 };
 
 /**
+ * THE MOSQUE'S FRAME (Mahesh, 4 Aug) — the fifth full-bleed photograph.
+ *
+ * 🔴 THIS OVERRIDES THE CLIENT'S OWN "MOSQUE EXEMPT" INSTRUCTION, and it is
+ * Mahesh's decision rather than a tidy-up. What the exemption was protecting
+ * is untouched and still governs the section: A SET OF ONE HAS NO NAMES TO
+ * BAND, so the mosque takes a photograph and NO names wall. It becomes a
+ * fifth FRAME, not a fifth room — which is the same distinction the marker
+ * made on 4 Aug, when `.ha-room__marker` became `.ha-marker` because the
+ * page has five territories and only four of them are rooms.
+ *
+ * `gallery-02`, and the three it was picked over are all on the record:
+ *
+ *   hero        800×1200  ar 0.67 — PORTRAIT, and it keeps 30% of itself in
+ *   the 2.215:1 cell. It is also ALREADY SPENT: it is the mosque's cell in
+ *   the opening band, and assertNoRepeatedFrame() refuses it by rule rather
+ *   than by memory. Both objections are decisive on their own.
+ *
+ *   gallery-04  1920×1024 ar 1.88 — the frontal elevation, the whole arcade
+ *   of arches legible, and the strongest ARCHITECTURAL read of the four.
+ *   Refused on provenance, and the refusal is MEASURED rather than judged:
+ *   sample its sky across the top band of the frame and it returns **51
+ *   distinct colours in 2,080 pixels** with a luminance that falls 6 units
+ *   from the top of the frame towards the horizon — the wrong direction for
+ *   a sky, and a range no atmosphere has. `gallery-01` is the same shoot,
+ *   tighter, and worse: **11 distinct colours in 2,240 pixels**, sd (1.6,
+ *   3.1, 5.7). Those two share a flat pale-lavender field that is a
+ *   REPLACED sky, and a replaced sky on a record carrying no provenance
+ *   label is exactly what E9.4 is for. This band is the one surface on the
+ *   site permitted to run a photograph at full bleed with no label beside
+ *   it (rule 8 bars the label, so the guard below refuses the image
+ *   instead) — so it is the last surface that should carry a composite.
+ *
+ *   gallery-02  1920×1024 ar 1.88 — keeps 85%, and its sky measures **595
+ *   distinct colours in 2,080 pixels**, sd (21, 34, 52), brightening 4
+ *   units towards the horizon. A photograph. It reads as a mosque at a
+ *   glance — minaret, crenellated parapet, teal ridge tiles, palm fronds —
+ *   and it is golden-hour warm, which is the light `blacksquare` and
+ *   `seasidehills` already carry two and three bands above it.
+ *
+ * The one thing gallery-02 gives up is the frontal arcade. That is the
+ * right thing to give up: the band is evidence that the building stands,
+ * not a plate of its elevation, and the record page carries all three
+ * frames for a reader who wants the elevation.
+ */
+const MOSQUE_FULL_FRAME = { record: 'alghalamosque', frame: 'gallery-02' };
+
+/**
  * THE SERVICES LINE IS READ OFF THE SERVICES PAGE, never retyped.
  *
  * Six names, in the order that page states them. Typed here instead, this
@@ -509,11 +556,24 @@ function setNamesHtml(records, prefix, currentSlug) {
   return html;
 }
 
-function roomFullData(db, manifest, prefix, room) {
-  const set = selectableSet(db.projects, room);
-  const pick = ROOMS_FULL_FRAME[room.key];
-  if (!pick) throw new Error(`home: index1 has no full-bleed frame for the ${room.key} room.`);
-
+/**
+ * A FULL-BLEED FRAME: resolved by NAME, and E9-guarded — in ONE place.
+ *
+ * 🔴 THE GUARD WAS ON `roomFullData()` ONLY, and the mosque is not a room.
+ * Extending it by copying the `if (plate.plateProvenance)` block into the
+ * prays moment would have left the site's ONE surface that may run an
+ * unlabelled photograph at full bleed governed by two implementations of
+ * one rule — the fault this file already records twice (a sector mapping
+ * derived twice, a sweep order derived twice: "one map derived twice is how
+ * two surfaces start disagreeing about where a building is"). So the
+ * resolution and the guard were lifted out instead, and every full-bleed
+ * frame on the page now goes through this function or it does not ship.
+ *
+ * `what` names the surface in both error messages, because the message is
+ * read by whoever changes a pick, and "index1's shops room" is a place to
+ * look where "a full-bleed frame" is not.
+ */
+function fullBleedFrame(db, manifest, prefix, pick, what) {
   const record = findRecord(db.projects, pick.record);
   const images = manifest.projects[record.slug];
   if (!images) throw new Error(`home: ${record.slug} is not in the manifest.`);
@@ -524,7 +584,7 @@ function roomFullData(db, manifest, prefix, room) {
     const rel = shipping.find((f) => f.replace(/^.*\//, '').replace(/\.webp$/, '') === pick.frame);
     if (!rel) {
       throw new Error(
-        `home: index1's ${room.key} room names ${pick.frame} of ${record.slug}, which that record does not ship. ` +
+        `home: index1's ${what} names ${pick.frame} of ${record.slug}, which that record does not ship. ` +
           `It ships ${shipping.length ? shipping.map((f) => f.replace(/^.*\//, '')).join(', ') : 'nothing'}.`
       );
     }
@@ -542,15 +602,25 @@ function roomFullData(db, manifest, prefix, room) {
      rule 8 bars. So a render is refused rather than shipped unlabelled —
      the failure mode being prevented is the quiet one, where a
      `Visualisation` runs full-bleed as evidence of a building that stands.
-     All four picks are `Completed` photographs; this fires the day one is
+     All five picks are `Completed` photographs; this fires the day one is
      swapped for a design-stage record, which is exactly when it should. */
   if (plate.plateProvenance) {
     throw new Error(
-      `home: index1's ${room.key} room leads on ${record.slug}, which is labelled "${plate.plateProvenance}". ` +
+      `home: index1's ${what} leads on ${record.slug}, which is labelled "${plate.plateProvenance}". ` +
         'A full-bleed band has nowhere to carry an E9 label except on the photograph, and rule 8 bars text ' +
         'on a photograph — so this surface takes photographs only, and a render needs a decided treatment first.'
     );
   }
+
+  return { record, plate };
+}
+
+function roomFullData(db, manifest, prefix, room) {
+  const set = selectableSet(db.projects, room);
+  const pick = ROOMS_FULL_FRAME[room.key];
+  if (!pick) throw new Error(`home: index1 has no full-bleed frame for the ${room.key} room.`);
+
+  const { record, plate } = fullBleedFrame(db, manifest, prefix, pick, `${room.key} room`);
 
   return {
     roomVerb: room.verb,
@@ -843,17 +913,24 @@ function openBandHtml(db, manifest, prefix, seen) {
  * on both surfaces in two different frames — seasidehills does, and the
  * bank did before it — so a slug comparison would refuse the arrangement
  * the rule was written to permit.
+ *
+ * 🔴 IT COVERS FIVE SECTIONS FROM 4 AUG, not four. The mosque's own frame
+ * is the case the rule was most likely to be broken on: the record's HERO
+ * is the obvious pick for its section AND is already the band's mosque
+ * cell, so the one photograph a reader has certainly already seen is the
+ * one a picker reaches for first. A guard that stopped at the rooms would
+ * have said nothing.
  */
-function assertNoRepeatedFrame(bandSrcs, roomSrcs) {
+function assertNoRepeatedFrame(bandSrcs, sectionSrcs) {
   const counts = new Map();
-  bandSrcs.concat(roomSrcs).forEach((src) => counts.set(src, (counts.get(src) || 0) + 1));
+  bandSrcs.concat(sectionSrcs).forEach((src) => counts.set(src, (counts.get(src) || 0) + 1));
   const repeated = [...counts.entries()].filter(([, n]) => n > 1).map(([src]) => src);
   if (repeated.length) {
     throw new Error(
       `home: index1 ships ${repeated.length} photograph(s) twice — ${repeated.join(', ')}. ` +
-        'The opening band and the four rooms draw from the same 47 records, and a reader who meets one ' +
-        'building twice on one page (once cropped) reads it as a site with six photographs. ' +
-        'Move the ROOM, not the band: the fold keeps the strongest frame.'
+        'The opening band and the five full-bleed sections draw from the same 47 records, and a reader who ' +
+        'meets one building twice on one page (once cropped) reads it as a site with six photographs. ' +
+        'Move the SECTION, not the band: the fold keeps the strongest frame.'
     );
   }
 }
@@ -878,10 +955,8 @@ function viewData(prefix, srcName) {
   let alt = {};
   if (srcName === 'index1') {
     const roomsFull = ROOMS.map((room) => roomFullData(db, manifest, prefix, room));
-    assertNoRepeatedFrame(
-      bandSrcs,
-      roomsFull.map((r) => r.roomFrame)
-    );
+    const mosque = fullBleedFrame(db, manifest, prefix, MOSQUE_FULL_FRAME, 'prays moment');
+    assertNoRepeatedFrame(bandSrcs, roomsFull.map((r) => r.roomFrame).concat([mosque.plate.plateSrc]));
     alt = {
       servicesLine: servicesLine(),
       roomsFull,
@@ -902,6 +977,20 @@ function viewData(prefix, srcName) {
          and nothing is invented; the territory that has been named four
          times gets named a fifth. */
       mosqueSector: escapeText(sectorLabel('projects/alghalamosque.html', 'the prays moment')),
+
+      /* THE MOSQUE GETS A PHOTOGRAPH (Mahesh, 4 Aug) — see
+         MOSQUE_FULL_FRAME for the frame and for what it was picked over.
+         The section keeps its exemption from the ROOM pattern in the one
+         place that mattered: there is no names wall here, because a set of
+         one has no names to band. What it stops being exempt from is the
+         page's own evidence rule — four verbs each stood on a photograph
+         and the fifth stood on nothing. */
+      mosqueFullSrc: mosque.plate.plateSrc,
+      mosqueFullWidth: mosque.plate.plateWidth,
+      mosqueFullHeight: mosque.plate.plateHeight,
+      // Rule 8 again: the photograph carries no words, so this is the alt
+      // text alone. The visible name is the line's own link, below it.
+      mosqueEvidence: escapeText(mosque.record.title),
     };
   }
 

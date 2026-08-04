@@ -113,7 +113,15 @@
   background: var(--color-surface-dark);
 }
 
-.ha-room__frame {
+/* THE FRAME IS THE PAGE'S, NOT THE ROOM'S — `.ha-frame` / `.ha-img` rather
+   than `.ha-room__frame` / `.ha-room__img` (4 Aug, when the mosque took a
+   photograph). It is the second time this page has had to make the same
+   move and the reason is identical both times: the marker became
+   `.ha-marker` because the page names FIVE territories and only four of
+   them are rooms, and the full-bleed frame is now on all five too. What
+   stays room-scoped is `.ha-room__band` and the names wall inside it,
+   because a set of one has no names to band. */
+.ha-frame {
   margin: 0;
 }
 
@@ -129,10 +137,14 @@
    the wrong way.
 
    40% rather than centre, for the same reason: a street elevation's
-   subject sits above its middle, and the bottom of these four frames is
-   road, car park or paving in three of them. It is one value for all four
-   because the option is a layout question — a per-frame crop table is what
-   this earns IF the layout is taken.
+   subject sits above its middle, and the bottom of these frames is road,
+   car park or paving in three of them. It is ONE value for all FIVE from
+   4 Aug, when the mosque joined them — the option is still a layout
+   question, and a per-frame crop table is what it earns IF the layout is
+   taken. (The mosque's own frame is the one that would move first now:
+   it ends at the base of the wall rather than on a forecourt, so the 40%
+   spends more of its cut on the building than on ground it does not have.
+   Measured, it keeps 85% of the frame, so the cut is small either way.)
 
    🔴 80vh, RAISED FROM 62 ON 4 AUG (Mahesh: align the image height), and
    the number came off the measured page rather than off the eye. At 62vh
@@ -149,7 +161,7 @@
    view without scrolling, which is the arrangement the opening screen
    already uses. 100vh was the obvious alternative and it loses exactly
    that: a full-screen photograph puts its own caption off the bottom. */
-.ha-room__img {
+.ha-img {
   display: block;
   inline-size: 100%;
   block-size: 80vh;
@@ -301,9 +313,23 @@
    the mosque is the fifth verb rather than a new kind of thing, so it takes
    the same seam every other room is given. Left at its own 200 on top of
    that 280, the reader met 480px of empty black between the homes wall and
-   "And prays." — a void that reads as the page having ended. */
+   "And prays." — a void that reads as the page having ended.
+
+   🔴 THE TOP IS NO LONGER NOTHING, from 4 Aug: the mosque's own photograph
+   stands directly above it, so this section stopped being the tail of the
+   homes band and became THE BAND UNDER A FRAME — which is what
+   `.ha-room__band` is, and it takes that band's own top interval rather
+   than a second opinion about it. --gap-component, for the reason stated
+   there: the words belong to the photograph above them, and an equal
+   padding floats them between two pictures with no owner.
+
+   The bottom stays at --gap-section and does NOT follow the rooms up to
+   --gap-section-major, because it is not the same seam. A room's 280 is
+   the distance to the NEXT full-bleed photograph, which begins with no
+   margin of its own; this one is the distance to a ground change, and the
+   paper invitation below opens on its own padding. */
 .hm--alt .hm-prays {
-  padding-block: 0 var(--gap-section);
+  padding-block: var(--gap-component) var(--gap-section);
 }
 
 /* The moment's own line follows the MARKER now, not the heading, so it takes
@@ -315,7 +341,108 @@
 }
 
 /* -----------------------------------------------------------
-   4 · Tablet and phone
+   4 · The closing band — ONE horizontal (Mahesh, 4 Aug: make it neater)
+   ----------------------------------------------------------- */
+
+/* 🔴 THE TYPE REGISTER IS NOT THE LEVER AND IS NOT TOUCHED. The closing
+   band is 32px light on all fifty-four pages that carry it, LEVELLED at
+   the /ajman build on 1 Aug after §6.2's 700-uppercase had left the site
+   with one band object in two registers across 53 pages. Changing it here
+   would re-open every one of them. The levers are GEOMETRY, SPACE and the
+   ACTION, and what follows uses the first two and moves the third.
+
+   🔴 SCOPED TO .hm--alt — and the reason is NOT the one it looks like.
+   `.hm-invitation` is index.html's band as well, so the obvious statement
+   is "an unscoped rule here would restyle Home". It would not, and that
+   was proved by breaking it: dropping the `.hm--alt` prefix from these
+   rules changes NOTHING on Home, because index.html does not load this
+   stylesheet at all. `pageStylesheet` takes a LIST, and Home's is
+   ["home"] where this page's is ["home", "home-alt"] — the file boundary
+   is the guard, and the prefix is defence behind it.
+
+   What DOES reach Home is authoring the rule one file to the left. The
+   same three declarations appended to `home.css` — which both pages load
+   — take Home's closing band from 398.8px and a stack to 344.4px and a
+   flex row, measured. So the rule that matters is about WHERE a
+   difference is stated, not how its selector is spelled: an index1
+   difference lives in home-alt.css. The mechanism's own proof is that all
+   58 other pages stayed byte-identical when the list landed.
+
+   WHAT WAS MEASURED, at 1440 before anything was decided. The band is
+   398.8px tall and its two objects use 46.1% of the 960px column: the
+   sentence's ink is 442px, the action's box 205px, and 517.9px of paper
+   sits empty at the line's inline-end. The measure is not the constraint
+   — --measure-h2 allows 511.6 and the sentence asks for 442 — so the
+   emptiness is intrinsic to a short sentence at a locked size, and only
+   GEOMETRY can spend it. Space alone was rendered and refused: at the
+   full --gap-section-major the band runs 678.8px for 119.8px of content,
+   which reads as MORE empty rather than less (82% of the band is padding)
+   and makes the paper taller than the mosque's black band above it.
+
+   So the two objects become the two ends of ONE horizontal. That is not a
+   new idea on this site: it is the construction H10 gave Home's second
+   beat on 3 Aug — the words' column and the mark's box on the same two
+   edges, so the pair reads as one object bounded by the column rather
+   than as two things that happen to be near each other. 46.1% of the
+   column becomes 93.2%, and the band comes down to 456.4px.
+
+   AND 140 BECOMES 200, WHICH IS A TOKEN WHERE 140 WAS HALF OF ONE.
+   `calc(var(--gap-section-major) / 2)` is the only halved gap on this
+   page, and --gap-section is what .ha-beat — the page's OTHER paper band
+   — already opens and closes on. The argument opens on paper at 200 and
+   closes on paper at 200; the two paper bands become a pair instead of
+   two different amounts of air. Nothing here is a new value, which is
+   this stylesheet's own standing rule. */
+.hm--alt .hm-invitation {
+  padding-block: var(--gap-section);
+}
+
+/* 🔴 IT WRAPS RATHER THAN KEYING A BREAKPOINT, and the wrapped state IS
+   the arrangement this replaced — same order, same `--gap-block` between
+   them, both flush to the column's start (a single item under
+   `space-between` goes to the start). So the fallback is not a
+   compromise; it is today's band.
+
+   A width was measured for and then not used, which is the point. The
+   horizontal fits from 1440 all the way down to 640 with 72px of slack,
+   because BOTH tokens it is made of step down at the same places the
+   column does and step down harder: at 1023 the sentence goes 442 -> 387
+   and the gap 64 -> 40 while the column loses 1px, and at 767 it goes
+   387 -> 364 against another single pixel. Slack GROWS at every
+   breakpoint — 249 at 1440, 360 at 1023, 199 at 767, 72 at 640 — so a
+   restack keyed at the site's 767 would have stacked the band 200px of
+   width before it needed to, giving the narrower screen LESS than the
+   wider one for no reason. That is precisely the H4-c fault, and the
+   reason it happens is the same: a rule made of tokens inherits those
+   tokens' breakpoints, so keying it on a width of its own means keeping
+   two derivations in step forever. `flex-wrap` states the real condition
+   — "when they no longer fit" — and cannot go stale. */
+.hm--alt .hm-invitation .container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  column-gap: var(--gap-component);
+  row-gap: var(--gap-block);
+}
+
+/* The line's own bottom margin was the gap to the action beneath it. On
+   one horizontal there is nothing beneath it, and when the band wraps the
+   container's row-gap restores the identical 24px — so the spacing is
+   stated once, by whichever axis is actually carrying it. */
+.hm--alt .hm-invitation__line {
+  margin-block-end: 0;
+}
+
+/* BASELINE, not centre. The action is a bordered box and its box is 56px
+   against the line's 38px, so centring the two would set the sentence
+   9px above the type inside the button and neither would sit on
+   anything. Aligned on the baseline they share the one line the band is
+   now made of — which is also what lets the pair survive the wrap, since
+   a wrapped row has no cross-axis relationship left to get wrong. */
+
+/* -----------------------------------------------------------
+   5 · Tablet and phone
    ----------------------------------------------------------- */
 
 @media (max-width: 1023px) {
@@ -324,14 +451,14 @@
      buys a harsher crop. The steps keep the desktop RATIO (0.74 and 0.61 of
      it) rather than being re-judged: the reason the number drops is the
      viewport's proportion, and that changes smoothly. */
-  .ha-room__img {
+  .ha-img {
     block-size: 60vh;
     min-block-size: 300px;
   }
 }
 
 @media (max-width: 767px) {
-  .ha-room__img {
+  .ha-img {
     block-size: 48vh;
     min-block-size: 240px;
   }
