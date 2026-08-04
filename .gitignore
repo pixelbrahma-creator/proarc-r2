@@ -3,3 +3,27 @@ images/_raw/
 images/manifest.json
 verify-*.html
 projects/verify-*.html
+
+# ─────────────────────────────────────────────────────────────────
+# The workshop — design record, boards and probes. NOT part of the
+# ProArc site, and it must never be committed here.
+#
+# This repository is PUBLIC and Pages-serves the branch root with a
+# .nojekyll present, so the underscore prefix buys nothing: anything
+# committed under _bmad/ is browsable on github.com AND fetchable at
+# https://pixelbrahma-creator.github.io/proarc-r2/_bmad/… — which
+# would publish the ProArc letter, the Opportunity Register, every
+# session prompt and 23M of ProArc's own project photography.
+#
+# _bmad/ is backed up in its own PRIVATE repo instead, nested inside
+# the excluded directory: pixelbrahma-creator/proarc-r2-wds.
+#
+# These four also sit in .git/info/exclude, which is where they used
+# to live alone. That file is per-clone and untracked, so the guard
+# did not survive a fresh clone — one `git add -A` after re-cloning
+# and the workshop would have published itself. Both copies stay.
+# ─────────────────────────────────────────────────────────────────
+_bmad/
+_bmad-output/
+.claude/
+_wds/
