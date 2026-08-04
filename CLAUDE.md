@@ -198,8 +198,15 @@ inline-start rule.
   boxes at 1440 and **8.00%** at 375 (trigger), 2.89% and 4.89% (plate), and
   /ajman's authority sentence was severed mid-word at display size. 🔴 **The
   TRIGGER is permanent below 780 — decided against that measurement**, on the
-  grounds that the overlay is the only navigation surface; **the plate
-  retires at every width.** It travels by `transform`, never `display` or
+  grounds that the overlay is the only navigation surface. 🔴 **And the two
+  halves are keyed differently: the PLATE is keyed on the ARRIVAL, not on a
+  direction** — present at each page's opening band, absent through its body,
+  back when the reader returns to the top. Returning it on scroll-up put it
+  straight over /ajman's ledger (*"Habitat Schoo"*, cut mid-word), and it
+  covers **146px of a 339px ledger column — 43%** — so the text cannot be
+  moved clear instead. Identity is made once per page. The plate's half needs
+  **no scroll listener**; `chrome-quiet` already knew. It travels by
+  `transform`, never `display` or
   `visibility`, so a retired trigger stays focusable and `focusin` returns
   it. No RTL restatement (the block axis does not flip) and no
   reduced-motion branch (the global clamp makes it instant; the retreat is

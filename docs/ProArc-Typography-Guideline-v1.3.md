@@ -675,8 +675,20 @@ amends only its *permanence*, and only in the block axis.
 - 🔴 **The trigger is PERMANENT below 780px.** Decided against the measurement, and
   knowingly: the trigger buries most at exactly the widths where it stays. The reason
   is that the overlay is the only navigation surface (E13.1) and a narrow reader
-  scrolls most. **The plate retires at every width.** 780 is the chrome's own
-  breakpoint — a rule made of a token inherits that token's breakpoint.
+  scrolls most. 780 is the chrome's own breakpoint — a rule made of a token inherits
+  that token's breakpoint.
+- 🔴 **THE TWO HALVES ARE GOVERNED DIFFERENTLY, AND THE PLATE IS KEYED ON THE ARRIVAL
+  RATHER THAN ON A DIRECTION** *(amended within the day, on the built page)*. The
+  first form returned the plate on any upward scroll, and back it came over /ajman's
+  ledger — *"Habitat Schoo"*, cut mid-word. The plate covers **146px of a 339px
+  ledger column, 43% of it**, so moving the TEXT clear is not a gap but a redesign,
+  and the building names would wrap. **So the wordmark is present at each page's
+  opening band and absent through its body, returning when the reader returns to the
+  top.** Identity is made once per page and does not reintroduce itself over the
+  argument. The TRIGGER cannot be treated this way and is not: it is the only way
+  into the menu, so it may retreat from a reader scrolling away and must return to
+  one scrolling back. 📌 **The plate's half needs no scroll listener at all** —
+  `chrome-quiet` was already computed by the arrival observer.
 - **No reduced-motion branch.** The global clamp makes the travel instant; the retreat
   is function, and a reader who asked for less motion still wants the words.
 

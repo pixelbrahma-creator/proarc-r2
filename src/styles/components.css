@@ -183,7 +183,28 @@ html.chrome-quiet .chrome-plate__mark { inline-size: var(--mark-size-quiet); }
     background-color var(--dur-fast) var(--ease-out);
 }
 
-html.chrome-retired .chrome-plate {
+/* 🔴 THE PLATE IS AT THE PAGE'S OPENING AND NOWHERE ELSE (4 Aug, Mahesh —
+   E13.2a amended the same day it was written).
+
+   The retreat's first form brought the plate BACK on any upward scroll, and
+   back it came straight over the ledger: "Habitat Schoo", cut mid-word.
+   Measured on /ajman at 1440, the plate covers 146px of a 339px ledger
+   column — 43% of it — so moving the TEXT clear of the logo is not a gap,
+   it is a redesign, and the building names would wrap. The only way to put
+   air between the wordmark and the words is for the wordmark not to be
+   there while they are being read.
+
+   So the plate is keyed on the ARRIVAL, not on a direction: present while
+   the reader is at the page's opening band, gone for the whole body,
+   back when they return to the top. Identity is made once, at the top of
+   each of fifty-eight pages, and does not reintroduce itself over the
+   argument.
+
+   📌 IT NEEDS NO SCROLL LISTENER. `chrome-quiet` is computed by the arrival
+   observer this file already owned before E13.2a — so of the two halves of
+   the retreat, only the TRIGGER's costs a listener. The plate's half is the
+   cheaper thing that was measurable all along. */
+html.chrome-quiet .chrome-plate {
   transform: translateY(-100%);
 }
 
@@ -201,6 +222,11 @@ html.chrome-retired .chrome-plate {
    rule made of a token inherits that token's breakpoint. `--logo-size-*`
    steps to the mobile mark at 780, so the band where the trigger is permanent
    is exactly the band where it is already drawn at its mobile size. */
+/* The TRIGGER keeps the direction-based retreat, and it must: it is the only
+   way into the menu, so it may retreat from a reader scrolling away and has
+   to return to one scrolling back. That is why the two halves are governed
+   differently — the plate is identity and can simply be absent, the trigger
+   is navigation and cannot. */
 @media (min-width: 780px) {
   html.chrome-retired .chrome-trigger {
     transform: translateY(-100%);
