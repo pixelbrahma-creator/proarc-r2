@@ -242,7 +242,17 @@ npm run build            # = build:manifest && build:pages && build:projects
 
 Two page steps, because there are two kinds of page:
 
-**Home's second beat carries a drawing, and `build/lib/crest.js` generates it
+> 🔴 **THE NEXT TWO PASSAGES DESCRIBE A PAGE THAT NO LONGER EXISTS** (4 Aug,
+> H14). The client option `index1` was promoted into `index`, and Home's
+> second beat lost its drawing with it — the beat is on paper, the
+> constellation is gone, and `build/lib/crest.js` and `js/home.js` are
+> orphans awaiting the delete pass. **Do not build against the crest or the
+> map on Home; /ajman keeps its map.** The reasoning is kept because it is
+> the record of two decisions and of a measured refusal, and because the
+> shared-datum construction it describes is what the promoted page's own
+> closing band was then built on (H13 option D).
+
+**Home's second beat carried a drawing, and `build/lib/crest.js` generates it
 from `projects.json`** — one course per record, its width the size of the set
 that record belongs to, so the mark's whole silhouette is the portfolio's own
 proportions. **A zone with no data is not drawn:** the authored version this
@@ -278,6 +288,14 @@ it.
 > now measures the DRAWN datum line rather than the SVG's box** — written
 > against the box it passed a beat pushed 12px off its floor, because the
 > words' column stretches to a padded box and the delta stays 0.00.
+>
+> 🔴 **`p9-home.js` IS NO LONGER THAT PROBE** (4 Aug, H14). It threw on a
+> null the moment the drawing left Home, and the file now carries the
+> promoted page's own checks — the five full-bleed frames, rule 8 measured
+> over text rects, the marker's register and the closing band's geometry, at
+> 1440 / 1024 / 768 / 640 / RTL-1440 / a true framed 375 / RTL-375. The datum
+> probe is at `983fb3a:_bmad/tools/p9-home.js`. **`p10-home-motion.js` is
+> deleted** — Home has no motion of its own now.
 
 Home's data comes from **`build/lib/home.js`** on the same terms: it consumes
 `records.js`, `work.js` (the plate) and `districts.js` (the marks) and derives
@@ -395,6 +413,18 @@ own `pageScript`.
 > INERT` when its target is gone.** Aim a mutation at what the family is
 > actually about — the class, the geometry — never at an incidental attribute
 > that rides alongside it.
+
+> **A BRANCH KEYED ON A FILENAME DIES SILENTLY WHEN THE FILE IS RENAMED, AND
+> AN UNBUILT BRANCH HAS NOTHING TO GUARD.** `build/lib/home.js` carried the
+> whole second reading behind `if (srcName === 'index1')`. Promoting the
+> option to `index.html` turned that branch off, and the build shipped Home
+> **missing four of its five bands with an empty services line** — no error,
+> because every guard lived *inside* the branch and guards the data it
+> builds. stylelint 0, `check:links` 3338/0, `sweep-seo` 31/31, all on a page
+> missing most of itself. **A guard placed inside the thing it guards cannot
+> report that thing's absence**; assert the PRESENCE of what a branch
+> produces, from outside it. And key a variant on what it IS — a route
+> contract, a stylesheet list — never on what its source file is called.
 
 > **The manifest trap.** `images/manifest.json` is gitignored and the raw
 > sources are not in this repository. `build:pages` does **not** fail without

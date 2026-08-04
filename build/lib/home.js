@@ -260,7 +260,9 @@ function roomData(db, manifest, prefix, room) {
 }
 
 /* ------------------------------------------------------------------ *
- * index1 — THE SECOND READING OF HOME (a client option, 3 Aug)
+ * THE SECOND READING OF HOME — the client option of 3 Aug, PROMOTED to the
+ * route on 4 Aug. It shipped as `index1` while it was being judged; the
+ * name survives only in the punch list and in git.
  *
  * Mahesh's brief, from the client: the beat turns to paper with black type
  * and loses the drawing; it keeps the sentence, gains one line naming the
@@ -443,7 +445,7 @@ const MOSQUE_FULL_FRAME = { record: 'alghalamosque', frame: 'gallery-02' };
  * deleted it.
  *
  * It reads the SOURCE rather than the built page: build:pages compiles the
- * routes in meta order, so services.html may not exist yet when index1 is
+ * routes in meta order, so services.html may not exist yet when Home is
  * rendered, and a reader that depends on build order is a reader that works
  * until someone reorders a JSON file.
  */
@@ -456,7 +458,7 @@ function servicesLine() {
   const names = [...src.matchAll(/class="sv-block__name[^"]*">([^<]+)</g)].map((m) => m[1].trim());
   if (names.length < 2) {
     throw new Error(
-      'home: index1 names the services, and pages-src/services.html yielded ' +
+      'home: Home names the services, and pages-src/services.html yielded ' +
         `${names.length} of them. The line is read off that page rather than retyped, so a markup ` +
         'change there has to be followed here rather than silently shipping a shorter list.'
     );
@@ -491,7 +493,7 @@ function sectorLabel(href, what) {
   const zones = OPEN_BAND.filter((z) => z.href === href);
   if (zones.length !== 1) {
     throw new Error(
-      `home: index1's ${what} takes its sector name from the opening band by href, and ` +
+      `home: Home's ${what} takes its sector name from the opening band by href, and ` +
         `"${href}" matches ${zones.length} of the band's zones rather than exactly one. ` +
         'The band and the sections below are the same five territories; if one of them moved, the label is a ' +
         'guess and a reordered band would silently relabel a section.'
@@ -548,7 +550,7 @@ function setNamesHtml(records, prefix, currentSlug) {
      own set, which is one edit away at all times. */
   if (marked !== 1) {
     throw new Error(
-      `home: index1's ${currentSlug} leads a room whose names wall marks it ${marked} times rather than once. ` +
+      `home: Home's ${currentSlug} leads a room whose names wall marks it ${marked} times rather than once. ` +
         'The photograph names a building and the wall marks that building; a frame picked from outside the ' +
         "room's own sector leaves the wall unmarked and the band silently loses its subject."
     );
@@ -570,7 +572,7 @@ function setNamesHtml(records, prefix, currentSlug) {
  * frame on the page now goes through this function or it does not ship.
  *
  * `what` names the surface in both error messages, because the message is
- * read by whoever changes a pick, and "index1's shops room" is a place to
+ * read by whoever changes a pick, and "Home's shops room" is a place to
  * look where "a full-bleed frame" is not.
  */
 function fullBleedFrame(db, manifest, prefix, pick, what) {
@@ -584,7 +586,7 @@ function fullBleedFrame(db, manifest, prefix, pick, what) {
     const rel = shipping.find((f) => f.replace(/^.*\//, '').replace(/\.webp$/, '') === pick.frame);
     if (!rel) {
       throw new Error(
-        `home: index1's ${what} names ${pick.frame} of ${record.slug}, which that record does not ship. ` +
+        `home: Home's ${what} names ${pick.frame} of ${record.slug}, which that record does not ship. ` +
           `It ships ${shipping.length ? shipping.map((f) => f.replace(/^.*\//, '')).join(', ') : 'nothing'}.`
       );
     }
@@ -606,7 +608,7 @@ function fullBleedFrame(db, manifest, prefix, pick, what) {
      swapped for a design-stage record, which is exactly when it should. */
   if (plate.plateProvenance) {
     throw new Error(
-      `home: index1's ${what} leads on ${record.slug}, which is labelled "${plate.plateProvenance}". ` +
+      `home: Home's ${what} leads on ${record.slug}, which is labelled "${plate.plateProvenance}". ` +
         'A full-bleed band has nowhere to carry an E9 label except on the photograph, and rule 8 bars text ' +
         'on a photograph — so this surface takes photographs only, and a render needs a decided treatment first.'
     );
@@ -618,7 +620,7 @@ function fullBleedFrame(db, manifest, prefix, pick, what) {
 function roomFullData(db, manifest, prefix, room) {
   const set = selectableSet(db.projects, room);
   const pick = ROOMS_FULL_FRAME[room.key];
-  if (!pick) throw new Error(`home: index1 has no full-bleed frame for the ${room.key} room.`);
+  if (!pick) throw new Error(`home: Home has no full-bleed frame for the ${room.key} room.`);
 
   const { record, plate } = fullBleedFrame(db, manifest, prefix, pick, `${room.key} room`);
 
@@ -927,7 +929,7 @@ function assertNoRepeatedFrame(bandSrcs, sectionSrcs) {
   const repeated = [...counts.entries()].filter(([, n]) => n > 1).map(([src]) => src);
   if (repeated.length) {
     throw new Error(
-      `home: index1 ships ${repeated.length} photograph(s) twice — ${repeated.join(', ')}. ` +
+      `home: Home ships ${repeated.length} photograph(s) twice — ${repeated.join(', ')}. ` +
         'The opening band and the five full-bleed sections draw from the same 47 records, and a reader who ' +
         'meets one building twice on one page (once cropped) reads it as a site with six photographs. ' +
         'Move the SECTION, not the band: the fold keeps the strongest frame.'
@@ -936,10 +938,25 @@ function assertNoRepeatedFrame(bandSrcs, sectionSrcs) {
 }
 
 /**
- * `srcName` is the route, so index1 can take Home's data and state only its
- * differences. Both readings share one source for the band, the mosque, the
- * map and every href — an option that re-derives them is an option whose
- * differences stop being legible.
+ * `srcName` is the route. It carried TWO readings of Home while `index1` was
+ * a live option, so the option could take Home's data and state only its
+ * differences — an option that re-derives them is an option whose differences
+ * stop being legible.
+ *
+ * 🔴 THE OPTION WAS PROMOTED (4 Aug) AND THE GATE IS GONE WITH IT. It read
+ * `if (srcName === 'index1')`, and the promotion moved the source to
+ * `index.html` — so the branch simply stopped firing and the build **shipped
+ * Home missing four of its five bands and an empty services line, with no
+ * error**. Nothing threw because every guard inside the branch guards the
+ * data it builds, and an unbuilt branch has no data to guard. The page's own
+ * probe caught it (0 rooms, 1 frame of 5). A reading keyed on a FILENAME
+ * cannot survive the file being renamed; there is one Home now, and this is
+ * unconditional.
+ *
+ * `crestHtml`, `rooms` and the map are the replaced reading's data and no
+ * placeholder consumes them any more. They are left computed rather than
+ * deleted here on purpose — the delete pass runs last, behind a liveness
+ * manifest, not as a side effect of a promotion.
  */
 function viewData(prefix, srcName) {
   const db = loadDb();
@@ -952,47 +969,44 @@ function viewData(prefix, srcName) {
   const bandSrcs = [];
   const bandHtml = openBandHtml(db, manifest, prefix, bandSrcs);
 
-  let alt = {};
-  if (srcName === 'index1') {
-    const roomsFull = ROOMS.map((room) => roomFullData(db, manifest, prefix, room));
-    const mosque = fullBleedFrame(db, manifest, prefix, MOSQUE_FULL_FRAME, 'prays moment');
-    assertNoRepeatedFrame(bandSrcs, roomsFull.map((r) => r.roomFrame).concat([mosque.plate.plateSrc]));
-    alt = {
-      servicesLine: servicesLine(),
-      roomsFull,
-      /* THE PRAYS MOMENT TAKES THE MARKER TOO (Mahesh, 4 Aug: make this
-         section look better).
+  const roomsFull = ROOMS.map((room) => roomFullData(db, manifest, prefix, room));
+  const mosque = fullBleedFrame(db, manifest, prefix, MOSQUE_FULL_FRAME, 'prays moment');
+  assertNoRepeatedFrame(bandSrcs, roomsFull.map((r) => r.roomFrame).concat([mosque.plate.plateSrc]));
+  const alt = {
+    servicesLine: servicesLine(),
+    roomsFull,
+    /* THE PRAYS MOMENT TAKES THE MARKER TOO (Mahesh, 4 Aug: make this
+       section look better).
 
-         The mosque stays EXEMPT from the room pattern, which is the client's
-         own instruction and is right — a set of one has no names to band and
-         no second building to photograph. What it was NOT exempt from is
-         being the sentence's fifth verb: after four bands each carrying a
-         photograph, an 84px marker and a wall of names, "And prays." arrived
-         as two lines of text inside 562px of black, and the page's five verbs
-         stopped reading as five.
+       The mosque stays EXEMPT from the room pattern, which is the client's
+       own instruction and is right — a set of one has no names to band and
+       no second building to photograph. What it was NOT exempt from is
+       being the sentence's fifth verb: after four bands each carrying a
+       photograph, an 84px marker and a wall of names, "And prays." arrived
+       as two lines of text inside 562px of black, and the page's five verbs
+       stopped reading as five.
 
-         The marker is the same object as the rooms', derived the same way,
-         from the band's OWN fifth zone — the one labelled "The mosque",
-         whose href is the very link this section carries. Nothing is typed
-         and nothing is invented; the territory that has been named four
-         times gets named a fifth. */
-      mosqueSector: escapeText(sectorLabel('projects/alghalamosque.html', 'the prays moment')),
+       The marker is the same object as the rooms', derived the same way,
+       from the band's OWN fifth zone — the one labelled "The mosque",
+       whose href is the very link this section carries. Nothing is typed
+       and nothing is invented; the territory that has been named four
+       times gets named a fifth. */
+    mosqueSector: escapeText(sectorLabel('projects/alghalamosque.html', 'the prays moment')),
 
-      /* THE MOSQUE GETS A PHOTOGRAPH (Mahesh, 4 Aug) — see
-         MOSQUE_FULL_FRAME for the frame and for what it was picked over.
-         The section keeps its exemption from the ROOM pattern in the one
-         place that mattered: there is no names wall here, because a set of
-         one has no names to band. What it stops being exempt from is the
-         page's own evidence rule — four verbs each stood on a photograph
-         and the fifth stood on nothing. */
-      mosqueFullSrc: mosque.plate.plateSrc,
-      mosqueFullWidth: mosque.plate.plateWidth,
-      mosqueFullHeight: mosque.plate.plateHeight,
-      // Rule 8 again: the photograph carries no words, so this is the alt
-      // text alone. The visible name is the line's own link, below it.
-      mosqueEvidence: escapeText(mosque.record.title),
-    };
-  }
+    /* THE MOSQUE GETS A PHOTOGRAPH (Mahesh, 4 Aug) — see
+       MOSQUE_FULL_FRAME for the frame and for what it was picked over.
+       The section keeps its exemption from the ROOM pattern in the one
+       place that mattered: there is no names wall here, because a set of
+       one has no names to band. What it stops being exempt from is the
+       page's own evidence rule — four verbs each stood on a photograph
+       and the fifth stood on nothing. */
+    mosqueFullSrc: mosque.plate.plateSrc,
+    mosqueFullWidth: mosque.plate.plateWidth,
+    mosqueFullHeight: mosque.plate.plateHeight,
+    // Rule 8 again: the photograph carries no words, so this is the alt
+    // text alone. The visible name is the line's own link, below it.
+    mosqueEvidence: escapeText(mosque.record.title),
+};
 
   return Object.assign(
     {
@@ -1022,7 +1036,7 @@ function viewData(prefix, srcName) {
 }
 
 function hasViewData(srcName) {
-  return srcName === 'index' || srcName === 'index1';
+  return srcName === 'index';
 }
 
 module.exports = { hasViewData, viewData, selectionHtml, mapData, O5_SECOND_OF_PAIR };

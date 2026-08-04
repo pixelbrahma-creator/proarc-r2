@@ -51,17 +51,23 @@ const TITLE_MAX = 60;
 /**
  * CLIENT OPTIONS — pages that are SHOWN and not published.
  *
- * `index1.html` is a second reading of Home, built to be looked at beside
- * the first. It is a real built page on a real URL because that is the only
- * honest way to judge one, and it is NOT a route of the site: it carries
- * `noindex`, it stays out of sitemap.xml, and when a decision is taken it is
- * either promoted into `index` or deleted.
+ * An option is a real built page on a real URL, because that is the only
+ * honest way to judge one — so it carries `noindex`, stays out of
+ * sitemap.xml, and when a decision is taken it is either promoted into a
+ * route or deleted. It is never a page that quietly stays.
  *
  * 🔴 Named here rather than pattern-matched on the filename. A rule that
  * exempts anything matching /option|preview|tmp/ eventually exempts a real
- * page someone named badly; a list of one cannot.
+ * page someone named badly; a list of names cannot.
+ *
+ * 🔴 EMPTY, and that is a state rather than a gap. `index1.html` was the
+ * only entry and it was PROMOTED into `index` on 4 Aug — the option was
+ * decided, so the exemption went with the route. The list stays because the
+ * mechanism is what makes showing the next option cheap; an empty one means
+ * every built page is a published page, which is what the SEO audit's route
+ * count then asserts.
  */
-const OPTION_ROUTES = ['index1.html'];
+const OPTION_ROUTES = [];
 
 function readJson(...parts) {
   return JSON.parse(fs.readFileSync(path.join(ROOT, ...parts), 'utf8'));

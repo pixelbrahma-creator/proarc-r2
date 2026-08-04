@@ -7,31 +7,78 @@
 <!-- @include header -->
 
 <!--
-  Home — index.html. Spec: 01-home.md. Copy authority:
-  ../_bmad/wds/E-Brand-Framework/04-copy-direction.md v3.3 §1, verbatim.
+  index.html — HOME.
 
-  The page in one line: the opening screen → the sentence → four rooms →
-  the mosque → the map → the invitation. Every section carries one idea, one
-  visual and one link, and NO DESTINATION REPEATS — which is why the room
-  prints are not links (their verb is), why the opening band's labels are not
-  links either, and why the map's marks are facts rather than controls.
+  🔴 THIS PAGE WAS index1.html, THE CLIENT OPTION, AND IT WAS PROMOTED
+  (Mahesh, 4 Aug, Session VII). The option is decided: it became the route.
+  The reading it replaced — the paper claim, the crest drawing in the second
+  beat, and the constellation — is not archived anywhere in the tree on
+  purpose; it is at `983fb3a:pages-src/index.html` and nowhere else, because
+  a second home page kept "just in case" is how two surfaces start
+  disagreeing about what the practice says.
 
-  Two grounds now, one switch (§2): black from the opening to the map, paper
-  for the invitation, then the footer returns to black. Board 20 retired the
-  paper claim and the photograph under it, so the W1 plate no longer sits on
-  paper anywhere on this page — it dissolves into the page's own black from
-  the first pixel, by ground rather than by script.
+  Spec: 01-home.md, amended only where the client's brief amends it (3 Aug,
+  through Mahesh). Copy authority is unchanged:
+  ../_bmad/wds/E-Brand-Framework/04-copy-direction.md v3.3 §1.
 
-  ⚠ Still open, and visible on the page: the sentence in §2 says what the
-  opening now says. One of the two has to take a new job or go, and that is a
-  copy decision under 04-copy-direction, not a build one.
+  WHAT THE BRIEF CHANGED against that earlier reading, and nothing else
+  changed with it:
 
-  The four rooms ship in their FALLBACK forms: G6, the four at-tier
-  photographs, has no date. learns is the names wall; shops, works and
-  lives are hairline-framed prints. Each graduates to a full-bleed
-  photograph the day its image lands, with nothing around it restructured.
+    1 · The practice beat turns to PAPER with black type, loses the drawing,
+        and keeps one link. Under the sentence, one line names the services —
+        read off pages-src/services.html at build, never retyped. Without the
+        drawing the beat is short, which is the point of it.
+
+    2 · Each room becomes a FULL-BLEED photograph with a black band beneath
+        it carrying the verb and EVERY name in that sector. That is not a new
+        idea: 01-home §5.2 already says each room "graduates to a full-bleed
+        photograph the day its image lands, with nothing around it
+        restructured". This is that graduation, shown early.
+
+    3 · The mosque is EXEMPT, on the client's own instruction. It is right:
+        the Prays moment is a set of one, so it has no names to band and no
+        second building to photograph. It keeps its own form.
+
+        🔴 AMENDED 4 Aug, second pass — see item 7. The exemption is now
+        HALF taken: no names wall, but a photograph. Mahesh's call.
+
+  WHAT THE 4 AUGUST PASS CHANGED, on Mahesh's reading of the live page:
+
+    4 · The four photographs are RE-PICKED for full bleed. Three of them
+        were the room's existing print promoted as-is, which was deliberate
+        — the option was comparing layout — and H11 note 3 left the
+        re-picking as the follow-on. See ROOMS_FULL_FRAME in
+        build/lib/home.js for what each was picked over and why.
+
+    5 · The constellation is DELETED from this reading. 🔴 With the
+        promotion it is deleted from HOME — the site's only remaining map
+        is /ajman's, which is the one that was always the argument.
+
+    6 · Each verb gains its SECTOR NAME, and the names wall becomes
+        reachable: every name links to its record, and the building in the
+        photograph above is marked and left unlinked.
+
+    7 · THE MOSQUE GETS A PHOTOGRAPH (Mahesh, 4 Aug, second pass), which
+        overrides the client's exemption in item 3 and is recorded as a
+        decision in punch list H13. Only half of the exemption goes: the
+        section takes the fifth full-bleed frame and NO names wall, because
+        the thing the exemption was protecting — a set of one has no names
+        to band — is still true. Five verbs, five photographs, five
+        markers, four walls.
+
+  WHAT DID NOT CHANGE: the opening screen, the mosque, the invitation and
+  every href came from the earlier reading verbatim — while both pages were
+  live that is what made them comparable as two ideas rather than as two
+  builds, and it is why the promotion moves only the bands between them.
+
+  THE GROUND ALTERNATES NOW, and that is the visible consequence: black
+  opening → paper beat → photograph → black band → photograph → black band …
+  Each ground is a decided property of its band (E1), never a change of pace:
+  the beat is paper because it is the practice speaking in its own voice, and
+  every band under a photograph is black because it is that photograph's
+  evidence.
 -->
-<main id="main" class="hm">
+<main id="main" class="hm hm--alt">
 
   <!-- 1 · The opening — one screen, black, and the page's whole claim. The
        sentence carries practice, date, place and all five verbs at once; the
@@ -58,96 +105,134 @@
     <div class="hm-open__band">{{openBandHtml}}</div>
   </section>
 
-  <!-- 2 · The black continues, at the section boundary below the band. -->
-  <div class="hm-dark surface-dark">
+  <!-- 2 · The practice, ON PAPER. The drawing is gone at the client's
+       request, so the beat is one column and short — the sentence, the
+       services on one line, and one door.
 
-    <!-- 2 · The practice — the page's turn from the city to the office that
-         drew it. The opening screen spends BOTH copy registers at once (the
-         verbs in its sentence, the nouns in the band's five labels), so this
-         beat restated it and had no job left; it now answers the question the
-         opening cannot, which is who builds it and how far they carry it.
+       ONE LINK, not two. index.html carries "Who we are" AND "What we do"
+       as a deliberate amendment to the one-link rule, because its sentence
+       makes two claims and each link proves a different one. Here the
+       services LINE proves the second claim in words, so the second link
+       would be a third statement of the same thing — and the one-link rule
+       is the page's default, not the exception.
 
-         TWO LINKS, and that is a deliberate amendment to the one-link rule
-         (§1): the sentence carries two claims and each link proves a
-         different one — designs → the practice, clears and manages → what it
-         does. They are the sentence's halves, not a menu. The other half of
-         the rule is untouched: no destination repeats, and this is the page's
-         only route to either page.
+       The services line is NOT typed here. build/lib/home.js reads it off
+       pages-src/services.html, so the six names cannot drift from the page
+       that publishes them. -->
+  <section class="ha-beat">
+    <div class="container">
+      <h2 class="ha-beat__line t-editorial">Proarc designs the vision, navigates all approvals, and manages the build on site.</h2>
+      <p class="ha-beat__services">{{servicesLine}}</p>
+      <p class="ha-beat__route"><a class="ha-link" href="{{aboutHref}}">Who we are <span aria-hidden="true">&rarr;</span></a></p>
+    </div>
+  </section>
 
-         The mark opposite is GENERATED FROM THE RECORDS (build/lib/crest.js)
-         — one course per building, its width the size of the set it belongs
-         to. Nothing about its shape is chosen, and it redraws when the data
-         changes. It carries no label, no legend and no number.
+  <!-- 3 · The four rooms, at full bleed. One pattern four times, in the
+       sentence's order: learns · shops · works · lives.
 
-         The two columns share the mark's own ground line: the words' last
-         line stands on it (home.css §4). The hairline that used to open this
-         beat is gone with that — it bounded nothing on its right half, and
-         a beat needs one horizontal, not two. -->
-    <section class="hm-sentence container">
-      <div class="hm-sentence__col">
-        <h2 class="hm-sentence__line t-editorial">Proarc designs the vision, navigates all approvals, and manages the build on site.</h2>
-        <p class="hm-sentence__route">
-          <a class="hm-link" href="{{aboutHref}}">Who we are <span aria-hidden="true">&rarr;</span></a>
-          <a class="hm-link" href="{{servicesHref}}">What we do <span aria-hidden="true">&rarr;</span></a>
-        </p>
-      </div>
-      <div class="hm-crest" data-crest>{{crestHtml}}</div>
-    </section>
+       The photograph runs edge to edge and carries NOTHING on it — rule 8,
+       and the same arrangement the hairline print used. The black band under
+       it is where the words live, and it reads in three steps:
 
-    <!-- 4 · The four rooms — one pattern four times, in the sentence's
-         order: learns · shops · works · lives. The verb is the link; the
-         evidence name sits opposite it; the quiet line names a selection
-         and ends in an ellipsis. The quiet line is never a link, so the
-         room keeps exactly one destination. -->
-    {{#each rooms}}
-    <section class="hm-room">
+         the VERB, the room's one link, in the label register;
+         the SECTOR NAME under it at Mega Splash, hollow — "Learns /
+         Schools and universities" (Mahesh, 4 Aug). The words are the
+         opening band's own, derived from OPEN_BAND by href rather than
+         retyped, so the two surfaces cannot drift; the register is
+         .t-marker, the site's hollow section marker (P2-c / H5-b), used
+         here at the size it was specified at rather than shrunk into the
+         wall;
+         the NAMES, every one in the set, each a link to its record, with
+         the building in the photograph above marked and left unlinked.
+
+       EVERY NAME, and no ellipsis. The ellipsis on this page means "a
+       selection"; this band is not one. It is still not every RECORD —
+       O5's corroborated pairs are suppressed sitewide — so it prints every
+       name the site prints for that sector, and states no total (E12).
+
+       The building's name no longer sits at the strip's inline-end: it was
+       the same word twice on one band, once at 14px and once at 32px. The
+       marked name in the wall is the one copy. -->
+  {{#each roomsFull}}
+  <section class="ha-room">
+    <figure class="ha-frame">
+      <img class="ha-img" src="{{fullSrc}}"{{#if fullSrcset}} srcset="{{fullSrcset}}" sizes="100vw"{{/if}}
+           width="{{fullWidth}}" height="{{fullHeight}}" alt="{{roomEvidence}}" loading="lazy" decoding="async">
+    </figure>
+    <div class="ha-room__band surface-dark">
       <div class="container">
-        {{#if roomPrint}}
-        <figure class="hm-room__print">
-          <img class="hm-room__img" src="{{printSrc}}"{{#if printSrcset}} srcset="{{printSrcset}}" sizes="(max-width: 1200px) 100vw, 1120px"{{/if}}
-               width="{{printWidth}}" height="{{printHeight}}" alt="{{roomEvidence}}" loading="lazy" decoding="async">
-        </figure>
-        {{/if}}
-        {{#if roomWall}}
-        <p class="hm-room__wall">{{roomWallHtml}}</p>
-        {{/if}}
-        <div class="hm-room__strip">
-          <h3 class="hm-room__verb"><a class="hm-link" href="{{roomHref}}">{{roomVerb}} <span aria-hidden="true">&rarr;</span></a></h3>
-          {{#if roomEvidence}}<p class="hm-room__evidence">{{roomEvidence}}{{#if roomProvenance}} <span class="hm-sep">&middot;</span> {{roomProvenance}}{{/if}}</p>{{/if}}
-        </div>
-        {{#if roomQuietHtml}}
-        <p class="hm-room__quiet">{{roomQuietHtml}}</p>
-        {{/if}}
+        <h3 class="ha-room__verb"><a class="hm-link" href="{{roomHref}}">{{roomVerb}} <span aria-hidden="true">&rarr;</span></a></h3>
+        <p class="ha-marker t-marker">{{roomSector}}</p>
+        <p class="ha-room__names">{{roomNamesHtml}}</p>
       </div>
-    </section>
-    {{/each}}
+    </div>
+  </section>
+  {{/each}}
+
+  <!-- 4 · The mosque. Black. -->
+  <div class="hm-dark surface-dark">
 
     <!-- 5 · The Prays moment — the fifth verb, one building behind it, so
          the line ends in a full stop and never the selection-ellipsis. The
          heading is a heading (a set of one has no page); the mosque's name
-         is the moment's one link. Civic work is shown, never narrated. -->
+         is the moment's one link. Civic work is shown, never narrated.
+
+         IT TAKES THE MARKER TOO (Mahesh, 4 Aug), and then THE PHOTOGRAPH
+         (Mahesh, 4 Aug, second pass) — which OVERRIDES the client's own
+         "mosque exempt" instruction and is Mahesh's decision, recorded in
+         punch list H13 rather than slipped in as polish.
+
+         WHAT THE EXEMPTION WAS PROTECTING IS UNTOUCHED. A set of one has
+         no names to band, so there is NO NAMES WALL here and there will
+         not be one. The mosque becomes the page's fifth FRAME, not its
+         fifth ROOM — the same distinction the marker made when
+         .ha-room__marker became .ha-marker, and the frame follows it now:
+         .ha-frame / .ha-img belong to the page's five territories, and
+         .ha-room__band to the four that are rooms.
+
+         What it stops being exempt from is the page's own evidence rule.
+         Four verbs each stood on a photograph and the fifth stood on
+         nothing, so after four full-bleed screens "And prays." read as the
+         page tailing off rather than closing.
+
+         Rule 8: the photograph carries nothing. The marker and the line
+         stay in the black band below it, exactly as the rooms' do. -->
+    <figure class="ha-frame">
+      <img class="ha-img" src="{{mosqueFullSrc}}" width="{{mosqueFullWidth}}" height="{{mosqueFullHeight}}"
+           alt="{{mosqueEvidence}}" loading="lazy" decoding="async">
+    </figure>
+
     <section class="hm-prays container">
       <h3 class="hm-prays__verb">And prays.</h3>
+      <p class="ha-marker t-marker">{{mosqueSector}}</p>
       <p class="hm-prays__line">Prayer runs through it all. <a class="hm-link-inline" href="{{mosqueHref}}">Al Ghala Mosque</a>, Al Jurf &mdash; completed 2009.</p>
     </section>
 
-    <!-- 6 · The map — Option B, the constellation. The marks are the
-         page's own, generated from the records at a true 5px (E7.1); no
-         mark is placed by inference (E7.2) and no mark carries a date
-         (E7.3), so they sweep west to east and no counter runs. No section
-         label: the link line is the caption. -->
-    <section class="hm-map container" aria-label="Proarc&rsquo;s buildings across the Emirate">
-      <div class="hm-map__field" data-map>
-        <svg class="hm-map__svg" viewBox="{{mapViewBox}}" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet">{{mapMarksHtml}}</svg>
-      </div>
-      <p class="hm-map__line"><a class="hm-link" href="{{ajmanHref}}">One Emirate, drawn <span aria-hidden="true">&rarr;</span></a></p>
-    </section>
+    <!-- 6 · THE CONSTELLATION IS GONE from this reading (Mahesh, 4 Aug).
+         Home keeps it; the option does not.
+
+         Three things were checked before it was cut, because a deleted
+         section takes more with it than its own markup:
+
+           /ajman is NOT orphaned — the footer links it on all fifty-nine
+           pages, so the Emirate still has a door from here;
+
+           `pageScript: "home"` still loads js/home.js, which is the script
+           that ARMS the map. It reads `[data-map]` through
+           querySelector and drawOnce()'s first line is `if (!el) return`,
+           so an absent map is a no-op rather than a null dereference —
+           which matters more than it sounds: that file also arms the crest,
+           and a throw there would kill every later behaviour on the page
+           silently, on a page that would still look finished;
+
+           `p10-home-motion` asserts the map, and asserts it against
+           index.html, which is untouched. -->
 
   </div>
 
-  <!-- 7 · The invitation — paper, the inverse of the page, and the one lit
-       surface on it. The brightest moment is the moment the page asks for
-       the project. The footer returns to black below it. -->
+  <!-- 5 · The invitation — paper, the inverse of the page, and the one lit
+       surface on it. Unchanged from index.html; the footer returns to black
+       below it. -->
   <section class="hm-invitation" aria-label="Start a project">
     <div class="container">
       <p class="hm-invitation__line">Have a project in mind? Let&rsquo;s talk.</p>
