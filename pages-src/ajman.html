@@ -106,7 +106,13 @@
       <div class="container aj-standing__grid">
 
         <div class="aj-standing__map">
-          <div class="aj-map" data-map>
+          <!-- `--mark-count` is DATA feeding the stylesheet's own arithmetic,
+               not a styled value: the label stage's delay is derived from it
+               ((count − 1) × 34ms + 140ms, the moment the last mark lands), so
+               a 48th building re-times the choreography with no edit. It is
+               the same device the marks already use — each circle carries its
+               own `--mark-index` — and it is generated, never typed. -->
+          <div class="aj-map" data-map style="--mark-count:{{mapMarkCount}}">
             <svg class="aj-map__svg" viewBox="{{mapViewBox}}" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet">{{mapMarksHtml}}{{mapLabelsHtml}}{{mapHitsHtml}}</svg>
           </div>
         </div>

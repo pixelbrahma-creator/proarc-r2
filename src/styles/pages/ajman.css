@@ -184,6 +184,63 @@
   transition-delay: calc(var(--mark-index) * 34ms);
 }
 
+/* THE NAMES DRAW, AND THE EXCEPTION IS DECIDED (Mahesh, 4 Aug).
+
+   `scripts.html`'s rule is that NO TEXT ANIMATES IN BY DEFAULT, and until
+   today it had exactly one exception — the record page's neighbours marker
+   (P2-b/H5-d). Mahesh extended it here rather than letting the board's
+   "labels resolve" stage arrive as a build detail, because it is a change to
+   what the rule means: the exception becomes a pattern rather than a one-off.
+
+   It borrows that marker's MECHANISM exactly, and refuses the same thing it
+   refused: the names WIPE ON from the inline-start edge — the menu overlay's
+   own vocabulary — and there is no fade, no scale and no translate. MVRDV's
+   scale+fade was declined on the record page because this file's motion
+   language rules out decorative fades by name, and nothing about a map label
+   reopens that.
+
+   🔴 THE RESTING STATE IS AN EXPLICIT inset(), NOT THE ABSENCE OF A CLIP.
+   `clip-path` does not interpolate between `inset(…)` and `none` — they are
+   discrete values, so the wipe SNAPS and `getAnimations()` reports zero while
+   the end state looks perfect. Both endpoints are inset() functions. This is
+   the same trap the neighbours marker paid for once; it is written here as
+   well because the next person to copy this will copy this file.
+
+   The -12% bleed is not slack. It is a percentage rather than the marker's
+   -4px because a label is inside a scaling viewBox — a px bleed would be four
+   different bleeds at the field's four known widths, which is the identical
+   fault --label-size and the stroke question already cost this page. A
+   percentage resolves against the label's own box, so it is one value.
+
+   THE DELAY IS DERIVED, NEVER TYPED. The names arrive after the last mark
+   lands: the sweep's final mark starts at (count − 1) × 34ms and runs 140ms,
+   so that sum IS the label stage's delay. `--mark-count` comes from the build
+   with the marks themselves, so a 48th building moves this automatically —
+   §7's rule that no layout on this page is keyed to a number, applied to
+   time. A typed 1058ms would be correct today and silently wrong the day the
+   data changes. */
+.aj-map__label {
+  clip-path: inset(-12%);
+}
+
+.aj-map--armed .aj-map__label {
+  clip-path: inset(-12% 100% -12% -12%);
+}
+
+/* Physical insets, because clip-path has no logical form. RTL is restated
+   rather than left to inherit a left-to-right wipe — Arabic names read the
+   other way and a name that drew against its own direction would be the one
+   piece of this page that did. */
+[dir="rtl"] .aj-map--armed .aj-map__label {
+  clip-path: inset(-12% -12% -12% 100%);
+}
+
+.aj-map--drawing .aj-map__label {
+  clip-path: inset(-12%);
+  transition: clip-path 380ms var(--ease-out);
+  transition-delay: calc((var(--mark-count) - 1) * 34ms + 140ms);
+}
+
 /* THE INTERACTION, AS OPTION B REWRITES §3.4. With no polygons the map
    cannot be the index, so the ledger is the control and the map answers:
    the current district's marks hold #FFFFFF while every other mark drops to
@@ -543,6 +600,19 @@
   .aj-map--armed .aj-mark,
   .aj-map--drawing .aj-mark {
     transform: scale(var(--mark-scale));
+    transition-delay: 0s;
+  }
+
+  /* The armed label state IS a hidden name, and zeroing a duration does not
+     un-arm anything — so the clip is refused outright rather than hurried.
+     js/ajman.js does not arm under reduce at all; this is the second half,
+     for an armed class that arrives any other way. RTL is restated because
+     the rule it overrides is. */
+  .aj-map--armed .aj-map__label,
+  [dir="rtl"] .aj-map--armed .aj-map__label,
+  .aj-map--drawing .aj-map__label {
+    clip-path: inset(-12%);
+    transition: none;
     transition-delay: 0s;
   }
 }
