@@ -90,6 +90,10 @@
 
   function onArrival(entries) {
     root.classList.toggle('chrome-quiet', !entries[entries.length - 1].isIntersecting);
+    /* The retreat is gated on this state, and this callback is the moment it
+       changes — see applyRetreat's note. Declared below and hoisted; the
+       observer cannot fire before the script has finished evaluating. */
+    applyRetreat();
   }
 
   function arm() {
@@ -132,6 +136,104 @@
       observer.observe(el);
     });
   }
+
+  /* -----------------------------------------------------------------
+     THE RETREAT — E13.2a (4 Aug 2026, Mahesh). The chrome uncovers the page.
+
+     🔴 THIS FILE'S OPENING CLAIM — "no scroll threshold to guess and no
+     scroll listener at all" — IS NO LONGER TRUE, AND THAT IS THE WHOLE COST
+     OF THE AMENDMENT. E13.2 bought permanence with "no scroll listener, no
+     state change, nothing to desync", and permanence is what buried text ink
+     on every long page: measured over ink rather than boxes, the trigger
+     covers 4.53% of all visible lines at 1440 and 8.00% at 375, the plate
+     2.89% and 4.89%. /ajman's authority sentence was cut mid-word at display
+     size. So there is now exactly one scroll listener, and it is written to
+     keep the rest of the claim: the retreat has ONE state, derived from a
+     direction, and it can only ever desync into the SAFE state (present).
+
+     WHAT IT IS NOT GATED ON: a pixel threshold. The retreat only applies once
+     the page is past its own arrival, and `chrome-quiet` — the arrival
+     observer above — already answers that question from the page's own first
+     band. So the threshold this file refused to guess is still not guessed.
+
+     THE ONE INVENTED VALUE IS THE HYSTERESIS, AND IT IS NAMED HERE.
+     A direction read off consecutive scroll events flips on sub-pixel jitter,
+     on rubber-band overscroll, and on the layout shift a lazily-decoded image
+     causes — and a chrome that flickers is worse than one that covers. 24px
+     is the site's own --gap-block and, more to the point, the plate's clear
+     space rounded up: below one clear space of travel the reader has not
+     changed their mind about direction. Nothing else in the system supplies
+     a "smallest deliberate scroll", so this is invented rather than derived
+     and says so, exactly as districts.js names its two invented values.
+     ----------------------------------------------------------------- */
+  var HYSTERESIS = 24;
+  var lastY = window.pageYOffset || 0;
+  var goingDown = false;
+  var ticking = false;
+
+  /* 🔴 THE DIRECTION AND THE DECISION ARE SEPARATE, AND THE FIRST VERSION OF
+     THIS DID NOT SEPARATE THEM. Deciding inside the scroll handler means the
+     state is only ever re-evaluated when a scroll event fires — so a gesture
+     whose LAST event lands before the arrival observer has flipped
+     `chrome-quiet` leaves the chrome present until the reader scrolls again.
+     Both inputs are asynchronous and neither is ordered against the other;
+     a decision that reads them both has to be reachable from both. */
+  function applyRetreat() {
+    /* Four reasons never to retire, all of them the safe direction: the
+       reader is going up, has not passed the arrival yet, has the overlay
+       open (the trigger IS its close control and the plate IS the way home),
+       or has focus inside the chrome — a keyboard reader who has reached the
+       trigger must not have it slide away underneath them. */
+    var hold =
+      !goingDown ||
+      !root.classList.contains('chrome-quiet') ||
+      root.classList.contains('is-menu-open') ||
+      plate.contains(document.activeElement) ||
+      trigger.contains(document.activeElement);
+
+    root.classList.toggle('chrome-retired', !hold);
+  }
+
+  function readDirection() {
+    ticking = false;
+    var y = window.pageYOffset || 0;
+
+    /* Overscroll at either end reports positions outside the document on
+       some browsers. Clamping rather than returning keeps lastY honest —
+       an unclamped bounce leaves a phantom delta behind it. */
+    if (y < 0) y = 0;
+
+    var delta = y - lastY;
+    if (Math.abs(delta) >= HYSTERESIS) {
+      goingDown = delta > 0;
+      lastY = y;
+    }
+    applyRetreat();
+  }
+
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(readDirection);
+  }, { passive: true });
+
+  /* Focus returns it, always and immediately — no direction, no threshold.
+     This is the half of the original decline's reason that is KEPT: the
+     trigger is the site's only navigation control, so it may retreat from a
+     reader who is scrolling away from it and must never retreat from one
+     who is reaching for it. `focusin` rather than `focus` because the
+     listener is on the document and focus does not bubble. */
+  document.addEventListener('focusin', function (e) {
+    if (plate.contains(e.target) || trigger.contains(e.target)) {
+      /* Clearing the CLASS alone would last until the next applyRetreat and
+         no longer: the remembered direction is still "down", so the arrival
+         observer firing once would take the chrome away from a reader who is
+         holding it. The direction is what has to be reset. */
+      goingDown = false;
+      lastY = window.pageYOffset || 0;
+      applyRetreat();
+    }
+  });
 
   /* The band height and the viewport both move on resize; rebuild rather
      than patch, debounced — the observer set is small. */

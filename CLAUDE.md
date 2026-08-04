@@ -189,6 +189,24 @@ inline-start rule.
 - **The chrome sits on the content axis** (container edge + gutter, the
   `--chrome-axis` calc) and moves on the LAYOUT's breakpoints (1024/780).
   Never reintroduce a bare-gutter offset or a 1023/767 chrome breakpoint.
+- **The chrome RETREATS (E13.2a, 4 Aug — the first amendment to a signed
+  clause).** Past the page's own arrival a downward scroll retires it; any
+  upward scroll, any focus inside it, and the open overlay return it. It
+  ships PRESENT and the script arms the retreat, so a script that never runs
+  leaves a page with its navigation intact. **The reason is measured, not
+  stylistic:** permanent chrome covered **4.53%** of all visible text line
+  boxes at 1440 and **8.00%** at 375 (trigger), 2.89% and 4.89% (plate), and
+  /ajman's authority sentence was severed mid-word at display size. 🔴 **The
+  TRIGGER is permanent below 780 — decided against that measurement**, on the
+  grounds that the overlay is the only navigation surface; **the plate
+  retires at every width.** It travels by `transform`, never `display` or
+  `visibility`, so a retired trigger stays focusable and `focusin` returns
+  it. No RTL restatement (the block axis does not flip) and no
+  reduced-motion branch (the global clamp makes it instant; the retreat is
+  function, and a reader who asked for less motion still wants the words).
+  Verify with `_bmad/tools/p24-chrome-retreat.js`, never by eye at one width
+  — the trigger's band means the class is ON at 375 while nothing moves, so
+  **a class check passes vacuously; assert the computed transform.**
 - **The arrival clearance is now ONE TOKEN, `--arrival-clearance`** (P3/H5-c,
   3 Aug), defined in `tokens-layout.css` beside the gap tokens it is made of.
   It replaced sixteen spelled-out `calc()`s across eight stylesheets and

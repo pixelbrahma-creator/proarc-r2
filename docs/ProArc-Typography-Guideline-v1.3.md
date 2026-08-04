@@ -648,6 +648,44 @@ if a visible pill on black is ever wanted, the boundary is `#595959` (3.00:1, E3
 structural floor). *Rejected:* inversion — a CTA's shout applied to chrome that should be
 found, not noticed.
 
+**E13.2a — The retreat.** *Amendment to E13.2, decided 4 August 2026 (Mahesh), on a
+measurement rather than a preference.* E13.2 bought its permanence with "no scroll
+listener, no state change, nothing to desync". **What permanence also bought was
+identity chrome sitting on top of the page's own words.** Measured over text ink —
+`Range.getClientRects()` across the text nodes, five pages, every half viewport of
+scroll — the trigger covers **4.53%** of all visible line boxes at 1440 and **8.00%**
+at 375; the plate **2.89%** and **4.89%**. Whole words go fully covered, `/projects`
+buries building names at 71–100%, and `/ajman`'s authority sentence was severed
+**mid-word at display size**. A permanent field is a promise about the chrome; it was
+being paid for by the argument.
+
+So: **identity chrome keeps its permanent `#000000` field and gains one state.** Past
+the page's own arrival, a downward scroll retires it; any upward scroll, any focus
+inside it, and the open overlay return it. E13.2's field rule is untouched — this
+amends only its *permanence*, and only in the block axis.
+
+- **It ships present.** The retreat is armed by script, so a script that never runs
+  leaves a complete page with its navigation intact — the same doctrine as the
+  ground-aware field itself.
+- **It travels by transform, never `display` or `visibility`**, so a retired trigger
+  stays focusable and `focusin` returns it. §4.7's reachability is preserved by
+  construction rather than by promise.
+- **The arrival is not a guessed pixel threshold.** The retreat is gated on the state
+  the arrival observer already computes from the page's own first band.
+- 🔴 **The trigger is PERMANENT below 780px.** Decided against the measurement, and
+  knowingly: the trigger buries most at exactly the widths where it stays. The reason
+  is that the overlay is the only navigation surface (E13.1) and a narrow reader
+  scrolls most. **The plate retires at every width.** 780 is the chrome's own
+  breakpoint — a rule made of a token inherits that token's breakpoint.
+- **No reduced-motion branch.** The global clamp makes the travel instant; the retreat
+  is function, and a reader who asked for less motion still wants the words.
+
+*Supersedes* the note in `components.css` declining Dewan-style hide-on-scroll
+("the trigger is the site's only navigation control and never retreats"). **Half of
+that reason is kept rather than reversed**: the trigger may retreat from a reader
+scrolling away from it and never from one reaching for it. Held by
+`_bmad/tools/p24-chrome-retreat.js`.
+
 **E13.3 — The centre region alternates; the mega grid is not always-on.** §4.7's "project
 mega-menu centre" is **amended to a resting/revealed pair**: at rest the centre carries the
 Ajman constellation (M4 — ornament under E7.2/E12/E3.7, 28 honest marks generated from the
@@ -703,6 +741,7 @@ open/close choreography and its two build traps are specified in `09-menu.md` §
 | **E12 (to draft) — no quantities in display prose, site-wide** | **Rule decided 31 Jul (Mahesh), generalised the same night from "no building counts" to "no numbers":** display prose carries no quantities — no counts, no storeys, no floors (*"more than a dozen"*), no spelled quantities, no measures. **Three exemptions:** "one" as the method word (*one office, one practice*; rides: *"every campus but one"*, *"one working day"*) · years as dates (*since 2006*, *completed 2009* — year counts stay barred) · quoted designations (*"five-star"* is the rating's name). Quantities live only in **record surfaces** — spec tables, ledger columns, generated captions — where **E3.7 still pins the storey measure**; the two E10 registers carry the split: *prose states, records record*. **Clarifier, 31 Jul (Screen 08): E12 governs quantities, and an identifier is not a quantity** — a phone number, a PO Box, an email address, a URL. Clock times and day ranges are times and dates (exemption 2's logic). A contact-facts block is a record surface besides, so it is doubly clear of the rule — written so no one hesitates over "9:00–18:00" at build time. Where a number was doing work, a name does it: the range names its two ends; the school groups are named, not counted. **The two blocking reach-backs are hereby resolved:** `03-work.md` §4.1's counted arrival line is dead (replacement: the selected-work arrival, `E-Brand-Framework/04-copy-direction.md` §2) and `05-ajman.md`'s S2 + schools line take numberless amendments (direction: statements name; "Every campus but one is in Ajman" survives on the one-exemption). **Drafted into the body at consolidation — E12.1–E12.4 above** |
 | **E13.1–E13.4 — the §4.7 amendment set (Screen 09)** | **DECIDED 31 Jul (Mahesh, board 16 revs 1–2).** Bars-only trigger · the identity-chrome field rule · the swap · the sub-desktop form. `09-menu.md` is built on all four *(table fragment merged at consolidation)* |
 | **W1 reaffirmation** | **DECIDED 31 Jul** — the chrome reach-back opened and closed the same day on rendered frames (C-1 kept; C-2/C-3 declined). Recorded here so consolidation sees the challenge happened |
+| **E13.2a — the retreat** | **DECIDED 4 Aug 2026 (Mahesh), AFTER SIGN-OFF, and the first amendment to a signed clause.** E13.2's permanence was covering the page's own words — measured over ink, the trigger buries 4.53% of visible lines at 1440 and 8.00% at 375, the plate 2.89% and 4.89%, and /ajman's authority sentence was cut mid-word at display size. The field rule is untouched; only permanence is amended, and only in the block axis. 🔴 **The trigger stays permanent below 780 — decided against the measurement**, on the grounds that the overlay is the only navigation surface and a narrow reader scrolls most. Clause text above; held by `p24-chrome-retreat.js` |
 
 **SIGNED OFF — Mahesh, 31 July 2026, consolidation session.** Every "needs sign-off" row above
 is signed with the document. The three open actions survive sign-off as actions, not blockers:

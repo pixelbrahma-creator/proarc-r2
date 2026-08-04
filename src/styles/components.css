@@ -79,7 +79,19 @@
      about ARRIVAL, and the arrival state now answers it. Tablet steps
      128→96 the same way; mobile is already at 96 and stays constant.
      Dewan-style hide-on-scroll was considered and declined: the trigger
-     is the site's only navigation control and never retreats. */
+     is the site's only navigation control and never retreats.
+
+     🔴 THAT DECLINE WAS REVERSED ON 4 AUG (Mahesh), AND NOT ON TASTE. The
+     permanent chrome covers text ink on every long page: measured over ink
+     rather than boxes, across five pages and every half viewport of scroll,
+     the trigger buries 4.53% of all visible lines at 1440 and 8.00% at 375,
+     the plate 2.89% and 4.89%. /ajman's authority sentence was severed
+     mid-word at display size and a 375 ledger row read "…llem Park Private
+     S", cut at both ends. E13.2's permanence is what bought that, and its
+     amendment is recorded in the guideline as E13.2a — see the retreat rules
+     below. The reachability half of the decline's reason is kept: the
+     trigger returns on any upward scroll, on focus, and whenever the overlay
+     opens, so it is never more than one gesture away. */
   --mark-size: var(--logo-size-desktop);
   --mark-size-quiet: var(--logo-size-mobile);
 
@@ -123,6 +135,87 @@
 /* The page SHIPS in the arrival state — the complete page — and the
    script only arms the reading state, same doctrine as chrome-ink. */
 html.chrome-quiet .chrome-plate__mark { inline-size: var(--mark-size-quiet); }
+
+/* -------------------------------------------------------------------------
+   THE RETREAT — E13.2a (4 Aug 2026, Mahesh). The chrome uncovers the page.
+
+   The page SHIPS with the chrome present, exactly as it ships fielded and
+   ships in the arrival state: `html.chrome-retired` is armed by the script,
+   so a script that never runs leaves a complete page rather than a page with
+   no way into the menu. Same doctrine as chrome-ink and chrome-quiet, and it
+   is the reason the retreat is safe to build on a scroll listener at all.
+
+   TRANSFORM, NOT VISIBILITY OR DISPLAY. A retired element must stay in the
+   accessibility tree and stay focusable — that is what lets a keyboard reader
+   tab to the trigger and have `focusin` bring it back, which is the half of
+   the original decline's reason that is kept rather than reversed. `display:
+   none` or `visibility: hidden` would make the site's only navigation control
+   genuinely unreachable for the length of a downward scroll.
+
+   NO RTL RESTATEMENT, AND THAT IS DELIBERATE RATHER THAN FORGOTTEN. The
+   retreat is on the BLOCK axis, which does not flip with direction — unlike
+   the label wipe on /ajman, whose physical `clip-path` insets had to be
+   restated for RTL and whose release then lost a specificity contest to that
+   restatement. A transform is also not one of hard rule 5's physical
+   direction properties; there is no logical form to reach for here.
+
+   NO REDUCED-MOTION BRANCH, ALSO DELIBERATE. tokens.css clamps every
+   transition-duration to 0.01ms under `prefers-reduced-motion: reduce`, so
+   the retreat becomes instant on its own. The retreat is FUNCTION — it
+   uncovers text — and only its travel is motion; a reader who asked for less
+   motion still wants the words. A branch that suppressed the retreat entirely
+   would hand exactly that reader the buried ink this rule exists to clear.
+   ------------------------------------------------------------------------- */
+
+.chrome-trigger,
+.chrome-plate {
+  /* Composited, and it moves nothing else: both are position:fixed, so no
+     other box can be reflowed by their travel. */
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+/* The trigger already animates its background for the ground swap; naming
+   both here keeps one transition declaration per element rather than two
+   that race. */
+.chrome-trigger {
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+html.chrome-retired .chrome-plate {
+  transform: translateY(-100%);
+}
+
+/* 🔴 THE TRIGGER'S BAND IS A DECISION, AND IT IS THE INVERSE OF WHAT THE INK
+   MEASURES. Mahesh, 4 Aug, with the measurement in front of him: the trigger
+   stays PERMANENT below 780 — the narrow widths, where the overlay is the
+   only navigation and the reader scrolls most — and retires at 780 and above.
+   The ink says the opposite: the trigger buries 4.53% of visible lines at
+   1440, 5.13% at 781 and 8.00% at 375, so this protects navigation exactly
+   where the burying is worst. That cost is accepted, not overlooked, and it
+   is written here so it is never "fixed" by someone reading the numbers
+   alone.
+
+   780, NOT 767 OR 768: the chrome moves on the LAYOUT's breakpoints, and a
+   rule made of a token inherits that token's breakpoint. `--logo-size-*`
+   steps to the mobile mark at 780, so the band where the trigger is permanent
+   is exactly the band where it is already drawn at its mobile size. */
+@media (min-width: 780px) {
+  html.chrome-retired .chrome-trigger {
+    transform: translateY(-100%);
+  }
+}
+
+/* The overlay owns the chrome while it is open — the trigger IS the close
+   control and the plate IS the way home (see the note above). Neither can be
+   retired underneath it. This sits after the retreat rules on purpose, the
+   same way the is-menu-open ground rules sit after the chrome-ink ones: one
+   direction of override, nothing to desync. */
+html.is-menu-open .chrome-plate,
+html.is-menu-open .chrome-trigger {
+  transform: none;
+}
 
 /* The bars, and the ✕ they become.
 
