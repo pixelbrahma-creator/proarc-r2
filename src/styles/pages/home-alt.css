@@ -139,12 +139,25 @@
    40% rather than centre, for the same reason: a street elevation's
    subject sits above its middle, and the bottom of these frames is road,
    car park or paving in three of them. It is ONE value for all FIVE from
-   4 Aug, when the mosque joined them — the option is still a layout
-   question, and a per-frame crop table is what it earns IF the layout is
-   taken. (The mosque's own frame is the one that would move first now:
-   it ends at the base of the wall rather than on a forecourt, so the 40%
-   spends more of its cut on the building than on ground it does not have.
-   Measured, it keeps 85% of the frame, so the cut is small either way.)
+   4 Aug, when the mosque joined them.
+
+   🔴 THE PER-FRAME CROP TABLE WAS EXAMINED AND REFUSED, 4 Aug. This note
+   used to defer it; deferring again would keep re-opening a question that
+   has now been answered by looking at all five at full size.
+
+   The mosque was named here as the frame that would move first, and it is
+   the one that must NOT. Its whole vertical cut is 157px of 1024, and two
+   things want it: at 40% the minaret arrives complete, finial and all, and
+   the cut takes part of the arched base; at 65% the base returns and the TOP
+   OF THE MINARET is clipped; at 100% worse again. A mosque that loses its
+   tower to keep a doorway is the wrong trade — the minaret is what
+   identifies the building — so 40% is not a compromise here, it is correct.
+
+   The other four have nothing to gain: North Gate spends its 20% on paving
+   and road, Seaside Hills its 24% on sky and foreground grass with the
+   building whole, City Life 9%, The Black Square 1%. A table would give five
+   values where one is already right, and each would be a number to maintain
+   against the next re-picked frame.
 
    🔴 80vh, RAISED FROM 62 ON 4 AUG (Mahesh: align the image height), and
    the number came off the measured page rather than off the eye. At 62vh
