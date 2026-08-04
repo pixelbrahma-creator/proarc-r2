@@ -280,34 +280,110 @@ function roomData(db, manifest, prefix, room) {
 /**
  * Which photograph leads each room at full bleed.
  *
- * Three of the four are the room's EXISTING photograph, promoted from a
- * hairline-framed print to the full width — nothing is re-curated for this
- * option, so a reader comparing the two pages is comparing the layout and
- * not the picture editing.
+ * 🔴 RE-PICKED 4 AUG (Mahesh, on the live page: the photographs are wrong).
+ * H11 note 3 left this open by design — three of the four were the room's
+ * EXISTING print promoted to full bleed, deliberately, so the option
+ * compared LAYOUT rather than picture editing. The layout is liked, so the
+ * frames are now curated for the band they actually ship in.
  *
- * 🔴 learns is the exception, because learns has no photograph today: its
- * fallback form is the names wall. The frame is named rather than derived,
- * for the reason OPEN_BAND_FRAME states — an index slides onto a
- * neighbouring photograph in silence, a name cannot.
+ * WHAT WAS WRONG, measured rather than judged. A full-bleed band is
+ * ~2.86:1 (100vw × 62vh at 1440×813) and it crops VERTICALLY, so the
+ * fraction of a frame that survives is `0.35 × its aspect ratio`. The four
+ * that shipped were the four TALLEST frames in reach:
  *
- * WHY cityschool/gallery-03 AND NOT THE SET'S OWN LEAD. The set leads on
- * habitatschool, and both of that record's usable frames are spent or weak
- * on this page: the hero is already in the opening band (and "no photograph
- * ships twice on this page" is asserted), gallery-02 is the same building's
- * street elevation with the same signage — the souksalah problem, one
- * territory twice — over a road and kerb foreground, and gallery-03 is a
- * sports hall interior that reads as a warehouse. City School is the next
- * record in the set whose frames are untouched by this page, and
- * gallery-03 is its widest (1920×1024): a full stepped elevation, sunlit,
- * the name on the fascia whole rather than cut. Its car park is the bottom
- * third, which a full-bleed band crops away vertically — the one crop
- * direction a bleeding image actually gives you.
+ *   azhagarden/hero      0.77  — PORTRAIT. Keeps 27%. Three-quarters of the
+ *                               photograph is thrown away and the tower is
+ *                               cut off at both ends; half the band is sky.
+ *   ajmanbank/gallery-02 1.43  — keeps 50%. The crop lands mid-facade: a
+ *                               wall of blue glazing with no top and no
+ *                               base. A texture, not a building.
+ *   citylifekhor/hero    1.50  — keeps 52%. The ground plane goes entirely,
+ *                               so a room about where Ajman SHOPS shows a
+ *                               dark glazed box that reads as an office.
+ *   cityschool/gallery-03 1.88 — the one frame near the band's own
+ *                               proportion, and disqualified on the other
+ *                               axis: an orange/magenta/teal panelled
+ *                               facade is the loudest thing on a monochrome
+ *                               site.
+ *
+ * SO THE RULE THIS TABLE NOW FOLLOWS, and it is the band's rule, not the
+ * site's: **a full-bleed frame is chosen for its PROPORTION first.** A
+ * photograph composed as a horizontal survives the crop; one composed as a
+ * portrait cannot be rescued by any object-position, because the fault is
+ * that there is no picture left. Then, in order: it must read as its sector
+ * at a glance, it must keep a ground (the crop eats top and bottom, so a
+ * building floating in sky loses both), and it must be a PHOTOGRAPH — the
+ * `Visualisation` records are refused below rather than relied on here.
+ *
+ * WHERE THE CANDIDATES CAME FROM. Mahesh named the FEATURED SECTIONS of
+ * Ravi's v1 site as the starting point, and the useful thing there is not
+ * its markup but its judgement: v1's hero slider and its featured rail are
+ * both full-height surfaces, so the nine records it puts in them are nine
+ * records someone already judged at full bleed — citylifekhor,
+ * exclusivevillas, blacksquare, edu-delhiprivate, citylifealtallah,
+ * souksalah, azha-park-residences, seasidehills, edu-habitataltallah.
+ * Three of this table's four picks come out of that list. (v1 is not
+ * imported from and not diffed against; a list of records is not a design.)
+ *
+ * 🔴 A FRAME IS NAMED, NEVER INDEXED — the doctrine OPEN_BAND_FRAME states.
+ * A name resolves to the photograph someone chose, or the build stops; an
+ * index slides onto a neighbouring photograph in silence.
+ *
+ * Each pick, and what it was picked over:
+ *
+ *   learns — `edu-northgatebritish/gallery-05` (1920×1080, keeps 62%). The
+ *   whole school in one three-quarter view, the name legible on the fascia,
+ *   and a planted boundary wall that gives the frame a continuous base, so
+ *   the vertical crop keeps ground rather than sky. Terracotta and grey
+ *   against green: the most restrained palette in a sector whose
+ *   photographs are mostly primary-coloured panels. Over `gallery-04` (the
+ *   building is a thin strip in the lower third — the crop keeps mostly
+ *   sky), over `edu-delhiprivate/gallery-03` (1.84 and well composed, but
+ *   the same colour objection as cityschool plus a foreground of flags,
+ *   bollards and road markings), and over the set's own lead
+ *   `habitatschool`, whose hero is already in the opening band.
+ *
+ *   shops — `citylifejurf/gallery-02` (1920×948, keeps 71%). The only frame
+ *   in the sector that shows SHOPS rather than a retail shed seen across a
+ *   car park: a terrace of shopfronts at street level, signage, café tables
+ *   and parasols, planting along the pavement. That is the room's whole
+ *   claim. Over `citylifealtallah`'s three frames, each carrying a "LEASING
+ *   NOW 052 6055 255" hoarding across the facade — a phone number in a
+ *   full-bleed photograph is the developer-marketing register E10 rules
+ *   out, and it dates the picture. Over `citylifetallah/gallery-03`, which
+ *   is the widest frame on the site (2.63, keeps 92%) and is a
+ *   VISUALISATION — placeholder "Tenant" fascia boards, stock figures, CGI
+ *   palms — on a record that carries no provenance label. Noted for the
+ *   data, not fixed here.
+ *
+ *   works — `blacksquare/hero` (1920×879, keeps 76%). Natively horizontal,
+ *   golden hour, and the only works frame that shows the building IN Ajman:
+ *   the lit gold bays, the Ramada tower beside it, the skyline running off
+ *   to the right and the road along the bottom. A room under a sentence
+ *   that says *Proarc has shaped how Ajman works* should show Ajman.
+ *   `ajmanbank/gallery-03` is the blue tower against an empty sky with
+ *   ~45% of the frame blank; `rholding` is a proposal, so its images are
+ *   renders (F-1).
+ *
+ *   lives — `seasidehills/hero` (1920×1133, keeps 59%). A long low
+ *   residential block across a lawn at golden hour: balconies, terraces and
+ *   planting, composed as a horizontal, and a photograph rather than a
+ *   render. The homes set is the one where that last clause does the work —
+ *   `azha-park-residences` is `Visualisation`, and `exclusivevillas` and
+ *   `rosetower` offer views FROM a home (a terrace, a pool, a lobby) rather
+ *   than a home.
+ *
+ * 🔴 seasidehills appears TWICE ON THE PAGE and that is the bank's own
+ * precedent, not an oversight: the opening band takes `gallery-02` and this
+ * band takes the hero, so the page shows two different photographs of one
+ * building. The rule is that no PHOTOGRAPH ships twice, and it is now
+ * asserted by the build rather than by hand — see assertNoRepeatedFrame().
  */
 const ROOMS_FULL_FRAME = {
-  schools: { record: 'cityschool', frame: 'gallery-03' },
-  shops: { record: 'citylifekhor' },
-  works: { record: 'ajmanbank', frame: 'gallery-02' },
-  homes: { record: 'azhagarden' },
+  schools: { record: 'edu-northgatebritish', frame: 'gallery-05' },
+  shops: { record: 'citylifejurf', frame: 'gallery-02' },
+  works: { record: 'blacksquare' },
+  homes: { record: 'seasidehills' },
 };
 
 /**
@@ -342,16 +418,95 @@ function servicesLine() {
 }
 
 /**
- * Every name in the set, in Proarc's order, with NO ellipsis and no total.
+ * THE ROOM'S SECTOR NAME, DERIVED FROM THE OPENING BAND — never retyped.
+ *
+ * "Learns / Schools and universities" (Mahesh, 4 Aug). The five sector
+ * names are already authored, once, in OPEN_BAND — *Schools and
+ * universities · Malls & shops · Offices · Homes · The mosque* — and a
+ * second copy here would be the same fault as a retyped services line: a
+ * list the page already publishes, in a copy nothing checks.
+ *
+ * 🔴 THE JOIN IS THE HREF, NOT THE ORDER. OPEN_BAND is keyed by zone and
+ * ROOMS by room.key, and today the two run 1:1 in the same sequence — so
+ * `OPEN_BAND[i].label` would work, and would silently relabel every room
+ * the first time a zone is reordered or the mosque moves. The href is the
+ * band's own declared join: its stated amendment is that *a band label
+ * links ONLY to the destination its own section below carries*, which is
+ * exactly the statement "this zone and that room are the same territory".
+ * So it is matched on, and 0 or 2 matches stop the build.
+ *
+ * (records.js also holds a sector table with a `noun` — Schools · Malls &
+ * shops · Homes. It is NOT the source here: those nouns are the Work
+ * surfaces' register and they are not the band's words. The band says
+ * "Schools and universities", which is the pair of cells it shows.)
+ */
+function sectorLabel(room) {
+  const zones = OPEN_BAND.filter((z) => z.href === room.href);
+  if (zones.length !== 1) {
+    throw new Error(
+      `home: index1's ${room.key} room takes its sector name from the opening band by href, and ` +
+        `"${room.href}" matches ${zones.length} of the band's zones rather than exactly one. ` +
+        'The band and the rooms are the same five territories; if one of them moved, the label is a ' +
+        'guess and a reordered band would silently relabel a room.'
+    );
+  }
+  return zones[0].label;
+}
+
+/**
+ * Every name in the set, in Proarc's order, with NO ellipsis and no total —
+ * and, from 4 Aug, EVERY NAME IS A LINK.
  *
  * The ellipsis on this page means "a selection" (selectionHtml above). This
  * band is not a selection, so it does not wear one — but it is still not
  * every RECORD: O5's corroborated pairs are suppressed sitewide, so what
  * ships is every name the site prints for that sector. Saying "all fifteen"
  * anywhere near it would be false as well as barred by E12.
+ *
+ * 🔴 THIS AMENDS "A ROOM KEEPS EXACTLY ONE DESTINATION", and it amends it
+ * the same way the opening band's labels were amended on 2 Aug rather than
+ * breaking it. The shape a sweep can hold:
+ *
+ *   a name links ONLY to its own record, and no record is reachable twice
+ *   from this page. The rooms' verbs reach the four SECTOR pages, the band's
+ *   labels reach the same four plus the mosque, and the mosque is the one
+ *   record any other surface links — and the mosque is in no wall, because
+ *   its sector has no room. Sectors partition the records, so a name cannot
+ *   appear in two walls; O5 suppression stops it appearing twice in one.
+ *
+ * THE CURRENT NAME — the building in the photograph above — is marked and
+ * is NOT a link. It is the one name on the band whose destination the
+ * reader is already looking at, and leaving it plain is also what
+ * index.html does with the same word (the print's evidence name has never
+ * been a link). See `.ha-name--current` in home-alt.css for why the mark is
+ * weight and value rather than the hollow Mega Splash it was drafted as.
  */
-function setNamesHtml(records) {
-  return records.map((p) => escapeText(p.title)).join(' <span class="hm-sep">&middot;</span> ');
+function setNamesHtml(records, prefix, currentSlug) {
+  let marked = 0;
+  const html = records
+    .map((p) => {
+      const name = escapeText(p.title);
+      if (p.slug === currentSlug) {
+        marked++;
+        return `<span class="ha-name ha-name--current">${name}</span>`;
+      }
+      return `<a class="ha-name" href="${prefix}projects/${p.slug}.html">${name}</a>`;
+    })
+    .join(' <span class="hm-sep">&middot;</span> ');
+
+  /* The mark is the band's whole answer to "which of these am I looking
+     at". Unmarked, the wall still renders — every name a link, nothing
+     wrong on the page — so this is exactly the kind of fault a screenshot
+     passes. It happens the moment a frame is picked from outside the room's
+     own set, which is one edit away at all times. */
+  if (marked !== 1) {
+    throw new Error(
+      `home: index1's ${currentSlug} leads a room whose names wall marks it ${marked} times rather than once. ` +
+        'The photograph names a building and the wall marks that building; a frame picked from outside the ' +
+        "room's own sector leaves the wall unmarked and the band silently loses its subject."
+    );
+  }
+  return html;
 }
 
 function roomFullData(db, manifest, prefix, room) {
@@ -380,19 +535,37 @@ function roomFullData(db, manifest, prefix, room) {
     plate.plateHeight = img.height;
   }
 
+  /* 🔴 E9 HAS NO HOME ON THIS BAND, so a labelled image cannot ride it.
+     The framed print carried its provenance in the strip beside the
+     building's name; the strip's name moved into the wall on 4 Aug and the
+     label has nowhere left to sit that is not ON the photograph, which
+     rule 8 bars. So a render is refused rather than shipped unlabelled —
+     the failure mode being prevented is the quiet one, where a
+     `Visualisation` runs full-bleed as evidence of a building that stands.
+     All four picks are `Completed` photographs; this fires the day one is
+     swapped for a design-stage record, which is exactly when it should. */
+  if (plate.plateProvenance) {
+    throw new Error(
+      `home: index1's ${room.key} room leads on ${record.slug}, which is labelled "${plate.plateProvenance}". ` +
+        'A full-bleed band has nowhere to carry an E9 label except on the photograph, and rule 8 bars text ' +
+        'on a photograph — so this surface takes photographs only, and a render needs a decided treatment first.'
+    );
+  }
+
   return {
     roomVerb: room.verb,
     roomHref: prefix + room.href,
-    // The photograph carries NO words. The name of what is in it sits in
-    // the black band below, with the rest of the set — rule 8, and the same
-    // arrangement the framed print already used.
+    roomSector: escapeText(sectorLabel(room)),
+    // The photograph carries NO words — rule 8. `roomEvidence` is now the
+    // image's alt text alone: the name it used to print in the strip is the
+    // marked name in the wall below, where it is one word rather than two.
     roomEvidence: escapeText(record.title),
-    roomProvenance: plate.plateProvenance,
     fullSrc: plate.plateSrc,
     fullSrcset: plate.plateSrcset,
     fullWidth: plate.plateWidth,
     fullHeight: plate.plateHeight,
-    roomNamesHtml: setNamesHtml(set),
+    roomFrame: plate.plateSrc,
+    roomNamesHtml: setNamesHtml(set, prefix, record.slug),
   };
 }
 
@@ -614,16 +787,30 @@ function openBandCell(db, manifest, prefix, slug) {
   }
 
   const img = W.image(manifest, rel, slug, prefix);
-  return (
-    `<figure class="hm-open__cell"><img class="hm-open__img hm-open__img--${slug}" ` +
-    `src="${img.src}" width="${img.width}" height="${img.height}" ` +
-    `alt="${escapeText(record.title)}" fetchpriority="high" decoding="async"></figure>`
-  );
+  return {
+    src: img.src,
+    html:
+      `<figure class="hm-open__cell"><img class="hm-open__img hm-open__img--${slug}" ` +
+      `src="${img.src}" width="${img.width}" height="${img.height}" ` +
+      `alt="${escapeText(record.title)}" fetchpriority="high" decoding="async"></figure>`,
+  };
 }
 
-function openBandHtml(db, manifest, prefix) {
+/**
+ * `seen` is an out-parameter, and it exists so the band's frames can be
+ * compared with the rooms' without resolving either of them twice — a
+ * second resolution is how two surfaces start disagreeing about which
+ * photograph they hold, which is the fault this whole file keeps recording.
+ */
+function openBandHtml(db, manifest, prefix, seen) {
   return OPEN_BAND.map((zone) => {
-    const cells = zone.cells.map((slug) => openBandCell(db, manifest, prefix, slug)).join('');
+    const cells = zone.cells
+      .map((slug) => {
+        const cell = openBandCell(db, manifest, prefix, slug);
+        if (seen) seen.push(cell.src);
+        return cell.html;
+      })
+      .join('');
     const cls = zone.pair ? 'hm-open__zone hm-open__zone--pair' : 'hm-open__zone';
     /* The label keeps its own register — 12px, 700, uppercase — and takes
        the site's black-ground link idiom on top of it: a drawn rule that
@@ -643,6 +830,35 @@ function openBandHtml(db, manifest, prefix) {
  * ------------------------------------------------------------------ */
 
 /**
+ * NO PHOTOGRAPH SHIPS TWICE ON THE PAGE, asserted rather than remembered.
+ *
+ * The rule is stated in OPEN_BAND_FRAME and it was enforced for index.html
+ * by `sweep-home.js` — which is Home's sweep, so the option inherited the
+ * rule and none of the checking (H11 note 2). Both surfaces draw from the
+ * same 47 records and the overlap has already fired once: the first index
+ * build put `souksalah/hero` and `ajmanbank/hero` in the band AND in the
+ * rooms, so nine slots carried seven frames.
+ *
+ * It compares RESOLVED SOURCES, not slugs. A record may legitimately appear
+ * on both surfaces in two different frames — seasidehills does, and the
+ * bank did before it — so a slug comparison would refuse the arrangement
+ * the rule was written to permit.
+ */
+function assertNoRepeatedFrame(bandSrcs, roomSrcs) {
+  const counts = new Map();
+  bandSrcs.concat(roomSrcs).forEach((src) => counts.set(src, (counts.get(src) || 0) + 1));
+  const repeated = [...counts.entries()].filter(([, n]) => n > 1).map(([src]) => src);
+  if (repeated.length) {
+    throw new Error(
+      `home: index1 ships ${repeated.length} photograph(s) twice — ${repeated.join(', ')}. ` +
+        'The opening band and the four rooms draw from the same 47 records, and a reader who meets one ' +
+        'building twice on one page (once cropped) reads it as a site with six photographs. ' +
+        'Move the ROOM, not the band: the fold keeps the strongest frame.'
+    );
+  }
+}
+
+/**
  * `srcName` is the route, so index1 can take Home's data and state only its
  * differences. Both readings share one source for the band, the mosque, the
  * map and every href — an option that re-derives them is an option whose
@@ -656,20 +872,25 @@ function viewData(prefix, srcName) {
   const hero = W.plate(seaside, manifest, prefix);
   const map = mapData();
 
-  const alt =
-    srcName === 'index1'
-      ? {
-          servicesLine: servicesLine(),
-          roomsFull: ROOMS.map((room) => roomFullData(db, manifest, prefix, room)),
-        }
-      : {};
+  const bandSrcs = [];
+  const bandHtml = openBandHtml(db, manifest, prefix, bandSrcs);
+
+  let alt = {};
+  if (srcName === 'index1') {
+    const roomsFull = ROOMS.map((room) => roomFullData(db, manifest, prefix, room));
+    assertNoRepeatedFrame(
+      bandSrcs,
+      roomsFull.map((r) => r.roomFrame)
+    );
+    alt = { servicesLine: servicesLine(), roomsFull };
+  }
 
   return Object.assign(
     {
       // The opening band. `hero` below is no longer a section of the page —
       // the single at-tier photograph was retired at Board 20 — and survives
       // only as the page's Open Graph image.
-      openBandHtml: openBandHtml(db, manifest, prefix),
+      openBandHtml: bandHtml,
 
       // The second beat's mark — 47 courses, five widths, one datum, all of
       // it read off the records. See build/lib/crest.js for what it draws

@@ -34,9 +34,23 @@
         the Prays moment is a set of one, so it has no names to band and no
         second building to photograph. It keeps its own form.
 
-  WHAT DID NOT CHANGE: the opening screen, the mosque, the map, the
-  invitation and every href are taken from index.html verbatim, so a reader
-  comparing the two pages is comparing the two ideas and not two builds.
+  WHAT THE 4 AUGUST PASS CHANGED, on Mahesh's reading of the live page:
+
+    4 · The four photographs are RE-PICKED for full bleed. Three of them
+        were the room's existing print promoted as-is, which was deliberate
+        — the option was comparing layout — and H11 note 3 left the
+        re-picking as the follow-on. See ROOMS_FULL_FRAME in
+        build/lib/home.js for what each was picked over and why.
+
+    5 · The constellation is DELETED from this reading. Home keeps it.
+
+    6 · Each verb gains its SECTOR NAME, and the names wall becomes
+        reachable: every name links to its record, and the building in the
+        photograph above is marked and left unlinked.
+
+  WHAT DID NOT CHANGE: the opening screen, the mosque, the invitation and
+  every href are taken from index.html verbatim, so a reader comparing the
+  two pages is comparing the two ideas and not two builds.
 
   THE GROUND ALTERNATES NOW, and that is the visible consequence: black
   opening → paper beat → photograph → black band → photograph → black band …
@@ -99,14 +113,27 @@
 
        The photograph runs edge to edge and carries NOTHING on it — rule 8,
        and the same arrangement the hairline print used. The black band under
-       it is where the words live: the verb is the room's one link, the
-       building in the photograph is named at the band's other end, and the
-       set's names run beneath.
+       it is where the words live, and it reads in three steps:
+
+         the VERB, the room's one link, in the label register;
+         the SECTOR NAME under it at Mega Splash, hollow — "Learns /
+         Schools and universities" (Mahesh, 4 Aug). The words are the
+         opening band's own, derived from OPEN_BAND by href rather than
+         retyped, so the two surfaces cannot drift; the register is
+         .t-marker, the site's hollow section marker (P2-c / H5-b), used
+         here at the size it was specified at rather than shrunk into the
+         wall;
+         the NAMES, every one in the set, each a link to its record, with
+         the building in the photograph above marked and left unlinked.
 
        EVERY NAME, and no ellipsis. The ellipsis on this page means "a
        selection"; this band is not one. It is still not every RECORD —
        O5's corroborated pairs are suppressed sitewide — so it prints every
-       name the site prints for that sector, and states no total (E12). -->
+       name the site prints for that sector, and states no total (E12).
+
+       The building's name no longer sits at the strip's inline-end: it was
+       the same word twice on one band, once at 14px and once at 32px. The
+       marked name in the wall is the one copy. -->
   {{#each roomsFull}}
   <section class="ha-room">
     <figure class="ha-room__frame">
@@ -115,10 +142,8 @@
     </figure>
     <div class="ha-room__band surface-dark">
       <div class="container">
-        <div class="ha-room__strip">
-          <h3 class="ha-room__verb"><a class="hm-link" href="{{roomHref}}">{{roomVerb}} <span aria-hidden="true">&rarr;</span></a></h3>
-          <p class="ha-room__evidence">{{roomEvidence}}{{#if roomProvenance}} <span class="hm-sep">&middot;</span> {{roomProvenance}}{{/if}}</p>
-        </div>
+        <h3 class="ha-room__verb"><a class="hm-link" href="{{roomHref}}">{{roomVerb}} <span aria-hidden="true">&rarr;</span></a></h3>
+        <p class="ha-room__marker t-marker">{{roomSector}}</p>
         <p class="ha-room__names">{{roomNamesHtml}}</p>
       </div>
     </div>
@@ -138,17 +163,25 @@
       <p class="hm-prays__line">Prayer runs through it all. <a class="hm-link-inline" href="{{mosqueHref}}">Al Ghala Mosque</a>, Al Jurf &mdash; completed 2009.</p>
     </section>
 
-    <!-- 6 · The map — Option B, the constellation. The marks are the
-         page's own, generated from the records at a true 5px (E7.1); no
-         mark is placed by inference (E7.2) and no mark carries a date
-         (E7.3), so they sweep west to east and no counter runs. No section
-         label: the link line is the caption. -->
-    <section class="hm-map container" aria-label="Proarc&rsquo;s buildings across the Emirate">
-      <div class="hm-map__field" data-map>
-        <svg class="hm-map__svg" viewBox="{{mapViewBox}}" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet">{{mapMarksHtml}}</svg>
-      </div>
-      <p class="hm-map__line"><a class="hm-link" href="{{ajmanHref}}">One Emirate, drawn <span aria-hidden="true">&rarr;</span></a></p>
-    </section>
+    <!-- 6 · THE CONSTELLATION IS GONE from this reading (Mahesh, 4 Aug).
+         Home keeps it; the option does not.
+
+         Three things were checked before it was cut, because a deleted
+         section takes more with it than its own markup:
+
+           /ajman is NOT orphaned — the footer links it on all fifty-nine
+           pages, so the Emirate still has a door from here;
+
+           `pageScript: "home"` still loads js/home.js, which is the script
+           that ARMS the map. It reads `[data-map]` through
+           querySelector and drawOnce()'s first line is `if (!el) return`,
+           so an absent map is a no-op rather than a null dereference —
+           which matters more than it sounds: that file also arms the crest,
+           and a throw there would kill every later behaviour on the page
+           silently, on a page that would still look finished;
+
+           `p10-home-motion` asserts the map, and asserts it against
+           index.html, which is untouched. -->
 
   </div>
 

@@ -132,48 +132,97 @@
    subject sits above its middle, and the bottom of these four frames is
    road, car park or paving in three of them. It is one value for all four
    because the option is a layout question — a per-frame crop table is what
-   this earns IF the layout is taken. */
+   this earns IF the layout is taken.
+
+   🔴 80vh, RAISED FROM 62 ON 4 AUG (Mahesh: align the image height), and
+   the number came off the measured page rather than off the eye. At 62vh
+   the photograph rendered 504px in every room while its own black band
+   rendered 621, 694, 768 and 815 — so the evidence was the SMALLER half of
+   every room it was the evidence for, and the band's new marker had made
+   that worse rather than better.
+
+   80vh does two things at once. The cell becomes 2.2:1 instead of 2.9:1,
+   so the four frames keep 76–98% of their height where they kept 50–66%
+   before — the crop stops being the dominant fact about the picture. And
+   at 650px against an 813px viewport the band's first lines stay visible
+   UNDER the photograph, so the room's words and its evidence are in one
+   view without scrolling, which is the arrangement the opening screen
+   already uses. 100vh was the obvious alternative and it loses exactly
+   that: a full-screen photograph puts its own caption off the bottom. */
 .ha-room__img {
   display: block;
   inline-size: 100%;
-  block-size: 62vh;
-  min-block-size: 320px;
+  block-size: 80vh;
+  min-block-size: 400px;
   object-fit: cover;
   object-position: center 40%;
 }
 
-/* The band. Its top padding is smaller than its bottom: the words belong to
-   the photograph above them, and equal padding would float them between two
-   pictures with no owner. */
+/* The band, and its two paddings are NOT symmetric by oversight. The top is
+   tight because the words belong to the photograph above them — equal
+   padding floats them between two pictures with no owner. The bottom is the
+   room's separation from the next photograph, and it was widened on 4 Aug
+   (Mahesh: more room below the names): the names are the band's last and
+   loudest line, and at --gap-section they ended 200px above a full-bleed
+   photograph that begins with no margin of its own, so the wall read as
+   sitting ON the next room.
+
+   --gap-section-major is the value, and it is the one place on this page it
+   is earned. It is reserved for statement sections, and a room here IS the
+   page's statement unit: four of them are the whole argument, each one
+   photograph plus its evidence, and the gap is not spacing WITHIN a section
+   but the seam between two of them. (The practice beat asked for the same
+   token on 3 Aug and was refused, for the opposite reason — 280 either side
+   of three elements is a screen of paper for one sentence, and that band is
+   bounded by two photographs that already do the work.) */
 .ha-room__band {
-  padding-block: var(--gap-component) var(--gap-section);
+  padding-block: var(--gap-component) var(--gap-section-major);
 }
 
-/* The verb leads; the building in the photograph is named opposite it. The
-   same strip home.css already uses, so the two readings caption a
-   photograph identically. */
-.ha-room__strip {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--gap-block);
-}
-
+/* The verb leads, in the black-ground link idiom .hm-link carries — the
+   room's ONE destination, and the only uppercase label in the band. It sets
+   no type of its own: an h3 whose register is stated by the link inside it,
+   which is the site's rule that a heading's register comes from the page. */
 .ha-room__verb {
   margin: 0;
-  font-size: var(--fs-h3);
-  font-weight: var(--fw-semibold);
-  line-height: var(--lh-h3);
-  letter-spacing: var(--ls-h3);
-  color: var(--color-on-dark);
 }
 
-.ha-room__evidence {
-  margin: 0;
-  font-size: var(--fs-metadata);
-  line-height: var(--lh-metadata);
-  color: var(--color-on-dark-secondary);
+/* THE SECTOR NAME, AT MEGA SPLASH, HOLLOW — "Learns / Schools and
+   universities" (Mahesh, 4 Aug), and this is where .t-marker earns its
+   second surface.
+
+   🔴 IT IS THE SECTOR NAME THAT IS HOLLOW, NOT THE BUILDING NAME, and the
+   two closed doors are worth keeping because both look open:
+
+     hollow does not survive at the NAMES' scale. Rendered five ways at
+     32px — stroke 1px at 300 / 600 / 700, stroke 2px at 700, against a
+     solid control — the 300 is indistinguishable from the solid names
+     beside it (the outline is nearly the whole stem width, so it reads as
+     slightly crisper type and marks nothing), and every heavier weight
+     closes its own counters: the o, a and e of "British School" fill in and
+     the word turns to mush. That is §3.4's clause arriving early — it
+     resolves Mega to SOLID below 767 because "at 34px a 1px stroke is a
+     grey suggestion of a word" — and the reason is visible in the two
+     specimens side by side: Mega's counters are wide enough to lose a pixel
+     from each side, and a 32px counter is not.
+
+     and the building name could not take the register anyway, because
+     .t-marker is UPPERCASE. Setting a building's name in caps is the exact
+     fault this project already corrected across all 47 record pages, where
+     v1's sitewide `h1 { text-transform: uppercase }` leaked through
+     inheritance against Screen 04's decided register. A sector name is not
+     a building name — it names a SECTION, which is what the marker is for
+     and what "ALSO IN AL JURF" is.
+
+   So the hollow marker lands on the words that can carry it, and it fixes
+   the band's inverted hierarchy on the way: the room's own subject used to
+   be a 14px label under a 32px wall of other buildings' names.
+
+   Nothing is restated here. The size, the stroke, the @supports guard that
+   keeps an unsupported stroke from leaving an INVISIBLE heading, and the
+   ≤767 collapse to solid all come from .t-marker in tokens.css. */
+.ha-room__marker {
+  margin: var(--gap-block) 0 0;
 }
 
 /* The names. A wall of names is a FIELD, not reading prose — the display
@@ -191,24 +240,88 @@
   color: var(--color-on-dark-body);
 }
 
+/* EVERY NAME IS A LINK (Mahesh, 4 Aug). No resting rule: sixteen underlined
+   names is a field of rules, not a wall of names, and the wall's job is to
+   be read as one object first. The affordance arrives on hover, in the
+   gesture the rest of the site already uses — a rule DRAWN under the word —
+   and it is joined by WEIGHT, never colour. */
+/* No transition: General Sans ships as static weights, so font-weight has no
+   interpolable axis and a declared transition would be a promise the type
+   cannot keep. The response is instant, which is what a weight change is. */
+.ha-name {
+  color: inherit;
+}
+
+.ha-name:hover,
+.ha-name:focus-visible {
+  font-weight: var(--fw-semibold);
+  border-block-end: 1px solid currentcolor;
+  color: var(--color-on-dark);
+}
+
+.ha-name:focus-visible {
+  outline: 2px solid var(--color-on-dark);
+  outline-offset: 4px;
+}
+
+/* THE CURRENT ONE — the building in the photograph above. It is marked by
+   weight and value, the two tools hard rule 3 names when the answer cannot
+   be colour, and it is NOT a link: it is the one name on the band whose
+   subject the reader is already looking at, and index.html has never linked
+   that word either.
+
+   700 against the wall's 300 rather than 600, so it stays distinct from a
+   HOVERED neighbour at 600 — the mark has to survive the interaction, not
+   just the resting state. White against #EDEDED carries the same step in
+   value, which is a difference in weight-of-ink rather than a colour
+   signal; the weight alone would satisfy the rule, and this is not the only
+   cue. */
+.ha-name--current {
+  font-weight: var(--fw-bold);
+  color: var(--color-on-dark);
+}
+
 /* -----------------------------------------------------------
-   3 · Tablet and phone
+   3 · The mosque, now that it closes the black
+   ----------------------------------------------------------- */
+
+/* THE CONSTELLATION CARRIED THE BLACK REGION'S TAIL, and deleting a section
+   takes its spacing with it. `.hm-prays` opens on --gap-section and states
+   no bottom padding at all, because on Home the map follows it and supplies
+   the distance to the paper invitation below. Cut the map and the mosque's
+   own last line sits flush on the ground change — the kind of fault a
+   deleted section leaves BELOW itself, where nobody is looking.
+
+   It closes on --gap-section and OPENS ON NOTHING, which is not an
+   asymmetry: the last room's band already ends on --gap-section-major, and
+   the mosque is the fifth verb rather than a new kind of thing, so it takes
+   the same seam every other room is given. Left at its own 200 on top of
+   that 280, the reader met 480px of empty black between the homes wall and
+   "And prays." — a void that reads as the page having ended. */
+.hm--alt .hm-prays {
+  padding-block: 0 var(--gap-section);
+}
+
+/* -----------------------------------------------------------
+   4 · Tablet and phone
    ----------------------------------------------------------- */
 
 @media (max-width: 1023px) {
-  /* A 62vh crop on a short landscape phone is a letterbox. Below the
-     desktop layout the photograph takes a fixed band instead, so it stays
-     a photograph rather than a strip. */
+  /* An 80vh crop on a short landscape phone is a letterbox — the narrower
+     the viewport, the wider the cell at a fixed vh, so the same fraction
+     buys a harsher crop. The steps keep the desktop RATIO (0.74 and 0.61 of
+     it) rather than being re-judged: the reason the number drops is the
+     viewport's proportion, and that changes smoothly. */
   .ha-room__img {
-    block-size: 46vh;
-    min-block-size: 260px;
+    block-size: 60vh;
+    min-block-size: 300px;
   }
 }
 
 @media (max-width: 767px) {
   .ha-room__img {
-    block-size: 38vh;
-    min-block-size: 220px;
+    block-size: 48vh;
+    min-block-size: 240px;
   }
 
   /* Sixteen names at 32px is most of a phone screen. The names step to the
