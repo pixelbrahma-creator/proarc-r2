@@ -9,6 +9,18 @@
 
   "viewBox": "0 0 560 440",
 
+  "coast": {
+    "_what": "A ROUGH shoreline, drawn in house on Mahesh's instruction (4 Aug 2026) so the client has something to react to. NOT sourced, NOT surveyed, and not the commission's artwork. It is to be fine-tuned or replaced once ProArc approves the shape.",
+
+    "_why_a_rough_one_is_safe_where_a_TRUE_one_was_not": "Session VIII refused to draw a real coastline, and the reason was never that a coast is hard to get — it is that a REAL coast under PLACEHOLDER cluster centres turns every one of those centres into a coordinate claim, and the page becomes more wrong for being more real. A rough coast does not do that: it is invented, the marks are invented, and the two are honest about each other. This is board 12's own footer applied consistently — 'map geometry is invented and labelled as such'. If this line is ever replaced with sourced geometry, the ten `centre` values have to land in the same pass, and ODbL attribution becomes due at that moment.",
+
+    "_shape": "The Gulf lies north-west, so the shore runs roughly north-east to south-west down the left of the field with the city inland of it. Placed against the MARKS as built, never against the authored centres — jitter moves a mark up to 30 units off its centre, so the centres are not where the drawing actually is. Measured clearances on the shipped path: Al Zorah's northernmost mark 25.3 units, then 31.3 and 37.3 for the rest of that cluster, Marina & Creek 45.8, Al Khor 60.5 — and the tightest LABEL, Marina & Creek, 29.0. Labels sit 26 units below their cluster and run about 52 wide, so they bind harder than the dots and are what the shape was fitted to. Al Zorah sitting closest is correct rather than tight: it is the coastal development.",
+
+    "_deliberately_absent": "No creek and no Emirate outline. The creek cannot be routed between the Al Khor and Marina & Creek labels without running through one of them — the corridor between them is about 18 units and a stroke plus clearance does not fit — and OSM carries no named waterway for it to be checked against. An Emirate outline is a BOUNDARY, and §3.2 is explicit that an invented boundary looks exactly like a real one to whoever is judging it. Both wait for the fine-tune pass, and both are cheaper once the client has reacted to the shape.",
+
+    "path": "M 226 0 C 198 20, 172 32, 150 50 C 126 70, 108 94, 94 120 C 80 146, 62 174, 48 202 C 38 222, 30 240, 28 262 C 26 292, 28 322, 32 352 C 36 386, 44 414, 52 440"
+  },
+
   "scatter": {
     "_what": "How a district's n records are spread around its centre. Deterministic — a seeded generator, never Math.random() — so a rebuild is byte-stable and a diff means the data moved.",
     "seed": 9,

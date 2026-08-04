@@ -198,6 +198,25 @@ function mapData(marks) {
     );
   }
 
+  /* THE SHORELINE — rough, in house, and FIRST in the svg.
+     First because SVG paints in document order and the coast is ground: the
+     marks are the page's argument and nothing may sit on top of them. (The
+     hit layer stays LAST for the opposite reason — see the regions below.)
+
+     It is not the commission's artwork and does not pretend to be. Session
+     VIII refused a TRUE coast under placeholder centres, because a real
+     shoreline is what a reader measures a mark against and every placeholder
+     would have become a coordinate claim. A rough one carries no such claim:
+     invented line, invented centres, honest about each other. The reasoning
+     and the clearances are in data/districts.json.
+
+     A district with no coast in the data still builds — the shoreline is an
+     addition to the drawing, not a precondition for it, and /ajman shipped
+     without one for four sessions. */
+  const coast = marks.coast
+    ? `<path class="aj-coast" d="${marks.coast.path}" fill="none"></path>`
+    : '';
+
   const circles = D.sweepOrder(marks.marks)
     .map(
       (m, i) =>
@@ -269,10 +288,16 @@ function mapData(marks) {
 
   return {
     mapViewBox: marks.viewBox,
+    mapCoastHtml: coast,
     mapMarksHtml: circles,
     mapLabelsHtml: labels,
     mapHitsHtml: hits,
     mapMarkCount: marks.marks.length,
+    /* Measured from the path itself, never typed — an edited shoreline
+       re-times its own draw, exactly as a 48th building re-times the label
+       stage. 0 when there is no coast, which the stylesheet reads as
+       "nothing to draw" rather than as a broken length. */
+    mapCoastLength: marks.coast ? marks.coast.length : 0,
   };
 }
 

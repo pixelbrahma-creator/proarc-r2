@@ -45,6 +45,61 @@ function decodeEntities(str) {
 }
 
 /**
+ * The length of an `M … C … C …` path, by sampling. Only the two commands
+ * the shoreline uses are handled, and ANYTHING ELSE THROWS rather than
+ * returning a plausible number — a short length silently under-draws the
+ * coast and leaves a stub on the page, which looks like a design decision
+ * rather than a parse failure. Same doctrine as services.js refusing an
+ * unrecognised level (E3.7): a parser that shrugs draws the wrong thing.
+ *
+ * 240 samples per curve is far past the point where the polyline stops
+ * getting longer at 0.1-unit resolution on a path this size.
+ */
+function pathLength(d) {
+  const tokens = String(d).trim().split(/[\s,]+/);
+  let i = 0;
+  let cur = null;
+  let total = 0;
+
+  const num = () => {
+    const v = parseFloat(tokens[i++]);
+    if (!isFinite(v)) throw new Error('districts: coast path has a non-numeric coordinate near token ' + i);
+    return v;
+  };
+
+  while (i < tokens.length) {
+    const cmd = tokens[i++];
+    if (cmd === 'M') {
+      cur = [num(), num()];
+    } else if (cmd === 'C') {
+      if (!cur) throw new Error('districts: coast path begins with a curve and no M');
+      const p0 = cur;
+      const p1 = [num(), num()];
+      const p2 = [num(), num()];
+      const p3 = [num(), num()];
+      let prev = p0;
+      for (let s = 1; s <= 240; s++) {
+        const t = s / 240;
+        const u = 1 - t;
+        const pt = [
+          u * u * u * p0[0] + 3 * u * u * t * p1[0] + 3 * u * t * t * p2[0] + t * t * t * p3[0],
+          u * u * u * p0[1] + 3 * u * u * t * p1[1] + 3 * u * t * t * p2[1] + t * t * t * p3[1],
+        ];
+        total += Math.hypot(pt[0] - prev[0], pt[1] - prev[1]);
+        prev = pt;
+      }
+      cur = p3;
+    } else {
+      throw new Error(
+        'districts: coast path uses the command "' + cmd + '", which this measurer does not handle. ' +
+          'Only M and C are supported — add the command here rather than letting the draw be mis-timed.'
+      );
+    }
+  }
+  return Math.ceil(total);
+}
+
+/**
  * X3 normalisation. A location is a comma-separated string running from the
  * most specific place to the least ("Eastern Sector, Aamra, Ajman"), so the
  * FIRST token that resolves to a known district is the record's district.
@@ -120,6 +175,12 @@ function buildDistrictMarks() {
   return {
     viewBox: geo.viewBox,
     radius: geo.scatter.radius,
+    /* The shoreline travels with the geometry it belongs to, and its LENGTH
+       travels with it — the draw is a dash offset, so the stylesheet needs
+       the path's own length and there is no getTotalLength() in a build. It
+       is measured here rather than typed for the same reason --mark-count is
+       emitted rather than typed: an edited path must re-time its own draw. */
+    coast: geo.coast ? { path: geo.coast.path, length: pathLength(geo.coast.path) } : null,
     marks,
     districts: geo.districts.map((d) => ({
       name: d.name,

@@ -114,6 +114,16 @@
 .aj-map {
   --mark-scale: 1.1667;
 
+  /* THE COAST DRAWS FIRST, AND EVERY LATER STAGE IS MEASURED FROM IT.
+     §3.5's choreography is coastline → marks → names, and this is the one
+     value the sequence hangs on: the marks' stagger and the names' wipe both
+     add it rather than restating a number of their own. Move it and the
+     whole sequence moves together; that is the point. 1200ms is §3.5's own
+     figure for the coastline, kept rather than re-judged, because the shape
+     itself is still provisional and re-tuning a duration against artwork the
+     client has not seen would be tuning against the wrong thing. */
+  --coast-draw: 1200ms;
+
   /* A LABEL IS IN USER UNITS, SO THE 12px FLOOR IS NOT FREE (3 Aug).
      The svg is drawn on a 560-unit viewBox at four known widths, so a label
      authored once would render at four different sizes — and hard rule 9's
@@ -161,6 +171,58 @@
   fill: var(--color-on-dark);
 }
 
+/* =========================================================================
+   THE SHORELINE — rough, in house, 4 Aug 2026 (Mahesh), pending the client.
+
+   Session VIII refused a TRUE coast and the reason was never difficulty: a
+   real shoreline is what a reader measures a mark against, so under
+   PLACEHOLDER centres every mark would have become a coordinate claim and
+   the page would have been more wrong for being more real. This line makes
+   no such claim — it is invented, the centres are invented, and board 12's
+   footer already says so: "map geometry is invented and labelled as such."
+   The shape, the clearances and what is deliberately absent (the creek, the
+   Emirate outline) are in data/districts.json.
+
+   NON-SCALING STROKE, AND THIS IS THE FAULT THE PAGE HAS ALREADY PAID FOR
+   TWICE. The svg scales, so a stroke authored in user units is four
+   different strokes at the field's four known widths — a 2-unit line renders
+   1.71 / 2.40 / 2.00 / 3.50px. That is the identical arithmetic that cost
+   --label-size a rebuild and that E7.1's true-5px mark exists to dodge.
+   `vector-effect: non-scaling-stroke` makes 2px mean 2px everywhere, which
+   is what §3.2 requires of the artwork layer in terms.
+
+   IT IS SECONDARY, NOT WHITE. §3.3 tables the coastline at 2px #FFFFFF, and
+   rendered at full white it read as the loudest thing on the field — the
+   brief warned of exactly this ("a white 2px coast can out-shout the marks,
+   which are the page's argument. Render it and look."). #A6A6A6 on #000000
+   is 8.63:1, far above the 3:1 a structural line owes, and it puts the
+   drawing back in the order the page argues in: marks first, ground second.
+   The §3.3 value is the one to revisit when the commission's artwork lands.
+   ========================================================================= */
+.aj-coast {
+  fill: none;
+  stroke: var(--color-on-dark-secondary);
+  stroke-width: 2;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* The finished coast is the SHIPPED state, exactly as the finished map is:
+   with no script, and under reduced motion, the shore is already drawn.
+   --coast-length is measured from the path at build time, so an edited
+   shoreline re-times its own draw instead of being cut short by a stale
+   literal. */
+.aj-map--armed .aj-coast {
+  stroke-dasharray: var(--coast-length);
+  stroke-dashoffset: var(--coast-length);
+}
+
+.aj-map--drawing .aj-coast {
+  stroke-dasharray: var(--coast-length);
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset var(--coast-draw) var(--ease-out);
+}
+
 .aj-mark {
   fill: var(--color-on-dark);
   transform: scale(var(--mark-scale));
@@ -181,7 +243,11 @@
 .aj-map--drawing .aj-mark {
   transform: scale(var(--mark-scale));
   transition: transform 140ms ease-out;
-  transition-delay: calc(var(--mark-index) * 34ms);
+
+  /* The sweep now FOLLOWS the shoreline (§3.5). The offset is added, never
+     folded into a new literal, so the coast's duration stays the one place
+     the sequence is timed from. */
+  transition-delay: calc(var(--coast-draw) + var(--mark-index) * 34ms);
 }
 
 /* THE NAMES DRAW, AND THE EXCEPTION IS DECIDED (Mahesh, 4 Aug).
@@ -253,7 +319,7 @@
 [dir="rtl"] .aj-map--drawing .aj-map__label {
   clip-path: inset(-12%);
   transition: clip-path 380ms var(--ease-out);
-  transition-delay: calc((var(--mark-count) - 1) * 34ms + 140ms);
+  transition-delay: calc(var(--coast-draw) + (var(--mark-count) - 1) * 34ms + 140ms);
 }
 
 /* THE INTERACTION, AS OPTION B REWRITES §3.4. With no polygons the map
@@ -616,6 +682,16 @@
   .aj-map--drawing .aj-mark {
     transform: scale(var(--mark-scale));
     transition-delay: 0s;
+  }
+
+  /* An armed coast is a MISSING COASTLINE, and clamping a duration does not
+     un-hide it — the same argument as the armed label being a hidden name.
+     So the dash is refused outright: no dasharray, nothing to offset. */
+  .aj-map--armed .aj-coast,
+  .aj-map--drawing .aj-coast {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    transition: none;
   }
 
   /* The armed label state IS a hidden name, and zeroing a duration does not
