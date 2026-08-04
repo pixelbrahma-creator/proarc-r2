@@ -235,7 +235,22 @@
   clip-path: inset(-12% -12% -12% 100%);
 }
 
-.aj-map--drawing .aj-map__label {
+/* 🔴 THE RELEASE IS RESTATED WHEREVER THE ARM IS, AND THAT IS NOT SYMMETRY
+   FOR ITS OWN SAKE. js/ajman.js ADDS --drawing and leaves --armed in place,
+   so the two states are settled by the cascade rather than by which class is
+   present — and the RTL arm above carries an attribute selector, which
+   outranks a release written with classes alone. Restated only in the
+   media query below, LTR resolved on source order and RTL stayed armed
+   FOREVER: ten district names clipped to nothing on every Arabic reader's
+   map, with the marks, the ledger and every assertion in p11/p12/sweep-ajman
+   green, because each of those watches the LTR page.
+
+   The neighbours marker this borrowed from does not have the fault and could
+   not have: js/project.js REMOVES its armed class, so its release is the base
+   rule and no restatement can outrank it. Copying a mechanism without copying
+   the shape of its release is what put the two rules in a contest at all. */
+.aj-map--drawing .aj-map__label,
+[dir="rtl"] .aj-map--drawing .aj-map__label {
   clip-path: inset(-12%);
   transition: clip-path 380ms var(--ease-out);
   transition-delay: calc((var(--mark-count) - 1) * 34ms + 140ms);
