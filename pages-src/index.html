@@ -109,12 +109,13 @@
        request, so the beat is one column and short — the sentence, the
        services on one line, and one door.
 
-       ONE LINK, not two. index.html carries "Who we are" AND "What we do"
-       as a deliberate amendment to the one-link rule, because its sentence
-       makes two claims and each link proves a different one. Here the
-       services LINE proves the second claim in words, so the second link
-       would be a third statement of the same thing — and the one-link rule
-       is the page's default, not the exception.
+       ONE LINK, not two. The reading this replaced (983fb3a) carried "Who
+       we are" AND "What we do" as a deliberate amendment to the one-link
+       rule, because its sentence made two claims and each link proved a
+       different one. Here the services LINE proves the second claim in
+       words, so the second link would be a third statement of the same
+       thing — and the one-link rule is the page's default, not the
+       exception.
 
        The services line is NOT typed here. build/lib/home.js reads it off
        pages-src/services.html, so the six names cannot drift from the page
@@ -204,34 +205,55 @@
 
     <section class="hm-prays container">
       <h3 class="hm-prays__verb">And prays.</h3>
-      <p class="ha-marker t-marker">{{mosqueSector}}</p>
-      <p class="hm-prays__line">Prayer runs through it all. <a class="hm-link-inline" href="{{mosqueHref}}">Al Ghala Mosque</a>, Al Jurf &mdash; completed 2009.</p>
+
+      <!-- THE MARKER AND THE EVIDENCE ARE THE TWO ENDS OF ONE HORIZONTAL
+           (Mahesh, 4 Aug, Session XI). A set of one has no names to band, so
+           this band had three things stacked at the inline-start and 448px of
+           empty column beside them, and its one door — the mosque's own
+           record — was the quietest link in the black run. The construction
+           is the site's own: H10 gave it to the second beat and the closing
+           band four sections below is built on it. See home-alt.css § 3a for
+           why the row's floor is the LINK's width and not a number.
+
+           The sentence and the evidence are two blocks of one paragraph, so
+           the line breaks where the SENTENCE breaks rather than wherever the
+           column runs out — "Al Ghala / Mosque" split across two lines was
+           the first thing the build produced. -->
+      <div class="hm-prays__row">
+        <p class="ha-marker t-marker">{{mosqueSector}}</p>
+        <p class="hm-prays__line">Prayer runs through it all.
+          <span class="hm-prays__evidence"><a class="hm-link-inline" href="{{mosqueHref}}">Al Ghala Mosque</a>, Al Jurf &mdash; completed 2009.</span></p>
+      </div>
     </section>
 
-    <!-- 6 · THE CONSTELLATION IS GONE from this reading (Mahesh, 4 Aug).
-         Home keeps it; the option does not.
-
-         Three things were checked before it was cut, because a deleted
-         section takes more with it than its own markup:
+    <!-- THE CONSTELLATION STOOD HERE AND IS GONE (Mahesh, 4 Aug). It was cut
+         from this reading while both were live, and the promotion carried
+         the cut onto the route: the site's only remaining map is /ajman's,
+         which is the one that was always the argument. This note is not a
+         section — it is what a deleted section leaves behind, which is more
+         than its own markup:
 
            /ajman is NOT orphaned — the footer links it on all fifty-nine
            pages, so the Emirate still has a door from here;
 
            `pageScript: "home"` still loads js/home.js, which is the script
-           that ARMS the map. It reads `[data-map]` through
-           querySelector and drawOnce()'s first line is `if (!el) return`,
-           so an absent map is a no-op rather than a null dereference —
-           which matters more than it sounds: that file also arms the crest,
-           and a throw there would kill every later behaviour on the page
-           silently, on a page that would still look finished;
+           that ARMED the map. It reads `[data-map]` through querySelector
+           and drawOnce()'s first line is `if (!el) return`, so an absent map
+           is a no-op rather than a null dereference — which matters more
+           than it sounds: a throw there would kill every later behaviour on
+           the page silently, on a page that would still look finished. The
+           file is an orphan awaiting the delete pass, and until then that
+           null guard is what keeps this page's console clean;
 
-           `p10-home-motion` asserts the map, and asserts it against
-           index.html, which is untouched. -->
+           the section's own tail went with it, which is why `.hm-prays`
+           states a bottom padding at all. See home-alt.css § 3. -->
 
   </div>
 
-  <!-- 5 · The invitation — paper, the inverse of the page, and the one lit
-       surface on it. Unchanged from index.html; the footer returns to black
+  <!-- 6 · The invitation — paper, the inverse of the page, and the one lit
+       surface on it. Its words came from the earlier reading verbatim; its
+       GEOMETRY is this page's own — home-alt.css § 4 makes the sentence and
+       the action the two ends of one horizontal. The footer returns to black
        below it. -->
   <section class="hm-invitation" aria-label="Start a project">
     <div class="container">

@@ -1,11 +1,15 @@
 /* ===========================================================
-   index1 — A SECOND READING OF HOME. A CLIENT OPTION.
+   HOME — THE SECOND READING. IT WAS index1, THE CLIENT OPTION, AND IT WAS
+   PROMOTED INTO THE ROUTE (Mahesh, 4 Aug). There is no option any more:
+   `index` is the only route that loads this file, and it loads it as the
+   second of two — pageStylesheet ["home", "home-alt"].
 
-   Loaded AFTER home.css, and it states only the differences. Everything
-   index1 shares with Home — the opening screen, the mosque, the map, the
-   invitation, the chrome — comes from home.css and is not restated here,
-   so a change to the real page reaches the option automatically and the
-   two cannot silently drift apart.
+   Still loaded AFTER home.css, and it still states only the DIFFERENCES.
+   Everything it does not restate — the opening screen, the mosque's own
+   type, the invitation's words, the chrome — comes from home.css. That
+   split is now a division of labour inside one page rather than a guard
+   between two, and it is kept because it is the record of which half of
+   Home the brief changed.
 
    The brief (client, through Mahesh, 3 Aug):
      · the practice beat on PAPER with black type, no drawing, one link,
@@ -15,9 +19,11 @@
      · the mosque exempt.
 
    🔴 NOTHING HERE IS A NEW VALUE. Every size, colour and space is a token
-   the system already carries. An option is a rearrangement of the system,
-   not a second system — the moment it needs a value of its own it stops
-   being comparable with the page it is an option ON.
+   the system already carries. This began as an option and an option is a
+   rearrangement of the system rather than a second system — the moment it
+   needs a value of its own it stops being comparable with the page it is
+   an option ON. The rule outlived the comparison it was written for: a
+   promoted page has no more licence to invent a value than an option did.
    =========================================================== */
 
 /* -----------------------------------------------------------
@@ -296,8 +302,8 @@
 /* THE CURRENT ONE — the building in the photograph above. It is marked by
    weight and value, the two tools hard rule 3 names when the answer cannot
    be colour, and it is NOT a link: it is the one name on the band whose
-   subject the reader is already looking at, and index.html has never linked
-   that word either.
+   subject the reader is already looking at, and the reading this replaced
+   never linked that word either.
 
    700 against the wall's 300 rather than 600, so it stays distinct from a
    HOVERED neighbour at 600 — the mark has to survive the interaction, not
@@ -345,12 +351,139 @@
   padding-block: var(--gap-component) var(--gap-section);
 }
 
-/* The moment's own line follows the MARKER now, not the heading, so it takes
-   the gap the rooms put between a marker and the words under it rather than
-   the --gap-block it took when it sat directly beneath "And prays.". Without
-   this the sentence tucks under an 84px letterform and reads as its caption. */
-.hm--alt .hm-prays__line {
-  margin-block-start: var(--gap-heading);
+/* -----------------------------------------------------------
+   3a · The band's horizontal (Mahesh, 4 Aug, Session XI)
+   ----------------------------------------------------------- */
+
+/* THE MARKER AND THE EVIDENCE ARE THE TWO ENDS OF ONE LINE. What the band
+   had instead was three objects stacked at the inline-start of a 960px
+   column, using 53% of it, with the section's ONE DOOR — the mosque's own
+   record — set at 16px #A6A6A6 in the middle of a sentence, the quietest
+   link anywhere in the black run. Every one of the four bands above it puts
+   its door first and loudest. The column is now 93% spent and the band comes
+   down from 500px to 386px at 1440.
+
+   Nothing here re-opens what was decided. The quiet REGISTER stands (§5.3,
+   E10.1: civic work is shown, never narrated) — this moves the line, it does
+   not raise it. There is still no names wall, and there will not be one.
+
+   🔴 THE FLOOR IS THE DOOR'S OWN WIDTH, NOT A NUMBER, and that is the whole
+   reason this construction survives the width range. The first build used
+   `flex: 0 1 auto`, and flex breaks lines on each item's HYPOTHETICAL size
+   before it shrinks anything — so the row's fate was decided by the MARKER's
+   width, which steps 549 -> 395 -> 226 as .t-marker resizes, while the
+   column steps at 1120, 1024 and 780. Swept rather than spot-checked, that
+   put the horizontal in FOUR alternating bands: it held above 1096, wrapped
+   1025-1095, held 838-1024, wrapped 768-837, held 629-767, wrapped below.
+   At 1060 the "change" rendered 1222px against today's 1220 — no change at
+   all. That is H4-c exactly: a rule made of tokens inherits those tokens'
+   breakpoints, and the slack GREW at every step down.
+
+   `flex: 1 1 0` takes the marker's width out of the wrap decision entirely:
+   the line's hypothetical size becomes its own minimum rather than its
+   content's, so the row stops breaking on the marker and the line simply
+   grows into whatever the marker leaves. That is what removed the four
+   alternating bands — and it is ALL it does. It did not settle where the
+   band stacks; the media query at the foot of this file does, and the
+   reason it has to is measured there.
+
+   The wrapped state IS today's band — marker, then the line beneath it at
+   --gap-heading, which is why the row gap is that token and not --gap-block:
+   without it the sentence tucks under an 84px letterform and reads as its
+   caption. */
+/* 🔴 THE VERB-TO-MARKER INTERVAL MOVES ONTO THE ROW, and it is not
+   bookkeeping. Wrapping the marker in a flex container and zeroing its own
+   margin took --gap-block off that interval and NOTHING SHOWED: measured as
+   line boxes, the rooms give verb -> marker +13.0px and this band gave
+   −11.6px — 24.6px tighter than the pattern it is supposed to match — while
+   the screenshot at 1440 looked untouched, because an 84px line box carries
+   enough leading above its caps to hide the loss. The interval belongs to
+   whatever now stands under the verb; that is the row. */
+.hm--alt .hm-prays__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: last baseline;
+  justify-content: space-between;
+  margin-block-start: var(--gap-block);
+  column-gap: var(--gap-component);
+  row-gap: var(--gap-heading);
+}
+
+/* The marker never shrinks — .t-marker's size is a decided register, and a
+   display word squeezed to fit is a different word. */
+.hm--alt .hm-prays__row .ha-marker {
+  flex: 0 0 auto;
+  margin-block-start: 0;
+}
+
+/* 🔴 `last baseline`, AND THE TWO OBVIOUS ALTERNATIVES ARE BOTH WRONG — this
+   was measured, not reasoned. `baseline` aligns FIRST baselines and would
+   hang the evidence's second line below the marker's. `flex-end` aligns the
+   two BOXES, and a line box carries half-leading that scales with font-size,
+   so at 84px against 16px it left the baselines 10.0px apart — close enough
+   to look right in a screenshot and wrong on the page. `last baseline` pairs
+   the marker's one baseline with the evidence's last: measured DELTA 0.00px
+   at 1440, 1025, 900, 768 and 640. Where it is unsupported the spec's own
+   fallback is safe self-end, which is the flex-end rendering — 10px off, not
+   broken. */
+.hm--alt .hm-prays__row .hm-prays__line {
+  flex: 1 1 0;
+  min-inline-size: min-content;
+  margin-block-start: 0;
+}
+
+/* The evidence begins a line of its own, so the break is the SENTENCE's and
+   not the column's. */
+.hm-prays__evidence {
+  display: block;
+}
+
+/* THE BAND'S ONE TARGET STAYS IN ONE PIECE. Stated honestly: at the widths
+   this row is a horizontal the leftover column never falls below 252px and
+   the link is 128px, so **this declaration currently changes nothing on the
+   page** — it is a standing guard against a longer building name or a wider
+   marker, not a fix for a fault that is here. It was written up as the
+   construction's load-bearing floor for as long as flex-wrap decided the
+   stack; the media query took that job and this kept the old billing for
+   about an hour. p9-home asserts the door is one line, which is the
+   invariant; the assertion is falsifiable and was falsified. */
+.hm-prays__evidence .hm-link-inline {
+  white-space: nowrap;
+}
+
+/* 🔴 THE HORIZONTAL STOPS AT 639, AND THE NUMBER CAME OFF THE PAGE. Sharing a
+   baseline means the SHORTER object drops to meet the taller one, so as the
+   leftover column narrows and the evidence takes another line, the marker
+   sinks away from "And prays." above it. Swept: the drop is 0 at ≥841, 14
+   through 768-840 and 12 through 622-767 — all invisible — and then the
+   evidence takes a THIRD line at 621 and the drop jumps to 37, which reads
+   as an orphaned marker with a hole above it. At 460 it is 89.
+
+   The flex-wrap floor alone does not catch this. It stacks at 437, where the
+   link stops fitting — and 437 is BELOW the largest phones in use (iPhone 16
+   Pro Max is 440 CSS px), so the worst rendering of this band would have
+   shipped on a current flagship and on nothing else. A condition that is
+   honest about ITS OWN constraint can still be the wrong constraint.
+
+   639 rather than 621: this project already names the ≤639 band, and H15 and
+   H21 both cost a session to a value parked on the knife edge. 622-639 is
+   given up to keep an 18px margin on a content-dependent break. */
+@media (max-width: 639px) {
+  .hm--alt .hm-prays__row {
+    display: block;
+    margin-block-start: 0;
+  }
+
+  /* Transparent again, so the two intervals return to the elements that own
+     them — and they are the rooms' own: --gap-block under the verb,
+     --gap-heading under the marker. */
+  .hm--alt .hm-prays__row .ha-marker {
+    margin-block-start: var(--gap-block);
+  }
+
+  .hm--alt .hm-prays__row .hm-prays__line {
+    margin-block-start: var(--gap-heading);
+  }
 }
 
 /* -----------------------------------------------------------
@@ -364,22 +497,26 @@
    would re-open every one of them. The levers are GEOMETRY, SPACE and the
    ACTION, and what follows uses the first two and moves the third.
 
-   🔴 SCOPED TO .hm--alt — and the reason is NOT the one it looks like.
-   `.hm-invitation` is index.html's band as well, so the obvious statement
-   is "an unscoped rule here would restyle Home". It would not, and that
-   was proved by breaking it: dropping the `.hm--alt` prefix from these
-   rules changes NOTHING on Home, because index.html does not load this
-   stylesheet at all. `pageStylesheet` takes a LIST, and Home's is
-   ["home"] where this page's is ["home", "home-alt"] — the file boundary
-   is the guard, and the prefix is defence behind it.
+   🔴 SCOPED TO .hm--alt, AND THE PROMOTION TOOK THE REASON AWAY. While
+   there were two pages the argument was that the FILE was the guard —
+   `pageStylesheet` takes a LIST, Home's was ["home"] and the option's
+   ["home", "home-alt"], so dropping the prefix changed nothing on Home
+   because Home did not load this stylesheet at all. That was proved by
+   breaking it, and it is now FALSE IN BOTH HALVES: `index` is the only
+   route that loads either file, and `.hm--alt` sits on that page's own
+   `main`. **Neither the file boundary nor the prefix guards anything from
+   anything.** Do not read this note as evidence that a stylesheet cannot
+   reach another page — nothing here is holding it back, and the next
+   difference authored in `home.css` will land on this same page.
 
-   What DOES reach Home is authoring the rule one file to the left. The
-   same three declarations appended to `home.css` — which both pages load
-   — take Home's closing band from 398.8px and a stack to 344.4px and a
-   flex row, measured. So the rule that matters is about WHERE a
-   difference is stated, not how its selector is spelled: an index1
-   difference lives in home-alt.css. The mechanism's own proof is that all
-   58 other pages stayed byte-identical when the list landed.
+   The prefix stays because it still SAYS something true — this rule
+   belongs to the reading, not to the shell — and removing it now would be
+   a diff over the whole file for no rendered change.
+
+   The measurement the argument was built on is kept because it is a
+   record of the band's two states: the same three declarations appended
+   to `home.css` took the OLD Home's closing band from 398.8px and a stack
+   to 344.4px and a flex row.
 
    WHAT WAS MEASURED, at 1440 before anything was decided. The band is
    398.8px tall and its two objects use 46.1% of the 960px column: the
