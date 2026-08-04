@@ -235,10 +235,43 @@ function mapData(marks) {
     );
   }
 
+  /* THE MAP BECOMES TOUCHABLE, and it costs no tab stop (Mahesh, 4 Aug).
+     Until now the selection ran one way: the ledger was the control and the
+     map answered it, because with no polygons there was nothing on the map to
+     touch. The regions supply the missing half.
+
+     They are LAST in the svg, which is deliberate — an SVG shape takes
+     pointer events by default, so a hit layer underneath the marks would let
+     a mark swallow the pointer and the district under the cursor would depend
+     on whether the reader happened to be over a dot. On top, with the marks
+     and labels beneath it, there is exactly one element under the pointer
+     anywhere on the field.
+
+     MOUSE ONLY, AND THAT IS THE WHOLE ACCESSIBILITY ARGUMENT. No `tabindex`,
+     no `role`, no `<a>`: the regions add ZERO tab stops, so the page's keyboard
+     path is what it was — every ledger row is already a link and focus drives
+     the same selection hover does. The svg stays `aria-hidden`, so nothing
+     here is announced twice. Nothing is reachable ONLY by pointer either:
+     everything a region selects, the ledger beneath it already states as text.
+
+     `fill="none"` with `pointer-events="all"` is what makes a region invisible
+     and still hittable — an unfilled shape is not a target otherwise. Stated
+     as attributes rather than CSS because they are what the element IS; a
+     stylesheet that failed to load would otherwise leave ten opaque plates
+     over the drawing. */
+  const hits = D.districtRegions(marks)
+    .map(
+      (r) =>
+        `<path class="aj-hit" data-district="${slugify(r.name)}" fill="none" ` +
+        `pointer-events="all" d="M${r.points.map((p) => `${p[0]} ${p[1]}`).join('L')}Z"></path>`
+    )
+    .join('');
+
   return {
     mapViewBox: marks.viewBox,
     mapMarksHtml: circles,
     mapLabelsHtml: labels,
+    mapHitsHtml: hits,
     mapMarkCount: marks.marks.length,
   };
 }

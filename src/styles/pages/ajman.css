@@ -213,6 +213,26 @@
   fill: var(--color-on-dark);
 }
 
+/* THE HIT REGIONS — ten targets, and E7 rule 3 is honoured rather than
+   worked around. Rule 3 bars MARKS as hit targets on arithmetic: 47 marks at
+   44×44px do not fit 375px. There are ten regions, not forty-seven, and the
+   smallest renders 68.7px at the narrowest of the four widths (103.1 / 85.9 /
+   120.2 / 68.7 at 480 / 400 / 560 / 320). A mark is still a fact; the region
+   over it is the control.
+
+   The geometry is a nearest-cluster partition built in build/lib/districts.js
+   — the reasoning, and the measurement that ruled out padded boxes, is there.
+
+   `fill: none` and `pointer-events: all` are set as ATTRIBUTES in the markup,
+   not here, because they are what the element is rather than how it looks: a
+   stylesheet that failed to load would otherwise leave ten opaque plates over
+   the drawing. This rule adds only the pointer, which is the one thing that
+   tells a mouse reader the field answers at all — the regions are invisible
+   by construction and nothing else on the map advertises them. */
+.aj-hit {
+  cursor: pointer;
+}
+
 /* -----------------------------------------------------------
    3 · The ledger (§4.2) — the page's inventory
    ----------------------------------------------------------- */
@@ -261,14 +281,24 @@
 /* Current: the head lifts to #FFFFFF at weight 600 and the block's rule
    takes #595959 — value plus weight plus a structural line, which is E2's
    nav pattern and never colour alone. Focus drives it exactly as hover
-   does, and every row is already a link, so this costs no tab stop. */
+   does, and every row is already a link, so this costs no tab stop.
+
+   `.is-current` IS THE SAME STATE REACHED FROM THE OTHER END (4 Aug). The
+   selection is now two-way: a pointer over a map region sets this class from
+   js/ajman.js. It is listed beside :hover and :focus-within rather than given
+   rules of its own so the block has ONE current appearance however it was
+   selected — a second declaration is how a map-driven current and a
+   ledger-driven one start looking different. The CSS pair stays first and
+   stays load-bearing: it is what survives the script failing. */
 .aj-block[data-district]:hover,
-.aj-block[data-district]:focus-within {
+.aj-block[data-district]:focus-within,
+.aj-block[data-district].is-current {
   border-inline-start-color: var(--color-ink-secondary);
 }
 
 .aj-block[data-district]:hover > .aj-block__head,
-.aj-block[data-district]:focus-within > .aj-block__head {
+.aj-block[data-district]:focus-within > .aj-block__head,
+.aj-block[data-district].is-current > .aj-block__head {
   font-weight: var(--fw-semibold);
   color: var(--color-on-dark);
 }

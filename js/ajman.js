@@ -114,17 +114,22 @@
   // outside the Emirate carry no data-district because they have no mark:
   // E7.2 places none by inference, and a block that lit while the map said
   // nothing would claim those buildings were on it.
-  // Marks AND labels: both carry data-district and both take the current
-  // state, so a current block lifts a name and its cluster together. The
-  // modifier is `is-current` rather than `aj-mark--current` because it now
-  // lands on two different elements.
-  var marks = standing.querySelectorAll('.aj-mark[data-district], .aj-map__label[data-district]');
+  // Marks, labels AND the ledger block itself: all three carry data-district
+  // and all three take the current state, so a selection lifts a name, its
+  // cluster and its block together whichever end it was made from. The
+  // modifier is `is-current` rather than `aj-mark--current` because it lands
+  // on several different elements.
+  var marks = standing.querySelectorAll(
+    '.aj-mark[data-district], .aj-map__label[data-district], .aj-block[data-district]'
+  );
   if (!marks.length) return;
 
   var byDistrict = {};
+  var blockOf = {};
   for (var m = 0; m < marks.length; m++) {
     var key = marks[m].getAttribute('data-district');
     (byDistrict[key] || (byDistrict[key] = [])).push(marks[m]);
+    if (marks[m].classList.contains('aj-block')) blockOf[key] = marks[m];
   }
 
   // Hover and focus are tracked separately rather than as one "current",
@@ -158,10 +163,13 @@
     applied = next;
   }
 
+  // EITHER END OF THE SAME SELECTION. A ledger block and a map region are
+  // two controls for one state, so they resolve through one function into
+  // one apply() — never two selection states that have to be kept in step.
   function districtOf(node) {
     if (!node || typeof node.closest !== 'function') return null;
-    var block = node.closest('.aj-block[data-district]');
-    return block ? block.getAttribute('data-district') : null;
+    var owner = node.closest('.aj-block[data-district], .aj-hit[data-district]');
+    return owner ? owner.getAttribute('data-district') : null;
   }
 
   // mouseover bubbles where mouseenter does not, so one listener covers
@@ -187,5 +195,30 @@
     // that block's turn; anywhere else and the focus half is simply off.
     focused = districtOf(event.relatedTarget);
     apply();
+  });
+
+  /* Clicking a region brings its block to the reader rather than navigating.
+     A district is not a destination — it has no page — so the click resolves
+     where the answer already is, in the ledger beside the map.
+
+     `.aj-hit` ONLY, and that is load-bearing: every ledger row is a link, so
+     a handler that fired on any click inside the ledger would scroll the
+     reader sideways at the exact moment they were leaving for a record.
+
+     `block: 'nearest'` scrolls the least that does the job — a block already
+     on screen does not move at all, which matters because the map is sticky
+     and a reader clicking a region is usually looking at a ledger that is
+     mostly right already. Reduced motion is honoured by asking for it:
+     `behavior: 'smooth'` is a request the browser declines under the setting,
+     so this needs no branch of its own. */
+  standing.addEventListener('click', function (event) {
+    if (!event.target || typeof event.target.closest !== 'function') return;
+    var region = event.target.closest('.aj-hit[data-district]');
+    if (!region) return;
+
+    var block = blockOf[region.getAttribute('data-district')];
+    if (block && typeof block.scrollIntoView === 'function') {
+      block.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
   });
 })();
