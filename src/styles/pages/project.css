@@ -543,18 +543,27 @@
     padding-inline-end: 0;
   }
 
+  /* 🔴 THE STACKED COLUMN TAKES THE PAGE'S GUTTER, NOT THIS BREAKPOINT'S
+     (5 Aug, Session XIII, H29 § 4). Stacking is decided at 820; the column's
+     INSET is a restatement of `.container`'s, which steps at 1024/780. Both
+     were written here, so between 781 and 820 the back link, the name and
+     the body stood on 20 while `.container`, `--chrome-axis` (the trigger,
+     in the same viewport) and `.pd-gallery__rest` stood on 40. The mobile
+     value now lives in its own ≤780 block below, where the page's own gutter
+     changes. Home's opening band carried the identical fault; the rule is in
+     H29 — a value that RESTATES another rule inherits that rule's
+     breakpoints, whatever tokens it names. */
   .pd-column {
-    padding-inline: var(--gutter-mobile);
+    padding-inline: var(--gutter-tablet);
   }
-
 
   .pd-plate--gallery {
     inline-size: 100%;
   }
 
-  .pd-caption {
-    padding-inline-start: var(--gutter-mobile);
-  }
+  /* `.pd-caption` needs no statement here at all — the ≤1024 block already
+     gives it the tablet gutter and it holds down to 781. One restatement
+     removed rather than corrected. */
 
   .pd-gallery__rest {
     --gallery-gap: var(--gutter-mobile);
@@ -569,6 +578,23 @@
 
   .pd-specs__label {
     inline-size: 45%;
+  }
+}
+
+/* 780, NOT 820 — the page's own gutter step (H29 § 4).
+   `.container`'s gutter goes 40 → 20 here (layout.css), and `--chrome-axis`
+   and the footer follow it. Everything on this page that carries the PAGE's
+   inset steps with them; 820 governs the lede's ARRANGEMENT and nothing
+   else. Kept as a separate block rather than folded into the one above,
+   because merging two different questions into one key is how this
+   happened. */
+@media (max-width: 780px) {
+  .pd-column {
+    padding-inline: var(--gutter-mobile);
+  }
+
+  .pd-caption {
+    padding-inline-start: var(--gutter-mobile);
   }
 }
 
