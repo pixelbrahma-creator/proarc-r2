@@ -3,7 +3,7 @@
 
   "_counts": "There are no counts in this file, deliberately. A district's mark count is DERIVED from data/projects.json by build/lib/districts.js, so a resolved O5 duplicate or a landed district changes the output and never the design (09-menu §6). Today that derivation yields 28 marks across the ten districts below.",
 
-  "_positions": "PLACEHOLDER, and labelled as such wherever it renders. E7.1 splits the map into three layers and the commission supplies only one — coastline and boundaries. The marks are the page's, at true pixels. Until that artwork lands these cluster centres carry the constellation (Option B), which is a constellation and not cartography: it claims relative grouping, never a coordinate. Centres are carried unchanged from board 16 rev 2, which Mahesh saw and approved. When the commission lands, replace `centre` per district and nothing else.",
+  "_positions": "PLACEHOLDER, and labelled as such wherever it renders. E7.1 splits the map into three layers and the commission supplies only one — coastline and boundaries. The marks are the page's, at true pixels. Until that artwork lands these cluster centres carry the constellation (Option B), which is a constellation and not cartography: it claims relative grouping, never a coordinate. Centres were carried unchanged from board 16 rev 2, which Mahesh saw and approved. 🔴 NINE STILL ARE; MARINA & CREEK'S IS NOT — it moved from [96,226] to [120,370] on 6 Aug 2026, on Mahesh's own call, because the creek's long arm could not be routed past its label at any of four positions. See _the_arm_cost_a_placeholder_centre. This sentence is corrected rather than left standing because a note that says 'unchanged' while one has changed is exactly the class of stale claim that kept the creek refused for two sessions on an eighteen-unit corridor that had become seventy-one. When the commission lands, replace `centre` per district and nothing else.",
 
   "_marks": "E7.2 — no mark is placed by inference. A record earns a mark only if its own location string names a district. The 18 plain-Ajman records and the one Umm Al Quwain record have no mark until their data does; they are not approximated onto the drawing.",
 
@@ -30,7 +30,11 @@
 
     "_the_18_unit_corridor_was_STALE": "This file used to refuse the creek because 'the corridor between the Al Khor and Marina & Creek labels is about 18 units and a stroke plus clearance does not fit'. Re-measured 5 Aug the corridor is 71 units at the worst band. It was never re-checked after scatter.minSeparation landed on 4 Aug and moved every mark on the drawing. TWO OTHER NUMBERS IN THIS FILE WERE STALE FOR THE SAME REASON — see _clearances. A refusal carries its measurement's expiry date, and the measurement here expired the day the thing it measured was regenerated.",
 
-    "path": "M 226 0 C 198 20, 172 32, 150 50 C 126 70, 108 94, 94 120 C 80 146, 62 174, 48 202 C 38 222, 30 240, 28 262 C 26 292, 28 322, 32 352 C 36 386, 44 414, 52 440 M 45 207 C 75 205, 110 202, 142 199 C 160 196, 176 184, 192 169 M 142 199 C 166 199, 186 200, 204 203 M 142 199 C 158 207, 172 219, 185 230"
+    "_creek_has_THREE_parts_not_two": "Corrected 6 Aug 2026, from three reference maps Mahesh sent — 'none of it does justice'. He was right, and the fault was not precision, it was that we had drawn the WRONG PART OF THE FORM. The reference system has three: a MOUTH at the sea, a FAN of short fingers splaying inland just behind it, and a LONG ARM running down-coast that HOOKS INLAND at its foot. The first draft built the mouth and the fan and stopped. The arm is the part that makes water read as a creek rather than as a twig, and it was the whole of what was missing. 'Exaggerate' licenses distorting a form; it does not license drawing a different one.",
+
+    "_the_arm_cost_a_placeholder_centre": "The arm could not be drawn at all where the map stood. Four routings were measured — hugging the shore, mid, further inland, and a short one that stops early — and ALL FOUR fouled Marina & Creek's label, because that cluster sat directly across the only ground the arm can occupy. Moving its centre is what unblocked it, and 95 candidate centres were searched: [120,370] is one of the best, disturbing exactly ONE mark (Marina & Creek holds a single record) and holding the worst label clearance at 12.8 units, the same figure the map already shipped with. Mahesh took it on 6 Aug with both states rendered in front of him. 📌 There is an argument for the move beyond convenience: the district is NAMED for the creek and did not previously sit anywhere near it; it now sits at the arm's foot.",
+
+    "path": "M 226 0 C 198 20, 172 32, 150 50 C 126 70, 108 94, 94 120 C 80 146, 62 174, 48 202 C 38 222, 30 240, 28 262 C 26 292, 28 322, 32 352 C 36 386, 44 414, 52 440 M 45 207 C 75 205, 110 202, 142 199 C 160 196, 176 184, 192 169 M 142 199 C 166 199, 186 200, 204 203 M 142 199 C 158 205, 172 213, 186 218 M 142 199 C 147 228, 149 256, 150 282 C 152 304, 164 318, 184 322"
   },
 
   "scatter": {
@@ -89,7 +93,7 @@
     { "name": "Aalia",          "centre": [318, 330], "aliases": ["aalia", "al aalia"] },
     { "name": "Al Khor",        "centre": [128, 168], "aliases": ["al khor", "khor"] },
     { "name": "Hamidiya",       "centre": [330, 122], "aliases": ["hamidiya", "al hamidiya"] },
-    { "name": "Marina & Creek", "centre": [ 96, 226], "aliases": ["marina & creek", "marina and creek"] },
+    { "name": "Marina & Creek", "centre": [120, 370], "aliases": ["marina & creek", "marina and creek"] },
     { "name": "Rashdiya",       "centre": [282, 196], "aliases": ["rashdiya", "al rashdiya", "al rashidiya"] }
   ],
 
