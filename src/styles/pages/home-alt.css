@@ -81,6 +81,72 @@
   margin: var(--gap-heading) 0 0;
 }
 
+/* -----------------------------------------------------------
+   1a · The beat's horizontal (Mahesh, 5 Aug, Session XII)
+   ----------------------------------------------------------- */
+
+/* THE WORDS AND THE DOOR ARE THE TWO ENDS OF ONE LINE — §5.3's construction
+   and the closing band's, applied to the one band on Home that was still
+   without it.
+
+   Measured before anything was proposed: at 1440 every band on this page
+   reaches 93-99% of its 960px column — the four rooms 93.1 / 96.1 / 96.8 /
+   98.9, the mosque 97.5, the closing band 93.2 — and THIS ONE REACHED 64.3%,
+   with 342px of the measure standing empty. Stable at 34.6% (1024), 34.8%
+   (768) and 31.9% (640), and gone by a true 375, where the measure fills the
+   column on its own. So it is a wide-screen condition, and it is historical
+   rather than authored: §5.1a's generated mark stood at this column's other
+   end until H14 deleted it at the client's request, and the band was then
+   REDUCED to one column rather than re-composed.
+
+   🔴 THE OTHER ARRANGEMENT WAS RENDERED AND REFUSED ON THE PAGE'S OWN
+   CRITERION. Giving the end to the services line AND the door — the mosque
+   band's shape — squeezed the sentence from three lines to FIVE at 1440 and
+   made the band taller. That is exactly the failure p9-home's "the action
+   costs the sentence no width" exists to catch on the closing band, so it
+   was refused without needing a new argument. The door alone costs the
+   sentence nothing: its ink reaches 618 here against 617.5 before.
+
+   The interval under the sentence is unchanged and was MEASURED, not
+   assumed — 23.8px ink-to-ink either side of this change. H24 lost
+   --gap-block to a flex wrapper with nothing showing in a screenshot, so
+   the wrapper below is measured rather than reasoned about. */
+/* 🔴 `justify-content: space-between` HERE CURRENTLY CHANGES NOTHING, and it
+   is written down because the declaration reads as the thing that puts the
+   door at the column's end and it is not. The words take `flex: 1 1 0`, so
+   they absorb every pixel of free space and there is none left for
+   justify-content to distribute: mutated to `flex-start` the door still ends
+   at 1200 against a column of 1200 and p9-home stays 32/32. What actually
+   holds the door out there is the words' flex basis — proved by `order: -1`,
+   which moves the door to the start and fails two assertions.
+
+   It is kept as a standing guard against the basis changing, on the same
+   terms as the mosque band's `nowrap` (§ 3a), and NOT because it is doing
+   the work. Same family as H25: a published note that credits a guard with
+   a job something else is doing. */
+.hm--alt .ha-beat .container {
+  display: flex;
+  align-items: last baseline;
+  justify-content: space-between;
+  column-gap: var(--gap-component);
+}
+
+/* `flex: 1 1 0`, for the reason § 3a states: the hypothetical size becomes
+   the column's own minimum rather than its content's, so the row never
+   breaks on the door's width and cannot alternate across the range. */
+.hm--alt .ha-beat__words {
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+/* The door never shrinks, and it stays in one piece: a label with a rule
+   under it, wrapped, reads as two controls rather than one. */
+.hm--alt .ha-beat__route {
+  flex: 0 0 auto;
+  margin: 0;
+  white-space: nowrap;
+}
+
 /* .hm-link is white by declaration — it was written for black. On paper it
    is the same control in ink: same size, same weight, same tracking, same
    1px rule that THICKENS rather than fades, so the two grounds share one
@@ -468,7 +534,42 @@
    639 rather than 621: this project already names the ≤639 band, and H15 and
    H21 both cost a session to a value parked on the knife edge. 622-639 is
    given up to keep an 18px margin on a content-dependent break. */
+/* 🔴 AND THE BEAT STACKS AT THE SAME 639, WHICH `flex-wrap` COULD NOT HAVE
+   DONE. This is § 3a's lesson arriving from the other side, and it is worth
+   stating because the two look like the same construction: `flex: 1 1 0`
+   takes the door out of the wrap decision — and on THIS band that means the
+   row can never wrap at all, because the words' column simply keeps
+   shrinking to keep a 128px door beside it. Swept to 320 the horizontal
+   survives and the sentence goes from three lines to TWELVE. A `flex-wrap`
+   here would state a condition that is never met, which is worse than no
+   condition: it reads as a guard and guards nothing.
+
+   The number is measured against the page as it stands. Today the sentence
+   holds three lines from 1440 all the way down to 449; with the door beside
+   it, it holds three down to 604 and takes a fourth at 603. 604 is where the
+   door starts costing the sentence something — and it is CONTENT-dependent,
+   so any edit to the sentence moves it. 639 sits inside that range, is a
+   band this project already names, and is the mosque band's own key, so the
+   page's two horizontals stack at ONE width rather than two that would have
+   to be kept in step forever.
+
+   Below it, this band IS what it was: sentence, services at --gap-block,
+   door at --gap-heading, all flush to the column's start. Verified rather
+   than asserted — at 600 the intervals, the band height and both paddings
+   are identical to their values before this change (26.5 / 31.4 / 439.7 /
+   96 / 102.4), and a true 375 renders the same 6681px document. */
 @media (max-width: 639px) {
+  .hm--alt .ha-beat .container {
+    display: block;
+  }
+
+  /* The door's own margin is what carries the interval when it stands under
+     the words rather than beside them; the row does not exist here. */
+  .hm--alt .ha-beat__route {
+    margin-block-start: var(--gap-heading);
+    white-space: normal;
+  }
+
   .hm--alt .hm-prays__row {
     display: block;
     margin-block-start: 0;
