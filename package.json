@@ -2,7 +2,7 @@
   "name": "proarc-r2",
   "private": true,
   "version": "2.0.0",
-  "description": "ProArc website, R2 — static output, no runtime dependencies",
+  "description": "ProArc website, R2 \u2014 static output, no runtime dependencies",
   "scripts": {
     "build:images": "node build/process-images.js",
     "build:manifest": "node build/manifest-from-outputs.js",
@@ -12,7 +12,12 @@
     "build": "npm run build:manifest && npm run build:pages && npm run build:projects && npm run build:seo",
     "check:links": "node build/check-links.js",
     "lint:css": "stylelint \"src/**/*.css\"",
-    "build:seo": "node build/build-seo.js"
+    "build:seo": "node build/build-seo.js",
+    "serve": "python3 -m http.server 8765 --bind 127.0.0.1",
+    "check": "node _bmad/tools/board.js",
+    "check:fast": "node _bmad/tools/board.js --fast",
+    "check:changed": "node _bmad/tools/board.js --changed",
+    "check:list": "node _bmad/tools/board.js --changed --list"
   },
   "devDependencies": {
     "sharp": "^0.33.5",

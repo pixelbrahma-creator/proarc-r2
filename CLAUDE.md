@@ -500,11 +500,41 @@ own `pageScript`.
 > faithfully at 2.6× the bytes, and exact alpha is what lets a sweep assert
 > that a file's box equals its ink box.
 
+## Checking your work — the board, and how fast it is
+
+```
+npm run serve            # 127.0.0.1:8765 — every probe needs an HTTP origin
+npm run check:fast       # the 8 static checks, ~1s. Run this constantly.
+npm run check:changed    # + the probes your diff implicates
+npm run check            # everything, in parallel. ~69s. Before every commit.
+```
+
+**The cost was never the checking, it was Chrome starting.** Measured: the eight
+static checks total **1.8s**; the sixteen browser probes total **~250s** and were
+run one after another for no reason but that a shell loop is written that way.
+They are independent, so `board.js` runs them concurrently on assigned ports and
+the board's floor is now its slowest single check (p21, 59s) rather than the sum
+— **69s wall for 257s of work.**
+
+> 🔴 **`--changed` NARROWS, IT NEVER QUIETLY COVERS LESS.** Each check declares
+> the source paths that can move what it measures, and the skipped set is
+> **printed by name on every run**. That declaration is a hand-written list —
+> this project's recorded blind spot — so it **fails safe**: a changed file that
+> matches no check's declared scope makes the board run *everything*, because an
+> unclassified file has an unknown blast radius. **Run the full board before
+> committing** regardless; `--changed` is for the loop, not for the gate.
+>
+> 📌 Both bugs found while building it were invisible in the verdict and obvious
+> in the list it prints — a mis-parsed `git status` line left `rc/styles/…` in
+> the set, tripped the fail-safe, and the board stayed correct while the
+> derivation was broken. **Read the list, not just the verdict.**
+
 ## Before you finish any UI task
 
 Run through this list and state the result:
 
-1. `npx stylelint "src/**/*.css"` passes.
+1. `npm run check` passes — 24/24. (`npx stylelint "src/**/*.css"` alone is
+   assertion 1 of 24.)
 2. No new hardcoded hex, px font-size, or physical margin/padding/border.
 3. Any new text/background pair has a measured contrast ratio.
 4. Checked at 375px, 768px and 1440px.
