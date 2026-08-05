@@ -60,11 +60,12 @@ function decodeEntities(str) {
  * the second question is how a mark ends up cleared against a shoreline that
  * is not the one being drawn.
  */
-function samplePath(d) {
+function samplePathSubpaths(d) {
   const tokens = String(d).trim().split(/[\s,]+/);
   let i = 0;
   let cur = null;
-  const points = [];
+  const subpaths = [];
+  let points = null;
 
   const num = () => {
     const v = parseFloat(tokens[i++]);
@@ -75,8 +76,17 @@ function samplePath(d) {
   while (i < tokens.length) {
     const cmd = tokens[i++];
     if (cmd === 'M') {
+      /* 🔴 EVERY `M` STARTS A NEW SUBPATH, AND A SUBPATH BOUNDARY IS NOT A
+         DRAWN LINE. A moveto is a pen lift: SVG strokes nothing across it.
+         Collected flat, the gap between two subpaths gets summed into the
+         path's length like any other step, and the length is what the dash
+         is cut to — so a shoreline in two pieces would arm its draw with a
+         dash longer than the ink and animate through a pause that looks like
+         a stall. Same doctrine as this parser refusing an unknown command:
+         a measurement taken against the wrong artefact is worse than none. */
       cur = [num(), num()];
-      points.push(cur);
+      points = [cur];
+      subpaths.push(points);
     } else if (cmd === 'C') {
       if (!cur) throw new Error('districts: coast path begins with a curve and no M');
       const p0 = cur;
@@ -99,14 +109,22 @@ function samplePath(d) {
       );
     }
   }
-  return points;
+  return subpaths;
+}
+
+/** Every sampled point, flat — what the SCATTER wants: it asks "how far is
+ *  this dot from the water", and the water is every piece of the drawing. */
+function samplePath(d) {
+  return [].concat.apply([], samplePathSubpaths(d));
 }
 
 function pathLength(d) {
-  const points = samplePath(d);
+  const subpaths = samplePathSubpaths(d);
   let total = 0;
-  for (let i = 1; i < points.length; i++) {
-    total += Math.hypot(points[i][0] - points[i - 1][0], points[i][1] - points[i - 1][1]);
+  for (const points of subpaths) {
+    for (let i = 1; i < points.length; i++) {
+      total += Math.hypot(points[i][0] - points[i - 1][0], points[i][1] - points[i - 1][1]);
+    }
   }
   /* 🔴 A MARGIN, AND IT IS NOT SLACK. `vector-effect: non-scaling-stroke`
      makes the dash pattern resolve in SCREEN pixels while this number is in
@@ -231,6 +249,46 @@ function placeMark(district, rand, scatter, placed, vbWidth, vbHeight, coastPoin
   );
 }
 
+/**
+ * A cluster's label box, in user units, at the band where it is widest.
+ *
+ * THE ANCHOR RULE IS THE ONE ajman.js ALREADY USED — centred on the cluster's
+ * mean x, dropped below its LOWEST mark — and it lives here now rather than
+ * there for the reason sweepOrder lives here: the constraint and the render
+ * have to be the same geometry, and a label derived twice is how a name ends
+ * up cleared in the generator and drawn somewhere else.
+ */
+function labelBox(name, clusterMarks, label) {
+  const cx = Math.round(clusterMarks.reduce((s, m) => s + m.x, 0) / clusterMarks.length);
+  const cy = Math.max.apply(null, clusterMarks.map((m) => m.y));
+  const y = cy + label.dropUnits;
+  const width =
+    label.widthUnits && label.widthUnits[name] != null
+      ? label.widthUnits[name]
+      : name.length * label.advanceEm * label.emUnits;
+  const half = width / 2;
+  return { name, x: cx, y, x0: cx - half, x1: cx + half, y0: y - label.ascUnits, y1: y + label.descUnits };
+}
+
+/** Closest approach from an axis-aligned box to a sampled path. 0 = crossing. */
+function boxToPath(box, points) {
+  let best = Infinity;
+  for (const p of points) {
+    const dx = Math.max(box.x0 - p[0], 0, p[0] - box.x1);
+    const dy = Math.max(box.y0 - p[1], 0, p[1] - box.y1);
+    const d = Math.hypot(dx, dy);
+    if (d < best) best = d;
+  }
+  return best;
+}
+
+/* A whole cluster is re-drawn when its LABEL fouls the water, not just the
+   offending mark: the label hangs off the cluster's mean and its lowest mark,
+   so moving one dot moves the name by a fraction of one dot's travel. Redraws
+   are per-attempt and consume the seeded stream, so the output stays
+   byte-stable and a diff still means the data moved. */
+const CLUSTER_TRIES = 400;
+
 function buildDistrictMarks() {
   const db = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'projects.json'), 'utf8'));
   const geo = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'districts.json'), 'utf8'));
@@ -263,16 +321,55 @@ function buildDistrictMarks() {
      is simply empty. */
   const coastPoints = geo.coast ? samplePath(geo.coast.path) : [];
 
+  /* AND THE NAME IS CLEARED TOO, not only the dot (5 Aug). The label is not
+     a second drawing to be constrained — it is the same object's other half,
+     and until now the scatter governed one half of a coupled pair. The creek
+     proved it in one build: cleared of the new water, Marina & Creek's mark
+     moved 20 units and carried its own name into the sea. The floor and the
+     box are declared in data/districts.json, measured on the rendered page. */
+  const label = geo.label;
+  const labelBoxes = [];
   const marks = [];
+
   geo.districts.forEach((d) => {
     const slugs = counts.get(d.name);
-    slugs.forEach((slug) => {
-      const p = placeMark(d, rand, geo.scatter, marks, vbWidth, vbHeight, coastPoints);
-      marks.push({ district: d.name, slug, x: p.x, y: p.y });
-    });
+    if (!slugs.length) return;
+
+    let cluster = null;
+    for (let attempt = 0; attempt < CLUSTER_TRIES; attempt++) {
+      const trial = [];
+      slugs.forEach((slug) => {
+        const p = placeMark(d, rand, geo.scatter, marks.concat(trial), vbWidth, vbHeight, coastPoints);
+        trial.push({ district: d.name, slug, x: p.x, y: p.y });
+      });
+      /* No label metrics in the data means no label constraint, exactly as no
+         coast in the data means no coast constraint: the drawing is an
+         addition to this file, never a precondition for it. */
+      if (!label) { cluster = trial; break; }
+      const box = labelBox(d.name, trial, label);
+      if (boxToPath(box, coastPoints) >= label.clearance) { cluster = trial; box.clearance = boxToPath(box, coastPoints); labelBoxes.push(box); break; }
+    }
+
+    if (!cluster) {
+      throw new Error(
+        'districts: placed every mark for "' + d.name + '" but could not get its LABEL ' +
+          label.clearance + ' units clear of the shoreline in ' + CLUSTER_TRIES + ' cluster re-draws. ' +
+          'The name hangs ' + label.dropUnits + ' units below the cluster and is ' +
+          (label.widthUnits[d.name] != null ? label.widthUnits[d.name] + ' units wide (measured)' :
+            'sized by the advanceEm fallback') + ', so the district\'s centre may simply be too close ' +
+          'to the water to hold a name of that length. Move the centre in data/districts.json, or ' +
+          'shorten the reach of the shoreline near it. Do NOT lower label.clearance to make this pass — ' +
+          'the note in that file says what the number is for.'
+      );
+    }
+    marks.push.apply(marks, cluster);
   });
 
   return {
+    /* The label boxes travel with the marks they were cleared against, so
+       ajman.js draws the geometry the generator actually tested rather than
+       re-deriving its own and hoping the two agree. */
+    labels: labelBoxes,
     viewBox: geo.viewBox,
     radius: geo.scatter.radius,
     /* The shoreline travels with the geometry it belongs to, and its LENGTH

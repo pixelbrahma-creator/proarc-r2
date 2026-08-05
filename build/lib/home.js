@@ -652,15 +652,81 @@ function roomFullData(db, manifest, prefix, room) {
  * known 0.5714 below it, where the mark compensates exactly (home.css).
  * Two states, both exact, no JS involved in either.
  *
- * No coastline, no boundaries, no joining lines: Option B is the marks and
- * nothing else, and B's price — no district polygons, so no district
- * interaction — is /ajman's to pay, not Home's. Home's map was always one
- * visual and one link.
+ * 🔴 THE SHORELINE IS BACK, AND THAT REVERSES HALF OF THIS NOTE (5 Aug).
+ * It used to read "no coastline, no boundaries, no joining lines" — Option B
+ * was the marks and nothing else. That was written when NO coast existed
+ * anywhere on the site, so B was not a preference, it was the only thing
+ * there was: § 6.1's Option A had always been the drawn one, with B as the
+ * contractual fallback "if the commissioned artwork is not excellent by
+ * launch". A rough shoreline was drawn in house on 4 Aug and the creek
+ * joined it on 5 Aug, so the fallback's condition no longer holds.
  *
- * No labels either. E7.1 puts labels at a true 12px, and ten of them
- * around a 560px field with no boundaries to anchor them is a scatter of
- * words, not a map. The link line is the caption.
+ * And the ask settles it either way: Mahesh asked for this band in order to
+ * SHOW the creek. Bare dots do not read as Ajman — that is exactly what the
+ * first build of this band looked like, and looking at it is how the missing
+ * half was found. The coast comes from districts.js, the same source /ajman
+ * draws, because one map derived twice is how two surfaces start disagreeing
+ * about where the water is.
+ *
+ * B's remaining price is still /ajman's to pay: no district polygons here,
+ * so no district interaction and no hit layer.
+ *
+ * No labels either, and that half of the note STANDS. E7.1 puts labels at a
+ * true 12px, and ten of them on a field this size — with no ledger beneath
+ * to answer them — is a scatter of words, not a map. It also gives the two
+ * surfaces a clean division of labour: Home shows the SHAPE, /ajman names
+ * it. The link line is the caption.
  */
+/* THE MAGNITUDE (Mahesh, 5 Aug): "xxxxxx million square meters of living
+   space in Ajman and around — give a random figure now, we can get the actual
+   from client."
+ *
+ * 🔴 IT IS A PLACEHOLDER AND IT SHIPS SAYING SO. A number invented to hold a
+ * space looks exactly like a number somebody measured, and this project has
+ * already written down what happens next: districts.json's cluster centres
+ * are placeholders and are labelled as such "wherever they render", because
+ * an unlabelled placeholder is a claim the site cannot source. A figure is
+ * worse than a coordinate that way — nobody re-derives a number that reads
+ * as finished. So `pending` is not a comment, it is the thing that renders,
+ * and assertPending() below refuses the build if the marker ever comes off
+ * while the figure is still invented.
+ *
+ * AND IT IS NOT DISPLAY PROSE. E12 bars quantities in prose — "numbers are
+ * for records; names are for prose" — so the figure ships in the RECORD
+ * register, as a spec row, exactly as /ajman's ledger carries its years and
+ * a project page carries its storeys. Mahesh delegated the choice on 5 Aug;
+ * the third shape on the table, amending E12 for a named exemption, was NOT
+ * taken, because a guideline revision needs his own signature and a
+ * delegation is not one. That door stays open. */
+const LIVING_SPACE = {
+  label: 'Living space, in Ajman and around it',
+  /* Grouped in the record register, with the unit. Not spelled, not rounded
+     into prose ("over four million"), which would be the quantity E12 bars
+     wearing a different coat. */
+  figure: '4,200,000 m²',
+  /* NO INTERNAL REFERENCE, and the first draft carried one — "(letter item
+     X3's neighbour)". Two things wrong with it, and the gate caught the
+     smaller: the "3" is a digit in display prose, which is E12. The larger
+     one no gate can see — a reader has no idea what letter item X3 is, and
+     the page's own register bars the site talking to itself in public. */
+  pending: 'Indicative only — Proarc’s own figure is awaited.',
+};
+
+function livingSpaceData() {
+  if (!LIVING_SPACE.pending || !LIVING_SPACE.pending.trim()) {
+    throw new Error(
+      'home: the living-space figure is invented and its "pending" marker is empty, so the page ' +
+        'would print a made-up number as a fact. Either supply Proarc’s real figure and delete ' +
+        'this guard with the placeholder, or put the marker back. See LIVING_SPACE.'
+    );
+  }
+  return {
+    livingSpaceLabel: escapeText(LIVING_SPACE.label),
+    livingSpaceFigure: escapeText(LIVING_SPACE.figure),
+    livingSpacePending: escapeText(LIVING_SPACE.pending),
+  };
+}
+
 function mapData() {
   const marks = D.buildDistrictMarks();
 
@@ -680,8 +746,25 @@ function mapData() {
     )
     .join('');
 
+  /* The shoreline is FIRST in the svg, as it is on /ajman, and for the same
+     reason: SVG paints in document order and the coast is ground — the marks
+     are the argument and nothing may sit on top of them.
+
+     IT DOES NOT DRAW, AND THAT IS A DECISION RATHER THAN A SHORTCUT. /ajman
+     wipes the coast on and then staggers the marks behind it, timed off
+     `--coast-draw`. Here the land is simply present and the records arrive on
+     it, which is the truer order for a band whose whole sentence is where
+     these buildings stand — and it means Home needs no `--coast-length`, no
+     second dash pipeline, and no way for the dots to beat the ground onto the
+     page. A map with no coast in its data still builds; this is an addition
+     to the drawing, never a precondition for it. */
+  const coast = marks.coast
+    ? `<path class="hm-coast" d="${marks.coast.path}" fill="none"></path>`
+    : '';
+
   return {
     mapViewBox: marks.viewBox,
+    mapCoastHtml: coast,
     mapMarksHtml: circles,
     mapMarkCount: swept.length,
   };
@@ -1031,6 +1114,7 @@ function viewData(prefix, srcName) {
       ogImage: hero.plateSrc,
     },
     map,
+    livingSpaceData(),
     alt
   );
 }

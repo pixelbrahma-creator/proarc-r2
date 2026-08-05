@@ -408,13 +408,27 @@
    there: the words belong to the photograph above them, and an equal
    padding floats them between two pictures with no owner.
 
-   The bottom stays at --gap-section and does NOT follow the rooms up to
-   --gap-section-major, because it is not the same seam. A room's 280 is
-   the distance to the NEXT full-bleed photograph, which begins with no
-   margin of its own; this one is the distance to a ground change, and the
-   paper invitation below opens on its own padding. */
+   🔴 AND THE BOTTOM IS BACK TO NOTHING (5 Aug), WHICH IS THE WHOLE OF THE
+   NOTE ABOVE RUN IN REVERSE. That 200 was never this section's own — it was
+   a SUBSTITUTE for the deleted map's tail, written the day the constellation
+   went, exactly as the paragraph at the top of this block says: "`.hm-prays`
+   opens on --gap-section and states no bottom padding at all, because on Home
+   the map follows it and supplies the distance to the paper invitation
+   below." The map follows it again, so the substitute is now a DOUBLE COUNT:
+   200 here, then the map's own 200 to the hairline and 200 below it, and the
+   reader met 600px of empty black between the mosque's line and the head of
+   the next band.
+
+   A DELETION LEAVES A SHAPE BEHIND IT AND SO DOES A RESTORATION, and the
+   second is the harder one to see: the compensation looks like a considered
+   value rather than like scaffolding, because by then it has a paragraph of
+   reasoning attached to it. Nothing measured it as wrong — it was found by
+   screenshotting the band beside its neighbours, which is the fourth session
+   running that method has produced the session's real fault. The value that
+   has to change when a section returns is the one some other section grew
+   while it was away. */
 .hm--alt .hm-prays {
-  padding-block: var(--gap-component) var(--gap-section);
+  padding-block: var(--gap-component) 0;
 }
 
 /* -----------------------------------------------------------

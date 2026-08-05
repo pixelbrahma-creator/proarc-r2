@@ -834,9 +834,23 @@
 /* Separated from the mosque line by a #333333 hairline: decorative,
    separating two text sections, which is the one thing 1.66:1 is
    permitted to do. */
+/* 🔴 AND IT CLOSES THE BLACK RUN, WHICH IT DID NOT DO BEFORE (5 Aug). The
+   bottom is new and it is the other half of the restoration: this section is
+   now the last thing on the dark ground, so the distance to the GROUND CHANGE
+   is its debt. `.hm-prays` was carrying it while the map was deleted, and
+   handing it back without stating it here left the link's ink 3.6px off the
+   paper at every width — measured, not noticed, because 3.6px of black under
+   a link looks like a tight seam rather than like a missing 200.
+
+   The value is --gap-section rather than --gap-section-major for the reason
+   home-alt.css § 3 already gave when the mosque owed it: a room's 280 is the
+   distance to the next full-bleed PHOTOGRAPH, which opens with no margin of
+   its own, and this is the distance to a ground change whose paper opens on
+   its own padding. Same seam, same token, moved to whichever section is
+   standing last. */
 .hm-map {
   margin-block-start: var(--gap-section);
-  padding-block-start: var(--gap-section);
+  padding-block: var(--gap-section);
   border-block-start: 1px solid var(--color-hairline-dark);
 }
 
@@ -861,6 +875,22 @@
   block-size: auto;
 }
 
+/* THE SHORELINE, and it is the same object /ajman draws — same path, same
+   source, same 2px. `vector-effect: non-scaling-stroke` is what keeps it 2px:
+   without it the stroke scales with the drawing and this field is 1.5× the
+   authored viewBox at desktop and 0.571× below 640, so one line would render
+   at three different weights. Same argument as E7.1's true-5px mark, applied
+   to the line instead of the dot.
+
+   It does not draw — see build/lib/home.js. The land is present and the
+   records arrive on it. */
+.hm-coast {
+  fill: none;
+  stroke: var(--color-on-dark-secondary);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
 .hm-mark {
   fill: var(--color-on-dark);
   transform: scale(var(--mark-scale));
@@ -882,6 +912,65 @@
   transform: scale(var(--mark-scale));
   transition: transform 140ms ease-out;
   transition-delay: calc(var(--mark-index) * 34ms);
+}
+
+/* The head states the subject and the record states the figure — the split
+   E12 asks for. It sits above the drawing at the band's own heading gap;
+   § 6.1's "no section label" is untouched, because this is a statement and
+   not an invented eyebrow. */
+.hm-map__head {
+  margin: 0 0 var(--gap-heading);
+  max-inline-size: var(--measure-body-lg);
+}
+
+/* THE FIGURE IN THE RECORD REGISTER — and the register is the SITE'S, not
+   this page's. `.t-meta-label` / `.t-meta-value` are the classes the 47
+   record pages set their spec rows in, and tokens.css already lifts the
+   label's colour under `.surface-dark`. So nothing here states a size, a
+   weight or a colour: this block is layout only. A record row restated in
+   a page stylesheet is how two surfaces start disagreeing about what a
+   record looks like.
+
+   `table-layout: fixed` is not decoration. Auto layout treats a declared
+   inline-size as a PREFERENCE and negotiates it down — the recorded fault
+   that delivered About's 200px mark column at 174.9px. */
+.hm-map__record {
+  margin-block-start: var(--gap-component);
+  border-collapse: collapse;
+  table-layout: fixed;
+  inline-size: 100%;
+  max-inline-size: var(--measure-body-lg);
+}
+
+.hm-map__record th,
+.hm-map__record td {
+  padding-block: var(--pad-table-row);
+  padding-inline: 0;
+  border-block-start: 1px solid var(--color-hairline-dark);
+  vertical-align: baseline;
+}
+
+.hm-map__record th {
+  inline-size: 45%;
+}
+
+/* Tabular figures so the digits do not jitter, the same reason § 6.1 gave
+   for the year counter it never got to build. */
+.hm-map__record td {
+  font-variant-numeric: tabular-nums;
+  color: var(--color-on-dark);
+}
+
+/* The placeholder's own declaration, and the drawing's. Caption size, the
+   secondary ink — quiet, because it is apparatus rather than argument, but
+   NEVER hidden: hierarchy does not come from opacity (§9.16) and a note
+   that cannot be read is a note that was not made. */
+.hm-map__note {
+  margin: var(--gap-tight) 0 0;
+  max-inline-size: var(--measure-body-lg);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-body);
+  color: var(--color-on-dark-secondary);
 }
 
 .hm-map__line {

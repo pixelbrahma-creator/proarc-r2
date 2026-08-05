@@ -418,27 +418,75 @@
       </div>
     </section>
 
-    <!-- THE CONSTELLATION STOOD HERE AND IS GONE (Mahesh, 4 Aug). It was cut
-         from this reading while both were live, and the promotion carried
-         the cut onto the route: the site's only remaining map is /ajman's,
-         which is the one that was always the argument. This note is not a
-         section — it is what a deleted section leaves behind, which is more
-         than its own markup:
+    <!-- 6 · THE MAP RETURNS (Mahesh, 5 Aug). The constellation was cut from
+         this reading on 4 Aug and the promotion carried the cut onto the
+         route; `01-home.md` § 6.1 went on specifying it the whole time. It
+         comes back because Mahesh asked for this band by name — "the last
+         section after prays / mosque … show the ajman map with the dots,
+         with link to the ajman page" — and it comes back CHANGED, because
+         he asked for a magnitude with it.
 
-           /ajman is NOT orphaned — the footer links it on all fifty-nine
-           pages, so the Emirate still has a door from here;
+         🔴 IT ALSO RE-OPENS A DOOR THAT WAS SHUT BY DECISION. Home's body
+         has linked neither Services nor /ajman since the promotion, and
+         that was put to Mahesh on 4 Aug and affirmed ("leave it, the menu
+         is enough"). His own instruction re-opens the /ajman half and only
+         that half: the services line below still names the five without
+         linking them. sweep-home's guard is narrowed to Services rather
+         than deleted, and now asserts this link's PRESENCE — a restoration
+         belongs on the record exactly as the loss did.
 
-           `pageScript: "home"` still loads js/home.js, which is the script
-           that ARMED the map. It reads `[data-map]` through querySelector
-           and drawOnce()'s first line is `if (!el) return`, so an absent map
-           is a no-op rather than a null dereference — which matters more
-           than it sounds: a throw there would kill every later behaviour on
-           the page silently, on a page that would still look finished. The
-           file is an orphan awaiting the delete pass, and until then that
-           null guard is what keeps this page's console clean;
+         WHAT IT REVIVES: `home.css` § 7 and `js/home.js`, both of which
+         were queued for the delete pass in `00u` § 3 as orphans of the
+         promotion. They are live again and that queue is updated in the
+         same commit. This is why a delete pass runs behind a liveness
+         manifest and not as a side effect — five days ago this markup was
+         the evidence that its stylesheet was dead.
 
-           the section's own tail went with it, which is why `.hm-prays`
-           states a bottom padding at all. See home-alt.css § 3. -->
+         NO SECTION LABEL, per § 6.1: the head is a statement, not an
+         invented eyebrow, and the link line is still the caption. The
+         hairline above it is decorative and separates two text sections,
+         which is the one thing 1.66:1 is permitted to do. -->
+    <section class="hm-map container" aria-labelledby="hm-map-head">
+      <h2 id="hm-map-head" class="hm-map__head t-editorial">Living space, in Ajman and around it.</h2>
+
+      <!-- `data-map` is on the FIELD, not on the section: js/home.js adds
+           `hm-map--armed` to whatever it finds, and the stylesheet's rules
+           are descendant selectors off that element. The svg ships FINISHED
+           — every mark placed — and the script arms it, so a script that
+           never runs leaves a complete drawing rather than an empty field. -->
+      <div class="hm-map__field" data-map>
+        <svg class="hm-map__svg" viewBox="0 0 560 440" aria-hidden="true" focusable="false"
+             preserveAspectRatio="xMidYMid meet"><path class="hm-coast" d="M 226 0 C 198 20, 172 32, 150 50 C 126 70, 108 94, 94 120 C 80 146, 62 174, 48 202 C 38 222, 30 240, 28 262 C 26 292, 28 322, 32 352 C 36 386, 44 414, 52 440 M 45 207 C 75 205, 110 202, 142 199 C 160 196, 176 184, 192 169 M 142 199 C 166 199, 186 200, 204 203 M 142 199 C 158 207, 172 219, 185 230" fill="none"></path><circle class="hm-mark" style="--mark-index:0" cx="108" cy="235" r="5"></circle><circle class="hm-mark" style="--mark-index:1" cx="117" cy="143" r="5"></circle><circle class="hm-mark" style="--mark-index:2" cx="164" cy="69" r="5"></circle><circle class="hm-mark" style="--mark-index:3" cx="165" cy="93" r="5"></circle><circle class="hm-mark" style="--mark-index:4" cx="189" cy="97" r="5"></circle><circle class="hm-mark" style="--mark-index:5" cx="190" cy="68" r="5"></circle><circle class="hm-mark" style="--mark-index:6" cx="206" cy="112" r="5"></circle><circle class="hm-mark" style="--mark-index:7" cx="235" cy="377" r="5"></circle><circle class="hm-mark" style="--mark-index:8" cx="255" cy="205" r="5"></circle><circle class="hm-mark" style="--mark-index:9" cx="268" cy="378" r="5"></circle><circle class="hm-mark" style="--mark-index:10" cx="295" cy="304" r="5"></circle><circle class="hm-mark" style="--mark-index:11" cx="318" cy="123" r="5"></circle><circle class="hm-mark" style="--mark-index:12" cx="342" cy="363" r="5"></circle><circle class="hm-mark" style="--mark-index:13" cx="350" cy="389" r="5"></circle><circle class="hm-mark" style="--mark-index:14" cx="373" cy="113" r="5"></circle><circle class="hm-mark" style="--mark-index:15" cx="380" cy="146" r="5"></circle><circle class="hm-mark" style="--mark-index:16" cx="389" cy="126" r="5"></circle><circle class="hm-mark" style="--mark-index:17" cx="390" cy="363" r="5"></circle><circle class="hm-mark" style="--mark-index:18" cx="398" cy="106" r="5"></circle><circle class="hm-mark" style="--mark-index:19" cx="398" cy="394" r="5"></circle><circle class="hm-mark" style="--mark-index:20" cx="411" cy="138" r="5"></circle><circle class="hm-mark" style="--mark-index:21" cx="420" cy="112" r="5"></circle><circle class="hm-mark" style="--mark-index:22" cx="428" cy="287" r="5"></circle><circle class="hm-mark" style="--mark-index:23" cx="440" cy="309" r="5"></circle><circle class="hm-mark" style="--mark-index:24" cx="449" cy="288" r="5"></circle><circle class="hm-mark" style="--mark-index:25" cx="460" cy="306" r="5"></circle><circle class="hm-mark" style="--mark-index:26" cx="481" cy="272" r="5"></circle><circle class="hm-mark" style="--mark-index:27" cx="481" cy="315" r="5"></circle></svg>
+      </div>
+
+      <!-- THE FIGURE IS A RECORD, NOT PROSE, AND THAT IS THE WHOLE E12
+           ANSWER. "Numbers are for records; names are for prose" — so this
+           is real table markup with a row header, the same register the 47
+           record pages set their spec rows in and the same one /ajman's
+           ledger carries its years in. The head above states the subject
+           and carries no quantity; the quantity lives here. -->
+      <table class="hm-map__record">
+        <tbody>
+          <tr>
+            <th class="t-meta-label" scope="row">Square metres</th>
+            <td class="t-meta-value">4,200,000 m²</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 🔴 THE PLACEHOLDER DECLARES ITSELF, and so does the drawing. The
+           figure is invented on Mahesh's own instruction and an unmarked
+           invented number hardens into a claim the site cannot source —
+           the same reason districts.json labels its cluster centres
+           "wherever they render". The second sentence is that file's own
+           obligation discharged on this surface: the creek and the coast
+           are gestures, exaggerated deliberately, and they say so where a
+           reader meets them rather than only in a data comment. -->
+      <p class="hm-map__note">Indicative only — Proarc’s own figure is awaited. The map’s geometry is invented and
+        labelled as such; the marks are the records.</p>
+
+      <p class="hm-map__line"><a class="hm-link-inline" href="ajman.html">One Emirate, drawn &rarr;</a></p>
+    </section>
 
   </div>
 

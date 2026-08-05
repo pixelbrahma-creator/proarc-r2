@@ -185,11 +185,6 @@ function buildBlocks(db, marks, prefix) {
  * screen reader than announcing them once as the text they already are.
  */
 
-/* Baseline drop from the cluster's lowest mark, in user units. The mark is
-   r=5 scaled up to 1.4 at its largest LABELLED width, so its underside is 7
-   below centre; a ~12-unit cap then starts around 14 below and the name
-   clears the drawing by roughly the mark's own diameter. */
-const LABEL_DROP = 26;
 function mapData(marks) {
   if (!marks.marks.length) {
     throw new Error(
@@ -225,26 +220,25 @@ function mapData(marks) {
     )
     .join('');
 
-  const byDistrict = new Map();
-  marks.marks.forEach((m) => {
-    if (!byDistrict.has(m.district)) byDistrict.set(m.district, []);
-    byDistrict.get(m.district).push(m);
-  });
+  /* A district with no mark gets no label: there is nothing on the field for
+     the name to be the name OF, and a floating word is the scatter the
+     original decision was right to fear. That filter now lives in the
+     generator, which only emits a box for a cluster it actually placed.
 
-  // A district with no mark gets no label: there is nothing on the field for
-  // the name to be the name OF, and a floating word is the scatter the
-  // original decision was right to fear.
-  const labels = marks.districts
-    .filter((d) => byDistrict.has(d.name))
-    .map((d) => {
-      const ks = byDistrict.get(d.name);
-      const cx = Math.round(ks.reduce((sum, k) => sum + k.x, 0) / ks.length);
-      const cy = Math.max.apply(null, ks.map((k) => k.y));
-      return (
-        `<text class="aj-map__label" data-district="${slugify(d.name)}" ` +
-        `x="${cx}" y="${cy + LABEL_DROP}">${escapeText(d.name)}</text>`
-      );
-    })
+     🔴 THE ANCHOR IS NO LONGER DERIVED HERE (5 Aug). It used to be — mean x,
+     lowest mark, drop 26 — and that was the whole problem: the scatter cleared
+     the MARKS of the water and this file placed the NAMES afterwards, against
+     nothing. Adding the creek moved a mark 20 units by the rules and carried
+     its name into the sea, invisibly, because no code on either side owned
+     both halves. The geometry now comes from districts.js, which is where it
+     is TESTED, for the same reason sweepOrder lives there: a label derived
+     twice is how a name ends up cleared in one place and drawn in another. */
+  const labels = marks.labels
+    .map(
+      (l) =>
+        `<text class="aj-map__label" data-district="${slugify(l.name)}" ` +
+        `x="${l.x}" y="${l.y}">${escapeText(l.name)}</text>`
+    )
     .join('');
 
   if (!labels) {

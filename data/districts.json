@@ -16,11 +16,21 @@
 
     "_shape": "The Gulf lies north-west, so the shore runs roughly north-east to south-west down the left of the field with the city inland of it. Placed against the MARKS as built, never against the authored centres — jitter moves a mark up to 30 units off its centre, so the centres are not where the drawing actually is. Al Zorah sitting closest is correct rather than tight: it is the coastal development.",
 
-    "_clearances": "Re-measured 4 Aug 2026, after scatter.minSeparation moved every mark. THE SHORE IS NOW A CONSTRAINT ON THE SCATTER, not just a line the scatter was fitted around: build/lib/districts.js clears every mark of this path by the same minSeparation it clears marks of each other, so these numbers are now MAINTAINED rather than achieved once. That change caught its own need — the separation rule alone had pushed Al Zorah's cluster to 7.1 units off the water, and a mark's radius is 8.75 units at the narrowest band, so the dot would have crossed the line it was being measured against. Marks: Al Zorah 23.6, Al Khor 31.2, Marina & Creek 68.4, everything else past 150. Labels, which sit 26 units below their cluster and run about 52 wide: Al Khor 21.7, Marina & Creek 53.4, Al Zorah 63.6. The labels are NOT constrained in code — they are derived in build/lib/ajman.js from the marks, so they move when the marks do and this line is the record of where they landed. Re-measure it when the path is fine-tuned.",
+    "_clearances": "THE SHORE IS A CONSTRAINT ON THE SCATTER, not just a line the scatter was fitted around: build/lib/districts.js clears every mark of this path by the same minSeparation it clears marks of each other, so these numbers are MAINTAINED rather than achieved once. That change caught its own need — the separation rule alone had pushed Al Zorah's cluster to 7.1 units off the water, and a mark's radius is 8.75 units at the narrowest band, so the dot would have crossed the line it was being measured against. Marks: Al Zorah 23.6, Al Khor 31.2, Marina & Creek 68.4, everything else past 150.",
 
-    "_deliberately_absent": "No creek and no Emirate outline. The creek cannot be routed between the Al Khor and Marina & Creek labels without running through one of them — the corridor between them is about 18 units and a stroke plus clearance does not fit — and OSM carries no named waterway for it to be checked against. An Emirate outline is a BOUNDARY, and §3.2 is explicit that an invented boundary looks exactly like a real one to whoever is judging it. Both wait for the fine-tune pass, and both are cheaper once the client has reacted to the shape.",
+    "_clearances_labels_CORRECTED": "The 4 Aug note recorded the labels at 'Al Khor 21.7, Marina & Creek 53.4, Al Zorah 63.6', derived from an assumption that every label 'runs about 52 wide'. BOTH HALVES OF THAT WERE WRONG. Measured on the live page with Range.getClientRects() over each label's own text node, at the band where a label is widest in user units (1024), the names run 30.6 to 116.4 — Aalia is 30.6 and Marina & Creek, the one the creek had to be routed around, is 116.4, more than double the figure the refusal was reasoned from. The true box clearances are Al Khor 12.8, Marina & Creek 18.6, Al Zorah 50.4. Nothing crosses: at 1024 Al Khor's INK sits 7.5px clear of the coast's stroke edge, the tightest on the drawing. AND THE LABELS ARE NOW CONSTRAINED IN CODE — see the `label` block. An average is not a measurement, and this line is the third stale number one average produced.",
 
-    "path": "M 226 0 C 198 20, 172 32, 150 50 C 126 70, 108 94, 94 120 C 80 146, 62 174, 48 202 C 38 222, 30 240, 28 262 C 26 292, 28 322, 32 352 C 36 386, 44 414, 52 440"
+    "_deliberately_absent": "No Emirate outline. An outline is a BOUNDARY, and §3.2 is explicit that an invented boundary looks exactly like a real one to whoever is judging it. It waits for the fine-tune pass and is cheaper once the client has reacted to the shape. THE CREEK WAS HERE UNTIL 5 AUG 2026 and is now drawn — see _creek.",
+
+    "_creek": "The creek is the second subpath of this path, and it is a GESTURE, not geometry. Mahesh asked for it on 5 Aug 2026, pointing at the pattern the water makes at the top left of the satellite view, and answered the objection that had deferred it in the same breath: 'it is abstract … we can exaggerate a little bit.' That licence is what makes it safe. Session VIII did not refuse TRACING — it refused a REAL line under PLACEHOLDER centres, because a shoreline a reader can measure a mark against turns every invented centre into a coordinate claim. An exaggerated creek makes no such claim: invented water, invented marks, honest about each other, exactly as the rough coast already is. TWO EDGES ON THAT LICENCE, and they are the reason this note exists. It must not become more PRECISE as it becomes more RECOGNISABLE — if the shape ever starts reading as survey-accurate it has crossed back into the thing that was refused — and it must be DECLARED wherever it renders, which is what this note is.",
+
+    "_creek_is_a_LINE_not_an_outline": "Three versions were built as a lasso — the shoreline turning inland, wrapping the water and coming back out — and all three were rendered, measured and REFUSED. They measure fine: zero marks moved, every clearance held. They read as a spike. The reason is proportion rather than routing: an enclosed body of water only reads as water if the enclosure has AREA, the corridor between the Al Khor and Marina & Creek labels is about 25 units tall, and at 1440 that puts the two banks 21px apart, which reads as a doubled line. So the creek is one stroke branching off the shoreline — the standard schematic for water, and already this map's entire vocabulary — and the 'distinct pattern' is carried by the FORK rather than by an enclosure. A line needs about one unit of corridor where an outline needed twenty-five. Same shape of finding as the full-bleed text panel: right on the rules, wrong on the proportions, and only visible once it was drawn.",
+
+    "_creek_costs_nothing_in_the_scatter": "Measured against the real generator before it landed: 0 of 28 marks move, the closest mark to the water stays 23.6 units, and the tightest label stays 12.8 (Al Khor) — the same numbers the map shipped with. That is not luck, it is what the routing was designed around. It also means the creek can be removed by deleting the two subpaths below without redrawing anything.",
+
+    "_the_18_unit_corridor_was_STALE": "This file used to refuse the creek because 'the corridor between the Al Khor and Marina & Creek labels is about 18 units and a stroke plus clearance does not fit'. Re-measured 5 Aug the corridor is 71 units at the worst band. It was never re-checked after scatter.minSeparation landed on 4 Aug and moved every mark on the drawing. TWO OTHER NUMBERS IN THIS FILE WERE STALE FOR THE SAME REASON — see _clearances. A refusal carries its measurement's expiry date, and the measurement here expired the day the thing it measured was regenerated.",
+
+    "path": "M 226 0 C 198 20, 172 32, 150 50 C 126 70, 108 94, 94 120 C 80 146, 62 174, 48 202 C 38 222, 30 240, 28 262 C 26 292, 28 322, 32 352 C 36 386, 44 414, 52 440 M 45 207 C 75 205, 110 202, 142 199 C 160 196, 176 184, 192 169 M 142 199 C 166 199, 186 200, 204 203 M 142 199 C 158 207, 172 219, 185 230"
   },
 
   "scatter": {
@@ -34,6 +44,40 @@
     "jitterY": 26,
     "minSeparation": 20,
     "radius": 3.5
+  },
+
+  "label": {
+    "_what": "The geometry of a district's NAME, so that the scatter can clear the name as well as the dot. Until 5 Aug 2026 the labels were derived in build/lib/ajman.js and constrained by nothing: they hang off the marks, so they moved when the marks moved, and no rule watched where they landed.",
+
+    "_why_this_exists": "Adding the creek proved the gap rather than arguing it. The creek is part of the shoreline, so every mark is cleared against it for free — and the FIRST thing that did was push Marina & Creek's mark from (108,235) to (90,245), which dragged its label from x[50..166] to x[32..148] and put the name in the sea at x=28. The mark obeyed its rule perfectly. The fault simply moved to the object nobody was measuring. A count cannot see a collision, and a rule that governs one of two coupled objects cannot see the other.",
+
+    "_measured_not_guessed": "Every number here was read off the LIVE page with Range.getClientRects() over the label's own text node, at the band where a label is WIDEST IN USER UNITS. That band is 1024 — a 17px name on a 400px svg, so one unit renders at 0.7143px and the name spans 1/0.7143 as many units as it does at 820. Below 640 the labels are display:none (ajman.css §6) and cannot collide with anything, so they are not the worst case they look like.",
+
+    "_widthUnits": "Per district, because a name's width is its own and an average is what made the old note say every label 'runs about 52 wide' when Marina & Creek runs 116.4 and Aalia runs 30.6. A district NOT in this table falls back to advanceEm, which is deliberately conservative — a name nobody has measured gets a box wider than it needs rather than a box that fits. When X3 lands and new district names arrive, measure them and add them here; the sweep asserts the rendered ink either way, so a stale entry shows up as a failing gate rather than as a name in the water.",
+
+    "_dropUnits": "Baseline drop from the cluster's LOWEST mark, in user units. The mark is r=5 scaled up to 1.4 at its largest LABELLED width, so its underside is 7 below centre; a ~12-unit cap then starts around 14 below and the name clears the drawing by roughly the mark's own diameter. Carried here from build/lib/ajman.js, which no longer derives it — the constraint and the render must be one geometry.",
+
+    "dropUnits": 26,
+    "clearance": 10,
+    "emUnits": 23.8,
+    "advanceEm": 0.44,
+    "ascUnits": 15.1,
+    "descUnits": 5.9,
+
+    "_clearance": "HALF of scatter.minSeparation, and the halving is the argument rather than a discount. A MARK must clear the water by 20 because a mark is a claim about a POSITION, and a dot on the shoreline claims to stand at the shoreline while every centre here is a placeholder. A LABEL claims nothing about position — it names a cluster that is already clear — so it needs only enough distance to read as a separate object from the line. 10 units is 7.1px at the worst band. Today's tightest label, Al Khor, sits at 12.8 units, so this floor binds NOTHING that currently ships and cannot silently redraw a map Mahesh has approved; it exists to catch the 2.7-unit collision the creek produced on its first draft.",
+
+    "widthUnits": {
+      "Al Jurf": 50.8,
+      "Al Tallah": 63.3,
+      "Al Zorah": 63.6,
+      "Aamra": 51.1,
+      "Emirates City": 103.5,
+      "Aalia": 37.2,
+      "Al Khor": 55.0,
+      "Hamidiya": 71.5,
+      "Marina & Creek": 116.4,
+      "Rashdiya": 69.1
+    }
   },
 
   "districts": [
