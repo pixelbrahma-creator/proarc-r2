@@ -48,15 +48,85 @@
    ink, not the element box: a box test passes a page that collides.
 
    The register is .t-hero — the system's uppercase display class, lifted to
-   white by `.surface-dark`. Only its measure is overridden: --measure-hero
-   is 20ch, which is right for a five-word claim and wrong for a 78-character
-   sentence. Unset, the line takes the container's own content width, and the
-   sentence falls in THREE lines rather than four — the line count breaks on
-   the measure, not on the size, which is why this opening needs no font size
-   of its own and no new token. */
+   white by `.surface-dark`. Its measure and its WEIGHT are overridden here,
+   and both numbers were measured rather than judged (Session XIV, 5 Aug,
+   Mahesh: "since 2006 looks too bold … base it on the text on the proarc
+   logo").
+
+   WEIGHT 600, and the mark is the reason it is not lighter. The wordmark's
+   own letterforms were measured off `images/ui/logo-mark.webp` — de-sheared
+   by its 12.5° slant, thresholded at >50% alpha — and they are HEAVIER than
+   this line ever was: stem ÷ x-height 0.368 against General Sans Bold's
+   0.321, ink coverage 70.8% against Bold's 62.6%. So "match the logo" cannot
+   licence a lighter line; 600 (54.0%) is a decided step BELOW the mark,
+   taken because 700 closed the counters up around the commas. 500 (43.0%)
+   and 400 (32.0%) were rendered and refused — they stop reading as an
+   opening claim.
+
+   TRACKING IS UNCHANGED and that is a finding, not an omission. Matching the
+   mark's setting exactly — it sets six letters in 0.921 x-heights, its
+   letters actually TOUCH — needs -0.0346em at 700. --ls-hero is -0.03em,
+   which is 0.24px away at 52px. It was rendered; it is indistinguishable.
+   The tracking half of that instruction was already satisfied.
+
+   MEASURE 900px, replacing `none`. --measure-hero (20ch) is right for a
+   five-word claim and wrong for a 78-character sentence, but `none` couples
+   the rag to the weight: at 600 the container's full 1120px pulls "works,"
+   up and leaves a stub third line. 900px is not tuned to 600 — it holds this
+   sentence's three-line stair at 400, 500, 600 AND 700 alike, so the number
+   belongs to the sentence and not to a chosen weight. The window is 868–925px
+   across those four weights (846–949 at 600 alone); 900 sits inside it with
+   32px of slack at the tighter edge. It does nothing below 1024 — the rag is
+   already identical at 600 and 700 at 1024, 768 and 640, because the type
+   steps down with the container. Verified by p9-home. */
 .hm-open__line {
   margin: 0;
-  max-inline-size: none;
+  font-weight: var(--fw-semibold);
+  max-inline-size: 900px;
+}
+
+/* The SETUP is hollow and the verbs are solid (H3, 5 Aug, Mahesh). The
+   sentence's payload is its five verbs — they are the five bands below — so
+   the outline goes on the clause that frames them, never on them. Measured,
+   because this is the one claim that decides it: hollowing the verbs instead
+   drops them to 10.4% ink against the setup's 39.1%, about a quarter, and
+   the scaffolding ends up louder than the claim. This way round the numbers
+   read 10.4% on the setup and 38.8% on the verbs.
+
+   Hollowing only the individual verbs was rendered and refused as well: the
+   commas and "and" stay solid between hollow words and "AND" becomes the
+   loudest thing in the last line.
+
+   The device is .t-marker's, borrowed rather than invented — the rooms bands
+   below already carry it at Mega Splash, so the page has one hollow idea and
+   not two. No `.surface-dark` prefix, unlike the marker's: .t-marker is a
+   role that can land on paper and this class exists on exactly one element
+   on one always-dark band.
+
+   THE @supports IS LOAD-BEARING, exactly as it is on the marker: without it
+   an unsupported -webkit-text-stroke leaves `color: transparent` standing and
+   HALF THE OPENING SENTENCE goes invisible — silently. The span therefore
+   ships SOLID, inheriting white from `.surface-dark .t-hero`, and the query
+   arms the hollow. A rule targeting the span beats that inheritance whatever
+   its specificity, so no !important and no restatement of the selector. */
+@supports (-webkit-text-stroke: 1px currentcolor) {
+  .hm-open__setup {
+    -webkit-text-stroke: 1px var(--color-on-dark);
+    color: transparent;
+  }
+}
+
+/* And it collapses to solid below 768, for .t-marker's own stated reason:
+   at this size a 1px stroke is a grey suggestion of a word rather than a
+   register, and the counters close up. The hero is 40px at 768 and 34px at
+   640 — rendered at both, and 34 is where it stops working. Placed AFTER the
+   @supports block deliberately: same specificity, so this wins on source
+   order. The differentiation is a desktop reading and is meant to be. */
+@media (max-width: 767px) {
+  .hm-open__setup {
+    -webkit-text-stroke-width: 0;
+    color: var(--color-on-dark);
+  }
 }
 
 /* And the sentence CENTRES in the air the band leaves it (2 Aug, Mahesh, on
