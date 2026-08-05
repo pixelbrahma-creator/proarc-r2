@@ -109,10 +109,48 @@
    ships SOLID, inheriting white from `.surface-dark .t-hero`, and the query
    arms the hollow. A rule targeting the span beats that inheritance whatever
    its specificity, so no !important and no restatement of the selector. */
+/* THE PEN IS THE MARKER'S, SCALED TO THE HERO'S LETTERS (Session XV, 5 Aug,
+   Mahesh). Both hollow registers were drawn with a flat 1px, and a flat pen
+   is heavier on smaller letters: measured on the built page, the opening's
+   outline ran 19.23/1000em against the marker's 11.90 — 1.62x the weight per
+   letter, two bands apart on one screen.
+
+   The value is DERIVED, not chosen: 1px x --fs-h1 / --fs-mega. So the pen is
+   the same pen, taken to the size the letters are set at. 52/84 = 0.619px
+   here; the tablet restatement below carries 40/60 = 0.667px.
+
+   🔴 THE MISMATCH IS NOT ONE NUMBER, and the ratio is why the restatement
+   exists rather than a single value: both sizes step at 1023, but by
+   different proportions — the hero 52 -> 40 (x0.769) and Mega 84 -> 60
+   (x0.714) — so the flat pen was 1.615x on desktop and 1.500x on tablet.
+   A rule made of tokens inherits THOSE tokens' breakpoints, and both of
+   these step at 1023, which is where the restatement is keyed.
+
+   Sub-pixel was the stated risk and it was measured rather than assumed:
+   ink coverage of a fixed rectangle over the setup is LINEAR in stroke
+   width at dpr 1 AND dpr 2 — 0.619px returns 61.9% / 62.0% of 1px's ink,
+   0.75px returns 74.9% / 74.9% — so Skia antialiases the width faithfully
+   and nothing snaps to a whole pixel. At matched cap height the opening now
+   measures 0.0437 mean luminance against the marker's 0.0414, from 0.0697.
+   Verified by p9-home, which asserts the RATIO against the marker on the
+   page rather than this literal — a number in a stylesheet cannot tell you
+   it stopped matching the thing it was derived from. */
 @supports (-webkit-text-stroke: 1px currentcolor) {
   .hm-open__setup {
-    -webkit-text-stroke: 1px var(--color-on-dark);
+    -webkit-text-stroke: 0.619px var(--color-on-dark);
     color: transparent;
+  }
+}
+
+/* The tablet band, keyed at 1023 with the two type tokens it is derived
+   from: 1px x 40/60. Outside the @supports on purpose, exactly as the ≤767
+   collapse below is — a browser with no text-stroke ignores the width and
+   keeps the solid fill the @supports never voided. Placed BEFORE that
+   collapse, because both selectors carry the same specificity and ≤767 must
+   win on source order. */
+@media (max-width: 1023px) {
+  .hm-open__setup {
+    -webkit-text-stroke-width: 0.667px;
   }
 }
 
