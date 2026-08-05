@@ -292,7 +292,14 @@
      the cell reaches the page edge and its label sits with it, which reads as
      a caption to a bleeding image. Wrapped into rows it reads as a label
      jammed against the screen edge, so the band takes the page's own gutter
-     from here down. */
+     from here down.
+
+     🔴 THE PAGE'S OWN GUTTER, WHICH MEANS THE PAGE'S OWN BREAKPOINTS — see
+     the 780 block below. This value is a RESTATEMENT of `.container`'s, not
+     an independent one, so its steps belong to layout.css (1024 / 780) and
+     never to the type system (1023 / 767). The tablet step is safe at 1023
+     only because the band BLEEDS at 1024 and a bleeding band has no axis to
+     disagree on; the mobile step was not, and shipped for three sessions. */
   .hm-open__band {
     flex-wrap: wrap;
     /* Column gap and ROW gap are different jobs here. The column gap has to
@@ -314,13 +321,34 @@
   }
 }
 
+/* 🔴 780, NOT 767 — THE BAND'S INSET INHERITS THE CONTAINER'S BREAKPOINTS
+   (5 Aug, Session XIII, H29).
+
+   `.container`'s gutter steps 80 → 40 at ≤1024 and 40 → 20 at ≤780
+   (layout.css), and `--chrome-axis` and the footer follow it. This band's
+   inset was written into the ≤767 block beside two rules that genuinely
+   belong to the type system — so between 768 and 780 the sentence and the
+   trigger stood on the 20px axis while the photographs stood on the 40px
+   one, twenty pixels apart, on the page's first screen. Thirteen pixels
+   wide, and 768 is one of the three widths this project checks at.
+
+   H4-c said a rule made of tokens inherits THOSE tokens' breakpoints. This
+   is the same fault read the other way: a rule that RESTATES another rule
+   inherits that rule's breakpoints, whatever tokens it happens to be made
+   of. Every other restatement of the page inset on the site is already
+   keyed at 1024/780; this was the only one at 1023/767.
+
+   Kept in a block of its own rather than folded into ≤767, because the two
+   keys are now different questions and merging them is how this happened. */
+@media (max-width: 780px) {
+  .hm-open__band {
+    padding-inline: var(--gutter-mobile);
+  }
+}
+
 @media (max-width: 767px) {
   .hm-open {
     padding-block-start: calc(var(--gap-component) * 2 + var(--gap-heading));
-  }
-
-  .hm-open__band {
-    padding-inline: var(--gutter-mobile);
   }
 
   .hm-open__label {
