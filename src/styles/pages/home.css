@@ -154,6 +154,23 @@
   }
 }
 
+/* THE PRACTICE'S NAME STAYS SOLID INSIDE THE HOLLOW SETUP (Session XV, 5 Aug,
+   Mahesh: "also make proarc the same font like learns, shops"). The setup is
+   the clause that frames the claim and it is outlined; the practice doing the
+   shaping is not scaffolding, so it takes the verbs' fill.
+
+   Both properties have to be restated, and the stroke is the one that is easy
+   to miss: -webkit-text-stroke INHERITS, so a child of the setup keeps the
+   outline and would be drawn twice over — solid fill AND outline — which
+   reads as a heavier weight rather than as a matching one. Setting the fill
+   alone would look almost right at 52px and wrong under a measurement, which
+   is this file's most-repeated shape. Verified by p9-home, which reads the
+   COMPUTED stroke on the name rather than trusting the reset. */
+.hm-open__name {
+  -webkit-text-stroke-width: 0;
+  color: var(--color-on-dark);
+}
+
 /* And it collapses to solid below 768, for .t-marker's own stated reason:
    at this size a 1px stroke is a grey suggestion of a word rather than a
    register, and the counters close up. The hero is 40px at 768 and 34px at
