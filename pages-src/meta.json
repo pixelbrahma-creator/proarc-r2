@@ -61,17 +61,6 @@
     "pageScript": "work"
   },
 
-  "projects-list": {
-    "outFile": "projects/list.html",
-    "title": "All projects — Proarc",
-    "description": "Every Proarc project, name first: sector, location and year in one list.",
-    "canonical": "https://proarc.ae/projects/list",
-    "ground": "paper",
-    "navLit": "work",
-    "navExact": false,
-    "pageStylesheet": "work",
-    "pageScript": "work"
-  },
 
   "projects-schools": {
     "outFile": "projects/schools.html",

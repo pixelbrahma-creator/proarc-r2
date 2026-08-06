@@ -152,22 +152,34 @@
   verb-heading is a heading, not a link (D-2): its set has no sector page and
   the room, which lists every name, is the set's whole home. The page's one
   "Ajman" and one formula belong to the mosque line. H1 is "Selected work"
-  (option B, called) — *selected* is spent here once; the ledger line is the
-  only other place the word appears in the Work system.
+  (option B, called) — *selected* is spent here once.
+
+  This page is now the whole Work index (Session XXI). Each room is its own
+  table — name · district · type · year, in Proarc's order — with the type
+  going unsaid where the room already says it (build/lib/work.js,
+  ROOM_UNSAID_NOUNS). There is no separate list page, no chip row and no sort:
+  the four rooms are the filter and Proarc's order is the order.
+
+  The reasoning, the measurements behind it and what was declined are in
+  03-work.md §4.1 — this file ships to the browser, so it carries the rule
+  rather than the argument.
 -->
 <main id="main" class="wk wk-arrival">
 
   <header class="wk-head wk-head--arrival container">
     <h1 class="wk-verb t-editorial">Selected work</h1>
-    <p class="wk-support t-body-lg">Schools, homes, malls and offices across the Emirates &mdash; and clients who come back.</p>
+    <p class="wk-support t-body-lg">Schools, homes, malls and offices across the Emirates.</p>
 
+    <!-- The tally element ships EMPTY. It read "47 projects" until 6 Aug;
+         js/work.js still writes the live search result count into it,
+         because a count the reader asked for by typing is not the same
+         claim as a portfolio size printed at rest. -->
     <form class="wk-search" data-search role="search">
       <label class="wk-search__label t-meta-label" for="wk-q">Search</label>
       <input class="wk-search__field" type="search" id="wk-q" name="q" autocomplete="off" spellcheck="false">
-      <p class="wk-search__tally t-caption" data-tally>47 projects</p>
+      <p class="wk-search__tally t-caption" data-tally></p>
     </form>
     <ul class="wk-results" data-results hidden></ul>
-    <p class="wk-ledger-line t-caption"><a class="wk-also__link" href="projects/list.html">Every project, as a list &rarr;</a></p>
   </header>
 
   
@@ -189,69 +201,146 @@
 
     <p class="wk-room__opener t-body-lg">Campuses across the Emirate — Habitat, Woodlem Park, City School, and the universities.</p>
 
-    <ul class="wk-room__list">
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/habitatschool.html"><span class="t-meta-value">Habitat School</span><span class="wk-room__itemmeta t-caption">Al Jurf · 2014</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/cityuniversity.html"><span class="t-meta-value">City University Campus</span><span class="wk-room__itemmeta t-caption">2017</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/cityschool.html"><span class="t-meta-value">City School</span><span class="wk-room__itemmeta t-caption">Al Tallah · 2016</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/edu-crownbritish.html"><span class="t-meta-value">Crown British School</span><span class="wk-room__itemmeta t-caption">2021</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/edu-cityamerican.html"><span class="t-meta-value">City American School</span><span class="wk-room__itemmeta t-caption">2020</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/woodlem.html"><span class="t-meta-value">Woodlem Park Private School</span><span class="wk-room__itemmeta t-caption">Al Jurf · 2017</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/edu-woodlemparkhamidiya.html"><span class="t-meta-value">Woodlem Park School, Hamidiya</span><span class="wk-room__itemmeta t-caption">Hamidiya · 2021</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/edu-northgatebritish.html"><span class="t-meta-value">North Gate British School</span><span class="wk-room__itemmeta t-caption">2024</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/edu-metropolitan.html"><span class="t-meta-value">Metropolitan School</span><span class="wk-room__itemmeta t-caption">2024</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/edu-habitataltallah.html"><span class="t-meta-value">Habitat School, Al Tallah</span><span class="wk-room__itemmeta t-caption">Al Tallah · 2017</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/edu-ajmanamerican.html"><span class="t-meta-value">Ajman American School</span><span class="wk-room__itemmeta t-caption">2017</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/frontlineschool.html"><span class="t-meta-value">Frontline International School</span><span class="wk-room__itemmeta t-caption">Al Tallah · 2016</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/edu-delhiprivate.html"><span class="t-meta-value">Delhi Private School</span><span class="wk-room__itemmeta t-caption">2017</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/edu-cityuniversity.html"><span class="t-meta-value">City University</span><span class="wk-room__itemmeta t-caption">2017</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/edu-woodlemparkaljurf.html"><span class="t-meta-value">Woodlem Park School, Al Jurf</span><span class="wk-room__itemmeta t-caption">Al Jurf · 2017</span></a>
-      </li>
-      
-    </ul>
+    <!-- The room's own set, in the ledger's columns. The header row is
+         visually hidden per room — four visible NAME/DISTRICT/TYPE/YEAR
+         bands down one page would be furniture, but a table whose columns
+         are unnamed is unreadable to a screen reader, so the header is
+         hidden rather than dropped. -->
+    <!-- 🔴 The explicit ARIA roles are NOT redundant. At ≤767 the CSS lays
+         these rows out as blocks, and changing a table element's `display`
+         makes the browser drop its implicit table roles — the rows stop
+         being rows for a screen reader at exactly the width where most
+         readers meet them. Stated here, the semantics survive the layout. -->
+    <table class="wk-table wk-room__table" role="table">
+      <caption class="u-visually-hidden">Learns &mdash; name, district, type and year</caption>
+      <!-- 🔴 The widths live HERE, not on the header cells. `.u-visually-hidden`
+           is position:absolute, which takes the <thead> out of the table's
+           column model entirely — widths declared on those cells would be
+           silently ignored and each room would negotiate its own columns,
+           which is exactly the misalignment the rendered option showed. -->
+      <colgroup>
+        <col class="wk-col--name">
+        <col class="wk-col--place">
+        <col class="wk-col--noun">
+        <col class="wk-col--year">
+      </colgroup>
+      <thead class="u-visually-hidden">
+        <tr role="row">
+          <th scope="col">Name</th>
+          <th scope="col">District</th>
+          <th scope="col">Type</th>
+          <th scope="col">Year</th>
+        </tr>
+      </thead>
+      <tbody role="rowgroup">
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/habitatschool.html">Habitat School</a></th>
+          <td class="wk-table__cell" role="cell">Al Jurf</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2014</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/cityuniversity.html">City University Campus</a></th>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell" role="cell">University</td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2017</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/cityschool.html">City School</a></th>
+          <td class="wk-table__cell" role="cell">Al Tallah</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2016</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/edu-crownbritish.html">Crown British School</a></th>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2021</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/edu-cityamerican.html">City American School</a></th>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2020</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/woodlem.html">Woodlem Park Private School</a></th>
+          <td class="wk-table__cell" role="cell">Al Jurf</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2017</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/edu-woodlemparkhamidiya.html">Woodlem Park School, Hamidiya</a></th>
+          <td class="wk-table__cell" role="cell">Hamidiya</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2021</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/edu-northgatebritish.html">North Gate British School</a></th>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2024</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/edu-metropolitan.html">Metropolitan School</a></th>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2024</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/edu-habitataltallah.html">Habitat School, Al Tallah</a></th>
+          <td class="wk-table__cell" role="cell">Al Tallah</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2017</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/edu-ajmanamerican.html">Ajman American School</a></th>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2017</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/frontlineschool.html">Frontline International School</a></th>
+          <td class="wk-table__cell" role="cell">Al Tallah</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2016</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/edu-delhiprivate.html">Delhi Private School</a></th>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2017</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/edu-cityuniversity.html">City University</a></th>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell" role="cell">University</td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2017</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/edu-woodlemparkaljurf.html">Woodlem Park School, Al Jurf</a></th>
+          <td class="wk-table__cell" role="cell">Al Jurf</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2017</td>
+        </tr>
+        
+      </tbody>
+    </table>
   </section>
   
   <section class="wk-room container">
@@ -272,57 +361,125 @@
 
     <p class="wk-room__opener t-body-lg">The City Life malls, the souk built for Ajman Municipality, and the neighbourhood stores.</p>
 
-    <ul class="wk-room__list">
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/souksalah.html"><span class="t-meta-value">Souk Salah</span><span class="wk-room__itemmeta t-caption">2015</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/citylifekhor.html"><span class="t-meta-value">City Life, Al Khor</span><span class="wk-room__itemmeta t-caption">Al Khor · 2016</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/citymalluaq.html"><span class="t-meta-value">City Mall, Umm Al Quwain</span><span class="wk-room__itemmeta t-caption">Umm Al Quwain · 2016</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/citylifetallah.html"><span class="t-meta-value">City Life, Al Tallah II</span><span class="wk-room__itemmeta t-caption">Al Tallah · 2016</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/citylifejurf.html"><span class="t-meta-value">City Life Mall, Jurf</span><span class="wk-room__itemmeta t-caption">Al Jurf · 2013</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/marksavealtallah.html"><span class="t-meta-value">Mark &amp; Save, Al Tallah</span><span class="wk-room__itemmeta t-caption">Al Tallah</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/royalfurniture.html"><span class="t-meta-value">Royal Furniture</span><span class="wk-room__itemmeta t-caption">Al Jurf</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/marksaverashdiya.html"><span class="t-meta-value">Mark &amp; Save, Rashdiya</span><span class="wk-room__itemmeta t-caption">Rashdiya</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/marksavealjurf.html"><span class="t-meta-value">Mark &amp; Save, Al Jurf</span><span class="wk-room__itemmeta t-caption">Al Jurf</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/carsouq.html"><span class="t-meta-value">Car Souq</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/homesrus.html"><span class="t-meta-value">Homes R Us</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/citylifealtallah.html"><span class="t-meta-value">City Life, Al Tallah</span><span class="wk-room__itemmeta t-caption">Al Tallah</span></a>
-      </li>
-      
-    </ul>
+    <!-- The room's own set, in the ledger's columns. The header row is
+         visually hidden per room — four visible NAME/DISTRICT/TYPE/YEAR
+         bands down one page would be furniture, but a table whose columns
+         are unnamed is unreadable to a screen reader, so the header is
+         hidden rather than dropped. -->
+    <!-- 🔴 The explicit ARIA roles are NOT redundant. At ≤767 the CSS lays
+         these rows out as blocks, and changing a table element's `display`
+         makes the browser drop its implicit table roles — the rows stop
+         being rows for a screen reader at exactly the width where most
+         readers meet them. Stated here, the semantics survive the layout. -->
+    <table class="wk-table wk-room__table" role="table">
+      <caption class="u-visually-hidden">Shops &mdash; name, district, type and year</caption>
+      <!-- 🔴 The widths live HERE, not on the header cells. `.u-visually-hidden`
+           is position:absolute, which takes the <thead> out of the table's
+           column model entirely — widths declared on those cells would be
+           silently ignored and each room would negotiate its own columns,
+           which is exactly the misalignment the rendered option showed. -->
+      <colgroup>
+        <col class="wk-col--name">
+        <col class="wk-col--place">
+        <col class="wk-col--noun">
+        <col class="wk-col--year">
+      </colgroup>
+      <thead class="u-visually-hidden">
+        <tr role="row">
+          <th scope="col">Name</th>
+          <th scope="col">District</th>
+          <th scope="col">Type</th>
+          <th scope="col">Year</th>
+        </tr>
+      </thead>
+      <tbody role="rowgroup">
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/souksalah.html">Souk Salah</a></th>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell" role="cell">Souk</td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2015</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/citylifekhor.html">City Life, Al Khor</a></th>
+          <td class="wk-table__cell" role="cell">Al Khor</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2016</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/citymalluaq.html">City Mall, Umm Al Quwain</a></th>
+          <td class="wk-table__cell" role="cell">Umm Al Quwain</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2016</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/citylifetallah.html">City Life, Al Tallah II</a></th>
+          <td class="wk-table__cell" role="cell">Al Tallah</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2016</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/citylifejurf.html">City Life Mall, Jurf</a></th>
+          <td class="wk-table__cell" role="cell">Al Jurf</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2013</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/marksavealtallah.html">Mark &amp; Save, Al Tallah</a></th>
+          <td class="wk-table__cell" role="cell">Al Tallah</td>
+          <td class="wk-table__cell" role="cell">Superstore</td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/royalfurniture.html">Royal Furniture</a></th>
+          <td class="wk-table__cell" role="cell">Al Jurf</td>
+          <td class="wk-table__cell" role="cell">Showroom</td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/marksaverashdiya.html">Mark &amp; Save, Rashdiya</a></th>
+          <td class="wk-table__cell" role="cell">Rashdiya</td>
+          <td class="wk-table__cell" role="cell">Superstore</td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/marksavealjurf.html">Mark &amp; Save, Al Jurf</a></th>
+          <td class="wk-table__cell" role="cell">Al Jurf</td>
+          <td class="wk-table__cell" role="cell">Superstore</td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/carsouq.html">Car Souq</a></th>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell" role="cell">Souq</td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/homesrus.html">Homes R Us</a></th>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell" role="cell">Showroom</td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/citylifealtallah.html">City Life, Al Tallah</a></th>
+          <td class="wk-table__cell" role="cell">Al Tallah</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+      </tbody>
+    </table>
   </section>
   
   <section class="wk-room container">
@@ -343,21 +500,62 @@
 
     <p class="wk-room__opener t-body-lg">Ajman Bank’s headquarters and The Black Square.</p>
 
-    <ul class="wk-room__list">
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/ajmanbank.html"><span class="t-meta-value">Ajman Bank Headquarters</span><span class="wk-room__itemmeta t-caption">2015</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/blacksquare.html"><span class="t-meta-value">The Black Square</span><span class="wk-room__itemmeta t-caption">2011</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/rholding.html"><span class="t-meta-value">R Holding Head Office</span></a>
-      </li>
-      
-    </ul>
+    <!-- The room's own set, in the ledger's columns. The header row is
+         visually hidden per room — four visible NAME/DISTRICT/TYPE/YEAR
+         bands down one page would be furniture, but a table whose columns
+         are unnamed is unreadable to a screen reader, so the header is
+         hidden rather than dropped. -->
+    <!-- 🔴 The explicit ARIA roles are NOT redundant. At ≤767 the CSS lays
+         these rows out as blocks, and changing a table element's `display`
+         makes the browser drop its implicit table roles — the rows stop
+         being rows for a screen reader at exactly the width where most
+         readers meet them. Stated here, the semantics survive the layout. -->
+    <table class="wk-table wk-room__table" role="table">
+      <caption class="u-visually-hidden">Works &mdash; name, district, type and year</caption>
+      <!-- 🔴 The widths live HERE, not on the header cells. `.u-visually-hidden`
+           is position:absolute, which takes the <thead> out of the table's
+           column model entirely — widths declared on those cells would be
+           silently ignored and each room would negotiate its own columns,
+           which is exactly the misalignment the rendered option showed. -->
+      <colgroup>
+        <col class="wk-col--name">
+        <col class="wk-col--place">
+        <col class="wk-col--noun">
+        <col class="wk-col--year">
+      </colgroup>
+      <thead class="u-visually-hidden">
+        <tr role="row">
+          <th scope="col">Name</th>
+          <th scope="col">District</th>
+          <th scope="col">Type</th>
+          <th scope="col">Year</th>
+        </tr>
+      </thead>
+      <tbody role="rowgroup">
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/ajmanbank.html">Ajman Bank Headquarters</a></th>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2015</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/blacksquare.html">The Black Square</a></th>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2011</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/rholding.html">R Holding Head Office</a></th>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+      </tbody>
+    </table>
   </section>
   
   <section class="wk-room container">
@@ -378,73 +576,153 @@
 
     <p class="wk-room__opener t-body-lg">From the villas at Al Zorah to the towers rising at Aamra.</p>
 
-    <ul class="wk-room__list">
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/seasidehills.html"><span class="t-meta-value">Seaside Hills Residence</span><span class="wk-room__itemmeta t-caption">Al Zorah</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/azhagarden.html"><span class="t-meta-value">Azha Garden Residence</span><span class="wk-room__itemmeta t-caption">Aamra</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/rosetower.html"><span class="t-meta-value">Rose Tower</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/exclusivevillas.html"><span class="t-meta-value">Exclusive Villas</span><span class="wk-room__itemmeta t-caption">Al Zorah</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/emiratescity.html"><span class="t-meta-value">Emirates City D1 Tower</span><span class="wk-room__itemmeta t-caption">Emirates City</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/gfloorpenthouse.html"><span class="t-meta-value">G+8 Floor + Penthouse</span><span class="wk-room__itemmeta t-caption">Al Zorah</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/greenbuildings.html"><span class="t-meta-value">Green Buildings</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/jeddahheights.html"><span class="t-meta-value">Jeddah Heights</span><span class="wk-room__itemmeta t-caption">2018</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/one-678.html"><span class="t-meta-value">One 678</span><span class="wk-row__genre"> &middot; Visualisation</span><span class="wk-room__itemmeta t-caption">Aamra</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/bluebell-residence.html"><span class="t-meta-value">Bluebell Residence</span><span class="wk-row__genre"> &middot; Visualisation</span><span class="wk-room__itemmeta t-caption">Aamra</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/star-giga-tower.html"><span class="t-meta-value">Star Giga Tower</span><span class="wk-row__genre"> &middot; Visualisation</span><span class="wk-room__itemmeta t-caption">Emirates City</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/deca-035.html"><span class="t-meta-value">DECA 035 — Al Zorah Marina Residences</span><span class="wk-row__genre"> &middot; Visualisation</span><span class="wk-room__itemmeta t-caption">Al Zorah</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/azha-park-residences.html"><span class="t-meta-value">Azha Park Residences</span><span class="wk-row__genre"> &middot; Visualisation</span><span class="wk-room__itemmeta t-caption">Aamra</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/zamzam-tower.html"><span class="t-meta-value">Zamzam Tower</span><span class="wk-room__itemmeta t-caption">Aalia</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/sealine.html"><span class="t-meta-value">Sealine Residences</span><span class="wk-room__itemmeta t-caption">Al Zorah</span></a>
-      </li>
-      
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="projects/gateway.html"><span class="t-meta-value">Gateway Residences</span><span class="wk-room__itemmeta t-caption">Marina &amp; Creek</span></a>
-      </li>
-      
-    </ul>
+    <!-- The room's own set, in the ledger's columns. The header row is
+         visually hidden per room — four visible NAME/DISTRICT/TYPE/YEAR
+         bands down one page would be furniture, but a table whose columns
+         are unnamed is unreadable to a screen reader, so the header is
+         hidden rather than dropped. -->
+    <!-- 🔴 The explicit ARIA roles are NOT redundant. At ≤767 the CSS lays
+         these rows out as blocks, and changing a table element's `display`
+         makes the browser drop its implicit table roles — the rows stop
+         being rows for a screen reader at exactly the width where most
+         readers meet them. Stated here, the semantics survive the layout. -->
+    <table class="wk-table wk-room__table" role="table">
+      <caption class="u-visually-hidden">Lives &mdash; name, district, type and year</caption>
+      <!-- 🔴 The widths live HERE, not on the header cells. `.u-visually-hidden`
+           is position:absolute, which takes the <thead> out of the table's
+           column model entirely — widths declared on those cells would be
+           silently ignored and each room would negotiate its own columns,
+           which is exactly the misalignment the rendered option showed. -->
+      <colgroup>
+        <col class="wk-col--name">
+        <col class="wk-col--place">
+        <col class="wk-col--noun">
+        <col class="wk-col--year">
+      </colgroup>
+      <thead class="u-visually-hidden">
+        <tr role="row">
+          <th scope="col">Name</th>
+          <th scope="col">District</th>
+          <th scope="col">Type</th>
+          <th scope="col">Year</th>
+        </tr>
+      </thead>
+      <tbody role="rowgroup">
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/seasidehills.html">Seaside Hills Residence</a></th>
+          <td class="wk-table__cell" role="cell">Al Zorah</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/azhagarden.html">Azha Garden Residence</a></th>
+          <td class="wk-table__cell" role="cell">Aamra</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/rosetower.html">Rose Tower</a></th>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell" role="cell">Tower</td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/exclusivevillas.html">Exclusive Villas</a></th>
+          <td class="wk-table__cell" role="cell">Al Zorah</td>
+          <td class="wk-table__cell" role="cell">Villas</td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/emiratescity.html">Emirates City D1 Tower</a></th>
+          <td class="wk-table__cell" role="cell">Emirates City</td>
+          <td class="wk-table__cell" role="cell">Tower</td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/gfloorpenthouse.html">G+8 Floor + Penthouse</a></th>
+          <td class="wk-table__cell" role="cell">Al Zorah</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/greenbuildings.html">Green Buildings</a></th>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/jeddahheights.html">Jeddah Heights</a></th>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">2018</td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/one-678.html">One 678</a><span class="wk-row__genre"> &middot; Visualisation</span></th>
+          <td class="wk-table__cell" role="cell">Aamra</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/bluebell-residence.html">Bluebell Residence</a><span class="wk-row__genre"> &middot; Visualisation</span></th>
+          <td class="wk-table__cell" role="cell">Aamra</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/star-giga-tower.html">Star Giga Tower</a><span class="wk-row__genre"> &middot; Visualisation</span></th>
+          <td class="wk-table__cell" role="cell">Emirates City</td>
+          <td class="wk-table__cell" role="cell">Tower</td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/deca-035.html">DECA 035 — Al Zorah Marina Residences</a><span class="wk-row__genre"> &middot; Visualisation</span></th>
+          <td class="wk-table__cell" role="cell">Al Zorah</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/azha-park-residences.html">Azha Park Residences</a><span class="wk-row__genre"> &middot; Visualisation</span></th>
+          <td class="wk-table__cell" role="cell">Aamra</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/zamzam-tower.html">Zamzam Tower</a></th>
+          <td class="wk-table__cell" role="cell">Aalia</td>
+          <td class="wk-table__cell" role="cell">Tower</td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/sealine.html">Sealine Residences</a></th>
+          <td class="wk-table__cell" role="cell">Al Zorah</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/gateway.html">Gateway Residences</a></th>
+          <td class="wk-table__cell" role="cell">Marina &amp; Creek</td>
+          <td class="wk-table__cell" role="cell"></td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
+        </tr>
+        
+      </tbody>
+    </table>
   </section>
   
 

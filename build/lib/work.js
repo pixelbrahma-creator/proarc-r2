@@ -2,8 +2,9 @@
 
 /**
  * Everything the Work surfaces derive from the records — the arrival
- * (projects.html), the three sector pages (projects/schools · malls ·
- * homes) and the ledger (projects/list.html).
+ * (projects.html) and the three sector pages (projects/schools · malls ·
+ * homes). The ledger, projects/list.html, retired in Session XXI — its
+ * columns moved inside the arrival's rooms and its page was deleted.
  *
  * Spec: `_bmad/wds/D-UX-Design/03-work.md`. Copy authority:
  * `_bmad/wds/E-Brand-Framework/04-copy-direction.md` v3.3 §2 — the support
@@ -71,7 +72,7 @@ function sectorSet(projects, key) {
 }
 
 /* ------------------------------------------------------------------ *
- * The building's own noun — the ledger's third column (03-work §4.3)
+ * The building's own noun — the rooms' and catalogues' type column
  * ------------------------------------------------------------------ */
 
 /**
@@ -131,11 +132,39 @@ function buildingNoun(project) {
  * exception speaks (E10.2: "University beside City University"). On the
  * Homes page the set's kinds ARE the set (the declined name was "Villas &
  * towers"), so all three go unsaid there.
+ *
+ * 🔴 THE ARRIVAL'S GROUPED ROOMS TAKE THE SAME RULE (Session XXI). When the
+ * ledger's rows moved inside the four rooms, the type noun came with them —
+ * and rendered, it read "School" fifteen times under *Learns* and "Office"
+ * three times under *Works*. A noun that repeats for every row of its group
+ * is not information, it is the group's own heading restated per line. It
+ * earns its place only where the set is mixed: *Shops* (Souk · Mall ·
+ * Superstore · Showroom) and *Lives* (the three that go unsaid on the Homes
+ * PAGE speak here, because the arrival's rooms sit beside each other and the
+ * sector page's set does not).
+ *
+ * The two tables are NOT the same list, and that is the point. The Homes
+ * PAGE suppresses all three of Residence/Tower/Villas because there the
+ * kinds are the whole set; the *Lives* ROOM suppresses only Residence, so
+ * that Tower and Villas — the difference — still speak.
  */
 const UNSAID_NOUNS = {
   schools: ['School'],
   shops: ['Mall'],
   homes: ['Residence', 'Tower', 'Villas'],
+};
+
+/**
+ * The arrival's four rooms suppress only their own dominant noun. `works`
+ * appears here and not above because there is no works sector page (D-2) —
+ * it never needed an entry while the room was a bare name list, since a
+ * bare name list has no noun column to be noisy in.
+ */
+const ROOM_UNSAID_NOUNS = {
+  schools: ['School'],
+  shops: ['Mall'],
+  works: ['Office'],
+  homes: ['Residence'],
 };
 
 /* ------------------------------------------------------------------ *
@@ -331,15 +360,19 @@ const ROOMS = [
   },
 ];
 
-function roomListItem(project, manifest, prefix) {
-  const row = rowData(project, manifest, prefix, null);
-  const parts = [row.rowPlace, row.rowYear].filter(Boolean);
-  return {
-    itemHref: row.rowHref,
-    itemName: row.rowName,
-    itemProvenance: row.rowProvenance,
-    itemMeta: parts.join(' · '),
-  };
+/**
+ * One row of a room's table (Session XXI — the merge).
+ *
+ * The room used to render a bare two-column name list and the ledger
+ * rendered the same 47 records again as a table. They were measured to be
+ * the identical four-way cut of the identical set, differing only in
+ * REGISTER — so the ledger's COLUMNS moved inside the rooms and the ledger's
+ * PAGE retired. This is the row that carries them: the ledger's own
+ * name · district · type · year, with the type suppressed where the room
+ * already says it.
+ */
+function roomRow(project, manifest, prefix, unsaid) {
+  return rowData(project, manifest, prefix, unsaid);
 }
 
 function arrivalViewData(prefix) {
@@ -356,15 +389,18 @@ function arrivalViewData(prefix) {
       roomHrefAbsent: room.href ? '' : '1',
       roomOpener: escapeText(room.opener),
       lead: [plate(set[0], manifest, prefix)],
-      names: set.map((p) => roomListItem(p, manifest, prefix)),
+      rows: set.map((p) => roomRow(p, manifest, prefix, ROOM_UNSAID_NOUNS[room.key])),
     };
   });
 
   return {
     rooms,
-    // The tally is data furniture — a record surface, generated, never
-    // display copy (03-work §4.1).
-    tally: `${db.projects.length} projects`,
+    // 🔴 THE RESTING TALLY IS GONE (Mahesh, 6 Aug: "we are not giving number
+    // anywhere"). It read "47 projects" and it was the last count on the
+    // Work system after the ledger's chips retired with the ledger. The
+    // ELEMENT survives, empty, because js/work.js writes the live search
+    // result count into it — a count the reader asked for by typing is not
+    // the same claim as a portfolio size printed at rest.
     mosqueHref: `${prefix}projects/alghalamosque.html`,
     searchIndexJson: searchIndexJson(db, prefix),
     ogImage: leadImage(sectorSet(db.projects, 'homes')[0], manifest, prefix).src,
@@ -372,50 +408,27 @@ function arrivalViewData(prefix) {
 }
 
 /* ------------------------------------------------------------------ *
- * The ledger — projects/list.html (03-work §4.3)
+ * THE LEDGER IS GONE (Session XXI, 6 Aug)
+ *
+ * `ledgerViewData` and the CHIPS table stood here and built
+ * projects/list.html. Mahesh, reading the two pages side by side: the
+ * arrival and the ledger "look kind of redundant". Measured, they were not
+ * merely similar — they applied the IDENTICAL four-way cut (schools · shops
+ * · works · homes) to the IDENTICAL 47 records, and differed in exactly one
+ * datum per row, the type noun. A reader who followed "Every project, as a
+ * list" passed 11,220px at 1440 to meet the same 47 records twice.
+ *
+ * So the ledger's COLUMNS moved into the rooms (see `roomRow`) and the
+ * ledger's PAGE retired. Its chips died with it because the four rooms were
+ * always the filter — 03-work §4.1 said so, and the chips were a second
+ * answer to a question the page had already answered. Its sort control died
+ * on the same reasoning it was built on: it served the tender reader, whose
+ * persona is flagged confirm-or-retire on an unanswered question, and whom
+ * the ledger failed anyway for want of a client column.
+ *
+ * The one thing NOT taken from it is its search index, which was always
+ * shared and is built below.
  * ------------------------------------------------------------------ */
-
-const CHIPS = [
-  { chipKey: 'all', chipLabel: 'All' },
-  { chipKey: 'schools', chipLabel: 'Schools' },
-  { chipKey: 'shops', chipLabel: 'Malls & shops' },
-  { chipKey: 'works', chipLabel: 'Offices' },
-  { chipKey: 'homes', chipLabel: 'Homes' },
-];
-
-function ledgerViewData(prefix) {
-  const db = loadDb();
-  const manifest = loadManifest();
-  const all = ordered(db.projects);
-
-  const rows = all.map((p) => {
-    const row = rowData(p, manifest, prefix, null); // every row carries its noun — mixed ground
-    const provenance = R.provenance(p);
-    return Object.assign(row, {
-      rowSector: R.sectorKey(p),
-      rowOrder: p.order,
-      rowTitle: escapeAttr(String(p.title).toLowerCase()),
-      // Newest-first's three groups (§3.2): in-progress work first, then
-      // parseable years descending, then a plainly-headed TBC group.
-      rowInProgress: p.status !== 'Completed' ? '1' : '',
-      rowSearch: escapeAttr(searchText(p, provenance)),
-    });
-  });
-
-  const chips = CHIPS.map((c) =>
-    Object.assign({}, c, {
-      chipTally: c.chipKey === 'all' ? all.length : all.filter((p) => R.sectorKey(p) === c.chipKey).length,
-      chipPressed: c.chipKey === 'all' ? 'true' : 'false',
-    })
-  );
-
-  return {
-    ledgerRows: rows,
-    chips,
-    frameSrc: rows[0].rowThumb,
-    ogImage: leadImage(all[0], manifest, prefix).src,
-  };
-}
 
 /* ------------------------------------------------------------------ *
  * Search — one index, both registers (03-work §4.4)
@@ -464,13 +477,12 @@ function searchIndexJson(db, prefix) {
  * ------------------------------------------------------------------ */
 
 function hasViewData(srcName) {
-  return srcName === 'projects' || srcName === 'projects-list' || !!SECTOR_PAGES[srcName];
+  return srcName === 'projects' || !!SECTOR_PAGES[srcName];
 }
 
 function viewData(srcName, prefix) {
   if (SECTOR_PAGES[srcName]) return sectorViewData(srcName, prefix);
   if (srcName === 'projects') return arrivalViewData(prefix);
-  if (srcName === 'projects-list') return ledgerViewData(prefix);
   return {};
 }
 

@@ -1,9 +1,15 @@
 /* ===========================================================
    The Work surfaces — Screen 03, `03-work.md`.
 
-   One stylesheet for five pages: the arrival (projects.html),
-   the three sector pages (projects/schools · malls · homes,
-   one template) and the ledger (projects/list.html).
+   One stylesheet for four pages: the arrival (projects.html)
+   and the three sector pages (projects/schools · malls · homes,
+   one template).
+
+   The ledger, projects/list.html, was the fifth until Session
+   XXI (6 Aug). It and the arrival were measured to be the same
+   four-way cut of the same 47 records in two registers, so its
+   columns moved inside the arrival's rooms and its page was
+   deleted. Nothing here styles it any more.
 
    Ground: paper (E1) on every one of them; the single dark
    surface is the closing band, which shares its ground with
@@ -315,32 +321,85 @@
   color: var(--color-ink-secondary);
 }
 
-/* Every name in the set, as columns. Items keep together; the
-   column count follows the width, not a per-sector rule. */
-.wk-room__list {
-  margin: var(--gap-heading) 0 0;
-  padding: 0;
-  list-style: none;
-  columns: 3 280px;
-  column-gap: var(--gutter-desktop);
+/* The room's own set, in the ledger's columns (Session XXI). This replaced a
+   `columns: 3 280px` name list when /projects/list retired into these four
+   tables — the two surfaces had been rendering the same 47 records, and the
+   list was the half with no metadata columns.
+
+   🔴 `table-layout: fixed` is LOAD-BEARING, and the reason is that there are
+   FOUR of these tables down one page. Under auto layout each negotiates its
+   own columns from its own content, so the year sits at a different x in
+   every room and a reader scanning down meets four different grids. Auto
+   layout also treats a declared width as a PREFERENCE and quietly narrows
+   it — this project has already paid for that once, on About's mark column
+   (200px declared, 174.9px delivered). Fixed makes the widths exact and
+   makes all four rooms share one grid. */
+.wk-room__table {
+  margin-block-start: var(--gap-heading);
+  table-layout: fixed;
+  /* 🔴 THE TABLE TAKES THE CATALOGUE'S OWN COLUMN, and that is the whole
+     repair. Re-proportioning a 960px-wide table was a lateral move: tighten
+     the metadata and the name's void grows, widen the name and the metadata
+     scatters. The sector catalogue — the sibling this is a variant of —
+     reads well because its rows run in 515px, not because of how it splits
+     them. It takes `.wk-catalogue`'s `1fr 38%` share, so that is the width
+     stated here. The right-hand 38% stays empty on the arrival by decision:
+     the sector page fills it with a standing frame driven by row hover, and
+     the room does not need one because its lead photograph is already
+     directly above these rows.
+
+     🔴 It does NOT subtract the gutter, and that is a correction. Written
+     as `calc(62% - var(--gutter-desktop))` it copied the catalogue's column
+     to the pixel — 515px — and the ink test then found "Superstore" and
+     "Showroom" escaping the noun column by 11–13px at 1440. The catalogue
+     fits 515 because it carries a name and ONE short meta cluster; this
+     carries a name and THREE columns, and there is no frame beside it to
+     leave a gutter for. Matching the sibling's width was matching the
+     wrong property. */
+  max-inline-size: 62%;
 }
 
-.wk-room__item {
-  break-inside: avoid;
-  padding-block: var(--pad-table-row);
-  border-block-start: 1px solid var(--color-hairline);
+/* The metadata clusters to the RIGHT of the name rather than spreading
+   across the row, and the proportions come from the sibling this page
+   already ships rather than from taste: the sector catalogue sets a name at
+   the column's start and its meta flush at the end, the cluster only as wide
+   as its own content (measured: 26–107px in a 515px column). The first cut
+   here gave the name 54% and left ~425px between "Habitat School" and
+   "AL JURF" with no header row to anchor either — the ledger could carry
+   that spread because it HAD a visible header, and four of those down one
+   page is furniture. Widest name ink on the page is 255px. */
+/* Sized against the widest INK each column actually carries, measured on the
+   built page rather than guessed: name 255px ("DECA 035 — Al Zorah Marina
+   Residences"), district ~85px ("UMM AL QUWAIN"), noun ~88px ("SUPERSTORE"),
+   year ~40px. Each column also spends `--gap-tight` on its trailing padding,
+   so the available width is 16px less than the column. Verify with the ink
+   test, never with scrollWidth — a table cell's scrollWidth reported these
+   as fitting while Range rects showed the noun 12.7px past its own edge. */
+.wk-col--place {
+  inline-size: 18%;
 }
 
-.wk-room__itemlink:hover .t-meta-value,
-.wk-room__itemlink:focus-visible .t-meta-value {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
+.wk-col--noun {
+  inline-size: 22%;
 }
 
-.wk-room__itemmeta {
-  display: block;
-  margin-block-start: 2px;
+.wk-col--year {
+  inline-size: 10%;
+}
+
+/* 🔴 NO `nowrap` + `ellipsis` HERE, AND THE REASON IS A FAULT THIS SHIPPED
+   FOR ABOUT TEN MINUTES. Set that way the metadata never wrapped — it
+   TRUNCATED, and truncation styled with an ellipsis looks exactly like a
+   design decision. Measured on the built page: 11 cells cut at 1440
+   ("Umm Al Quwain" → 130px of content in a 93px cell), 28 at 900 and 54 at
+   768, where even the four-digit YEARS were being clipped. Nothing static
+   could see it and the page looked finished.
+
+   A wrapped district reads as a second record, which is what the nowrap was
+   for — but a district that silently loses half its name is worse than one
+   that takes two lines, so the columns are sized to their longest real value
+   and the text is allowed to wrap when a width defeats that. */
+.wk-room__table .wk-table__cell {
   text-transform: uppercase;
 }
 
@@ -388,99 +447,27 @@
   list-style: none;
 }
 
-.wk-ledger-line {
-  margin: var(--gap-block) 0 0;
-  text-transform: uppercase;
-}
-
 /* -----------------------------------------------------------
-   The ledger — chips, sort, table, floating frame
+   The table — the arrival's four room tables and the sector
+   pages' catalogues.
+
+   🔴 THE LEDGER'S CHROME WAS DELETED HERE (Session XXI, 6 Aug):
+   `.wk-controls`, `.wk-chips`, `.wk-chip`, `.wk-chip__tally`,
+   `.wk-sort`, `.wk-sort__select`, `.wk-ledger__body` and
+   `.wk-ledger-line`, together with `.wk-table__h` (the visible
+   column header) and `.wk-table__grouphead` (newest-first's
+   group head). They styled projects/list.html, which retired
+   into the arrival's rooms — the two pages were rendering the
+   same 47 records under the same four-way cut. The chips died
+   because §4.1 always said the rooms are the filter; the sort
+   died with the flat run it ordered. The header row is now a
+   visually-hidden <thead> per room, so its widths come from a
+   <colgroup> instead — see .wk-room__table.
    ----------------------------------------------------------- */
-
-.wk-controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: end;
-  gap: var(--gap-block) var(--gap-heading);
-}
-
-.wk-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--gap-inline);
-}
-
-/* Squared chips (the ledger's only filter UI). State = fill,
-   plus aria-pressed for the machine — never colour alone. */
-.wk-chip {
-  padding: var(--gap-inline) var(--gap-tight);
-  border: 1px solid var(--color-ink);
-  background: var(--color-surface);
-  font-family: inherit;
-  font-size: var(--fs-caption);
-  font-weight: var(--fw-medium);
-  letter-spacing: var(--ls-caption);
-  text-transform: uppercase;
-  color: var(--color-ink);
-  border-radius: 0;
-  cursor: pointer;
-}
-
-.wk-chip[aria-pressed="true"] {
-  background: var(--color-ink);
-  color: var(--color-surface);
-}
-
-.wk-chip:focus-visible {
-  outline: 2px solid var(--color-ink);
-  outline-offset: 2px;
-}
-
-.wk-chip__tally {
-  font-weight: var(--fw-regular);
-  font-variant-numeric: tabular-nums;
-}
-
-.wk-sort .t-meta-label {
-  display: block;
-  margin-block-end: 4px;
-  text-transform: uppercase;
-}
-
-.wk-sort__select {
-  padding: var(--gap-inline);
-  border: 1px solid var(--color-ink-secondary);
-  background: var(--color-surface);
-  font-family: inherit;
-  font-size: var(--fs-metadata);
-  color: var(--color-ink);
-  border-radius: 0;
-}
-
-.wk-sort__select:focus-visible {
-  outline: 2px solid var(--color-ink);
-  outline-offset: 2px;
-}
-
-.wk-ledger__body {
-  display: grid;
-  grid-template-columns: 1fr 32%;
-  column-gap: var(--gutter-desktop);
-  align-items: start;
-  padding-block-start: var(--gap-component);
-}
 
 .wk-table {
   inline-size: 100%;
   border-collapse: collapse;
-}
-
-.wk-table__h {
-  padding-block: var(--pad-table-row);
-  padding-inline-end: var(--gap-tight);
-  border-block-end: 1px solid var(--color-ink);
-  text-transform: uppercase;
-  text-align: start;
 }
 
 .wk-table__row .wk-table__name,
@@ -519,20 +506,10 @@
   color: var(--color-ink-secondary);
 }
 
-.wk-table__h--year,
 .wk-table__cell--year {
   text-align: end;
   padding-inline-end: 0;
   font-variant-numeric: tabular-nums;
-}
-
-/* The plainly-headed group head newest-first inserts before the
-   year-to-be-confirmed tail (§3.2). */
-.wk-table__grouphead th {
-  padding-block: var(--gap-block) var(--pad-table-row);
-  border-block-start: 1px solid var(--color-hairline);
-  text-transform: uppercase;
-  text-align: start;
 }
 
 /* -----------------------------------------------------------
@@ -596,15 +573,21 @@
    ----------------------------------------------------------- */
 
 @media (max-width: 1024px) {
-  .wk-studies,
-  .wk-room__list {
+  .wk-studies {
     column-gap: var(--gutter-tablet);
+  }
+
+  /* The room table gives up the catalogue's 38% and takes the whole
+     measure. Below 1024 there is no standing frame anywhere on these
+     pages, so the column it was leaving room for does not exist — and at
+     these widths the metadata needs every pixel it can get. */
+  .wk-room__table {
+    max-inline-size: none;
   }
 
   /* Below 1024 the standing/floating frame is gone and the
      rows carry their thumbnails (hover cannot be relied on). */
-  .wk-catalogue,
-  .wk-ledger__body {
+  .wk-catalogue {
     grid-template-columns: 1fr;
   }
 
@@ -635,13 +618,63 @@
     row-gap: var(--gap-component);
   }
 
-  .wk-room__list {
-    columns: 1;
+  /* 🔴 THE ROW STACKS, because four columns cannot hold a name AND its
+     metadata in ~335px. Rendered at a true 375 the fixed grid gave the
+     name 99px and every one wrapped to three lines — "Woodlem Park
+     School, Hamidiya" over three, "AL TALLAH" over two, rows ~135px tall.
+     Auto layout was no better: it hands the short values their content
+     width first and squeezes the name, which is the one thing that must
+     stay readable.
+
+     So below 767 the row becomes what it was before the merge — the name
+     on its own line, its metadata as one quiet run beneath. The elements
+     carry explicit ARIA roles in the markup precisely so this `display`
+     change does not cost them their table semantics. */
+  .wk-room__table,
+  .wk-room__table tbody,
+  .wk-room__table .wk-table__row,
+  .wk-room__table .wk-table__name,
+  .wk-room__table .wk-table__cell {
+    display: block;
+    inline-size: auto;
   }
 
-  .wk-controls {
-    align-items: start;
-    flex-direction: column;
+  .wk-room__table .wk-table__row {
+    padding-block: var(--pad-table-row);
+    border-block-start: 1px solid var(--color-hairline);
+  }
+
+  .wk-room__table .wk-table__row:first-child {
+    border-block-start: 0;
+  }
+
+  .wk-room__table .wk-table__name,
+  .wk-room__table .wk-table__cell {
+    padding-block: 0;
+    padding-inline-end: 0;
+    border-block-start: 0;
+  }
+
+  /* The metadata reads as one run, and an absent value takes no space —
+     a blank district must not open a gap where a dot would go. The
+     general-sibling combinator is what makes that work: it puts the
+     separator before any non-empty cell that has ANY non-empty cell
+     before it, however many empties sit between them. */
+  .wk-room__table .wk-table__cell {
+    display: inline;
+    font-size: var(--fs-caption);
+  }
+
+  .wk-room__table .wk-table__cell:empty {
+    display: none;
+  }
+
+  .wk-room__table .wk-table__cell:not(:empty) ~ .wk-table__cell:not(:empty)::before {
+    content: "\00B7\00A0";
+  }
+
+  .wk-room__table .wk-table__cell--year {
+    text-align: start;
   }
 
   .wk-row__thumb {
@@ -660,7 +693,6 @@
   .chrome-plate,
   .menu-nib,
   .menu-overlay,
-  .wk-controls,
   .wk-frame,
   .wk-row__thumb,
   .wk-band,
@@ -668,10 +700,6 @@
     display: none !important;
   }
 
-  .wk-ledger__body {
-    grid-template-columns: 1fr;
-    padding-block-start: 0;
-  }
 }
 
 /* -----------------------------------------------------------

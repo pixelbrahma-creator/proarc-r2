@@ -2,21 +2,19 @@
    The Work surfaces' one script — enhancement only.
 
    Spec: _bmad/wds/D-UX-Design/03-work.md §4–§5. Every page it loads on is
-   complete without it: the ledger renders all rows in Proarc's order, the
-   sector catalogues carry their thumbnails below 1024px, and the search
-   field simply does nothing until this file arrives. Controls that need
-   the script (chips, sort) ship [hidden] and are revealed here, so a
-   no-JS reader never sees a dead control.
+   complete without it: the arrival's four room tables render all 47 records
+   in Proarc's order, the sector catalogues carry their thumbnails below
+   1024px, and the search field simply does nothing until this file arrives.
 
    What it owns:
 
      the standing/floating photograph frame — row hover AND keyboard focus
      (never hover alone), instant swap, no transition
-     the ledger's chips (aria-pressed), sort and search, composed
      the arrival's search over the build-generated index island
      ?q= — state, never a route: read on load, written via replaceState
 
-   Chip tallies are data furniture and stay live under search (§4.3).
+   The ledger's chips and sort were the third thing it owned until Session
+   XXI; see the note where they stood.
    ========================================================================= */
 
 (function () {
@@ -67,147 +65,20 @@
   }
 
   /* ---------------------------------------------------------------- *
-   * The ledger — chips · sort · search, composed
+   * THE LEDGER'S CONTROLLER IS GONE (Session XXI, 6 Aug)
+   *
+   * ~140 lines stood here driving projects/list.html: the chips
+   * (aria-pressed + live tallies), the three-way sort with its
+   * newest-first group heads, and a search composed over both. The page
+   * they drove retired into the arrival's four room tables — the two
+   * surfaces were rendering the same 47 records under the same four-way
+   * cut, and the rooms were always the filter (03-work §4.1), so the
+   * chips were a second answer to a question the page had answered.
+   *
+   * Nothing below reads [data-tbody], [data-chips] or [data-sort]. If a
+   * surface ever wants a sortable flat run again, it is at
+   * 68ab58d:js/work.js — do not re-derive it.
    * ---------------------------------------------------------------- */
-
-  var tbody = document.querySelector('[data-tbody]');
-  if (tbody) {
-    var rows = Array.prototype.slice.call(tbody.querySelectorAll('.wk-table__row'));
-    var chipsBox = document.querySelector('[data-chips]');
-    var sortBox = document.querySelector('[data-sort]');
-    var select = sortBox ? sortBox.querySelector('select') : null;
-    var field = document.querySelector('[data-search] input');
-    var tally = document.querySelector('[data-tally]');
-
-    var state = { sector: 'all', q: '', sort: 'proarc' };
-
-    if (chipsBox) chipsBox.removeAttribute('hidden');
-    if (sortBox) sortBox.removeAttribute('hidden');
-
-    var rowMatchesSearch = function (row, searchTerms) {
-      return !searchTerms.length || matches(row.getAttribute('data-search') || '', searchTerms);
-    };
-
-    var apply = function () {
-      var searchTerms = terms(state.q);
-      var shown = 0;
-
-      rows.forEach(function (row) {
-        var sectorOk = state.sector === 'all' || row.getAttribute('data-sector') === state.sector;
-        var searchOk = rowMatchesSearch(row, searchTerms);
-        var show = sectorOk && searchOk;
-        row.hidden = !show;
-        if (show) shown++;
-      });
-
-      // Chip tallies stay live under search — each counts its own sector
-      // inside the current query, independent of which chip is pressed.
-      if (chipsBox) {
-        Array.prototype.forEach.call(chipsBox.querySelectorAll('[data-chip]'), function (chip) {
-          var key = chip.getAttribute('data-chip');
-          var n = rows.filter(function (row) {
-            return (key === 'all' || row.getAttribute('data-sector') === key) && rowMatchesSearch(row, searchTerms);
-          }).length;
-          chip.querySelector('.wk-chip__tally').textContent = String(n);
-        });
-      }
-
-      if (tally) tally.textContent = searchTerms.length ? shown + ' of ' + rows.length : '';
-
-      sort();
-    };
-
-    var sort = function () {
-      // Remove any previous group head before reordering.
-      var oldHead = tbody.querySelector('.wk-table__grouphead');
-      if (oldHead) oldHead.parentNode.removeChild(oldHead);
-
-      var sorted = rows.slice();
-      if (state.sort === 'az') {
-        sorted.sort(function (a, b) {
-          return a.getAttribute('data-title') < b.getAttribute('data-title') ? -1 : 1;
-        });
-      } else if (state.sort === 'newest') {
-        // §3.2: in-progress first, then parseable years descending, then
-        // the year-to-be-confirmed group — each group stable in D1 order.
-        var rank = function (row) {
-          if (row.hasAttribute('data-inprogress')) return 0;
-          return row.hasAttribute('data-year') ? 1 : 2;
-        };
-        sorted.sort(function (a, b) {
-          var r = rank(a) - rank(b);
-          if (r) return r;
-          if (rank(a) === 1) {
-            var y = Number(b.getAttribute('data-year')) - Number(a.getAttribute('data-year'));
-            if (y) return y;
-          }
-          return Number(a.getAttribute('data-order')) - Number(b.getAttribute('data-order'));
-        });
-      } else {
-        sorted.sort(function (a, b) {
-          return Number(a.getAttribute('data-order')) - Number(b.getAttribute('data-order'));
-        });
-      }
-
-      sorted.forEach(function (row) {
-        tbody.appendChild(row);
-      });
-
-      // The plainly-headed TBC group (§3.2) — only under newest-first, and
-      // only when the group has a visible member.
-      if (state.sort === 'newest') {
-        var firstTbc = sorted.filter(function (row) {
-          return !row.hasAttribute('data-inprogress') && !row.hasAttribute('data-year') && !row.hidden;
-        })[0];
-        if (firstTbc) {
-          var head = document.createElement('tr');
-          head.className = 'wk-table__grouphead';
-          var th = document.createElement('th');
-          th.setAttribute('colspan', '4');
-          th.setAttribute('scope', 'colgroup');
-          th.className = 't-meta-label';
-          th.textContent = 'Year to be confirmed';
-          head.appendChild(th);
-          tbody.insertBefore(head, firstTbc);
-        }
-      }
-    };
-
-    if (chipsBox) {
-      chipsBox.addEventListener('click', function (e) {
-        var chip = e.target.closest ? e.target.closest('[data-chip]') : null;
-        if (!chip) return;
-        state.sector = chip.getAttribute('data-chip');
-        Array.prototype.forEach.call(chipsBox.querySelectorAll('[data-chip]'), function (c) {
-          c.setAttribute('aria-pressed', c === chip ? 'true' : 'false');
-        });
-        apply();
-      });
-    }
-
-    if (select) {
-      select.addEventListener('change', function () {
-        state.sort = select.value;
-        apply();
-      });
-    }
-
-    if (field) {
-      field.addEventListener('input', function () {
-        state.q = field.value.trim();
-        writeQuery(state.q);
-        apply();
-      });
-      var initial = readQuery();
-      if (initial) {
-        field.value = initial;
-        state.q = initial;
-      }
-    }
-
-    apply();
-    return; // the ledger never carries the arrival's island
-  }
 
   /* ---------------------------------------------------------------- *
    * The arrival — search over the build-generated index island
@@ -227,15 +98,15 @@
     var arrivalTally = document.querySelector('[data-tally]');
     if (!input || !results) return;
 
-    var total = records.length;
-
     var renderResults = function (q) {
       var searchTerms = terms(q);
 
       if (!searchTerms.length) {
         results.hidden = true;
         results.textContent = '';
-        if (arrivalTally) arrivalTally.textContent = total + ' projects';
+        // 🔴 EMPTY AT REST. This read `total + ' projects'` until 6 Aug
+        // (Mahesh: "we are not giving number anywhere").
+        if (arrivalTally) arrivalTally.textContent = '';
         return;
       }
 
@@ -267,7 +138,11 @@
       });
 
       results.hidden = false;
-      if (arrivalTally) arrivalTally.textContent = hits.length + ' of ' + total;
+      // The count the reader ASKED FOR by typing, without the portfolio
+      // total they did not — this read `hits.length + ' of ' + total`.
+      if (arrivalTally) {
+        arrivalTally.textContent = hits.length === 1 ? '1 result' : hits.length + ' results';
+      }
     };
 
     input.addEventListener('input', function () {

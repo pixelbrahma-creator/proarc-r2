@@ -15,22 +15,34 @@
   verb-heading is a heading, not a link (D-2): its set has no sector page and
   the room, which lists every name, is the set's whole home. The page's one
   "Ajman" and one formula belong to the mosque line. H1 is "Selected work"
-  (option B, called) — *selected* is spent here once; the ledger line is the
-  only other place the word appears in the Work system.
+  (option B, called) — *selected* is spent here once.
+
+  This page is now the whole Work index (Session XXI). Each room is its own
+  table — name · district · type · year, in Proarc's order — with the type
+  going unsaid where the room already says it (build/lib/work.js,
+  ROOM_UNSAID_NOUNS). There is no separate list page, no chip row and no sort:
+  the four rooms are the filter and Proarc's order is the order.
+
+  The reasoning, the measurements behind it and what was declined are in
+  03-work.md §4.1 — this file ships to the browser, so it carries the rule
+  rather than the argument.
 -->
 <main id="main" class="wk wk-arrival">
 
   <header class="wk-head wk-head--arrival container">
     <h1 class="wk-verb t-editorial">Selected work</h1>
-    <p class="wk-support t-body-lg">Schools, homes, malls and offices across the Emirates &mdash; and clients who come back.</p>
+    <p class="wk-support t-body-lg">Schools, homes, malls and offices across the Emirates.</p>
 
+    <!-- The tally element ships EMPTY. It read "47 projects" until 6 Aug;
+         js/work.js still writes the live search result count into it,
+         because a count the reader asked for by typing is not the same
+         claim as a portfolio size printed at rest. -->
     <form class="wk-search" data-search role="search">
       <label class="wk-search__label t-meta-label" for="wk-q">Search</label>
       <input class="wk-search__field" type="search" id="wk-q" name="q" autocomplete="off" spellcheck="false">
-      <p class="wk-search__tally t-caption" data-tally>{{tally}}</p>
+      <p class="wk-search__tally t-caption" data-tally></p>
     </form>
     <ul class="wk-results" data-results hidden></ul>
-    <p class="wk-ledger-line t-caption"><a class="wk-also__link" href="projects/list.html">Every project, as a list &rarr;</a></p>
   </header>
 
   {{#each rooms}}
@@ -54,13 +66,48 @@
 
     <p class="wk-room__opener t-body-lg">{{roomOpener}}</p>
 
-    <ul class="wk-room__list">
-      {{#each names}}
-      <li class="wk-room__item">
-        <a class="wk-room__itemlink" href="{{itemHref}}"><span class="t-meta-value">{{itemName}}</span>{{#if itemProvenance}}<span class="wk-row__genre"> &middot; {{itemProvenance}}</span>{{/if}}{{#if itemMeta}}<span class="wk-room__itemmeta t-caption">{{itemMeta}}</span>{{/if}}</a>
-      </li>
-      {{/each}}
-    </ul>
+    <!-- The room's own set, in the ledger's columns. The header row is
+         visually hidden per room — four visible NAME/DISTRICT/TYPE/YEAR
+         bands down one page would be furniture, but a table whose columns
+         are unnamed is unreadable to a screen reader, so the header is
+         hidden rather than dropped. -->
+    <!-- 🔴 The explicit ARIA roles are NOT redundant. At ≤767 the CSS lays
+         these rows out as blocks, and changing a table element's `display`
+         makes the browser drop its implicit table roles — the rows stop
+         being rows for a screen reader at exactly the width where most
+         readers meet them. Stated here, the semantics survive the layout. -->
+    <table class="wk-table wk-room__table" role="table">
+      <caption class="u-visually-hidden">{{roomVerb}} &mdash; name, district, type and year</caption>
+      <!-- 🔴 The widths live HERE, not on the header cells. `.u-visually-hidden`
+           is position:absolute, which takes the <thead> out of the table's
+           column model entirely — widths declared on those cells would be
+           silently ignored and each room would negotiate its own columns,
+           which is exactly the misalignment the rendered option showed. -->
+      <colgroup>
+        <col class="wk-col--name">
+        <col class="wk-col--place">
+        <col class="wk-col--noun">
+        <col class="wk-col--year">
+      </colgroup>
+      <thead class="u-visually-hidden">
+        <tr role="row">
+          <th scope="col">Name</th>
+          <th scope="col">District</th>
+          <th scope="col">Type</th>
+          <th scope="col">Year</th>
+        </tr>
+      </thead>
+      <tbody role="rowgroup">
+        {{#each rows}}
+        <tr class="wk-table__row" role="row">
+          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="{{rowHref}}">{{rowName}}</a>{{#if rowProvenance}}<span class="wk-row__genre"> &middot; {{rowProvenance}}</span>{{/if}}</th>
+          <td class="wk-table__cell" role="cell">{{rowPlace}}</td>
+          <td class="wk-table__cell" role="cell">{{rowNoun}}</td>
+          <td class="wk-table__cell wk-table__cell--year" role="cell">{{rowYear}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
   </section>
   {{/each}}
 
