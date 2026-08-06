@@ -810,6 +810,32 @@
   padding-block-start: var(--gap-section);
 }
 
+/* 🔴 THE DARK RUN CLOSES ITSELF NOW, AND IT DID NOT BEFORE (7 Aug).
+ *
+ * The run's air after the mosque used to be paid by the MAP: the band sat
+ * inside this run and carried `margin-block-start: var(--gap-section)`. The
+ * map left the run when it took its own paper ground, and that margin went
+ * with it — leaving the run ending flush on its last element's box, with a
+ * full-bleed ground change immediately below.
+ *
+ * 🔴 AND THE INK IS 5px PAST THE BOX, so the mosque's letters were CLIPPED by
+ * the white. `.ha-marker` is 84px display type at `line-height: 84px` — an em
+ * box exactly one em tall — so the glyphs' own descent falls outside the line
+ * box and outside every rect a Range or a getBoundingClientRect can report.
+ * The box measurement said the run ended at 8260 and so did the map; the
+ * PIXELS said the ink reached 8265. A bounding-box test passes a colliding
+ * page, and it did: this was found by cropping the seam and looking at it.
+ *
+ * `--gap-component` rather than the 200 the map used to spend here. A ground
+ * change is the strongest separator on this site and does not need 200px of
+ * black in front of it as well — that stacking is what put 388px between the
+ * mosque's last ink and this band's first. 64 closes the run symmetrically
+ * with the mosque band's own opening gap, clears the glyph ink by 59px, and
+ * brings the reader's crossing to 256px. */
+.hm-dark {
+  padding-block-end: var(--gap-component);
+}
+
 .hm-prays__verb {
   margin: 0;
   font-size: var(--fs-h2);
@@ -870,13 +896,43 @@
    And the band is where they live rather than the field, because the CLOSING
    LINE reads the width too: the drawing's right edge is what the link lands
    on, and a sibling cannot read a custom property set on the field. */
+/* 🔴 THE BAND IS ON PAPER (Mahesh, 7 Aug), AND THAT DELETED TWO THINGS.
+ *
+ * THE MARGIN. It used to carry `margin-block-start: var(--gap-section)` on
+ * top of its own 200 padding, because it followed the mosque ON THE SAME
+ * BLACK and two text sections on one ground need air between them. A GROUND
+ * CHANGE is the separation — it is the strongest one this site has — so 200px
+ * of black margin before a white band is 200px of nothing, and it read as
+ * exactly that: 388px from the mosque's last ink to this head's first.
+ *
+ * THE HAIRLINE, for the same reason. `--color-hairline-dark` at 1.66:1 exists
+ * to separate two TEXT sections sharing a ground, which is the one thing that
+ * value is permitted to do. There is no shared ground here any more, and a
+ * hairline drawn at the seam of a ground change is a line nobody can see
+ * doing a job nothing needs.
+ *
+ * What stays is the padding: the band's own air, inside its own paper. */
+/* 🔴 THE TWO PADDINGS DIFFER, AND THE READOUT IS THE WHOLE REASON.
+ *
+ * Measured at 1440: the white above the head is 200. Below the drawing the
+ * band also carries the readout — `--gap-block` of separation plus one
+ * reserved line — which is 50px that is INVISIBLE AT REST. At a symmetric
+ * 200 the band therefore reads 200 above and 250 below, bottom-heavy by
+ * exactly the amount the reader cannot see.
+ *
+ * So the closing value is the SITE's closing-band padding,
+ * `--gap-section-major / 2` — what `.hm-invitation`, `.aj-band`, `.sv-band`
+ * and `.ab-band` all use — which lands the visible air at 190 against the
+ * top's 200. No new value, and nothing here is tuned to the readout's exact
+ * height: a subtraction of it would go stale the moment the type token moved,
+ * which is this project's recorded "a rule made of tokens inherits THOSE
+ * tokens' breakpoints" fault wearing a different coat. */
 .hm-map {
   --map-width: 840px;
   --mark-scale: 0.6667;
 
-  margin-block-start: var(--gap-section);
-  padding-block: var(--gap-section);
-  border-block-start: 1px solid var(--color-hairline-dark);
+  padding-block: var(--gap-section) calc(var(--gap-section-major) / 2);
+  background: var(--color-surface);
 }
 
 .hm-map__svg {
@@ -894,15 +950,25 @@
 
    It does not draw — see build/lib/home.js. The land is present and the
    records arrive on it. */
+/* On paper the shoreline takes the paper's own secondary ink. Same ROLE, same
+   2px, reassigned rather than re-invented — v1.3's own headline rule: where a
+   surface needs a value the other ground assigned, reassign an existing token
+   and never mint a grey. #595959 on #FFFFFF is 7.00:1, against #A6A6A6 on
+   #000000's 8.63:1 — both rest states, neither an unreadable one. */
 .hm-coast {
   fill: none;
-  stroke: var(--color-on-dark-secondary);
+  stroke: var(--color-ink-secondary);
   stroke-width: 2;
   vector-effect: non-scaling-stroke;
 }
 
+/* The marks are the records, in the page's ink. On black they read as lights;
+   on paper they read as a printed map, which is the truer object for a band
+   whose sentence is where these buildings stand. /ajman's map keeps the black
+   ground and the white mark — the two surfaces do different jobs, and the
+   drawing is the same drawing in either ink. */
 .hm-mark {
-  fill: var(--color-on-dark);
+  fill: var(--color-ink);
   transform: scale(var(--mark-scale));
   transform-box: fill-box;
   transform-origin: center;
@@ -989,11 +1055,11 @@
    until a pointer is actually on the map — with no district current, every
    mark is simply white and neither rule applies. */
 [data-current] .hm-mark {
-  fill: var(--color-on-dark-secondary);
+  fill: var(--color-ink-secondary);
 }
 
 [data-current] .hm-mark.is-current {
-  fill: var(--color-on-dark);
+  fill: var(--color-ink);
 }
 
 /* THE READOUT — the drawing's caption, and it replaces the record row and the
@@ -1040,7 +1106,7 @@
 /* The place leads, in the display ink. This is the name § 6.1 refused to put
    on the field ten times over, arriving once, where it can be read. */
 .hm-map__place {
-  color: var(--color-on-dark);
+  color: var(--color-ink);
 }
 
 /* What stands there, quieter — the site's own set nouns, from records.js.
@@ -1048,24 +1114,50 @@
    one; §9.16 again, the distinction is colour value and not opacity. */
 .hm-map__of {
   font-size: var(--fs-metadata);
-  color: var(--color-on-dark-secondary);
+  color: var(--color-ink-secondary);
 }
 
-/* The link closes the band and is where it has always been — the start of the
-   column, --gap-heading below what precedes it. That distance used to be
-   measured from the note and is now measured from the readout; the token is
-   the same, so the reading of this band's last two elements is unchanged. */
-.hm-map__line {
-  margin: var(--gap-heading) 0 0;
-}
+/* `.hm-map__line` — the "One Emirate, drawn →" caption — is DELETED (Mahesh,
+   7 Aug). The map itself is the door now: ten regions, each a real link into
+   its own district's block on /ajman.
+ *
+ * ⚠️ WHAT THAT COSTS, RECORDED RATHER THAN DISCOVERED LATER: the regions are
+ * `tabindex="-1"` by design, so this band no longer offers /ajman to the
+ * keyboard. It is still one tab away in the footer's nav and in the menu
+ * overlay, on this and every other page, so nothing became unreachable — but
+ * `sweep-home`'s "Home's door to /ajman" guard had to be re-aimed at the
+ * REGIONS, because their hrefs would have kept that assertion passing
+ * vacuously after the element it was written about was gone. */
 
 /* -----------------------------------------------------------
-   8 · The invitation (§6.2) — the one lit surface on the page
+   8 · The invitation (§6.2) — BLACK now, and it runs into the footer
    ----------------------------------------------------------- */
 
+/* 🔴 THE LIT SURFACE MOVED UP ONE BAND (Mahesh, 7 Aug): *"combine the call
+   for action to footer like other pages."*
+ *
+ * STILL E1.2, NOT AN EXCEPTION TO IT. The clause is that the closing band is
+ * the inverse of its page, and E1.2a is that on a PAPER page the band owns
+ * the ground switch while the footer shares the band's ground — which is
+ * precisely why About's ending reads as one block and Home's did not. Home
+ * now ENDS on paper, because the map band above took the switch. So the
+ * inverse here is black, the footer shares it, and the two become one object
+ * separated by structure and scale rather than by colour. Home's ending is a
+ * paper page's ending by construction.
+ *
+ * 📌 AND THE OTHER TWO BLACK PAGES ARE NOT THIS, WHICH IS THE POINT WORTH
+ * KEEPING. /ajman and /services still close on a white band between black
+ * content and a black footer, because their content still ends on black. The
+ * rule did not change; the page did.
+ *
+ * `.surface-dark` is on the section in the markup, so the type tokens lift
+ * themselves and nothing here restates a colour it does not own. The value
+ * below is the SITE's closing-band padding — `--gap-section-major / 2`, what
+ * `.aj-band`, `.sv-band` and `.ab-band` all use — and `home-alt.css` § 4's
+ * 200px override is retired with the horizontal it was built for. */
 .hm-invitation {
   padding-block: calc(var(--gap-section-major) / 2);
-  background: var(--color-surface);
+  background: var(--color-surface-dark);
 }
 
 /* LEVELLED at the /ajman build (1 Aug, Mahesh): 32px light, the register
@@ -1083,27 +1175,32 @@
   font-weight: var(--fw-light);
   line-height: var(--lh-h2);
   letter-spacing: var(--ls-h2);
-  color: var(--color-ink);
+  color: var(--color-on-dark);
 }
 
+/* The action, value for value with `.ab-band__action` — the site's other
+   black closing band. Not "the light one inverted": E2 is explicit that dark
+   roles have their own assignments and are never derived by inverting the
+   light ones, and the way to honour that here is to copy the surface that
+   already made the decision rather than to flip this one's values. */
 .hm-invitation__action {
   display: inline-block;
   padding-block: var(--gap-tight);
   padding-inline: var(--gap-heading);
-  border: 1px solid var(--color-ink);
+  border: 1px solid var(--color-on-dark);
   font-size: var(--fs-metadata);
   font-weight: var(--fw-medium);
   letter-spacing: var(--ls-nav);
   text-transform: uppercase;
-  color: var(--color-ink);
+  color: var(--color-on-dark);
   transition: background-color var(--dur-fast) var(--ease-out),
               color var(--dur-fast) var(--ease-out);
 }
 
 .hm-invitation__action:hover,
 .hm-invitation__action:focus-visible {
-  background: var(--color-ink);
-  color: var(--color-surface);
+  background: var(--color-on-dark);
+  color: var(--color-surface-dark);
 }
 
 /* -----------------------------------------------------------

@@ -239,6 +239,12 @@
       </div>
     </section>
 
+  </div>
+
+  <!-- ↑ THE DARK RUN ENDS AT THE MOSQUE NOW (Mahesh, 7 Aug). The map band
+       below used to sit inside it as a `.container` on the run's own black;
+       it owns its ground now, so it owns its own section. -->
+
     <!-- 6 · THE MAP RETURNS (Mahesh, 5 Aug). The constellation was cut from
          this reading on 4 Aug and the promotion carried the cut onto the
          route; `01-home.md` § 6.1 went on specifying it the whole time. It
@@ -287,7 +293,21 @@
          into the client's own page source, which is the one place it must
          not be — and would restore in public exactly the note this session
          was asked to take off the page. -->
-    <section class="hm-map container" aria-labelledby="hm-map-head">
+  <!-- 🔴 THE BAND IS ON PAPER NOW, AND IT IS A SECTION WRAPPING A CONTAINER
+       RATHER THAN A CONTAINER ITSELF (Mahesh, 7 Aug). That shape is not
+       bookkeeping: `.container` is 1120px with auto margins, so painting a
+       ground on it produces a 1120px CARD floating in the page's black with
+       gutters either side. Every ground switch on this site is full-bleed.
+       The section carries the ground and the container carries the column,
+       which is exactly how `.hm-invitation` below has always been built.
+
+       E1 says a band's ground is a DECIDED property, and this one is decided:
+       the map is Home's last argument and the page's remaining lit surface.
+       It also restores the pair `home-alt.css` § 4 describes — the argument
+       OPENS on paper at `.ha-beat` and now CLOSES on paper here — and it is
+       what lets the invitation below run into the footer. -->
+  <section class="hm-map" aria-labelledby="hm-map-head">
+    <div class="container">
       <h2 id="hm-map-head" class="hm-map__head t-editorial">{{livingSpaceLabel}}.</h2>
 
       <!-- `data-map` is on the FIELD, not on the section: js/home.js adds
@@ -340,17 +360,30 @@
         <span class="hm-map__of" data-readout-of></span>
       </p>
 
-      <p class="hm-map__line"><a class="hm-link-inline" href="{{ajmanHref}}">One Emirate, drawn &rarr;</a></p>
-    </section>
+      </div>
+  </section>
 
-  </div>
+  <!-- 6 · The invitation — BLACK now, and it runs into the footer (Mahesh,
+       7 Aug: *"combine the call for action to footer like other pages"*).
 
-  <!-- 6 · The invitation — paper, the inverse of the page, and the one lit
-       surface on it. Its words came from the earlier reading verbatim; its
-       GEOMETRY is this page's own — home-alt.css § 4 makes the sentence and
-       the action the two ends of one horizontal. The footer returns to black
-       below it. -->
-  <section class="hm-invitation" aria-label="Start a project">
+       🔴 IT IS STILL E1.2, NOT AN EXCEPTION TO IT. The clause says the
+       closing band is the INVERSE OF ITS PAGE, and E1.2a says that on a paper
+       page the band owns the ground switch and the footer shares the band's
+       ground — which is exactly why About's close reads as one block. Home's
+       page now ENDS on paper, because the map band above took the ground
+       switch. So the inverse is black, the footer shares it, and Home's
+       ending becomes a paper page's ending by construction rather than by
+       exemption.
+
+       "The one lit surface on the page" has MOVED, not gone: it is the map
+       band, which is the page's last argument and now the thing that lifts
+       off the black.
+
+       THE ACTION STACKS UNDER THE SENTENCE, like every other closing band on
+       the site. home-alt.css § 4's one-horizontal was Home's own gesture and
+       it is retired on the same instruction — the band is the site's object
+       now, in the site's arrangement. -->
+  <section class="hm-invitation surface-dark" aria-label="Start a project">
     <div class="container">
       <p class="hm-invitation__line">Have a project in mind? Let&rsquo;s talk.</p>
       <a class="hm-invitation__action" href="{{contactHref}}">Contact</a>

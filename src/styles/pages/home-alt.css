@@ -658,46 +658,32 @@
    closes on paper at 200; the two paper bands become a pair instead of
    two different amounts of air. Nothing here is a new value, which is
    this stylesheet's own standing rule. */
-.hm--alt .hm-invitation {
-  padding-block: var(--gap-section);
-}
+/* 🔴 THE WHOLE OF § 4'S INVITATION BLOCK IS RETIRED (Mahesh, 7 Aug):
+   *"combine the call for action to footer like other pages"* and, asked
+   directly, *stack it, like other pages*. The band is BLACK now and it runs
+   into the footer — see `home.css` § 8 for why that is E1.2 rather than an
+   exception to it.
 
-/* 🔴 IT WRAPS RATHER THAN KEYING A BREAKPOINT, and the wrapped state IS
-   the arrangement this replaced — same order, same `--gap-block` between
-   them, both flush to the column's start (a single item under
-   `space-between` goes to the start). So the fallback is not a
-   compromise; it is today's band.
+   WHAT WAS HERE, AND WHY IT IS NOT ANY MORE. Three rules made the sentence
+   and the action the two ends of one horizontal, on the argument that a
+   short sentence at a locked size leaves 46.1% of the column empty and only
+   GEOMETRY can spend it. That reasoning was sound and it is answered
+   differently now: the emptiness it was spending was PAPER, and this band's
+   paper has gone to the map. On black, continuous with the footer's black,
+   the band is no longer a lit rectangle whose proportions have to be
+   defended — it is the last two lines of one dark object.
 
-   A width was measured for and then not used, which is the point. The
-   horizontal fits from 1440 all the way down to 640 with 72px of slack,
-   because BOTH tokens it is made of step down at the same places the
-   column does and step down harder: at 1023 the sentence goes 442 -> 387
-   and the gap 64 -> 40 while the column loses 1px, and at 767 it goes
-   387 -> 364 against another single pixel. Slack GROWS at every
-   breakpoint — 249 at 1440, 360 at 1023, 199 at 767, 72 at 640 — so a
-   restack keyed at the site's 767 would have stacked the band 200px of
-   width before it needed to, giving the narrower screen LESS than the
-   wider one for no reason. That is precisely the H4-c fault, and the
-   reason it happens is the same: a rule made of tokens inherits those
-   tokens' breakpoints, so keying it on a width of its own means keeping
-   two derivations in step forever. `flex-wrap` states the real condition
-   — "when they no longer fit" — and cannot go stale. */
-.hm--alt .hm-invitation .container {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  column-gap: var(--gap-component);
-  row-gap: var(--gap-block);
-}
+   The 200px padding goes with it. It existed to pair this band with
+   `.ha-beat`'s 200 as the page's two paper bands; the map band is the
+   second paper band now, and this one takes the SITE's closing-band value
+   (`--gap-section-major / 2`, what `.aj-band`, `.sv-band` and `.ab-band`
+   all use) because it is the site's object in the site's arrangement.
 
-/* The line's own bottom margin was the gap to the action beneath it. On
-   one horizontal there is nothing beneath it, and when the band wraps the
-   container's row-gap restores the identical 24px — so the spacing is
-   stated once, by whichever axis is actually carrying it. */
-.hm--alt .hm-invitation__line {
-  margin-block-end: 0;
-}
+   Nothing replaces these rules. `home.css` § 8 already states the stacked
+   band — margin under the line, action beneath it — which is what every
+   other closing band on the site has always been. An override is deleted
+   rather than neutralised: a rule set back to its own default is a rule the
+   next reader has to work out was doing nothing. */
 
 /* BASELINE, not centre. The action is a bordered box and its box is 56px
    against the line's 38px, so centring the two would set the sentence
