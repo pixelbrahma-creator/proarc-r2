@@ -724,8 +724,12 @@ html.is-menu-open { overflow: hidden; }
 
    Always black, on every page. On a paper page the closing band owns the
    switch and shares this ground, so band and footer are separated by scale
-   and by the hairline below — never by colour (E1.2a). On a page with no
-   band the footer owns the switch itself (E1.2c).
+   — never by colour (E1.2a). On a page with no band the footer owns the
+   switch itself (E1.2c).
+
+   The hairline below is the separator only where the band above is PAPER.
+   Where the band is black the two are one object; see THE MERGED CLOSE at
+   the end of this section.
    ========================================================================= */
 
 .site-footer {
@@ -788,6 +792,53 @@ html.is-menu-open { overflow: hidden; }
   line-height: var(--lh-caption);
   letter-spacing: var(--ls-caption);
   color: var(--color-on-dark-secondary);
+}
+
+/* -----------------------------------------------------------
+   THE MERGED CLOSE (Mahesh, 6 Aug) — where the closing band is
+   BLACK, the band and the footer are one object.
+
+   The footer's top hairline exists to separate it from the band
+   above. Where that band is paper the ground switch already does
+   the separating and the hairline is invisible against it; where
+   the band is black the hairline is the ONLY thing there, and it
+   divides two identical grounds. So on every page it is actually
+   visible it is a seam, never structure — which is what the tail
+   of Home read as: two black slabs with a rule between them.
+
+   Merged, the object is: the summons, a rule at the TEXT column,
+   then the particulars. Inset is the whole point — a full-bleed
+   rule says "two bands", a rule at the column says "one object,
+   internally divided". The band gives up its closing air so the
+   two padded boxes stop stacking (205px of dead black at 1440).
+
+   Derived from the ground itself rather than declared per page,
+   so a band that later turns paper turns its own merge off.
+
+   🔴 `~`, NEVER `+`. /projects carries a <script id=wk-search-
+   index> between </main> and <footer>: the adjacent combinator
+   matches on six pages and silently misses the seventh — and it
+   misses it AFTER the band has already given up its padding, so
+   the action lands hard against the full-bleed hairline. That is
+   a WORSE ending than the one being fixed, on the one page the
+   selector was never checked against.
+   ----------------------------------------------------------- */
+
+main:has(> .surface-dark:last-child) > .surface-dark:last-child {
+  padding-block-end: 0;
+}
+
+main:has(> .surface-dark:last-child) ~ .site-footer {
+  border-block-start: 0;
+}
+
+main:has(> .surface-dark:last-child) ~ .site-footer .site-footer__inner::before {
+  content: '';
+  display: block;
+  block-size: 1px;
+  /* The flex gap already pays --gap-block below the rule. */
+  margin-block-end: calc(var(--gap-component) - var(--gap-block));
+  background: var(--color-hairline-dark);
 }
 
 /* The footer's inner box is a .container in all but name (same max-width,
