@@ -445,45 +445,79 @@
          NO SECTION LABEL, per § 6.1: the head is a statement, not an
          invented eyebrow, and the link line is still the caption. The
          hairline above it is decorative and separates two text sections,
-         which is the one thing 1.66:1 is permitted to do. -->
+         which is the one thing 1.66:1 is permitted to do.
+
+         🔴 THE HEAD NOW CARRIES THE MAGNITUDE, AND THAT IS AN AMENDMENT TO
+         E12 RATHER THAN AN EXCEPTION TO IT (Mahesh, 6 Aug, in his own
+         words). The figure used to ship in a record row below the drawing
+         precisely because E12 bars quantities in display prose; the third
+         shape on the table on 5 Aug was to amend E12 with a NAMED exemption,
+         and it was refused then on the grounds that a guideline revision
+         needs Mahesh's signature and a delegation is not one. He has signed
+         it. The exemption is one element wide — `.hm-map__head` and no other
+         display prose on the site — and sweep-home's digit audit is what
+         holds that boundary: it excluded the record table by name and now
+         excludes this head by name.
+
+         📌 A COMMENT IN pages-src IS PUBLISHED, so the figure's own status
+         is NOT discussed here. It is one string in build/lib/home.js and its
+         history is in the private spec (01-home.md § 6.1). Saying more than
+         that on this surface would put a caveat about the client's own copy
+         into the client's own page source, which is the one place it must
+         not be — and would restore in public exactly the note this session
+         was asked to take off the page. -->
     <section class="hm-map container" aria-labelledby="hm-map-head">
-      <h2 id="hm-map-head" class="hm-map__head t-editorial">Living space, in Ajman and around it.</h2>
+      <h2 id="hm-map-head" class="hm-map__head t-editorial">4,200,000 m² of living space, in Ajman and around it.</h2>
 
       <!-- `data-map` is on the FIELD, not on the section: js/home.js adds
            `hm-map--armed` to whatever it finds, and the stylesheet's rules
            are descendant selectors off that element. The svg ships FINISHED
            — every mark placed — and the script arms it, so a script that
-           never runs leaves a complete drawing rather than an empty field. -->
+           never runs leaves a complete drawing rather than an empty field.
+
+           THE HITS ARE LAST INSIDE THE SVG and the order is the interaction,
+           not tidiness: an SVG shape takes pointer events by default, so a
+           region layer beneath the marks would let a dot swallow the pointer.
+           See build/lib/home.js — they are /ajman's own Voronoi regions, so
+           the two maps cannot disagree about which area a point falls in. -->
       <div class="hm-map__field" data-map>
         <svg class="hm-map__svg" viewBox="0 0 560 440" aria-hidden="true" focusable="false"
-             preserveAspectRatio="xMidYMid meet"><path class="hm-coast" d="M 226 0 C 198 20, 172 32, 150 50 C 126 70, 108 94, 94 120 C 80 146, 62 174, 48 202 C 38 222, 30 240, 28 262 C 26 292, 28 322, 32 352 C 36 386, 44 414, 52 440 M 46 204 C 78 201, 110 196, 138 191 C 148 189, 155 187, 161 186 M 46 204 C 82 204, 122 205, 160 208 M 46 204 C 78 211, 110 218, 141 226 M 46 204 C 64 228, 80 254, 94 280 C 106 306, 140 319, 178 325" fill="none"></path><circle class="hm-mark" style="--mark-index:0" cx="117" cy="143" r="5"></circle><circle class="hm-mark" style="--mark-index:1" cx="132" cy="379" r="5"></circle><circle class="hm-mark" style="--mark-index:2" cx="164" cy="69" r="5"></circle><circle class="hm-mark" style="--mark-index:3" cx="165" cy="93" r="5"></circle><circle class="hm-mark" style="--mark-index:4" cx="189" cy="97" r="5"></circle><circle class="hm-mark" style="--mark-index:5" cx="190" cy="68" r="5"></circle><circle class="hm-mark" style="--mark-index:6" cx="206" cy="112" r="5"></circle><circle class="hm-mark" style="--mark-index:7" cx="235" cy="377" r="5"></circle><circle class="hm-mark" style="--mark-index:8" cx="255" cy="205" r="5"></circle><circle class="hm-mark" style="--mark-index:9" cx="268" cy="378" r="5"></circle><circle class="hm-mark" style="--mark-index:10" cx="295" cy="304" r="5"></circle><circle class="hm-mark" style="--mark-index:11" cx="318" cy="123" r="5"></circle><circle class="hm-mark" style="--mark-index:12" cx="342" cy="363" r="5"></circle><circle class="hm-mark" style="--mark-index:13" cx="350" cy="389" r="5"></circle><circle class="hm-mark" style="--mark-index:14" cx="373" cy="113" r="5"></circle><circle class="hm-mark" style="--mark-index:15" cx="380" cy="146" r="5"></circle><circle class="hm-mark" style="--mark-index:16" cx="389" cy="126" r="5"></circle><circle class="hm-mark" style="--mark-index:17" cx="390" cy="363" r="5"></circle><circle class="hm-mark" style="--mark-index:18" cx="398" cy="106" r="5"></circle><circle class="hm-mark" style="--mark-index:19" cx="398" cy="394" r="5"></circle><circle class="hm-mark" style="--mark-index:20" cx="411" cy="138" r="5"></circle><circle class="hm-mark" style="--mark-index:21" cx="420" cy="112" r="5"></circle><circle class="hm-mark" style="--mark-index:22" cx="428" cy="287" r="5"></circle><circle class="hm-mark" style="--mark-index:23" cx="440" cy="309" r="5"></circle><circle class="hm-mark" style="--mark-index:24" cx="449" cy="288" r="5"></circle><circle class="hm-mark" style="--mark-index:25" cx="460" cy="306" r="5"></circle><circle class="hm-mark" style="--mark-index:26" cx="481" cy="272" r="5"></circle><circle class="hm-mark" style="--mark-index:27" cx="481" cy="315" r="5"></circle></svg>
+             preserveAspectRatio="xMidYMid meet"><path class="hm-coast" d="M 226 0 C 198 20, 172 32, 150 50 C 126 70, 108 94, 94 120 C 80 146, 62 174, 48 202 C 38 222, 30 240, 28 262 C 26 292, 28 322, 32 352 C 36 386, 44 414, 52 440 M 46 204 C 78 201, 110 196, 138 191 C 148 189, 155 187, 161 186 M 46 204 C 82 204, 122 205, 160 208 M 46 204 C 78 211, 110 218, 141 226 M 46 204 C 64 228, 80 254, 94 280 C 106 306, 140 319, 178 325" fill="none"></path><circle class="hm-mark" style="--mark-index:0" data-district="al-khor" cx="117" cy="143" r="5"></circle><circle class="hm-mark" style="--mark-index:1" data-district="marina-and-creek" cx="132" cy="379" r="5"></circle><circle class="hm-mark" style="--mark-index:2" data-district="al-zorah" cx="164" cy="69" r="5"></circle><circle class="hm-mark" style="--mark-index:3" data-district="al-zorah" cx="165" cy="93" r="5"></circle><circle class="hm-mark" style="--mark-index:4" data-district="al-zorah" cx="189" cy="97" r="5"></circle><circle class="hm-mark" style="--mark-index:5" data-district="al-zorah" cx="190" cy="68" r="5"></circle><circle class="hm-mark" style="--mark-index:6" data-district="al-zorah" cx="206" cy="112" r="5"></circle><circle class="hm-mark" style="--mark-index:7" data-district="emirates-city" cx="235" cy="377" r="5"></circle><circle class="hm-mark" style="--mark-index:8" data-district="rashdiya" cx="255" cy="205" r="5"></circle><circle class="hm-mark" style="--mark-index:9" data-district="emirates-city" cx="268" cy="378" r="5"></circle><circle class="hm-mark" style="--mark-index:10" data-district="aalia" cx="295" cy="304" r="5"></circle><circle class="hm-mark" style="--mark-index:11" data-district="hamidiya" cx="318" cy="123" r="5"></circle><circle class="hm-mark" style="--mark-index:12" data-district="aamra" cx="342" cy="363" r="5"></circle><circle class="hm-mark" style="--mark-index:13" data-district="aamra" cx="350" cy="389" r="5"></circle><circle class="hm-mark" style="--mark-index:14" data-district="al-jurf" cx="373" cy="113" r="5"></circle><circle class="hm-mark" style="--mark-index:15" data-district="al-jurf" cx="380" cy="146" r="5"></circle><circle class="hm-mark" style="--mark-index:16" data-district="al-jurf" cx="389" cy="126" r="5"></circle><circle class="hm-mark" style="--mark-index:17" data-district="aamra" cx="390" cy="363" r="5"></circle><circle class="hm-mark" style="--mark-index:18" data-district="al-jurf" cx="398" cy="106" r="5"></circle><circle class="hm-mark" style="--mark-index:19" data-district="aamra" cx="398" cy="394" r="5"></circle><circle class="hm-mark" style="--mark-index:20" data-district="al-jurf" cx="411" cy="138" r="5"></circle><circle class="hm-mark" style="--mark-index:21" data-district="al-jurf" cx="420" cy="112" r="5"></circle><circle class="hm-mark" style="--mark-index:22" data-district="al-tallah" cx="428" cy="287" r="5"></circle><circle class="hm-mark" style="--mark-index:23" data-district="al-tallah" cx="440" cy="309" r="5"></circle><circle class="hm-mark" style="--mark-index:24" data-district="al-tallah" cx="449" cy="288" r="5"></circle><circle class="hm-mark" style="--mark-index:25" data-district="al-tallah" cx="460" cy="306" r="5"></circle><circle class="hm-mark" style="--mark-index:26" data-district="al-tallah" cx="481" cy="272" r="5"></circle><circle class="hm-mark" style="--mark-index:27" data-district="al-tallah" cx="481" cy="315" r="5"></circle><a class="hm-hit" href="ajman.html#district-al-jurf" tabindex="-1" data-district="al-jurf" data-place="Al Jurf" data-of="Schools, Malls &amp; shops"><path fill="none" pointer-events="all" d="M357.4 0L560 0L560 162.2L372.3 228.9L358 220.9L356 217.4Z"></path></a><a class="hm-hit" href="ajman.html#district-al-tallah" tabindex="-1" data-district="al-tallah" data-place="Al Tallah" data-of="Schools, Malls &amp; shops"><path fill="none" pointer-events="all" d="M560 162.2L560 440L510.1 440L375.6 296.5L372.3 228.9Z"></path></a><a class="hm-hit" href="ajman.html#district-al-zorah" tabindex="-1" data-district="al-zorah" data-place="Al Zorah" data-of="Homes"><path fill="none" pointer-events="all" d="M53.1 0L277.8 0L243.7 131.1L190.6 163.9Z"></path></a><a class="hm-hit" href="ajman.html#district-aamra" tabindex="-1" data-district="aamra" data-place="Aamra" data-of="Homes"><path fill="none" pointer-events="all" d="M510.1 440L310.9 440L310.7 362.9L375.6 296.5Z"></path></a><a class="hm-hit" href="ajman.html#district-emirates-city" tabindex="-1" data-district="emirates-city" data-place="Emirates City" data-of="Homes"><path fill="none" pointer-events="all" d="M310.9 440L192.5 440L190.7 291.9L310.7 362.9Z"></path></a><a class="hm-hit" href="ajman.html#district-aalia" tabindex="-1" data-district="aalia" data-place="Aalia" data-of="Homes"><path fill="none" pointer-events="all" d="M358 220.9L372.3 228.9L375.6 296.5L310.7 362.9L190.7 291.9L189.4 289.1Z"></path></a><a class="hm-hit" href="ajman.html#district-al-khor" tabindex="-1" data-district="al-khor" data-place="Al Khor" data-of="Malls &amp; shops"><path fill="none" pointer-events="all" d="M0 0L53.1 0L190.6 163.9L147.6 259.5L0 268.9Z"></path></a><a class="hm-hit" href="ajman.html#district-hamidiya" tabindex="-1" data-district="hamidiya" data-place="Hamidiya" data-of="Schools"><path fill="none" pointer-events="all" d="M277.8 0L357.4 0L356 217.4L243.7 131.1Z"></path></a><a class="hm-hit" href="ajman.html#district-marina-and-creek" tabindex="-1" data-district="marina-and-creek" data-place="Marina &amp; Creek" data-of="Homes"><path fill="none" pointer-events="all" d="M192.5 440L0 440L0 268.9L147.6 259.5L189.4 289.1L190.7 291.9Z"></path></a><a class="hm-hit" href="ajman.html#district-rashdiya" tabindex="-1" data-district="rashdiya" data-place="Rashdiya" data-of="Malls &amp; shops"><path fill="none" pointer-events="all" d="M356 217.4L358 220.9L189.4 289.1L147.6 259.5L190.6 163.9L243.7 131.1Z"></path></a></svg>
       </div>
 
-      <!-- THE FIGURE IS A RECORD, NOT PROSE, AND THAT IS THE WHOLE E12
-           ANSWER. "Numbers are for records; names are for prose" — so this
-           is real table markup with a row header, the same register the 47
-           record pages set their spec rows in and the same one /ajman's
-           ledger carries its years in. The head above states the subject
-           and carries no quantity; the quantity lives here. -->
-      <table class="hm-map__record">
-        <tbody>
-          <tr>
-            <th class="t-meta-label" scope="row">Square metres</th>
-            <td class="t-meta-value">4,200,000 m²</td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- THE READOUT — the drawing's caption, and the reason it is one line
+           and not ten labels: § 6.1 refused labels because ten names at a true
+           12px on this field, with no ledger beneath to answer them, is a
+           scatter of words. This is the ledger, one row at a time, summoned by
+           the reader for the area under the pointer, and EMPTY until they ask.
 
-      <!-- 🔴 THE PLACEHOLDER DECLARES ITSELF, and so does the drawing. The
-           figure is invented on Mahesh's own instruction and an unmarked
-           invented number hardens into a claim the site cannot source —
-           the same reason districts.json labels its cluster centres
-           "wherever they render". The second sentence is that file's own
-           obligation discharged on this surface: the creek and the coast
-           are gestures, exaggerated deliberately, and they say so where a
-           reader meets them rather than only in a data comment. -->
-      <p class="hm-map__note">Indicative only — Proarc’s own figure is awaited. The map’s geometry is invented and
-        labelled as such; the marks are the records.</p>
+           It sits against the DRAWING at --gap-block, not against the link,
+           because that is what it answers. Rendered the other way — on the
+           link's own line, pushed to the drawing's right edge — it composed
+           well while hovered and left a lone right-aligned link adrift in
+           black at rest, which is the state most readers see.
+
+           `aria-hidden` because it mirrors a pointer state assistive
+           technology has no way to be in, and because everything it can say is
+           said in text on /ajman — the link below it, in the tab order.
+
+           `data-readout-place`, not `data-place`: the ten hit regions carry
+           `data-place` as their DATA and they are earlier in the document, so
+           `document.querySelector('[data-place]')` resolves to the first
+           region — an `<a>` wrapping a `<path>`, whose textContent is "".
+           That is not hypothetical; it is what the first probe of this band
+           read, and it reported the readout empty while the marks lit
+           correctly beside it. Distinct names, no collision available. -->
+      <!-- The two spans sit on their own lines and the whitespace between
+           them is harmless: `.hm-map__readout` is a flex container, and a
+           contiguous run of child text that is only white space is not
+           rendered. Written closed-up on one line it built into a page whose
+           source could not be read, and the tripwire aimed at it decayed on
+           an attribute that had wrapped to the next line. -->
+      <p class="hm-map__readout" data-readout aria-hidden="true">
+        <span class="hm-map__place" data-readout-place></span>
+        <span class="hm-map__of" data-readout-of></span>
+      </p>
 
       <p class="hm-map__line"><a class="hm-link-inline" href="ajman.html">One Emirate, drawn &rarr;</a></p>
     </section>

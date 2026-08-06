@@ -266,7 +266,27 @@
          NO SECTION LABEL, per § 6.1: the head is a statement, not an
          invented eyebrow, and the link line is still the caption. The
          hairline above it is decorative and separates two text sections,
-         which is the one thing 1.66:1 is permitted to do. -->
+         which is the one thing 1.66:1 is permitted to do.
+
+         🔴 THE HEAD NOW CARRIES THE MAGNITUDE, AND THAT IS AN AMENDMENT TO
+         E12 RATHER THAN AN EXCEPTION TO IT (Mahesh, 6 Aug, in his own
+         words). The figure used to ship in a record row below the drawing
+         precisely because E12 bars quantities in display prose; the third
+         shape on the table on 5 Aug was to amend E12 with a NAMED exemption,
+         and it was refused then on the grounds that a guideline revision
+         needs Mahesh's signature and a delegation is not one. He has signed
+         it. The exemption is one element wide — `.hm-map__head` and no other
+         display prose on the site — and sweep-home's digit audit is what
+         holds that boundary: it excluded the record table by name and now
+         excludes this head by name.
+
+         📌 A COMMENT IN pages-src IS PUBLISHED, so the figure's own status
+         is NOT discussed here. It is one string in build/lib/home.js and its
+         history is in the private spec (01-home.md § 6.1). Saying more than
+         that on this surface would put a caveat about the client's own copy
+         into the client's own page source, which is the one place it must
+         not be — and would restore in public exactly the note this session
+         was asked to take off the page. -->
     <section class="hm-map container" aria-labelledby="hm-map-head">
       <h2 id="hm-map-head" class="hm-map__head t-editorial">{{livingSpaceLabel}}.</h2>
 
@@ -274,37 +294,51 @@
            `hm-map--armed` to whatever it finds, and the stylesheet's rules
            are descendant selectors off that element. The svg ships FINISHED
            — every mark placed — and the script arms it, so a script that
-           never runs leaves a complete drawing rather than an empty field. -->
+           never runs leaves a complete drawing rather than an empty field.
+
+           THE HITS ARE LAST INSIDE THE SVG and the order is the interaction,
+           not tidiness: an SVG shape takes pointer events by default, so a
+           region layer beneath the marks would let a dot swallow the pointer.
+           See build/lib/home.js — they are /ajman's own Voronoi regions, so
+           the two maps cannot disagree about which area a point falls in. -->
       <div class="hm-map__field" data-map>
         <svg class="hm-map__svg" viewBox="{{mapViewBox}}" aria-hidden="true" focusable="false"
-             preserveAspectRatio="xMidYMid meet">{{mapCoastHtml}}{{mapMarksHtml}}</svg>
+             preserveAspectRatio="xMidYMid meet">{{mapCoastHtml}}{{mapMarksHtml}}{{mapHitsHtml}}</svg>
       </div>
 
-      <!-- THE FIGURE IS A RECORD, NOT PROSE, AND THAT IS THE WHOLE E12
-           ANSWER. "Numbers are for records; names are for prose" — so this
-           is real table markup with a row header, the same register the 47
-           record pages set their spec rows in and the same one /ajman's
-           ledger carries its years in. The head above states the subject
-           and carries no quantity; the quantity lives here. -->
-      <table class="hm-map__record">
-        <tbody>
-          <tr>
-            <th class="t-meta-label" scope="row">Square metres</th>
-            <td class="t-meta-value">{{livingSpaceFigure}}</td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- THE READOUT — the drawing's caption, and the reason it is one line
+           and not ten labels: § 6.1 refused labels because ten names at a true
+           12px on this field, with no ledger beneath to answer them, is a
+           scatter of words. This is the ledger, one row at a time, summoned by
+           the reader for the area under the pointer, and EMPTY until they ask.
 
-      <!-- 🔴 THE PLACEHOLDER DECLARES ITSELF, and so does the drawing. The
-           figure is invented on Mahesh's own instruction and an unmarked
-           invented number hardens into a claim the site cannot source —
-           the same reason districts.json labels its cluster centres
-           "wherever they render". The second sentence is that file's own
-           obligation discharged on this surface: the creek and the coast
-           are gestures, exaggerated deliberately, and they say so where a
-           reader meets them rather than only in a data comment. -->
-      <p class="hm-map__note">{{livingSpacePending}} The map’s geometry is invented and
-        labelled as such; the marks are the records.</p>
+           It sits against the DRAWING at --gap-block, not against the link,
+           because that is what it answers. Rendered the other way — on the
+           link's own line, pushed to the drawing's right edge — it composed
+           well while hovered and left a lone right-aligned link adrift in
+           black at rest, which is the state most readers see.
+
+           `aria-hidden` because it mirrors a pointer state assistive
+           technology has no way to be in, and because everything it can say is
+           said in text on /ajman — the link below it, in the tab order.
+
+           `data-readout-place`, not `data-place`: the ten hit regions carry
+           `data-place` as their DATA and they are earlier in the document, so
+           `document.querySelector('[data-place]')` resolves to the first
+           region — an `<a>` wrapping a `<path>`, whose textContent is "".
+           That is not hypothetical; it is what the first probe of this band
+           read, and it reported the readout empty while the marks lit
+           correctly beside it. Distinct names, no collision available. -->
+      <!-- The two spans sit on their own lines and the whitespace between
+           them is harmless: `.hm-map__readout` is a flex container, and a
+           contiguous run of child text that is only white space is not
+           rendered. Written closed-up on one line it built into a page whose
+           source could not be read, and the tripwire aimed at it decayed on
+           an attribute that had wrapped to the next line. -->
+      <p class="hm-map__readout" data-readout aria-hidden="true">
+        <span class="hm-map__place" data-readout-place></span>
+        <span class="hm-map__of" data-readout-of></span>
+      </p>
 
       <p class="hm-map__line"><a class="hm-link-inline" href="{{ajmanHref}}">One Emirate, drawn &rarr;</a></p>
     </section>

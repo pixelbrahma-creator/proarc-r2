@@ -848,12 +848,6 @@
    its own, and this is the distance to a ground change whose paper opens on
    its own padding. Same seam, same token, moved to whichever section is
    standing last. */
-.hm-map {
-  margin-block-start: var(--gap-section);
-  padding-block: var(--gap-section);
-  border-block-start: 1px solid var(--color-hairline-dark);
-}
-
 /* The marks are TRUE 5px (E7.1), which is only true if the drawing does
    not scale under them. So the field takes one of three KNOWN widths —
    never a fluid one — and --mark-scale cancels each one exactly:
@@ -864,13 +858,29 @@
 
    The positions scale and the marks do not, which is the whole of E7.1:
    a constellation that spreads across the page while every mark stays
-   the size the spec fixed. No script is involved in any of it. */
-.hm-map__field {
+   the size the spec fixed. No script is involved in any of it.
+
+   🔴 THE WIDTH AND ITS SCALE ARE DECLARED AS A PAIR, ON THE BAND (6 Aug).
+   They used to sit apart — the scale on `.hm-map__field`, the width on
+   `.hm-map__svg` — restated at each of three breakpoints, which is three
+   chances for a width to move without its scale and break the one property
+   the whole field rests on. Stated together, a breakpoint that changes one
+   has the other in front of it.
+
+   And the band is where they live rather than the field, because the CLOSING
+   LINE reads the width too: the drawing's right edge is what the link lands
+   on, and a sibling cannot read a custom property set on the field. */
+.hm-map {
+  --map-width: 840px;
   --mark-scale: 0.6667;
+
+  margin-block-start: var(--gap-section);
+  padding-block: var(--gap-section);
+  border-block-start: 1px solid var(--color-hairline-dark);
 }
 
 .hm-map__svg {
-  inline-size: 840px;
+  inline-size: var(--map-width);
   max-inline-size: 100%;
   block-size: auto;
 }
@@ -918,61 +928,133 @@
    E12 asks for. It sits above the drawing at the band's own heading gap;
    § 6.1's "no section label" is untouched, because this is a statement and
    not an invented eyebrow. */
+/* 🔴 `text-wrap: balance` IS THE FIGURE'S DOING, and it is a typographic
+   decision rather than a polish pass. The head was one line and became two the
+   moment it took the magnitude — 1168.9px of sentence in a 960px column at
+   52px — and the browser's own greedy break put 944.4px on the first line and
+   "around it." alone on the second. Balance minimises the longest line, and
+   the shortest longest-line here is the break at the COMMA: 639.1 / 519.1,
+   which is the sentence's own hinge. The magnitude gets a line and the place
+   gets a line.
+
+   Chosen over a tuned `max-inline-size`, which is the other way to reach that
+   break and needs a raw px value between 639.1 and 689.0 — an invented number
+   that would hold only at this font size, in this language, until any of the
+   three moved. Balance re-derives itself.
+
+   Note that `--measure-body-lg` below is INERT on this element and always has
+   been: a `ch` is the width of a zero in the element's OWN type, so 48ch at
+   52px is 1425.22px against a 960px column. It is left in place because it
+   would bind on a wider container, but it is not what wraps this head and a
+   future reading of it should not think it is. */
 .hm-map__head {
   margin: 0 0 var(--gap-heading);
   max-inline-size: var(--measure-body-lg);
+  text-wrap: balance;
 }
 
-/* THE FIGURE IN THE RECORD REGISTER — and the register is the SITE'S, not
-   this page's. `.t-meta-label` / `.t-meta-value` are the classes the 47
-   record pages set their spec rows in, and tokens.css already lifts the
-   label's colour under `.surface-dark`. So nothing here states a size, a
-   weight or a colour: this block is layout only. A record row restated in
-   a page stylesheet is how two surfaces start disagreeing about what a
-   record looks like.
+/* THE REGIONS — ten targets over the drawing, and E7 rule 3 is honoured
+   rather than worked around, on /ajman's own arithmetic. Rule 3 bars MARKS as
+   hit targets because 28 marks at 44×44px do not fit 375px; there are ten
+   regions, not twenty-eight, and they tile the whole field, so the smallest
+   is far past the minimum at every width.
 
-   `table-layout: fixed` is not decoration. Auto layout treats a declared
-   inline-size as a PREFERENCE and negotiates it down — the recorded fault
-   that delivered About's 200px mark column at 174.9px. */
-.hm-map__record {
-  margin-block-start: var(--gap-component);
-  border-collapse: collapse;
-  table-layout: fixed;
-  inline-size: 100%;
-  max-inline-size: var(--measure-body-lg);
+   `fill: none` and `pointer-events: all` are set as ATTRIBUTES in
+   build/lib/home.js, not here — they are what the element is, and a
+   stylesheet that failed to load would otherwise put ten opaque plates over
+   the map. What the stylesheet owns is the cursor, because that is
+   presentation: the region is a link and it says so under the pointer.
+
+   No focus rule and no outline, deliberately. Every region carries
+   `tabindex="-1"` inside an `aria-hidden` svg, so nothing here is ever in the
+   tab order — see build/lib/home.js for why it is an `<a>` at all. The
+   keyboard's door to /ajman is `.hm-map__line`, one element below. */
+.hm-hit {
+  cursor: pointer;
 }
 
-.hm-map__record th,
-.hm-map__record td {
-  padding-block: var(--pad-table-row);
-  padding-inline: 0;
-  border-block-start: 1px solid var(--color-hairline-dark);
-  vertical-align: baseline;
+/* THE ECHO, AND IT IS /ajman's, VALUE FOR VALUE. That page's §3.4 answer to
+   "which district is current" is: the current cluster holds #FFFFFF while
+   every other mark drops to #A6A6A6 — two measured tokens from its own
+   rest-and-current grammar, and NEVER opacity, which §9.16 prohibits.
+
+   It is copied here rather than re-decided because the two maps draw the same
+   marks from the same file, and a reader who meets a selection on Home and
+   then on /ajman must meet the same object. Size is not available as a signal
+   and that is E7.1, not taste: a mark is a TRUE 5px at every width, so the
+   drawing scales under it and growing one would break the one property the
+   whole field is built on.
+
+   Keyed off `[data-current]` on the FIELD, so the rest state costs nothing
+   until a pointer is actually on the map — with no district current, every
+   mark is simply white and neither rule applies. */
+[data-current] .hm-mark {
+  fill: var(--color-on-dark-secondary);
 }
 
-.hm-map__record th {
-  inline-size: 45%;
+[data-current] .hm-mark.is-current {
+  fill: var(--color-on-dark);
 }
 
-/* Tabular figures so the digits do not jitter, the same reason § 6.1 gave
-   for the year counter it never got to build. */
-.hm-map__record td {
-  font-variant-numeric: tabular-nums;
+/* THE READOUT — the drawing's caption, and it replaces the record row and the
+   placeholder note that stood here until 6 Aug.
+
+   IT BELONGS TO THE DRAWING, at --gap-block, not to the link 64 below it. The
+   other arrangement was built and photographed: the readout and the link as
+   the two ends of one row, capped at --map-width so the link's ink landed
+   exactly on the drawing's right edge — the shared-datum construction § 4
+   uses for the second beat, and `.hm-invitation`'s label-at-start /
+   action-at-end gesture. It composed well HOVERED and failed at REST, which
+   is the state nearly every reader sees: with the readout empty there is no
+   label, and what is left is a lone link floating against the right edge of
+   a field of black. The datum idiom needs a RULE to land on; a link on its
+   own is not that object.
+
+   🔴 ITS HEIGHT IS RESERVED, AND THAT IS NOT COSMETIC. The element is empty
+   at rest, and an empty block is zero-tall: without a floor, the first hover
+   would push the link down by a line and the band would grow under the
+   reader's pointer. The regions TILE the field, so anything that moves the
+   drawing moves the region under the cursor and changes the answer to the
+   question being asked — /ajman's recorded "clicking Al Zorah lit Emirates
+   City", arriving through layout instead of through scroll.
+
+   `min-block-size` in the element's own type rather than a px value: it is one
+   line of THIS font-size at THIS breakpoint, so it tracks the token through
+   every step instead of needing a restatement beside each one.
+
+   Capped at --map-width so a long answer wraps inside the drawing rather than
+   running past it — the same edge the drawing itself takes, read from the one
+   place that states it. */
+.hm-map__readout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-inline);
+  align-items: baseline;
+  max-inline-size: var(--map-width);
+  margin: var(--gap-block) 0 0;
+  min-block-size: calc(var(--fs-body) * var(--lh-body));
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+/* The place leads, in the display ink. This is the name § 6.1 refused to put
+   on the field ten times over, arriving once, where it can be read. */
+.hm-map__place {
   color: var(--color-on-dark);
 }
 
-/* The placeholder's own declaration, and the drawing's. Caption size, the
-   secondary ink — quiet, because it is apparatus rather than argument, but
-   NEVER hidden: hierarchy does not come from opacity (§9.16) and a note
-   that cannot be read is a note that was not made. */
-.hm-map__note {
-  margin: var(--gap-tight) 0 0;
-  max-inline-size: var(--measure-body-lg);
-  font-size: var(--fs-caption);
-  line-height: var(--lh-body);
+/* What stands there, quieter — the site's own set nouns, from records.js.
+   Secondary ink at 8.63:1, which is a rest state and never an unreadable
+   one; §9.16 again, the distinction is colour value and not opacity. */
+.hm-map__of {
+  font-size: var(--fs-metadata);
   color: var(--color-on-dark-secondary);
 }
 
+/* The link closes the band and is where it has always been — the start of the
+   column, --gap-heading below what precedes it. That distance used to be
+   measured from the note and is now measured from the readout; the token is
+   the same, so the reading of this band's last two elements is unchanged. */
 .hm-map__line {
   margin: var(--gap-heading) 0 0;
 }
@@ -1060,23 +1142,19 @@
   }
 }
 
+/* The authored size — the drawing is 1:1 with its viewBox here, so the mark
+   needs no correction at all. */
 @media (max-width: 960px) {
-  .hm-map__field {
+  .hm-map {
+    --map-width: 560px;
     --mark-scale: 1;
-  }
-
-  .hm-map__svg {
-    inline-size: 560px;
   }
 }
 
 @media (max-width: 639px) {
-  .hm-map__field {
+  .hm-map {
+    --map-width: 320px;
     --mark-scale: 1.75;
-  }
-
-  .hm-map__svg {
-    inline-size: 320px;
   }
 }
 

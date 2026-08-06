@@ -39,11 +39,19 @@ const R = require('./records');
 const W = require('./work');
 const D = require('./districts');
 const CREST = require('./crest');
+const { slugify } = require('./slugify');
 
 const ROOT = path.join(__dirname, '..', '..');
 
 function escapeText(s) {
   return String(s).replace(/&(?!(?:[a-zA-Z]+|#\d+);)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/* Attribute values need the quote too, and escapeText does not close it —
+   it exists for text nodes, where a `"` is a `"`. "Marina & Creek" and
+   "Malls & shops" are the values that made this necessary. */
+function escapeAttr(s) {
+  return escapeText(s).replace(/"/g, '&quot;');
 }
 
 function loadDb() {
@@ -681,53 +689,92 @@ function roomFullData(db, manifest, prefix, room) {
    space in Ajman and around — give a random figure now, we can get the actual
    from client."
  *
- * 🔴 IT IS A PLACEHOLDER AND IT SHIPS SAYING SO. A number invented to hold a
- * space looks exactly like a number somebody measured, and this project has
- * already written down what happens next: districts.json's cluster centres
- * are placeholders and are labelled as such "wherever they render", because
- * an unlabelled placeholder is a claim the site cannot source. A figure is
- * worse than a coordinate that way — nobody re-derives a number that reads
- * as finished. So `pending` is not a comment, it is the thing that renders,
- * and assertPending() below refuses the build if the marker ever comes off
- * while the figure is still invented.
+ * 🔴 E12'S THIRD DOOR, TAKEN — BY MAHESH, IN HIS OWN WORDS, ON 6 AUG 2026.
+ * *"Make the text '420000 sqm living space in Ajman and around it'"*, and,
+ * asked which figure he meant, he confirmed the shipped 4,200,000 m².
  *
- * AND IT IS NOT DISPLAY PROSE. E12 bars quantities in prose — "numbers are
- * for records; names are for prose" — so the figure ships in the RECORD
- * register, as a spec row, exactly as /ajman's ledger carries its years and
- * a project page carries its storeys. Mahesh delegated the choice on 5 Aug;
- * the third shape on the table, amending E12 for a named exemption, was NOT
- * taken, because a guideline revision needs his own signature and a
- * delegation is not one. That door stays open. */
+ * This is the amendment 01-home.md § 6.1 recorded as open and REFUSED to take
+ * by delegation. Three shapes were put to him on 5 Aug — the magnitude in the
+ * DRAWING, the figure in the RECORD register, or E12 amended with a named
+ * exemption — and he delegated the choice, so the record was taken and the
+ * third door was left shut on the explicit grounds that *a guideline revision
+ * needs his own signature and a delegation is not one*. He has now signed it
+ * himself. The exemption is NAMED and it is exactly one element wide:
+ *
+ *     E12 exemption 4 — Home's map band states its magnitude in its own
+ *     heading. `.hm-map__head`, and no other display prose on any surface.
+ *
+ * `sweep-home`'s digit audit is what holds that boundary: it excluded the
+ * record table by name and now excludes the head by name, so the figure is
+ * still permitted in exactly one place and a quantity anywhere else on Home
+ * still fails the board.
+ *
+ * 🔴 THE FIGURE IS PROVISIONAL AND AWAITS PROARC'S OWN NUMBER. Replacing it is
+ * a one-line change here and nothing else on the site.
+ *
+ * 📌 THIS DIRECTORY SHIPS WITH THE SITE — the repository root is what the host
+ * serves, so this file is fetchable. The status of the figure, the marker that
+ * used to render beneath it and the instruction that removed it are recorded
+ * in the PRIVATE spec (01-home.md § 6.1) and not restated here. `_bmad/` is a
+ * separate, git-excluded repository; build/ is not. */
 const LIVING_SPACE = {
-  label: 'Living space, in Ajman and around it',
-  /* Grouped in the record register, with the unit. Not spelled, not rounded
-     into prose ("over four million"), which would be the quantity E12 bars
-     wearing a different coat. */
-  figure: '4,200,000 m²',
-  /* NO INTERNAL REFERENCE, and the first draft carried one — "(letter item
-     X3's neighbour)". Two things wrong with it, and the gate caught the
-     smaller: the "3" is a digit in display prose, which is E12. The larger
-     one no gate can see — a reader has no idea what letter item X3 is, and
-     the page's own register bars the site talking to itself in public. */
-  pending: 'Indicative only — Proarc’s own figure is awaited.',
+  /* The figure leads and the original cadence survives behind it — the comma
+     after "living space" is § 6.1's, kept so the sentence still lands on the
+     place rather than on the number. Grouped, with the unit, not spelled and
+     not rounded into prose ("over four million"): a spelled quantity is the
+     thing E12 bars wearing a different coat, and `sweep-home` tests for it
+     separately from the digit audit. */
+  label: '4,200,000 m² of living space, in Ajman and around it',
 };
 
 function livingSpaceData() {
-  if (!LIVING_SPACE.pending || !LIVING_SPACE.pending.trim()) {
-    throw new Error(
-      'home: the living-space figure is invented and its "pending" marker is empty, so the page ' +
-        'would print a made-up number as a fact. Either supply Proarc’s real figure and delete ' +
-        'this guard with the placeholder, or put the marker back. See LIVING_SPACE.'
-    );
-  }
   return {
     livingSpaceLabel: escapeText(LIVING_SPACE.label),
-    livingSpaceFigure: escapeText(LIVING_SPACE.figure),
-    livingSpacePending: escapeText(LIVING_SPACE.pending),
   };
 }
 
-function mapData() {
+/* What a district HAS, in the site's own set nouns — "Schools",
+   "Malls & shops", "Homes", "Offices", "Mosque".
+ *
+ * Derived from the records, never authored: a district's answer changes when
+ * a building lands in it, exactly as its mark count does. The nouns come from
+ * `records.js` SECTORS — the same strings the sector pages, the Work rail and
+ * every record's back link are set in — because a second list of names for
+ * one set of buildings is how two surfaces start disagreeing about what a
+ * building IS.
+ *
+ * The order is SECTORS' own declaration order, not first-seen: first-seen is
+ * a function of the scatter's sweep and would reorder a district's answer on
+ * a build that moved no buildings. */
+function districtHoldings(marks, projects) {
+  const bySlug = new Map(projects.map((p) => [p.slug, p]));
+  const order = Object.keys(R.SECTORS);
+  const held = new Map();
+
+  marks.forEach((m) => {
+    const record = bySlug.get(m.slug);
+    if (!record) {
+      throw new Error(
+        `home: the map places a mark for "${m.slug}" and data/projects.json holds no such record. ` +
+          'A mark without a record cannot be named, and E7.2 places no mark by inference — so this ' +
+          'is a renamed slug or a deleted record, not a missing label.'
+      );
+    }
+    if (!held.has(m.district)) held.set(m.district, new Set());
+    held.get(m.district).add(R.sectorKey(record));
+  });
+
+  const out = new Map();
+  held.forEach((keys, district) => {
+    out.set(
+      district,
+      order.filter((k) => keys.has(k)).map((k) => R.SECTORS[k].noun).join(', ')
+    );
+  });
+  return out;
+}
+
+function mapData(projects, prefix) {
   const marks = D.buildDistrictMarks();
 
   // E7.3 — a spatial sweep, west to east. The sort lives in districts.js
@@ -735,14 +782,20 @@ function mapData() {
   // two surfaces start disagreeing about where a building is.
   const swept = D.sweepOrder(marks.marks);
 
-  // The circles are generated rather than looped in the page source: the
-  // only per-mark value is its index (the 34ms stagger reads it in CSS),
-  // and an index is data, not a style. pages-src carries no inline style
-  // attributes — the districts.js constellation sets the same precedent.
+  /* The circles are generated rather than looped in the page source: the
+     only per-mark value is its index (the 34ms stagger reads it in CSS),
+     and an index is data, not a style. pages-src carries no inline style
+     attributes — the districts.js constellation sets the same precedent.
+
+     `data-district` is what lets a mark take the hovered state with its own
+     cluster (Mahesh, 6 Aug). It is the mark's DISTRICT and not its record:
+     the reader is pointing at an area, and lighting one dot of six inside the
+     area they are pointing at would answer a question nobody asked. */
   const circles = swept
     .map(
       (m, i) =>
-        `<circle class="hm-mark" style="--mark-index:${i}" cx="${m.x}" cy="${m.y}" r="5"></circle>`
+        `<circle class="hm-mark" style="--mark-index:${i}" data-district="${slugify(m.district)}" ` +
+        `cx="${m.x}" cy="${m.y}" r="5"></circle>`
     )
     .join('');
 
@@ -762,11 +815,77 @@ function mapData() {
     ? `<path class="hm-coast" d="${marks.coast.path}" fill="none"></path>`
     : '';
 
+  /* THE MAP ANSWERS BACK (Mahesh, 6 Aug): *"on mouse over we have to show the
+     place name and something like 'School, Malls' relevant to that area …
+     clicking on that can go to /ajman page."*
+   *
+   * § 6.1's "no labels" is NOT overturned by this, and the distinction is the
+   * whole reason it can be built. That clause refused TEN NAMES AT ONCE — a
+   * true 12px each, on a field this size, with no ledger beneath to answer
+   * them, which is a scatter of words rather than a map. One name, summoned by
+   * the reader, for the area the reader is pointing at, is the opposite object:
+   * it is the ledger /ajman has, arriving one row at a time. "Home shows the
+   * SHAPE, /ajman names it" survives intact — Home still ships showing shape
+   * alone, and every name here is a door to the surface that does the naming.
+   *
+   * THE REGIONS ARE /ajman'S OWN, not a second geometry. `districtRegions` is
+   * the Voronoi partition of the field that page's hit layer already uses, so
+   * the two maps cannot disagree about which area a point belongs to, and a
+   * building landing in a new district re-cuts both.
+   *
+   * LAST IN THE SVG, and that is load-bearing: an SVG shape takes pointer
+   * events by default, so a hit layer under the marks would let a dot swallow
+   * the pointer and the district under the cursor would depend on whether the
+   * reader happened to be over a mark. On top, there is exactly one element
+   * under the pointer anywhere on the field.
+   *
+   * `fill="none"` with `pointer-events="all"` is what makes a region invisible
+   * and still hittable — an unfilled shape is not a target otherwise. Both are
+   * attributes rather than CSS because they are what the element IS: a
+   * stylesheet that failed to load would otherwise put ten opaque plates over
+   * the drawing.
+   *
+   * 🔴 A REAL LINK, WITH NO TAB STOP, AND BOTH HALVES ARE DELIBERATE. /ajman's
+   * regions carry no `<a>` because their click SCROLLS the page — a JS handler
+   * is honestly what that is. These navigate to another page, and a
+   * cross-document move that only a script can make is a link pretending not
+   * to be one: no middle-click, no open-in-new-tab, no destination on the
+   * status bar. So each region IS an `<a href>`. `tabindex="-1"` keeps the tab
+   * order exactly where it was — the svg is `aria-hidden`, and a focusable
+   * element inside an aria-hidden subtree is a fault in itself, which is the
+   * trap an `<a>` walks into if it is added without one.
+   *
+   * Nothing is reachable ONLY by pointer: the link line below the drawing is
+   * the same door, it is in the tab order, and /ajman names every district in
+   * text the moment a reader arrives. */
+  const holdings = districtHoldings(marks.marks, projects);
+  const hits = D.districtRegions(marks)
+    .map((r) => {
+      const slug = slugify(r.name);
+      const of = holdings.get(r.name);
+      if (!of) {
+        throw new Error(
+          `home: district "${r.name}" has a hit region and no holdings, so it would announce a ` +
+            'place name and nothing about it. districtRegions() and districtHoldings() are both ' +
+            'derived from the same marks, so this means one of them was changed alone.'
+        );
+      }
+      return (
+        `<a class="hm-hit" href="${prefix}ajman.html#district-${slug}" tabindex="-1" ` +
+        `data-district="${slug}" data-place="${escapeAttr(r.name)}" data-of="${escapeAttr(of)}">` +
+        `<path fill="none" pointer-events="all" ` +
+        `d="M${r.points.map((p) => `${p[0]} ${p[1]}`).join('L')}Z"></path></a>`
+      );
+    })
+    .join('');
+
   return {
     mapViewBox: marks.viewBox,
     mapCoastHtml: coast,
     mapMarksHtml: circles,
+    mapHitsHtml: hits,
     mapMarkCount: swept.length,
+    mapDistrictCount: holdings.size,
   };
 }
 
@@ -1047,7 +1166,7 @@ function viewData(prefix, srcName) {
 
   const seaside = findRecord(db.projects, 'seasidehills');
   const hero = W.plate(seaside, manifest, prefix);
-  const map = mapData();
+  const map = mapData(db.projects, prefix);
 
   const bandSrcs = [];
   const bandHtml = openBandHtml(db, manifest, prefix, bandSrcs);
