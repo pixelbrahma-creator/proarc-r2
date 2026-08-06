@@ -559,7 +559,7 @@
    register for one component. */
 .aj-band {
   padding-block: calc(var(--gap-section-major) / 2);
-  background: var(--color-surface);
+  background: var(--color-surface-dark);
 }
 
 .aj-band__line {
@@ -569,27 +569,27 @@
   font-weight: var(--fw-light);
   line-height: var(--lh-h2);
   letter-spacing: var(--ls-h2);
-  color: var(--color-ink);
+  color: var(--color-on-dark);
 }
 
 .aj-band__action {
   display: inline-block;
   padding-block: var(--gap-tight);
   padding-inline: var(--gap-heading);
-  border: 1px solid var(--color-ink);
+  border: 1px solid var(--color-on-dark);
   font-size: var(--fs-metadata);
   font-weight: var(--fw-medium);
   letter-spacing: var(--ls-nav);
   text-transform: uppercase;
-  color: var(--color-ink);
+  color: var(--color-on-dark);
   transition: background-color var(--dur-fast) var(--ease-out),
               color var(--dur-fast) var(--ease-out);
 }
 
 .aj-band__action:hover,
 .aj-band__action:focus-visible {
-  background: var(--color-ink);
-  color: var(--color-surface);
+  background: var(--color-on-dark);
+  color: var(--color-surface-dark);
 }
 
 /* -----------------------------------------------------------
