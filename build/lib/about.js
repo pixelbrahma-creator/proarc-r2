@@ -61,6 +61,24 @@ const LOGO_DIR = path.join(ROOT, 'images', 'logos');
 const MARK_CAP = 32;
 const MARK_CONTAINER = 200;
 
+/**
+ * W-B, taken 7 Aug 2026 — TWO CLIENTS ACROSS. The row is 960px, not
+ * --container-max's 1120: the two 80px gutters come off first. What fits is
+ *
+ *     mark 200 + gap 24 + name 224   = 448 per client
+ *     448 x 2 + a 64px gutter        = 960 exactly
+ *
+ * §5's own W-B note priced this at ~1,100px against a 1,120px row and
+ * predicted 7 degraded marks; measured it is 1,862px, ONE width-limited mark
+ * (unchanged from W-A), and 8 of 32 names wrapping to two lines. Three
+ * separate sources priced this geometry by arithmetic and all three were
+ * wrong, which is why NAME_COLUMN lives here beside the other two rather
+ * than only in the CSS.
+ */
+const NAME_COLUMN = 224;
+const PAIR_GUTTER = 64;
+const ROW_WIDTH = 960;
+
 function escapeText(s) {
   return String(s).replace(/&(?!(?:[a-zA-Z]+|#\d+);)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
@@ -157,6 +175,41 @@ function opticalWidth(s) {
   return (s.w / s.h) * MARK_CAP;
 }
 
+/**
+ * Two clients to a <tr>, flat rather than nested.
+ *
+ * FLAT KEYS ON PURPOSE. render.js's {{#if}} takes a single \w+ key, so a
+ * nested `{{#if b.relation}}` silently renders nothing — the branch does not
+ * fail, it disappears, which is the failure mode that hides. `aHasRelation` /
+ * `hasB` are single words and cannot do that.
+ *
+ * The odd tail keeps its pair of empty cells: table-layout is fixed and the
+ * columns are stated, so a short final row would otherwise re-negotiate
+ * nothing — but the hairline would stop halfway across the group and read as
+ * a rule that means something. Two groups of eleven ship an empty tail.
+ */
+function pairRows(marks) {
+  const out = [];
+  for (let i = 0; i < marks.length; i += 2) {
+    const a = marks[i];
+    const b = marks[i + 1] || null;
+    out.push({
+      aSrc: a.markSrc, aW: a.markW, aH: a.markH, aName: a.clientName,
+      aRelation: a.relation, aHasRelation: Boolean(a.relation),
+      hasB: Boolean(b),
+      noB: !b,
+      bSrc: b ? b.markSrc : '', bW: b ? b.markW : '', bH: b ? b.markH : '',
+      bName: b ? b.clientName : '', bRelation: b ? b.relation : '',
+      bHasRelation: Boolean(b && b.relation),
+    });
+  }
+  const placed = out.reduce((n, r) => n + 1 + (r.hasB ? 1 : 0), 0);
+  if (placed !== marks.length) {
+    throw new Error(`about: pairing lost a client — ${marks.length} in, ${placed} out.`);
+  }
+  return out;
+}
+
 function viewData(prefix) {
   const { groups, rows, manifest } = loadWall();
 
@@ -174,19 +227,21 @@ function viewData(prefix) {
       // heading above the wall would be the invented section label §9.9
       // and 05-ajman §6.1 both refuse.
       groupId: 'ab-wall-' + head.toLowerCase().replace(/[^a-z]+/g, '-').replace(/^-|-$/g, ''),
-      marks: members.map((c) => {
-        const s = size(manifest, c.file);
-        return {
-          markSrc: `${prefix}images/logos/${c.file}.webp`,
-          markW: s.w,
-          markH: s.h,
-          clientName: escapeText(c.name),
-          // Explicitly empty, never absent: {{#each}} merges the item over
-          // the page data, so an absent key would inherit whatever the outer
-          // scope happens to hold under the same name.
-          relation: c.relation ? escapeText(c.relation) : '',
-        };
-      }),
+      pairs: pairRows(
+        members.map((c) => {
+          const s = size(manifest, c.file);
+          return {
+            markSrc: `${prefix}images/logos/${c.file}.webp`,
+            markW: s.w,
+            markH: s.h,
+            clientName: escapeText(c.name),
+            // Explicitly empty, never absent: {{#each}} merges the item over
+            // the page data, so an absent key would inherit whatever the outer
+            // scope happens to hold under the same name.
+            relation: c.relation ? escapeText(c.relation) : '',
+          };
+        })
+      ),
     };
   });
 
@@ -209,13 +264,50 @@ function viewData(prefix) {
       `${limited.length ? ` (${limited.map((o) => o.name).join(', ')})` : ''}, ` +
       `shortest row renders ${shortest.toFixed(1)}px tall.`
   );
+  const placedRows = wall.reduce((n, g) => n + g.pairs.length, 0);
+  const placedClients = wall.reduce(
+    (n, g) => n + g.pairs.reduce((m, r) => m + 1 + (r.hasB ? 1 : 0), 0), 0
+  );
+  if (placedClients !== rows.length) {
+    throw new Error(`about: the wall placed ${placedClients} clients of ${rows.length}.`);
+  }
+  console.log(
+    `    about: W-B — ${placedClients} clients in ${placedRows} rows, two across; ` +
+      `${MARK_CONTAINER} + ${MARK_CONTAINER === 200 ? 24 : '?'} + ${NAME_COLUMN} per client, ` +
+      `x2 + a ${PAIR_GUTTER}px gutter = ${MARK_CONTAINER * 2 + 24 * 2 + NAME_COLUMN * 2 + PAIR_GUTTER}px ` +
+      `against a ${ROW_WIDTH}px row.`
+  );
+
   console.log(
     `    about: X5 — ${provisional.length} group placements are ProArc's to confirm: ` +
       `${provisional.map((c) => `${c.name} → ${c.group}`).join(' · ')}.`
   );
 
+  /**
+   * Leadership — X9's four roles, carried verbatim from the v1 page. No
+   * names and no photographs, because ProArc has supplied neither; the
+   * roles are the only part of it v1 actually asserted.
+   *
+   * IT IS AUTHORED HERE RATHER THAN IN data/ ON PURPOSE. A data file would
+   * make this look like a maintained record. It is a placeholder with a
+   * publication gate on it (X19), and when X9 answers it becomes four
+   * names, four confirmed roles and four photographs in one edit — at which
+   * point moving it to data/ is the right call and not before.
+   */
+  const leadership = [
+    { role: 'Founder &amp; Principal Architect' },
+    { role: 'Design Director' },
+    { role: 'Head of Project Management' },
+    { role: 'MEP Engineering Lead' },
+  ];
+  console.log(
+    `    about: X9 — leadership ships with ${leadership.length} PLACEHOLDER cards ` +
+      `(no names, no photographs). /about must not be published in this state; see X19.`
+  );
+
   return {
     wall,
+    leadership,
     workHref: `${prefix}projects.html`,
     careersHref: `${prefix}careers.html`,
     contactHref: `${prefix}contact.html`,
@@ -226,4 +318,5 @@ function hasViewData(srcName) {
   return srcName === 'about';
 }
 
-module.exports = { hasViewData, viewData, loadWall, opticalWidth, MARK_CAP, MARK_CONTAINER };
+module.exports = { hasViewData, viewData, loadWall, opticalWidth, pairRows,
+                   MARK_CAP, MARK_CONTAINER, NAME_COLUMN, PAIR_GUTTER, ROW_WIDTH };

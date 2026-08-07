@@ -66,6 +66,27 @@
   margin-block-start: var(--gap-block);
 }
 
+/* The proof line — ¶3, the practice's one externally verified fact, sitting
+   as the last beat before the only door on the first screen.
+
+   IT TAKES THE SUPPORT LINE'S OWN MEASURE, not a chosen one. At an invented
+   34ch the sentence set three lines with "2023." orphaned; --measure-body-lg
+   is the token the support line above it already uses, so the rule ends
+   where that column ends and the sentence sets in two.
+
+   The rule is horizontal, which is the only kind this page has (§1.5a rule 5,
+   and the wall's own register). It separates the proof from the invitation —
+   which is work worth doing here, and would not have been higher up. */
+.ab-story__proof {
+  margin: var(--gap-heading) 0 0;
+  padding-block-start: var(--gap-block);
+  border-block-start: 1px solid var(--color-hairline);
+  max-inline-size: var(--measure-body-lg);
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-lg);
+  color: var(--color-ink);
+}
+
 .ab-story__route {
   margin: var(--gap-heading) 0 0;
 }
@@ -118,22 +139,34 @@
   text-align: start;
 }
 
+/* W-B's pacing. The groups sit further apart than W-A's single stack needed,
+   because at two across each group is half as tall and four of them in a row
+   at --gap-component read as one continuous list again. Derived from the
+   token rather than typed as 96px. */
 .ab-wall__group + .ab-wall__group {
-  margin-block-start: var(--gap-component);
+  margin-block-start: calc(var(--gap-component) * 1.5);
 }
 
 /* The group head is the table's own <caption> — 12px uppercase secondary,
    the site's small-label register. text-align is stated because a caption
    centres by default, and this wall has one alignment axis. */
+/* W-B RAISES THE HEAD, and this is the half of the change that does the
+   work. At 12px uppercase secondary the four heads were labels on one long
+   list; at --fs-h3 in ink they are the thing that makes the wall read as
+   four sets. NOT .t-marker and not --fs-mega: 84px uppercase would out-shout
+   a 52px H1 two screens above, which is why Freya declined it explicitly.
+
+   text-align is still stated — a caption centres by default and this wall
+   has one alignment axis per pair. */
 .ab-wall__head {
-  padding-block-end: var(--gap-tight);
-  font-size: var(--fs-caption);
-  font-weight: var(--fw-medium);
-  letter-spacing: var(--ls-nav);
-  line-height: var(--lh-caption);
+  padding-block-end: var(--gap-block);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-regular);
+  letter-spacing: normal;
+  line-height: var(--lh-h3);
   text-align: start;
-  text-transform: uppercase;
-  color: var(--color-ink-secondary);
+  text-transform: none;
+  color: var(--color-ink);
 }
 
 /* Hairline between rows, and above the first row of every group so the head
@@ -166,8 +199,46 @@
   padding-inline: 0;
 }
 
+/* THE NAME COLUMN IS STATED, because W-B's row is an exact fit and an
+   unstated column would be whatever is left over.
+
+     mark 200 + gap 24 + name 224  =  448 per client
+     448 x 2 + a 64px gutter       =  960  — the row, exactly
+
+   960 is NOT --container-max. The container is 1120 and the two 80px page
+   gutters come off first; §5's W-B note priced the pair against 1120 and
+   overran by 112px. The number is in build/lib/about.js too, so the reported
+   arithmetic and the rendered wall cannot drift apart.
+
+   🔴 THE STATED WIDTHS ARE OUTER WIDTHS, AND THEY MUST SUM TO 960 EXACTLY.
+   Written first as 200/224/200/224 they summed to 848, and `table-layout:
+   fixed` does not overflow on a shortfall — it distributes the missing 112px
+   across the columns in proportion. The mark column rendered 226.4px while
+   this file and the build log both said 200. It failed toward LOOKING FINE:
+   a wider column width-limits fewer marks, so nothing was visibly wrong and
+   the number the container decision rests on was simply not true. Measured,
+   not reasoned — the same failure §5 records three other people making.
+
+   The gutter and the gap are PADDING INSIDE the name cells, so they are part
+   of those cells' stated widths:
+
+     200  +  (24 + 224 + 64)  +  200  +  (24 + 224)  =  960 */
 .ab-wall__namecell {
+  inline-size: 248px;
   padding-inline: var(--gap-block) 0;
+}
+
+/* The gutter between the two pairs belongs to the first name, the same way
+   the mark column's gutter belongs to the name and not the mark. */
+.ab-wall__namecell--first {
+  inline-size: 312px;
+  padding-inline-end: var(--gap-component);
+}
+
+/* The wall's own door. --gap-section from the last row, so it reads as the
+   section's foot rather than a thirty-third client. */
+.ab-wall__route {
+  margin: var(--gap-section) 0 0;
 }
 
 /* §1.5a rule 4 caps a mark at 32px optical height — a CAP, NOT A FLOOR, so
@@ -198,6 +269,81 @@
    suppression rule, reused). It is a caption on the row, not a second name,
    so it steps down in size and colour. */
 .ab-wall__relation {
+  display: block;
+  margin-block-start: 2px;
+  font-size: var(--fs-metadata);
+  line-height: var(--lh-body);
+  color: var(--color-ink-secondary);
+}
+
+/* -----------------------------------------------------------
+   2b · Leadership (X9) — SHIPPING WITH PLACEHOLDERS
+   ----------------------------------------------------------- */
+
+/* NO CARD, NO FRAME, NO ROUNDING. The page's grammar is horizontal
+   hairlines — that is what a client row gets, so it is what a person gets.
+   A rounded card with a shadow around four people would be the one device
+   on /about that belongs to a different site.
+
+   The columns are 1fr rather than a typed 216px: on the 960px row four of
+   them at a 32px gap come out at 216 exactly, and stating the fraction means
+   the block survives a container change that a typed pixel would not. */
+.ab-lead {
+  padding-block-end: var(--gap-section);
+}
+
+.ab-lead__head {
+  margin: 0 0 var(--gap-heading);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-h3);
+  color: var(--color-ink);
+}
+
+.ab-lead__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: calc(var(--gap-tight) * 2);
+}
+
+.ab-lead__person {
+  margin: 0;
+  padding-block-start: var(--gap-block);
+  border-block-start: 1px solid var(--color-hairline);
+}
+
+/* aspect-ratio, not a height: the frame keeps 4:5 at every column width, so
+   a real photograph dropped in later crops to the same box the placeholder
+   occupied and the page does not move. */
+.ab-lead__frame {
+  aspect-ratio: 4 / 5;
+  /* Derived from the two tokens either side of it rather than typed, and
+     deliberately soft: a placeholder should read as present-but-not-content.
+     Both this rule and .ab-lead__placeholder leave with X9. */
+  background: color-mix(in srgb, var(--color-hairline) 40%, var(--color-surface));
+}
+
+.ab-lead__placeholder {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  fill: var(--color-hairline);
+}
+
+.ab-lead__caption {
+  margin-block-start: var(--gap-inline);
+}
+
+/* HARD RULE 8 BY CONSTRUCTION — the name is a block BENEATH the frame, never
+   inside it. When the photographs arrive nothing about this moves. */
+.ab-lead__name {
+  display: block;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-ink);
+}
+
+.ab-lead__role {
   display: block;
   margin-block-start: 2px;
   font-size: var(--fs-metadata);
@@ -331,9 +477,57 @@
    register survives the restack rather than being traded for it. A
    consequence worth having: the mark may now use the full column width, so
    Al Zorah renders WIDER at 375 than in the 200px desktop container. */
+/* BELOW 1120 THE WALL GOES BACK TO ONE CLIENT ACROSS, and this breakpoint is
+   not a taste — it is where the arithmetic stops being true. The row is the
+   container less its two 80px page gutters, so it reaches 960px at exactly a
+   1120px viewport. One pixel narrower and `table-layout: fixed` scales the
+   stated columns down proportionally: the mark column leaves 200px, and the
+   set falls toward the 13-20px optical failure that naming every client was
+   chosen to solve in the first place. It compresses silently — no overflow,
+   no warning — which is why the revert is stated rather than left to the
+   table.
+
+   The <tr> becomes a two-column grid, so its four cells flow mark / name,
+   mark / name — one client per line, the W-A register, with no second
+   markup path to maintain. The cells carry role="row"/"cell" in the template
+   precisely because this rule changes their display: a table's implicit
+   semantics do not survive it, and the wall is the page's argument. */
+@media (max-width: 1119px) {
+  .ab-wall__row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    align-items: center;
+  }
+
+  .ab-wall__markcell,
+  .ab-wall__namecell {
+    border-block-start: 0;
+  }
+
+  /* One rule per CLIENT, not per row — the row now holds two of them. */
+  .ab-wall__markcell {
+    border-block-start: 1px solid var(--color-hairline);
+  }
+
+  .ab-wall__namecell {
+    border-block-start: 1px solid var(--color-hairline);
+    inline-size: auto;
+  }
+
+  .ab-wall__namecell--first {
+    inline-size: auto;
+    padding-inline-end: 0;
+  }
+
+  .ab-lead__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gap-heading) calc(var(--gap-tight) * 2);
+  }
+}
+
 @media (max-width: 767px) {
   .ab-wall__row {
-    border-block-start: 1px solid var(--color-hairline);
+    display: block;
   }
 
   .ab-wall__markcell,
@@ -342,9 +536,11 @@
     border-block-start: 0;
   }
 
+  /* The rule stays on the mark, which is where each client starts. */
   .ab-wall__markcell {
     inline-size: auto;
     padding-block-end: var(--gap-inline);
+    border-block-start: 1px solid var(--color-hairline);
   }
 
   /* The name is under the mark now, not beside it, so the gutter that
