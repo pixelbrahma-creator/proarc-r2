@@ -94,6 +94,27 @@
   }
 
   /* ---------------------------------------------------------------- *
+   * A BARE SECTOR WORD MEANS THE ROOM (Session XXIV)
+   *
+   * The same move nounSet made for the twelve building nouns, one level
+   * up. The blob carries each record's sector name, so a sector word
+   * OVER-reaches where a building noun under-reached — measured on the
+   * built index: `homes` returned 17 where the Lives room prints 16,
+   * because "Homes R Us" is a Showroom whose TITLE contains the word.
+   *
+   * So when the WHOLE query is one of these four, it reads the record's
+   * own `sector` field and ignores the blob. Everything else is
+   * unchanged: the VERBS (learns, shops, works, lives) were already
+   * exact against the rooms and still go through the blob, and so do
+   * names, districts, years and any two-word query.
+   *
+   * 🔴 The map is word -> sector KEY, not word -> word. The row says
+   * Malls and Offices; the data says shops and works. One taxonomy,
+   * two registers (03-work §2.1) — the translation lives here, once.
+   * ---------------------------------------------------------------- */
+  var SECTOR_WORDS = { schools: 'schools', malls: 'shops', offices: 'works', homes: 'homes' };
+
+  /* ---------------------------------------------------------------- *
    * THE LEDGER'S CONTROLLER IS GONE (Session XXI, 6 Aug)
    *
    * ~140 lines stood here driving projects/list.html: the chips
@@ -129,10 +150,41 @@
 
     var NOUNS = nounSet(records);
 
+    /* ---------------------------------------------------------------- *
+     * The sector row — a SECOND DOOR onto the search, not a second filter.
+     *
+     * Pressing an item writes its word into the field and into ?q=, so the
+     * two halves of the island can never disagree about the page's state,
+     * and typing `schools` by hand lights Schools. If the row filtered
+     * while the field sat empty, the page would carry two controls telling
+     * different stories about what it is showing.
+     *
+     * It ships `hidden` in the markup and is revealed here: a reader whose
+     * script never runs meets no dead control. (E13.2a's shape — the page
+     * ships in the safe state and the script arms the behaviour.)
+     * ---------------------------------------------------------------- */
+    var sectorRow = document.querySelector('[data-sectors]');
+    var sectorBtns = sectorRow ? sectorRow.querySelectorAll('[data-sector]') : [];
+
+    /* Pressed reflects the QUERY, which is the single source of truth.
+       "All" is pressed only at rest; a query that is neither empty nor a
+       sector word — a name, a district, a year — presses nothing, because
+       nothing on the row describes it. */
+    function syncSectors(activeKey, isRest) {
+      for (var i = 0; i < sectorBtns.length; i++) {
+        var key = sectorBtns[i].getAttribute('data-sector');
+        var on = key ? key === activeKey : isRest;
+        sectorBtns[i].setAttribute('aria-pressed', on ? 'true' : 'false');
+      }
+    }
+
     var renderResults = function (q) {
       var searchTerms = terms(q);
       var whole = q.toLowerCase().trim();
       var asNoun = NOUNS[whole] ? whole : null;
+      var asSector = SECTOR_WORDS[whole] || null;
+
+      syncSectors(asSector, searchTerms.length === 0);
 
       if (!searchTerms.length) {
         results.hidden = true;
@@ -144,6 +196,7 @@
       }
 
       var hits = records.filter(function (r) {
+        if (asSector) return r.sector === asSector;
         return asNoun ? r.noun === asNoun : matches(r.text, searchTerms);
       });
 
@@ -183,6 +236,23 @@
       writeQuery(q);
       renderResults(q);
     });
+
+    if (sectorRow) {
+      sectorRow.addEventListener('click', function (e) {
+        var btn = e.target.closest ? e.target.closest('[data-sector]') : null;
+        if (!btn || !sectorRow.contains(btn)) return;
+        /* "All" is a RESET, not a query: it clears the field, drops ?q= and
+           returns the page to rest — which is also the only state that
+           reaches the mosque, since Al Ghala is a name rather than a set
+           (03-work §2.1) and belongs to no room. The four items reach 46;
+           rest reaches all 47. */
+        var word = btn.getAttribute('data-sector') ? btn.getAttribute('data-label').toLowerCase() : '';
+        input.value = word;
+        writeQuery(word);
+        renderResults(word);
+      });
+      sectorRow.hidden = false;
+    }
 
     var initialQ = readQuery();
     if (initialQ) input.value = initialQ;

@@ -453,6 +453,91 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* -----------------------------------------------------------
+   The sector row (Session XXIV) — bare type on its own ground
+   under the search island. No border, no fill, no radius: the
+   record page's relation chooser is a bordered, uppercase,
+   fill-on-active button and that role is assigned for BLACK
+   ground under E2, where roles are assigned and never derived
+   by inversion. The paper role is assigned here, in the other
+   direction, so a later pass does not "harmonise" the two into
+   the chip row §4.1 refuses.
+
+   Active is weight 700 + underline — the site's decided active
+   idiom, and the only state signal permitted: never colour
+   (rule 3), never opacity (§9.16, rule 11).
+   ----------------------------------------------------------- */
+
+.wk-sectors {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--gap-tight) var(--gap-block);
+  margin-block-start: var(--gap-block);
+}
+
+/* 🔴 ONE PIXEL DECIDED THIS, AND ONLY A TRUE 375 COULD SEE IT. The five words
+   measure 240px of ink; at --gap-block the row wants 336 against a 335px
+   column, so it wrapped and left "Homes" alone on a second line. Headless
+   clamps to a 500px minimum, so every resize-based check reported one line —
+   it took the iframe harness (x29) to render the width the fault lives at.
+   The column gap steps to --gap-tight at the type tokens' own breakpoint,
+   which is what sets the item widths: 240 + 4x16 = 304, and the row holds
+   one line. Keyed at 767 because that is where the tokens step; a rule made
+   of tokens inherits THOSE tokens' breakpoints. */
+@media (max-width: 767px) {
+  .wk-sectors {
+    column-gap: var(--gap-tight);
+  }
+}
+
+.wk-sector {
+  display: inline-grid;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  color: var(--color-ink-secondary);
+  text-align: start;
+  cursor: pointer;
+}
+
+/* 🔴 RESERVE THE BOLD METRICS, OR THE ROW RE-LAYS OUT ON EVERY PRESS.
+   Measured before this rule existed: pressing one item moved every item
+   after it by 2-3px, because 400 -> 700 is wider — five states rendering
+   as five slightly different arrangements of the same five words. The
+   hidden twin is set at the pressed weight and shares the grid cell, so
+   the button is always as wide as its widest state and nothing moves.
+   `visibility: hidden` keeps it out of the accessibility tree, so the
+   label is not announced twice. It reads `data-label`, so a copy change
+   cannot leave a hardcoded width behind. */
+.wk-sector::before {
+  content: attr(data-label);
+  grid-area: 1 / 1;
+  font-weight: var(--fw-bold);
+  visibility: hidden;
+}
+
+.wk-sector__t {
+  grid-area: 1 / 1;
+}
+
+.wk-sector[aria-pressed='true'] {
+  color: var(--color-ink);
+  font-weight: var(--fw-bold);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.wk-sector:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
 .wk-results {
   margin: var(--gap-block) 0 0;
   padding: 0;

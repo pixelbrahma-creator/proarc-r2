@@ -62,8 +62,47 @@
       <label class="wk-search__label t-meta-label" for="wk-q">Search</label>
       <input class="wk-search__field" type="search" id="wk-q" name="q" autocomplete="off" spellcheck="false" aria-describedby="wk-q-hint">
       <p class="wk-search__hint t-caption" id="wk-q-hint">Name, district, type or year &mdash; try Mall or Superstore.</p>
-      <p class="wk-search__tally t-caption" data-tally></p>
     </form>
+
+    <!-- THE SECTOR ROW (Session XXIV). §4.1's "no chip row" clause refused a
+         control on the TYPE column, which is empty on 32 of the 46 rows and
+         would have reached 14. This is the SECTOR axis and it is complete:
+         every record carries a category, so nothing is out of reach.
+
+         🔴 IT READS EACH RECORD'S OWN SECTOR, NEVER THE SEARCH BLOB. Wired
+         to the query, "Homes" returned 17 against a room printing 16 —
+         Homes R Us is a Showroom whose TITLE contains the word. A control
+         made of a query inherits the query's faults exactly as a control
+         made of a column inherits that column's suppression.
+
+         It ships hidden and js/work.js reveals it, so a reader without the
+         script never meets a dead control. No count sits on any item (E12).
+         The order is the rooms' order, not the sentence's — a control that
+         lists its doors in a different sequence from the doors reads as
+         arbitrary the moment the reader scrolls. There is no label: "All"
+         in first position says what the row is, and the alternatives both
+         collide — TYPE is already the table column's word and the hint's,
+         and SECTOR appears nowhere else on the site. -->
+    <div class="wk-sectors" data-sectors role="group" aria-label="Filter by sector" hidden>
+      <button type="button" class="wk-sector" data-sector="" data-label="All" aria-pressed="true"><span class="wk-sector__t">All</span></button>
+      <button type="button" class="wk-sector" data-sector="schools" data-label="Schools" aria-pressed="false"><span class="wk-sector__t">Schools</span></button>
+      <button type="button" class="wk-sector" data-sector="shops" data-label="Malls" aria-pressed="false"><span class="wk-sector__t">Malls</span></button>
+      <button type="button" class="wk-sector" data-sector="works" data-label="Offices" aria-pressed="false"><span class="wk-sector__t">Offices</span></button>
+      <button type="button" class="wk-sector" data-sector="homes" data-label="Homes" aria-pressed="false"><span class="wk-sector__t">Homes</span></button>
+    </div>
+
+    <!-- 🔴 THE TALLY MOVED BELOW THE ROW, and it is not a tidy-up. It stood
+         inside the form, between the hint and the row — empty at rest and 18px
+         tall once a query runs — so every press pushed the row 30px down and
+         every reset pulled it back. The control moved out from under the
+         cursor that had just used it. Measured, not noticed: 438 -> 468 -> 438.
+
+         Below the row it is also where it belongs. It counts the RESULTS, and
+         it now sits against the list it counts rather than against the field.
+         Nothing else changes: js/work.js finds it by [data-tally], and the
+         hint keeps aria-describedby, which was never the tally's. -->
+    <p class="wk-search__tally t-caption" data-tally></p>
+
     <ul class="wk-results" data-results hidden></ul>
   </header>
 

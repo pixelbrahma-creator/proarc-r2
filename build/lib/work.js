@@ -491,6 +491,15 @@ function searchIndexJson(db, prefix) {
       name: p.title + (provenance ? ` · ${provenance}` : ''),
       meta: meta.join(' · '),
       noun: buildingNoun(p).toLowerCase(),
+      /* 🔴 THE SECTOR IS ITS OWN FIELD TOO, and for the mirror of the reason
+         the noun is (Session XXIV). The blob carries the sector's name, so a
+         sector word over-reaches where a building noun under-reached:
+         `homes` returned 17 against the Lives room's 16, because Homes R Us
+         is a Showroom whose TITLE contains the word. The noun fix caught
+         `mall` at 13; this catches `homes` at 17. Same fault, opposite
+         direction, and neither is visible in the count alone — only in the
+         delta against the room's own tbody. */
+      sector: R.sectorKey(p),
       text: searchText(p, provenance),
     };
   });
