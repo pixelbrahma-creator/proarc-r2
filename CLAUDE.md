@@ -561,11 +561,18 @@ sum — **62s wall for 334s of work at 43 checks**, which is *faster* than the
 
 Run through this list and state the result:
 
-1. `npm run check` passes — **43/43**. (`npx stylelint "src/**/*.css"` alone is
-   assertion 1 of 43.) The number moves when a probe is added; it was 32
-   before Session XXVII registered ten files that had never run, 27 before
-   the Work surfaces' set landed (7 Aug), and this line had been reading 24
-   since well before that. **A stale count here trains a reader to ignore the
+1. `npm run check` passes — **45/45**. (`npx stylelint "src/**/*.css"` alone is
+   assertion 1 of 45.) The number moves when a probe is added; it was 43
+   before /about's re-cut registered `p16-about-rtl` and added
+   `p28-about-placeholder` (7 Aug), 32 before Session XXVII registered ten
+   files that had never run, 27 before the Work surfaces' set landed, and
+   this line had been reading 24 since well before that.
+
+   📌 **`p16` is the whole lesson in one file.** It had been green with seven
+   assertions the entire time and could not be registered because it printed
+   **no count** — the board matches on arity, and *"nothing FAILED"* is not a
+   claim about how much ran. One line put it on. It sat off for four
+   sessions after being identified. **A stale count here trains a reader to ignore the
    line**, which is the same failure `sweep-pins` reports for documents.
 
    🔴 **AND 32 → 43 WAS NOT TEN NEW PROBES — IT WAS TEN THAT ALREADY EXISTED
