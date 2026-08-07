@@ -390,9 +390,22 @@ function bandTile(project, manifest, prefix, aspect) {
  * `services.js` and `districts.js` are the same decision for the same reason.
  */
 function bandHtml(set, manifest, prefix) {
-  if (set.length < 2) {
-    throw new Error(`the band was asked for ${set.length} record(s) — a band of one is a full-column photograph, not a row.`);
+  if (!set.length) {
+    throw new Error('the band was asked for an empty set.');
   }
+  /* 🔴 A SET OF ONE IS A DIFFERENT OBJECT, AND THE MOSQUE IS THE ONLY ONE.
+     A lone tile in a justified row fills the column, so its height is the
+     column divided by its aspect and nothing else — and the mosque's hero is
+     PORTRAIT at 0.667, which is 1,440px tall at the 960 reference. That is
+     why a trailing row of one is merged backwards inside a larger set, and it
+     is why this row cannot be: there is nothing to merge it into.
+
+     So a solo row is capped instead, at the set's OWN maximum row height
+     rather than at a new invented number — 340px, which renders the mosque
+     227 wide and puts it inside the family every other tile belongs to
+     (200-677px). The class is what `work.css` keys the cap on, and what
+     p28 allows a row of one to exist under. */
+  const solo = set.length === 1;
   const aspects = set.map((p) => {
     const images = manifest.projects[p.slug];
     if (!images) throw new Error(`${p.slug}: not in the manifest.`);
@@ -407,7 +420,7 @@ function bandHtml(set, manifest, prefix) {
      roles. Stated here, the semantics survive the layout. */
   const rows = bandGroups(aspects).map(([from, to]) => {
     const tiles = set.slice(from, to).map((p, k) => bandTile(p, manifest, prefix, aspects[from + k]));
-    return `<ul class="wk-set__row" role="list">${tiles.join('')}</ul>`;
+    return `<ul class="wk-set__row${solo ? ' wk-set__row--solo' : ''}" role="list">${tiles.join('')}</ul>`;
   });
 
   return `<div class="wk-set">${rows.join('')}</div>`;
@@ -596,6 +609,21 @@ function arrivalViewData(prefix) {
     // result count into it — a count the reader asked for by typing is not
     // the same claim as a portfolio size printed at rest.
     mosqueHref: `${prefix}projects/alghalamosque.html`,
+    /* 🔴 THE MOSQUE TAKES A PHOTOGRAPH (7 Aug), and §4.1.3's "no photograph"
+       was right until the set landed and is wrong now. That clause read
+       "one sentence on paper; the name links to the record; no photograph,
+       no heading, no set" — and it was a decision about RESTRAINT on a page
+       where the rooms showed one photograph each. On a page where all
+       forty-six other records are photographs, the same restraint reads as
+       an omission: the mosque became the only building the index will not
+       show. Mahesh, looking at the built page: "looks odd to leave only
+       that pic."
+
+       It keeps the rest of the clause. No heading, and the sentence still
+       carries the page's one Ajman and its one formula; what it gains is
+       the record's own frame, solo-capped so that one building never
+       outweighs a room. */
+    mosqueBandHtml: bandHtml(sectorSet(db.projects, 'mosque'), manifest, prefix),
     searchIndexJson: searchIndexJson(db, prefix),
     ogImage: leadImage(sectorSet(db.projects, 'homes')[0], manifest, prefix).src,
   };

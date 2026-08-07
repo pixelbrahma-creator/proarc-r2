@@ -288,6 +288,31 @@
   color: inherit;
 }
 
+/* 🔴 A SOLO ROW IS CAPPED, and the mosque is the only one on the site.
+   A lone tile in a justified row fills the column, so its height is the
+   column divided by its aspect and nothing else — and this record's hero is
+   PORTRAIT at 0.667, which renders 1,440px tall at a 960 column. Capped at
+   the set's OWN maximum row height it is 227 x 340, inside the family every
+   other tile belongs to (200-677px wide), so the page's one Religious record
+   never outweighs a room.
+
+   The cap is the same 340 the build clamps rows to, named here rather than
+   repeated as a bare number, because the two must move together: if the
+   grouping's maximum row height changes, this is the other half of it. */
+.wk-set {
+  --set-solo-cap: 340px;
+}
+
+.wk-set__row--solo .wk-tile {
+  flex: 0 1 auto;
+}
+
+.wk-set__row--solo .wk-tile__img {
+  block-size: var(--set-solo-cap);
+  inline-size: auto;
+  max-inline-size: 100%;
+}
+
 .wk-tile__img {
   display: block;
   inline-size: 100%;
@@ -690,6 +715,15 @@
 
   .wk-tile:last-child:nth-child(odd) {
     grid-column: 1 / -1;
+  }
+
+  /* The solo row's cap is a DESKTOP proportion, not a mobile one: 340px in a
+     335px column is the whole column and then some. Below the break it joins
+     the grid on the same terms as every other lone tile — full width, its own
+     height — so the cap is released rather than fought with max-inline-size. */
+  .wk-set__row--solo .wk-tile__img {
+    block-size: auto;
+    inline-size: 100%;
   }
 }
 
