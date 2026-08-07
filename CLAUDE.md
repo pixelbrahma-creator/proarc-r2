@@ -382,6 +382,23 @@ this repository, so running it here processes nothing; it now exits rather than
 writing the empty manifest that would silently strip every image from the site.
 On a clone, `build:manifest` is the right script.
 
+**`build:band` is not part of `build` either — but unlike `build:images` it
+WORKS on a clone.** It writes `band.webp`, the Work surfaces' own derivative:
+the hero's frame, uncropped, at 800w. The distinction is the input — it reads
+the committed `hero-md.webp` rather than the absent originals, which is what
+lets it run anywhere. The reason it exists is measured: the arrival renders 46
+photographs, and at `hero-md` that set is **6.79 MB** against the 1.15 MB the
+whole page weighed before; at 800w it is 2.45 MB, and `hero-md` stays in the
+srcset for the widest tiles. **`thumb` was not an option** — it is a 4:3
+machine crop (`fit: cover`, `position: attention`) and the set's whole premise
+is that nothing is cropped, so a cropped thumbnail would both misstate the
+building's shape and break the row arithmetic, which is computed from aspect
+ratios. A downscale of an already-lossy file is acceptable in this direction
+only: resampling down averages the earlier encoder's artefacts away. **The
+derivative is optional by design** — absent, the manifest omits it and the
+markup serves `hero-md`, which is heavier and correct. A missing optimisation
+must never fail a build.
+
 > **A green page is not a proportionate one.** Two builds running, the fault
 > that mattered most was invisible to every assertion: /ajman's ledger shipped
 > at 4,336px against its own ~1,900px arithmetic, and Services' range first
@@ -533,8 +550,12 @@ the board's floor is now its slowest single check (p21, 59s) rather than the sum
 
 Run through this list and state the result:
 
-1. `npm run check` passes — 24/24. (`npx stylelint "src/**/*.css"` alone is
-   assertion 1 of 24.)
+1. `npm run check` passes — 32/32. (`npx stylelint "src/**/*.css"` alone is
+   assertion 1 of 32.) The number moves when a probe is added; it was 27
+   before the Work surfaces' set landed (7 Aug) and this line had been
+   reading 24 since well before that. **A stale count here trains a reader
+   to ignore the line**, which is the same failure `sweep-pins` reports for
+   documents.
 2. No new hardcoded hex, px font-size, or physical margin/padding/border.
 3. Any new text/background pair has a measured contrast ratio.
 4. Checked at 375px, 768px and 1440px.

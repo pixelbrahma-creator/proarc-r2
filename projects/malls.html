@@ -198,92 +198,23 @@
   </div>
 
   <!--
-    The catalogue. Desktop: quiet rows beside a standing photograph frame,
-    sticky in its column, driven by row hover AND keyboard focus (js/work.js),
-    defaulting to the first catalogue record. Mobile: the frame is gone and
-    each row carries a small inline thumbnail instead. The frame is
-    decorative — every image it shows exists on the project page itself —
-    so it is aria-hidden and the swap carries no transition.
+    The catalogue, as the band (7 Aug). It was quiet rows beside a standing
+    photograph frame — sticky, hover-driven, defaulting to the first record —
+    with a small inline thumbnail replacing the frame below 1024 or on a
+    coarse pointer. Both are gone: the band gives every record its own
+    photograph at every width, so a single frame showing one record at a time
+    has nothing left to do, and the capability query that chose between them
+    has nothing left to choose.
+
+    🔴 WHAT STAYS ABOVE THIS IS THE POINT. The print and the two studies are
+    not a leftover — they are the only countable difference between this page
+    and the arrival's room, which carries the identical set (15 records here,
+    15 in Learns). Three records render above 500px here and none do there.
+    Delete them and this page becomes a strict subset of one room of
+    /projects, which is exactly why /projects/list was deleted.
   -->
   <section class="wk-catalogue container" aria-label="All Malls & shops">
-    <ul class="wk-rows" data-rows>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/citylifetallah.html" data-thumb="../images/projects/citylifetallah/thumb.webp">
-          <span class="wk-row__name t-meta-value">City Life, Al Tallah II</span>
-          <span class="wk-row__meta t-caption"><span>Al Tallah</span><span class="wk-row__year">2016</span></span>
-          <img class="wk-row__thumb" src="../images/projects/citylifetallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/citylifejurf.html" data-thumb="../images/projects/citylifejurf/thumb.webp">
-          <span class="wk-row__name t-meta-value">City Life Mall, Jurf</span>
-          <span class="wk-row__meta t-caption"><span>Al Jurf</span><span class="wk-row__year">2013</span></span>
-          <img class="wk-row__thumb" src="../images/projects/citylifejurf/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/marksavealtallah.html" data-thumb="../images/projects/marksavealtallah/thumb.webp">
-          <span class="wk-row__name t-meta-value">Mark &amp; Save, Al Tallah</span>
-          <span class="wk-row__meta t-caption"><span>Al Tallah</span><span>Superstore</span></span>
-          <img class="wk-row__thumb" src="../images/projects/marksavealtallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/royalfurniture.html" data-thumb="../images/projects/royalfurniture/thumb.webp">
-          <span class="wk-row__name t-meta-value">Royal Furniture</span>
-          <span class="wk-row__meta t-caption"><span>Al Jurf</span><span>Showroom</span></span>
-          <img class="wk-row__thumb" src="../images/projects/royalfurniture/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/marksaverashdiya.html" data-thumb="../images/projects/marksaverashdiya/thumb.webp">
-          <span class="wk-row__name t-meta-value">Mark &amp; Save, Rashdiya</span>
-          <span class="wk-row__meta t-caption"><span>Rashdiya</span><span>Superstore</span></span>
-          <img class="wk-row__thumb" src="../images/projects/marksaverashdiya/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/marksavealjurf.html" data-thumb="../images/projects/marksavealjurf/thumb.webp">
-          <span class="wk-row__name t-meta-value">Mark &amp; Save, Al Jurf</span>
-          <span class="wk-row__meta t-caption"><span>Al Jurf</span><span>Superstore</span></span>
-          <img class="wk-row__thumb" src="../images/projects/marksavealjurf/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/carsouq.html" data-thumb="../images/projects/carsouq/thumb.webp">
-          <span class="wk-row__name t-meta-value">Car Souq</span>
-          <span class="wk-row__meta t-caption"><span>Souq</span></span>
-          <img class="wk-row__thumb" src="../images/projects/carsouq/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/homesrus.html" data-thumb="../images/projects/homesrus/thumb.webp">
-          <span class="wk-row__name t-meta-value">Homes R Us</span>
-          <span class="wk-row__meta t-caption"><span>Showroom</span></span>
-          <img class="wk-row__thumb" src="../images/projects/homesrus/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/citylifealtallah.html" data-thumb="../images/projects/citylifealtallah/thumb.webp">
-          <span class="wk-row__name t-meta-value">City Life, Al Tallah</span>
-          <span class="wk-row__meta t-caption"><span>Al Tallah</span></span>
-          <img class="wk-row__thumb" src="../images/projects/citylifealtallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-    </ul>
-    <figure class="wk-frame" data-frame aria-hidden="true">
-      <img class="wk-frame__img" src="../images/projects/citylifetallah/thumb.webp" alt="" width="800" height="600" decoding="async">
-    </figure>
+    <div class="wk-set"><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.4995"><a class="wk-tile__link" href="../projects/citylifetallah.html"><img class="wk-tile__img" src="../images/projects/citylifetallah/band.webp" srcset="../images/projects/citylifetallah/band.webp 800w, ../images/projects/citylifetallah/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">City Life, Al Tallah II</span><span class="wk-tile__meta t-caption">Al Tallah &middot; 2016</span></span></a></li><li class="wk-tile" style="--a:1.4995"><a class="wk-tile__link" href="../projects/citylifejurf.html"><img class="wk-tile__img" src="../images/projects/citylifejurf/band.webp" srcset="../images/projects/citylifejurf/band.webp 800w, ../images/projects/citylifejurf/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">City Life Mall, Jurf</span><span class="wk-tile__meta t-caption">Al Jurf &middot; 2013</span></span></a></li></ul><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="../projects/marksavealtallah.html"><img class="wk-tile__img" src="../images/projects/marksavealtallah/band.webp" srcset="../images/projects/marksavealtallah/band.webp 800w, ../images/projects/marksavealtallah/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Mark &amp; Save, Al Tallah</span><span class="wk-tile__meta t-caption">Al Tallah</span></span></a></li><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="../projects/royalfurniture.html"><img class="wk-tile__img" src="../images/projects/royalfurniture/band.webp" srcset="../images/projects/royalfurniture/band.webp 800w, ../images/projects/royalfurniture/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Royal Furniture</span><span class="wk-tile__meta t-caption">Al Jurf</span></span></a></li><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="../projects/marksaverashdiya.html"><img class="wk-tile__img" src="../images/projects/marksaverashdiya/band.webp" srcset="../images/projects/marksaverashdiya/band.webp 800w, ../images/projects/marksaverashdiya/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Mark &amp; Save, Rashdiya</span><span class="wk-tile__meta t-caption">Rashdiya</span></span></a></li></ul><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="../projects/marksavealjurf.html"><img class="wk-tile__img" src="../images/projects/marksavealjurf/band.webp" srcset="../images/projects/marksavealjurf/band.webp 800w, ../images/projects/marksavealjurf/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Mark &amp; Save, Al Jurf</span><span class="wk-tile__meta t-caption">Al Jurf</span></span></a></li><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="../projects/carsouq.html"><img class="wk-tile__img" src="../images/projects/carsouq/band.webp" srcset="../images/projects/carsouq/band.webp 800w, ../images/projects/carsouq/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Car Souq</span></span></a></li><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="../projects/homesrus.html"><img class="wk-tile__img" src="../images/projects/homesrus/band.webp" srcset="../images/projects/homesrus/band.webp 800w, ../images/projects/homesrus/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Homes R Us</span></span></a></li><li class="wk-tile" style="--a:1.7811"><a class="wk-tile__link" href="../projects/citylifealtallah.html"><img class="wk-tile__img" src="../images/projects/citylifealtallah/band.webp" srcset="../images/projects/citylifealtallah/band.webp 800w, ../images/projects/citylifealtallah/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="898" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">City Life, Al Tallah</span><span class="wk-tile__meta t-caption">Al Tallah</span></span></a></li></ul></div>
   </section>
 
   <p class="wk-also container">Also: <a class="wk-also__link" href="schools.html">Schools</a> &middot; <a class="wk-also__link" href="homes.html">Homes</a> &mdash; and <a class="wk-also__link" href="../projects/alghalamosque.html">one mosque</a>.</p>

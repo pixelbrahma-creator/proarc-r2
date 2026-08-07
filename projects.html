@@ -245,16 +245,17 @@
 
   
   <section class="wk-room container">
-    
-    <figure class="wk-room__plate">
-      <img class="wk-plate__img" src="images/projects/habitatschool/hero.webp"
-           width="1600" height="1067" alt="Habitat School" loading="lazy" decoding="async">
-      <figcaption class="wk-plate__caption">
-        <a class="wk-plate__name t-meta-value" href="projects/habitatschool.html">Habitat School</a><span class="wk-plate__place t-caption">Al Jurf</span>
-      </figcaption>
-    </figure>
-    
+    <!-- 🔴 THE HEADING COMES FIRST NOW, and the reason is not symmetry. The
+         plate sat ABOVE the room's name because it was ONE photograph
+         introducing a room. Fifteen photographs above the name is a different
+         sentence: the reader meets the whole set before being told what it
+         is, and the heading ends up labelling nothing that follows it. Named,
+         explained, then shown. Rendered both ways at 1440 and the page is
+         8,750px either way — this is a sentence, not a cost.
 
+         📌 The band's separation therefore lives at its TOP. It was a
+         `margin-block-end` while the band sat above the heading; moved and
+         left alone, the first row crowds the opener. -->
     
     <h2 class="wk-room__verb t-editorial"><a class="wk-room__verblink" href="projects/schools.html">Learns <span aria-hidden="true">&rarr;</span></a></h2>
     
@@ -262,159 +263,39 @@
 
     <p class="wk-room__opener t-body-lg">Campuses across the Emirate — Habitat, Woodlem Park, City School, and the universities.</p>
 
-    <!-- The room's own set, in the ledger's columns. The header row is
-         visually hidden per room — four visible NAME/DISTRICT/TYPE/YEAR
-         bands down one page would be furniture, but a table whose columns
-         are unnamed is unreadable to a screen reader, so the header is
-         hidden rather than dropped. -->
-    <!-- 🔴 The explicit ARIA roles are NOT redundant. At ≤767 the CSS lays
-         these rows out as blocks, and changing a table element's `display`
-         makes the browser drop its implicit table roles — the rows stop
-         being rows for a screen reader at exactly the width where most
-         readers meet them. Stated here, the semantics survive the layout. -->
-    <table class="wk-table wk-room__table" role="table">
-      <caption class="u-visually-hidden">Learns &mdash; name, district, type and year</caption>
-      <!-- 🔴 The widths live HERE, not on the header cells. `.u-visually-hidden`
-           is position:absolute, which takes the <thead> out of the table's
-           column model entirely — widths declared on those cells would be
-           silently ignored and each room would negotiate its own columns,
-           which is exactly the misalignment the rendered option showed. -->
-      <colgroup>
-        <col class="wk-col--name">
-        <col class="wk-col--place">
-        <col class="wk-col--noun">
-        <col class="wk-col--year">
-      </colgroup>
-      <thead class="u-visually-hidden">
-        <tr role="row">
-          <th scope="col">Name</th>
-          <th scope="col">District</th>
-          <th scope="col">Type</th>
-          <th scope="col">Year</th>
-        </tr>
-      </thead>
-      <tbody role="rowgroup">
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/habitatschool.html">Habitat School</a></th>
-          <td class="wk-table__cell" role="cell">Al Jurf</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2014</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/cityuniversity.html">City University Campus</a></th>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell" role="cell">University</td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2017</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/cityschool.html">City School</a></th>
-          <td class="wk-table__cell" role="cell">Al Tallah</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2016</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/edu-crownbritish.html">Crown British School</a></th>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2021</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/edu-cityamerican.html">City American School</a></th>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2020</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/woodlem.html">Woodlem Park Private School</a></th>
-          <td class="wk-table__cell" role="cell">Al Jurf</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2017</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/edu-woodlemparkhamidiya.html">Woodlem Park School, Hamidiya</a></th>
-          <td class="wk-table__cell" role="cell">Hamidiya</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2021</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/edu-northgatebritish.html">North Gate British School</a></th>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2024</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/edu-metropolitan.html">Metropolitan School</a></th>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2024</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/edu-habitataltallah.html">Habitat School, Al Tallah</a></th>
-          <td class="wk-table__cell" role="cell">Al Tallah</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2017</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/edu-ajmanamerican.html">Ajman American School</a></th>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2017</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/frontlineschool.html">Frontline International School</a></th>
-          <td class="wk-table__cell" role="cell">Al Tallah</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2016</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/edu-delhiprivate.html">Delhi Private School</a></th>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2017</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/edu-cityuniversity.html">City University</a></th>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell" role="cell">University</td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2017</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/edu-woodlemparkaljurf.html">Woodlem Park School, Al Jurf</a></th>
-          <td class="wk-table__cell" role="cell">Al Jurf</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2017</td>
-        </tr>
-        
-      </tbody>
-    </table>
+    <!-- THE BAND (7 Aug) — the room's whole set, every record a photograph.
+         It replaces BOTH the single lead plate and the four-column table, and
+         the table is what paid for it: measured on the live page, the band
+         with its captions adds 1,066px and the table's removal takes 2,544px
+         away, so every record gains a picture and the page gets shorter.
+
+         The rule is one sentence — each row fills the column exactly, every
+         photograph in a row shares a height, and the height is whatever makes
+         that row fit — so nothing is cropped and the variation the eye reads
+         is the buildings' own proportions. The grouping is decided in
+         `build/lib/work.js` (§ THE BAND); the justification itself is CSS, so
+         it re-fits at every width and in RTL without a number in the markup.
+
+         🔴 The type noun is the one datum that leaves the page with the
+         table. `ROOM_UNSAID_NOUNS` already suppressed it on 32 of the 46 rows
+         — which is why a control over that column was refused twice — and it
+         stays reachable through the search index below, whose hint still
+         names it. -->
+    <div class="wk-set"><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.4995"><a class="wk-tile__link" href="projects/habitatschool.html"><img class="wk-tile__img" src="images/projects/habitatschool/band.webp" srcset="images/projects/habitatschool/band.webp 800w, images/projects/habitatschool/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Habitat School</span><span class="wk-tile__meta t-caption">Al Jurf &middot; 2014</span></span></a></li><li class="wk-tile" style="--a:1.4995"><a class="wk-tile__link" href="projects/cityuniversity.html"><img class="wk-tile__img" src="images/projects/cityuniversity/band.webp" srcset="images/projects/cityuniversity/band.webp 800w, images/projects/cityuniversity/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">City University Campus</span><span class="wk-tile__meta t-caption">2017</span></span></a></li></ul><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.4995"><a class="wk-tile__link" href="projects/cityschool.html"><img class="wk-tile__img" src="images/projects/cityschool/band.webp" srcset="images/projects/cityschool/band.webp 800w, images/projects/cityschool/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">City School</span><span class="wk-tile__meta t-caption">Al Tallah &middot; 2016</span></span></a></li><li class="wk-tile" style="--a:2.1695"><a class="wk-tile__link" href="projects/edu-crownbritish.html"><img class="wk-tile__img" src="images/projects/edu-crownbritish/band.webp" srcset="images/projects/edu-crownbritish/band.webp 800w, images/projects/edu-crownbritish/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="738" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Crown British School</span><span class="wk-tile__meta t-caption">2021</span></span></a></li><li class="wk-tile" style="--a:1.7036"><a class="wk-tile__link" href="projects/edu-cityamerican.html"><img class="wk-tile__img" src="images/projects/edu-cityamerican/band.webp" srcset="images/projects/edu-cityamerican/band.webp 800w, images/projects/edu-cityamerican/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="939" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">City American School</span><span class="wk-tile__meta t-caption">2020</span></span></a></li></ul><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.4995"><a class="wk-tile__link" href="projects/woodlem.html"><img class="wk-tile__img" src="images/projects/woodlem/band.webp" srcset="images/projects/woodlem/band.webp 800w, images/projects/woodlem/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Woodlem Park Private School</span><span class="wk-tile__meta t-caption">Al Jurf &middot; 2017</span></span></a></li><li class="wk-tile" style="--a:1.5673"><a class="wk-tile__link" href="projects/edu-woodlemparkhamidiya.html"><img class="wk-tile__img" src="images/projects/edu-woodlemparkhamidiya/band.webp" srcset="images/projects/edu-woodlemparkhamidiya/band.webp 800w, images/projects/edu-woodlemparkhamidiya/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1021" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Woodlem Park School, Hamidiya</span><span class="wk-tile__meta t-caption">Hamidiya &middot; 2021</span></span></a></li><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="projects/edu-northgatebritish.html"><img class="wk-tile__img" src="images/projects/edu-northgatebritish/band.webp" srcset="images/projects/edu-northgatebritish/band.webp 800w, images/projects/edu-northgatebritish/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">North Gate British School</span><span class="wk-tile__meta t-caption">2024</span></span></a></li><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="projects/edu-metropolitan.html"><img class="wk-tile__img" src="images/projects/edu-metropolitan/band.webp" srcset="images/projects/edu-metropolitan/band.webp 800w, images/projects/edu-metropolitan/hero-md.webp 1024w" sizes="(max-width: 767px) 46vw, 30vw" width="1024" height="576" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Metropolitan School</span><span class="wk-tile__meta t-caption">2024</span></span></a></li></ul><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.7021"><a class="wk-tile__link" href="projects/edu-habitataltallah.html"><img class="wk-tile__img" src="images/projects/edu-habitataltallah/band.webp" srcset="images/projects/edu-habitataltallah/band.webp 800w, images/projects/edu-habitataltallah/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="940" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Habitat School, Al Tallah</span><span class="wk-tile__meta t-caption">Al Tallah &middot; 2017</span></span></a></li><li class="wk-tile" style="--a:1.6509"><a class="wk-tile__link" href="projects/edu-ajmanamerican.html"><img class="wk-tile__img" src="images/projects/edu-ajmanamerican/band.webp" srcset="images/projects/edu-ajmanamerican/band.webp 800w, images/projects/edu-ajmanamerican/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="969" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Ajman American School</span><span class="wk-tile__meta t-caption">2017</span></span></a></li><li class="wk-tile" style="--a:1.4995"><a class="wk-tile__link" href="projects/frontlineschool.html"><img class="wk-tile__img" src="images/projects/frontlineschool/band.webp" srcset="images/projects/frontlineschool/band.webp 800w, images/projects/frontlineschool/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Frontline International School</span><span class="wk-tile__meta t-caption">Al Tallah &middot; 2016</span></span></a></li></ul><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.5521"><a class="wk-tile__link" href="projects/edu-delhiprivate.html"><img class="wk-tile__img" src="images/projects/edu-delhiprivate/band.webp" srcset="images/projects/edu-delhiprivate/band.webp 800w, images/projects/edu-delhiprivate/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1031" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Delhi Private School</span><span class="wk-tile__meta t-caption">2017</span></span></a></li><li class="wk-tile" style="--a:1.8251"><a class="wk-tile__link" href="projects/edu-cityuniversity.html"><img class="wk-tile__img" src="images/projects/edu-cityuniversity/band.webp" srcset="images/projects/edu-cityuniversity/band.webp 800w, images/projects/edu-cityuniversity/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="877" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">City University</span><span class="wk-tile__meta t-caption">2017</span></span></a></li><li class="wk-tile" style="--a:1.9917"><a class="wk-tile__link" href="projects/edu-woodlemparkaljurf.html"><img class="wk-tile__img" src="images/projects/edu-woodlemparkaljurf/band.webp" srcset="images/projects/edu-woodlemparkaljurf/band.webp 800w, images/projects/edu-woodlemparkaljurf/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="803" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Woodlem Park School, Al Jurf</span><span class="wk-tile__meta t-caption">Al Jurf &middot; 2017</span></span></a></li></ul></div>
   </section>
   
   <section class="wk-room container">
-    
-    <figure class="wk-room__plate">
-      <img class="wk-plate__img" src="images/projects/souksalah/hero.webp"
-           width="1600" height="1067" alt="Souk Salah" loading="lazy" decoding="async">
-      <figcaption class="wk-plate__caption">
-        <a class="wk-plate__name t-meta-value" href="projects/souksalah.html">Souk Salah</a>
-      </figcaption>
-    </figure>
-    
+    <!-- 🔴 THE HEADING COMES FIRST NOW, and the reason is not symmetry. The
+         plate sat ABOVE the room's name because it was ONE photograph
+         introducing a room. Fifteen photographs above the name is a different
+         sentence: the reader meets the whole set before being told what it
+         is, and the heading ends up labelling nothing that follows it. Named,
+         explained, then shown. Rendered both ways at 1440 and the page is
+         8,750px either way — this is a sentence, not a cost.
 
+         📌 The band's separation therefore lives at its TOP. It was a
+         `margin-block-end` while the band sat above the heading; moved and
+         left alone, the first row crowds the opener. -->
     
     <h2 class="wk-room__verb t-editorial"><a class="wk-room__verblink" href="projects/malls.html">Shops <span aria-hidden="true">&rarr;</span></a></h2>
     
@@ -422,138 +303,39 @@
 
     <p class="wk-room__opener t-body-lg">The City Life malls, the souk built for Ajman Municipality, and the neighbourhood stores.</p>
 
-    <!-- The room's own set, in the ledger's columns. The header row is
-         visually hidden per room — four visible NAME/DISTRICT/TYPE/YEAR
-         bands down one page would be furniture, but a table whose columns
-         are unnamed is unreadable to a screen reader, so the header is
-         hidden rather than dropped. -->
-    <!-- 🔴 The explicit ARIA roles are NOT redundant. At ≤767 the CSS lays
-         these rows out as blocks, and changing a table element's `display`
-         makes the browser drop its implicit table roles — the rows stop
-         being rows for a screen reader at exactly the width where most
-         readers meet them. Stated here, the semantics survive the layout. -->
-    <table class="wk-table wk-room__table" role="table">
-      <caption class="u-visually-hidden">Shops &mdash; name, district, type and year</caption>
-      <!-- 🔴 The widths live HERE, not on the header cells. `.u-visually-hidden`
-           is position:absolute, which takes the <thead> out of the table's
-           column model entirely — widths declared on those cells would be
-           silently ignored and each room would negotiate its own columns,
-           which is exactly the misalignment the rendered option showed. -->
-      <colgroup>
-        <col class="wk-col--name">
-        <col class="wk-col--place">
-        <col class="wk-col--noun">
-        <col class="wk-col--year">
-      </colgroup>
-      <thead class="u-visually-hidden">
-        <tr role="row">
-          <th scope="col">Name</th>
-          <th scope="col">District</th>
-          <th scope="col">Type</th>
-          <th scope="col">Year</th>
-        </tr>
-      </thead>
-      <tbody role="rowgroup">
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/souksalah.html">Souk Salah</a></th>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell" role="cell">Souk</td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2015</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/citylifekhor.html">City Life, Al Khor</a></th>
-          <td class="wk-table__cell" role="cell">Al Khor</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2016</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/citymalluaq.html">City Mall, Umm Al Quwain</a></th>
-          <td class="wk-table__cell" role="cell">Umm Al Quwain</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2016</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/citylifetallah.html">City Life, Al Tallah II</a></th>
-          <td class="wk-table__cell" role="cell">Al Tallah</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2016</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/citylifejurf.html">City Life Mall, Jurf</a></th>
-          <td class="wk-table__cell" role="cell">Al Jurf</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2013</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/marksavealtallah.html">Mark &amp; Save, Al Tallah</a></th>
-          <td class="wk-table__cell" role="cell">Al Tallah</td>
-          <td class="wk-table__cell" role="cell">Superstore</td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/royalfurniture.html">Royal Furniture</a></th>
-          <td class="wk-table__cell" role="cell">Al Jurf</td>
-          <td class="wk-table__cell" role="cell">Showroom</td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/marksaverashdiya.html">Mark &amp; Save, Rashdiya</a></th>
-          <td class="wk-table__cell" role="cell">Rashdiya</td>
-          <td class="wk-table__cell" role="cell">Superstore</td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/marksavealjurf.html">Mark &amp; Save, Al Jurf</a></th>
-          <td class="wk-table__cell" role="cell">Al Jurf</td>
-          <td class="wk-table__cell" role="cell">Superstore</td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/carsouq.html">Car Souq</a></th>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell" role="cell">Souq</td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/homesrus.html">Homes R Us</a></th>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell" role="cell">Showroom</td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/citylifealtallah.html">City Life, Al Tallah</a></th>
-          <td class="wk-table__cell" role="cell">Al Tallah</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-      </tbody>
-    </table>
+    <!-- THE BAND (7 Aug) — the room's whole set, every record a photograph.
+         It replaces BOTH the single lead plate and the four-column table, and
+         the table is what paid for it: measured on the live page, the band
+         with its captions adds 1,066px and the table's removal takes 2,544px
+         away, so every record gains a picture and the page gets shorter.
+
+         The rule is one sentence — each row fills the column exactly, every
+         photograph in a row shares a height, and the height is whatever makes
+         that row fit — so nothing is cropped and the variation the eye reads
+         is the buildings' own proportions. The grouping is decided in
+         `build/lib/work.js` (§ THE BAND); the justification itself is CSS, so
+         it re-fits at every width and in RTL without a number in the markup.
+
+         🔴 The type noun is the one datum that leaves the page with the
+         table. `ROOM_UNSAID_NOUNS` already suppressed it on 32 of the 46 rows
+         — which is why a control over that column was refused twice — and it
+         stays reachable through the search index below, whose hint still
+         names it. -->
+    <div class="wk-set"><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.4995"><a class="wk-tile__link" href="projects/souksalah.html"><img class="wk-tile__img" src="images/projects/souksalah/band.webp" srcset="images/projects/souksalah/band.webp 800w, images/projects/souksalah/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Souk Salah</span><span class="wk-tile__meta t-caption">2015</span></span></a></li><li class="wk-tile" style="--a:1.4995"><a class="wk-tile__link" href="projects/citylifekhor.html"><img class="wk-tile__img" src="images/projects/citylifekhor/band.webp" srcset="images/projects/citylifekhor/band.webp 800w, images/projects/citylifekhor/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">City Life, Al Khor</span><span class="wk-tile__meta t-caption">Al Khor &middot; 2016</span></span></a></li></ul><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.4995"><a class="wk-tile__link" href="projects/citymalluaq.html"><img class="wk-tile__img" src="images/projects/citymalluaq/band.webp" srcset="images/projects/citymalluaq/band.webp 800w, images/projects/citymalluaq/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">City Mall, Umm Al Quwain</span><span class="wk-tile__meta t-caption">Umm Al Quwain &middot; 2016</span></span></a></li><li class="wk-tile" style="--a:1.4995"><a class="wk-tile__link" href="projects/citylifetallah.html"><img class="wk-tile__img" src="images/projects/citylifetallah/band.webp" srcset="images/projects/citylifetallah/band.webp 800w, images/projects/citylifetallah/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">City Life, Al Tallah II</span><span class="wk-tile__meta t-caption">Al Tallah &middot; 2016</span></span></a></li><li class="wk-tile" style="--a:1.4995"><a class="wk-tile__link" href="projects/citylifejurf.html"><img class="wk-tile__img" src="images/projects/citylifejurf/band.webp" srcset="images/projects/citylifejurf/band.webp 800w, images/projects/citylifejurf/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">City Life Mall, Jurf</span><span class="wk-tile__meta t-caption">Al Jurf &middot; 2013</span></span></a></li></ul><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="projects/marksavealtallah.html"><img class="wk-tile__img" src="images/projects/marksavealtallah/band.webp" srcset="images/projects/marksavealtallah/band.webp 800w, images/projects/marksavealtallah/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Mark &amp; Save, Al Tallah</span><span class="wk-tile__meta t-caption">Al Tallah</span></span></a></li><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="projects/royalfurniture.html"><img class="wk-tile__img" src="images/projects/royalfurniture/band.webp" srcset="images/projects/royalfurniture/band.webp 800w, images/projects/royalfurniture/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Royal Furniture</span><span class="wk-tile__meta t-caption">Al Jurf</span></span></a></li><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="projects/marksaverashdiya.html"><img class="wk-tile__img" src="images/projects/marksaverashdiya/band.webp" srcset="images/projects/marksaverashdiya/band.webp 800w, images/projects/marksaverashdiya/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Mark &amp; Save, Rashdiya</span><span class="wk-tile__meta t-caption">Rashdiya</span></span></a></li><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="projects/marksavealjurf.html"><img class="wk-tile__img" src="images/projects/marksavealjurf/band.webp" srcset="images/projects/marksavealjurf/band.webp 800w, images/projects/marksavealjurf/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Mark &amp; Save, Al Jurf</span><span class="wk-tile__meta t-caption">Al Jurf</span></span></a></li></ul><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="projects/carsouq.html"><img class="wk-tile__img" src="images/projects/carsouq/band.webp" srcset="images/projects/carsouq/band.webp 800w, images/projects/carsouq/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Car Souq</span></span></a></li><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="projects/homesrus.html"><img class="wk-tile__img" src="images/projects/homesrus/band.webp" srcset="images/projects/homesrus/band.webp 800w, images/projects/homesrus/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Homes R Us</span></span></a></li><li class="wk-tile" style="--a:1.7811"><a class="wk-tile__link" href="projects/citylifealtallah.html"><img class="wk-tile__img" src="images/projects/citylifealtallah/band.webp" srcset="images/projects/citylifealtallah/band.webp 800w, images/projects/citylifealtallah/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="898" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">City Life, Al Tallah</span><span class="wk-tile__meta t-caption">Al Tallah</span></span></a></li></ul></div>
   </section>
   
   <section class="wk-room container">
-    
-    <figure class="wk-room__plate">
-      <img class="wk-plate__img" src="images/projects/ajmanbank/hero.webp"
-           width="1600" height="1067" alt="Ajman Bank Headquarters" loading="lazy" decoding="async">
-      <figcaption class="wk-plate__caption">
-        <a class="wk-plate__name t-meta-value" href="projects/ajmanbank.html">Ajman Bank Headquarters</a>
-      </figcaption>
-    </figure>
-    
+    <!-- 🔴 THE HEADING COMES FIRST NOW, and the reason is not symmetry. The
+         plate sat ABOVE the room's name because it was ONE photograph
+         introducing a room. Fifteen photographs above the name is a different
+         sentence: the reader meets the whole set before being told what it
+         is, and the heading ends up labelling nothing that follows it. Named,
+         explained, then shown. Rendered both ways at 1440 and the page is
+         8,750px either way — this is a sentence, not a cost.
 
+         📌 The band's separation therefore lives at its TOP. It was a
+         `margin-block-end` while the band sat above the heading; moved and
+         left alone, the first row crowds the opener. -->
     
     
     <h2 class="wk-room__verb t-editorial">Works</h2>
@@ -561,75 +343,39 @@
 
     <p class="wk-room__opener t-body-lg">Ajman Bank’s headquarters and The Black Square.</p>
 
-    <!-- The room's own set, in the ledger's columns. The header row is
-         visually hidden per room — four visible NAME/DISTRICT/TYPE/YEAR
-         bands down one page would be furniture, but a table whose columns
-         are unnamed is unreadable to a screen reader, so the header is
-         hidden rather than dropped. -->
-    <!-- 🔴 The explicit ARIA roles are NOT redundant. At ≤767 the CSS lays
-         these rows out as blocks, and changing a table element's `display`
-         makes the browser drop its implicit table roles — the rows stop
-         being rows for a screen reader at exactly the width where most
-         readers meet them. Stated here, the semantics survive the layout. -->
-    <table class="wk-table wk-room__table" role="table">
-      <caption class="u-visually-hidden">Works &mdash; name, district, type and year</caption>
-      <!-- 🔴 The widths live HERE, not on the header cells. `.u-visually-hidden`
-           is position:absolute, which takes the <thead> out of the table's
-           column model entirely — widths declared on those cells would be
-           silently ignored and each room would negotiate its own columns,
-           which is exactly the misalignment the rendered option showed. -->
-      <colgroup>
-        <col class="wk-col--name">
-        <col class="wk-col--place">
-        <col class="wk-col--noun">
-        <col class="wk-col--year">
-      </colgroup>
-      <thead class="u-visually-hidden">
-        <tr role="row">
-          <th scope="col">Name</th>
-          <th scope="col">District</th>
-          <th scope="col">Type</th>
-          <th scope="col">Year</th>
-        </tr>
-      </thead>
-      <tbody role="rowgroup">
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/ajmanbank.html">Ajman Bank Headquarters</a></th>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2015</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/blacksquare.html">The Black Square</a></th>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2011</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/rholding.html">R Holding Head Office</a></th>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-      </tbody>
-    </table>
+    <!-- THE BAND (7 Aug) — the room's whole set, every record a photograph.
+         It replaces BOTH the single lead plate and the four-column table, and
+         the table is what paid for it: measured on the live page, the band
+         with its captions adds 1,066px and the table's removal takes 2,544px
+         away, so every record gains a picture and the page gets shorter.
+
+         The rule is one sentence — each row fills the column exactly, every
+         photograph in a row shares a height, and the height is whatever makes
+         that row fit — so nothing is cropped and the variation the eye reads
+         is the buildings' own proportions. The grouping is decided in
+         `build/lib/work.js` (§ THE BAND); the justification itself is CSS, so
+         it re-fits at every width and in RTL without a number in the markup.
+
+         🔴 The type noun is the one datum that leaves the page with the
+         table. `ROOM_UNSAID_NOUNS` already suppressed it on 32 of the 46 rows
+         — which is why a control over that column was refused twice — and it
+         stays reachable through the search index below, whose hint still
+         names it. -->
+    <div class="wk-set"><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.4995"><a class="wk-tile__link" href="projects/ajmanbank.html"><img class="wk-tile__img" src="images/projects/ajmanbank/band.webp" srcset="images/projects/ajmanbank/band.webp 800w, images/projects/ajmanbank/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Ajman Bank Headquarters</span><span class="wk-tile__meta t-caption">2015</span></span></a></li><li class="wk-tile" style="--a:2.1843"><a class="wk-tile__link" href="projects/blacksquare.html"><img class="wk-tile__img" src="images/projects/blacksquare/band.webp" srcset="images/projects/blacksquare/band.webp 800w, images/projects/blacksquare/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="732" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">The Black Square</span><span class="wk-tile__meta t-caption">2011</span></span></a></li><li class="wk-tile" style="--a:1.4995"><a class="wk-tile__link" href="projects/rholding.html"><img class="wk-tile__img" src="images/projects/rholding/band.webp" srcset="images/projects/rholding/band.webp 800w, images/projects/rholding/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">R Holding Head Office</span></span></a></li></ul></div>
   </section>
   
   <section class="wk-room container">
-    
-    <figure class="wk-room__plate">
-      <img class="wk-plate__img" src="images/projects/seasidehills/hero.webp" srcset="images/projects/seasidehills/hero-md.webp 1600w, images/projects/seasidehills/hero.webp 1920w" sizes="(max-width: 1200px) 100vw, 1120px"
-           width="1920" height="1133" alt="Seaside Hills Residence" loading="lazy" decoding="async">
-      <figcaption class="wk-plate__caption">
-        <a class="wk-plate__name t-meta-value" href="projects/seasidehills.html">Seaside Hills Residence</a><span class="wk-plate__place t-caption">Al Zorah</span>
-      </figcaption>
-    </figure>
-    
+    <!-- 🔴 THE HEADING COMES FIRST NOW, and the reason is not symmetry. The
+         plate sat ABOVE the room's name because it was ONE photograph
+         introducing a room. Fifteen photographs above the name is a different
+         sentence: the reader meets the whole set before being told what it
+         is, and the heading ends up labelling nothing that follows it. Named,
+         explained, then shown. Rendered both ways at 1440 and the page is
+         8,750px either way — this is a sentence, not a cost.
 
+         📌 The band's separation therefore lives at its TOP. It was a
+         `margin-block-end` while the band sat above the heading; moved and
+         left alone, the first row crowds the opener. -->
     
     <h2 class="wk-room__verb t-editorial"><a class="wk-room__verblink" href="projects/homes.html">Lives <span aria-hidden="true">&rarr;</span></a></h2>
     
@@ -637,153 +383,25 @@
 
     <p class="wk-room__opener t-body-lg">From the villas at Al Zorah to the towers rising at Aamra.</p>
 
-    <!-- The room's own set, in the ledger's columns. The header row is
-         visually hidden per room — four visible NAME/DISTRICT/TYPE/YEAR
-         bands down one page would be furniture, but a table whose columns
-         are unnamed is unreadable to a screen reader, so the header is
-         hidden rather than dropped. -->
-    <!-- 🔴 The explicit ARIA roles are NOT redundant. At ≤767 the CSS lays
-         these rows out as blocks, and changing a table element's `display`
-         makes the browser drop its implicit table roles — the rows stop
-         being rows for a screen reader at exactly the width where most
-         readers meet them. Stated here, the semantics survive the layout. -->
-    <table class="wk-table wk-room__table" role="table">
-      <caption class="u-visually-hidden">Lives &mdash; name, district, type and year</caption>
-      <!-- 🔴 The widths live HERE, not on the header cells. `.u-visually-hidden`
-           is position:absolute, which takes the <thead> out of the table's
-           column model entirely — widths declared on those cells would be
-           silently ignored and each room would negotiate its own columns,
-           which is exactly the misalignment the rendered option showed. -->
-      <colgroup>
-        <col class="wk-col--name">
-        <col class="wk-col--place">
-        <col class="wk-col--noun">
-        <col class="wk-col--year">
-      </colgroup>
-      <thead class="u-visually-hidden">
-        <tr role="row">
-          <th scope="col">Name</th>
-          <th scope="col">District</th>
-          <th scope="col">Type</th>
-          <th scope="col">Year</th>
-        </tr>
-      </thead>
-      <tbody role="rowgroup">
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/seasidehills.html">Seaside Hills Residence</a></th>
-          <td class="wk-table__cell" role="cell">Al Zorah</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/azhagarden.html">Azha Garden Residence</a></th>
-          <td class="wk-table__cell" role="cell">Aamra</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/rosetower.html">Rose Tower</a></th>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell" role="cell">Tower</td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/exclusivevillas.html">Exclusive Villas</a></th>
-          <td class="wk-table__cell" role="cell">Al Zorah</td>
-          <td class="wk-table__cell" role="cell">Villas</td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/emiratescity.html">Emirates City D1 Tower</a></th>
-          <td class="wk-table__cell" role="cell">Emirates City</td>
-          <td class="wk-table__cell" role="cell">Tower</td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/gfloorpenthouse.html">G+8 Floor + Penthouse</a></th>
-          <td class="wk-table__cell" role="cell">Al Zorah</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/greenbuildings.html">Green Buildings</a></th>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/jeddahheights.html">Jeddah Heights</a></th>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">2018</td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/one-678.html">One 678</a><span class="wk-row__genre"> &middot; Visualisation</span></th>
-          <td class="wk-table__cell" role="cell">Aamra</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/bluebell-residence.html">Bluebell Residence</a><span class="wk-row__genre"> &middot; Visualisation</span></th>
-          <td class="wk-table__cell" role="cell">Aamra</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/star-giga-tower.html">Star Giga Tower</a><span class="wk-row__genre"> &middot; Visualisation</span></th>
-          <td class="wk-table__cell" role="cell">Emirates City</td>
-          <td class="wk-table__cell" role="cell">Tower</td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/deca-035.html">DECA 035 — Al Zorah Marina Residences</a><span class="wk-row__genre"> &middot; Visualisation</span></th>
-          <td class="wk-table__cell" role="cell">Al Zorah</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/azha-park-residences.html">Azha Park Residences</a><span class="wk-row__genre"> &middot; Visualisation</span></th>
-          <td class="wk-table__cell" role="cell">Aamra</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/zamzam-tower.html">Zamzam Tower</a></th>
-          <td class="wk-table__cell" role="cell">Aalia</td>
-          <td class="wk-table__cell" role="cell">Tower</td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/sealine.html">Sealine Residences</a></th>
-          <td class="wk-table__cell" role="cell">Al Zorah</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="projects/gateway.html">Gateway Residences</a></th>
-          <td class="wk-table__cell" role="cell">Marina &amp; Creek</td>
-          <td class="wk-table__cell" role="cell"></td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell"></td>
-        </tr>
-        
-      </tbody>
-    </table>
+    <!-- THE BAND (7 Aug) — the room's whole set, every record a photograph.
+         It replaces BOTH the single lead plate and the four-column table, and
+         the table is what paid for it: measured on the live page, the band
+         with its captions adds 1,066px and the table's removal takes 2,544px
+         away, so every record gains a picture and the page gets shorter.
+
+         The rule is one sentence — each row fills the column exactly, every
+         photograph in a row shares a height, and the height is whatever makes
+         that row fit — so nothing is cropped and the variation the eye reads
+         is the buildings' own proportions. The grouping is decided in
+         `build/lib/work.js` (§ THE BAND); the justification itself is CSS, so
+         it re-fits at every width and in RTL without a number in the markup.
+
+         🔴 The type noun is the one datum that leaves the page with the
+         table. `ROOM_UNSAID_NOUNS` already suppressed it on 32 of the 46 rows
+         — which is why a control over that column was refused twice — and it
+         stays reachable through the search index below, whose hint still
+         names it. -->
+    <div class="wk-set"><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.6946"><a class="wk-tile__link" href="projects/seasidehills.html"><img class="wk-tile__img" src="images/projects/seasidehills/band.webp" srcset="images/projects/seasidehills/band.webp 800w, images/projects/seasidehills/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="944" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Seaside Hills Residence</span><span class="wk-tile__meta t-caption">Al Zorah</span></span></a></li><li class="wk-tile" style="--a:0.7656"><a class="wk-tile__link" href="projects/azhagarden.html"><img class="wk-tile__img" src="images/projects/azhagarden/band.webp" srcset="images/projects/azhagarden/band.webp 800w, images/projects/azhagarden/hero-md.webp 1470w" sizes="(max-width: 767px) 46vw, 30vw" width="1470" height="1920" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Azha Garden Residence</span><span class="wk-tile__meta t-caption">Aamra</span></span></a></li><li class="wk-tile" style="--a:0.6047"><a class="wk-tile__link" href="projects/rosetower.html"><img class="wk-tile__img" src="images/projects/rosetower/band.webp" srcset="images/projects/rosetower/band.webp 800w, images/projects/rosetower/hero-md.webp 1161w" sizes="(max-width: 767px) 46vw, 30vw" width="1161" height="1920" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Rose Tower</span></span></a></li></ul><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="projects/exclusivevillas.html"><img class="wk-tile__img" src="images/projects/exclusivevillas/band.webp" srcset="images/projects/exclusivevillas/band.webp 800w, images/projects/exclusivevillas/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Exclusive Villas</span><span class="wk-tile__meta t-caption">Al Zorah</span></span></a></li><li class="wk-tile" style="--a:1.4995"><a class="wk-tile__link" href="projects/emiratescity.html"><img class="wk-tile__img" src="images/projects/emiratescity/band.webp" srcset="images/projects/emiratescity/band.webp 800w, images/projects/emiratescity/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Emirates City D1 Tower</span><span class="wk-tile__meta t-caption">Emirates City</span></span></a></li><li class="wk-tile" style="--a:1.7391"><a class="wk-tile__link" href="projects/gfloorpenthouse.html"><img class="wk-tile__img" src="images/projects/gfloorpenthouse/band.webp" srcset="images/projects/gfloorpenthouse/band.webp 800w, images/projects/gfloorpenthouse/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="920" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">G+8 Floor + Penthouse</span><span class="wk-tile__meta t-caption">Al Zorah</span></span></a></li></ul><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.4747"><a class="wk-tile__link" href="projects/greenbuildings.html"><img class="wk-tile__img" src="images/projects/greenbuildings/band.webp" srcset="images/projects/greenbuildings/band.webp 800w, images/projects/greenbuildings/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1085" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Green Buildings</span></span></a></li><li class="wk-tile" style="--a:1.4995"><a class="wk-tile__link" href="projects/jeddahheights.html"><img class="wk-tile__img" src="images/projects/jeddahheights/band.webp" srcset="images/projects/jeddahheights/band.webp 800w, images/projects/jeddahheights/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Jeddah Heights</span><span class="wk-tile__meta t-caption">2018</span></span></a></li><li class="wk-tile" style="--a:0.8000"><a class="wk-tile__link" href="projects/one-678.html"><img class="wk-tile__img" src="images/projects/one-678/band.webp" srcset="images/projects/one-678/band.webp 800w, images/projects/one-678/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="2000" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">One 678<span class="wk-tile__genre"> &middot; Visualisation</span></span><span class="wk-tile__meta t-caption">Aamra</span></span></a></li><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="projects/bluebell-residence.html"><img class="wk-tile__img" src="images/projects/bluebell-residence/band.webp" srcset="images/projects/bluebell-residence/band.webp 800w, images/projects/bluebell-residence/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Bluebell Residence<span class="wk-tile__genre"> &middot; Visualisation</span></span><span class="wk-tile__meta t-caption">Aamra</span></span></a></li></ul><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:0.7333"><a class="wk-tile__link" href="projects/star-giga-tower.html"><img class="wk-tile__img" src="images/projects/star-giga-tower/band.webp" srcset="images/projects/star-giga-tower/band.webp 800w, images/projects/star-giga-tower/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="2182" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Star Giga Tower<span class="wk-tile__genre"> &middot; Visualisation</span></span><span class="wk-tile__meta t-caption">Emirates City</span></span></a></li><li class="wk-tile" style="--a:1.3393"><a class="wk-tile__link" href="projects/deca-035.html"><img class="wk-tile__img" src="images/projects/deca-035/band.webp" srcset="images/projects/deca-035/band.webp 800w, images/projects/deca-035/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1195" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">DECA 035 — Al Zorah Marina Residences<span class="wk-tile__genre"> &middot; Visualisation</span></span><span class="wk-tile__meta t-caption">Al Zorah</span></span></a></li><li class="wk-tile" style="--a:1.6327"><a class="wk-tile__link" href="projects/azha-park-residences.html"><img class="wk-tile__img" src="images/projects/azha-park-residences/band.webp" srcset="images/projects/azha-park-residences/band.webp 800w, images/projects/azha-park-residences/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="980" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Azha Park Residences<span class="wk-tile__genre"> &middot; Visualisation</span></span><span class="wk-tile__meta t-caption">Aamra</span></span></a></li></ul><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:0.9748"><a class="wk-tile__link" href="projects/zamzam-tower.html"><img class="wk-tile__img" src="images/projects/zamzam-tower/band.webp" srcset="images/projects/zamzam-tower/band.webp 800w, images/projects/zamzam-tower/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1641" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Zamzam Tower</span><span class="wk-tile__meta t-caption">Aalia</span></span></a></li><li class="wk-tile" style="--a:1.6976"><a class="wk-tile__link" href="projects/sealine.html"><img class="wk-tile__img" src="images/projects/sealine/band.webp" srcset="images/projects/sealine/band.webp 800w, images/projects/sealine/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="942" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Sealine Residences</span><span class="wk-tile__meta t-caption">Al Zorah</span></span></a></li><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="projects/gateway.html"><img class="wk-tile__img" src="images/projects/gateway/band.webp" srcset="images/projects/gateway/band.webp 800w, images/projects/gateway/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Gateway Residences</span><span class="wk-tile__meta t-caption">Marina & Creek</span></span></a></li></ul></div>
   </section>
   
 

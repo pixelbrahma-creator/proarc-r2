@@ -174,29 +174,25 @@
 }
 
 /* -----------------------------------------------------------
-   The catalogue — quiet rows beside the standing frame.
-   Desktop: the frame is sticky in its column, driven by row
-   hover and keyboard focus, no transition (the swap is
-   instant; reduced motion has nothing to remove). Below
-   1024px the frame is gone and each row carries its inline
-   thumbnail instead — hover exists nowhere below that width
-   that can be relied on (the M4 precedent).
+   The catalogue — now the set, as photographs (7 Aug).
+   It was quiet rows beside a sticky, hover-driven frame, with
+   a 200px inline thumbnail replacing the frame below 1024 or
+   on a coarse pointer. Both are gone: the set gives every
+   record its own photograph at every width, so a frame that
+   shows one record at a time has nothing left to do and the
+   capability query that chose between them has nothing left
+   to choose. The 38% right-hand column goes with the frame.
    ----------------------------------------------------------- */
 
 .wk-catalogue {
-  display: grid;
-  grid-template-columns: 1fr 38%;
-  column-gap: var(--gutter-desktop);
-  align-items: start;
   padding-block-start: var(--gap-section);
 }
 
-.wk-rows {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
+/* `.wk-row*` below is NOT dead with the catalogue — js/work.js builds the
+   search RESULTS list out of these same classes (`wk-row` · `wk-row__link` ·
+   `wk-row__name` · `wk-row__meta`). What went with the catalogue is only what
+   the catalogue alone carried: the list wrapper, the inline thumbnail, the
+   frame, and the genre/year cells no surface emits any more. */
 .wk-row + .wk-row {
   border-block-start: 1px solid var(--color-hairline);
 }
@@ -217,14 +213,6 @@
   text-underline-offset: 4px;
 }
 
-.wk-row__genre {
-  font-size: var(--fs-caption);
-  font-weight: var(--fw-semibold);
-  letter-spacing: var(--ls-caption);
-  text-transform: uppercase;
-  color: var(--color-ink);
-}
-
 .wk-row__meta {
   display: flex;
   align-items: baseline;
@@ -236,23 +224,119 @@
   content: "\00B7\00A0";
 }
 
-.wk-row__year {
-  font-variant-numeric: tabular-nums;
+/* -----------------------------------------------------------
+   THE SET — every record in a room or a catalogue, as a
+   photograph (03-work §4.1.4).
+
+   THE RULE, in one sentence: each row fills the column
+   exactly; within a row every photograph shares a height; the
+   height is whatever makes that row fit. Nothing is cropped,
+   so the variation the eye reads is the buildings' own
+   proportions — 41 landscape frames, 6 portrait, aspects from
+   0.605 to 2.184.
+
+   🔴 THE JUSTIFICATION IS THESE FOUR DECLARATIONS AND NOTHING
+   ELSE, and it is why no pixel value appears in the markup.
+   Each tile takes `flex-grow` equal to its own aspect ratio
+   against `flex-basis: 0`, so the row's free width — its own
+   width minus the gaps, which flex subtracts before it
+   distributes — is shared in proportion to the aspects:
+   w(i) = free · a(i) / Σa. `aspect-ratio` then makes every
+   height in the row free / Σa, IDENTICAL by construction
+   rather than by arithmetic. The same rule therefore re-fits
+   at every viewport width, at any zoom, and in RTL, none of
+   which the build ever hears about.
+
+   `min-inline-size: 0` is load-bearing: a flex item's default
+   `min-width: auto` is its CONTENT's width, and an image's
+   content width is its intrinsic 800px. Without it the widest
+   tiles refuse to shrink and the row overflows its column —
+   silently, because overflow on a flex row looks like a
+   design decision.
+
+   WHICH records share a row is decided in build/lib/work.js
+   (§ THE BAND): a fixed beat of 2 · 3 · 4 · 3, clamped so no
+   row exceeds 340px at the reference column. Bare, the beat
+   put two portrait heroes together and `homes` produced rows
+   of 683px.
+   ----------------------------------------------------------- */
+
+.wk-set {
+  margin-block-start: var(--gap-component);
 }
 
-.wk-row__thumb {
-  display: none;
+.wk-set__row {
+  display: flex;
+  gap: var(--gap-block);
+  align-items: flex-start;
+  margin: 0 0 var(--gap-block);
+  padding: 0;
+  list-style: none;
 }
 
-.wk-frame {
-  position: sticky;
-  inset-block-start: var(--gap-component);
-  margin: 0;
+.wk-set__row:last-child {
+  margin-block-end: 0;
 }
 
-.wk-frame__img {
+.wk-tile {
+  flex: var(--a) 1 0;
+  min-inline-size: 0;
+}
+
+.wk-tile__link {
+  display: block;
+  color: inherit;
+}
+
+.wk-tile__img {
+  display: block;
   inline-size: 100%;
   block-size: auto;
+  aspect-ratio: var(--a);
+  object-fit: cover;
+}
+
+/* 🔴 `break-word` IS NOT A TIDY-UP — it is the lesser of two evils, and the
+   probe chose it. A portrait record in a justified row is inherently narrow:
+   its width is the row's height times its own aspect, so Rose Tower at 0.605
+   renders 95px wide at 768 while its neighbours are 300. A single word longer
+   than that has two possible behaviours and no third — break, or stick out
+   over the tile beside it. Measured at 768, one caption run escaped its tile
+   by 5.1px, which reads as a typo rather than as a layout. It only ever fires
+   on a word that cannot fit; every name that can wrap normally still does. */
+.wk-tile__cap {
+  display: block;
+  margin-block-start: var(--gap-inline);
+  overflow-wrap: break-word;
+}
+
+.wk-tile__name {
+  display: block;
+  color: var(--color-ink);
+}
+
+.wk-tile__link:hover .wk-tile__name,
+.wk-tile__link:focus-visible .wk-tile__name {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+/* E9.3 governs index rows with "Exempt: none" — a Visualisation says so here
+   exactly as it did in the row this replaced. */
+.wk-tile__genre {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-caption);
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+.wk-tile__meta {
+  display: block;
+  text-transform: uppercase;
+  color: var(--color-ink-secondary);
+  font-variant-numeric: tabular-nums;
 }
 
 /* -----------------------------------------------------------
@@ -297,10 +381,6 @@
   padding-block-start: var(--gap-section);
 }
 
-.wk-room__plate {
-  margin: 0 0 var(--gap-component);
-}
-
 .wk-room__verb {
   margin: 0;
 }
@@ -321,87 +401,15 @@
   color: var(--color-ink-secondary);
 }
 
-/* The room's own set, in the ledger's columns (Session XXI). This replaced a
-   `columns: 3 280px` name list when /projects/list retired into these four
-   tables — the two surfaces had been rendering the same 47 records, and the
-   list was the half with no metadata columns.
+/* 🔴 THE ROOM'S TABLE IS GONE, AND THE TABLE IS WHAT PAID FOR THE SET.
+   Measured on the live page at 1440: the set with its captions adds 1,066px
+   and removing the table takes 2,544px away, so every record gains a
+   photograph and the page gets SHORTER — 8,072px to 6,864 for the shape
+   alone. What went with it: `.wk-room__table`, its `<colgroup>` widths,
+   `.wk-table*`, and the <=767 block that re-laid the rows as blocks. The one
+   datum lost is the type noun, which ROOM_UNSAID_NOUNS already suppressed on
+   32 of the 46 rows and which the search index still carries. */
 
-   🔴 `table-layout: fixed` is LOAD-BEARING, and the reason is that there are
-   FOUR of these tables down one page. Under auto layout each negotiates its
-   own columns from its own content, so the year sits at a different x in
-   every room and a reader scanning down meets four different grids. Auto
-   layout also treats a declared width as a PREFERENCE and quietly narrows
-   it — this project has already paid for that once, on About's mark column
-   (200px declared, 174.9px delivered). Fixed makes the widths exact and
-   makes all four rooms share one grid. */
-.wk-room__table {
-  margin-block-start: var(--gap-heading);
-  table-layout: fixed;
-  /* 🔴 THE TABLE TAKES THE CATALOGUE'S OWN COLUMN, and that is the whole
-     repair. Re-proportioning a 960px-wide table was a lateral move: tighten
-     the metadata and the name's void grows, widen the name and the metadata
-     scatters. The sector catalogue — the sibling this is a variant of —
-     reads well because its rows run in 515px, not because of how it splits
-     them. It takes `.wk-catalogue`'s `1fr 38%` share, so that is the width
-     stated here. The right-hand 38% stays empty on the arrival by decision:
-     the sector page fills it with a standing frame driven by row hover, and
-     the room does not need one because its lead photograph is already
-     directly above these rows.
-
-     🔴 It does NOT subtract the gutter, and that is a correction. Written
-     as `calc(62% - var(--gutter-desktop))` it copied the catalogue's column
-     to the pixel — 515px — and the ink test then found "Superstore" and
-     "Showroom" escaping the noun column by 11–13px at 1440. The catalogue
-     fits 515 because it carries a name and ONE short meta cluster; this
-     carries a name and THREE columns, and there is no frame beside it to
-     leave a gutter for. Matching the sibling's width was matching the
-     wrong property. */
-  max-inline-size: 62%;
-}
-
-/* The metadata clusters to the RIGHT of the name rather than spreading
-   across the row, and the proportions come from the sibling this page
-   already ships rather than from taste: the sector catalogue sets a name at
-   the column's start and its meta flush at the end, the cluster only as wide
-   as its own content (measured: 26–107px in a 515px column). The first cut
-   here gave the name 54% and left ~425px between "Habitat School" and
-   "AL JURF" with no header row to anchor either — the ledger could carry
-   that spread because it HAD a visible header, and four of those down one
-   page is furniture. Widest name ink on the page is 255px. */
-/* Sized against the widest INK each column actually carries, measured on the
-   built page rather than guessed: name 255px ("DECA 035 — Al Zorah Marina
-   Residences"), district ~85px ("UMM AL QUWAIN"), noun ~88px ("SUPERSTORE"),
-   year ~40px. Each column also spends `--gap-tight` on its trailing padding,
-   so the available width is 16px less than the column. Verify with the ink
-   test, never with scrollWidth — a table cell's scrollWidth reported these
-   as fitting while Range rects showed the noun 12.7px past its own edge. */
-.wk-col--place {
-  inline-size: 18%;
-}
-
-.wk-col--noun {
-  inline-size: 22%;
-}
-
-.wk-col--year {
-  inline-size: 10%;
-}
-
-/* 🔴 NO `nowrap` + `ellipsis` HERE, AND THE REASON IS A FAULT THIS SHIPPED
-   FOR ABOUT TEN MINUTES. Set that way the metadata never wrapped — it
-   TRUNCATED, and truncation styled with an ellipsis looks exactly like a
-   design decision. Measured on the built page: 11 cells cut at 1440
-   ("Umm Al Quwain" → 130px of content in a 93px cell), 28 at 900 and 54 at
-   768, where even the four-digit YEARS were being clipped. Nothing static
-   could see it and the page looked finished.
-
-   A wrapped district reads as a second record, which is what the nowrap was
-   for — but a district that silently loses half its name is worse than one
-   that takes two lines, so the columns are sized to their longest real value
-   and the text is allowed to wrap when a width defeats that. */
-.wk-room__table .wk-table__cell {
-  text-transform: uppercase;
-}
 
 /* -----------------------------------------------------------
    Search — the field's border is E6.1's #595959 on both
@@ -562,52 +570,6 @@
    <colgroup> instead — see .wk-room__table.
    ----------------------------------------------------------- */
 
-.wk-table {
-  inline-size: 100%;
-  border-collapse: collapse;
-}
-
-.wk-table__row .wk-table__name,
-.wk-table__row .wk-table__cell {
-  padding-block: var(--pad-table-row);
-  padding-inline-end: var(--gap-tight);
-  border-block-start: 1px solid var(--color-hairline);
-  vertical-align: baseline;
-  text-align: start;
-}
-
-.wk-table__row:first-child .wk-table__name,
-.wk-table__row:first-child .wk-table__cell {
-  border-block-start: 0;
-}
-
-.wk-table__name {
-  font-size: var(--fs-metadata);
-  font-weight: var(--fw-regular);
-  color: var(--color-ink);
-}
-
-.wk-table__link {
-  color: inherit;
-}
-
-.wk-table__link:hover,
-.wk-table__link:focus-visible {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
-}
-
-.wk-table__cell {
-  font-size: var(--fs-metadata);
-  color: var(--color-ink-secondary);
-}
-
-.wk-table__cell--year {
-  text-align: end;
-  padding-inline-end: 0;
-  font-variant-numeric: tabular-nums;
-}
 
 /* -----------------------------------------------------------
    The closing band — the same object as the project page's
@@ -674,113 +636,32 @@
     column-gap: var(--gutter-tablet);
   }
 
-  /* The room table gives up the catalogue's 38% and takes the whole
-     measure. Below 1024 there is no standing frame anywhere on these
-     pages, so the column it was leaving room for does not exist — and at
-     these widths the metadata needs every pixel it can get.
-
-     🔴 THIS ONE IS GENUINELY A WIDTH, and it stays keyed on width — it is
-     about how many pixels the metadata gets, not about whether a pointer
-     can hover. It is also the arrival's table, which has no frame beside
-     it on any device. Do not fold it into the capability query below. */
-  .wk-room__table {
-    max-inline-size: none;
-  }
 }
 
 /* -----------------------------------------------------------
-   THE STANDING FRAME IS A CAPABILITY, NOT A WIDTH (Session XXII).
+   THE CAPABILITY QUERY IS GONE WITH THE FRAME (7 Aug).
 
-   🔴 The rule below was keyed on `max-width: 1024px` while the thing it
-   actually depends on is `hover: hover`. Measured on /projects/homes
-   before the fix: at 1440 · 1366 · 1180 the frame rendered and NO row
-   carried a thumbnail; at 1024 and below the frame hid and every row
-   did. That is correct for a mouse and wrong for every touch device
-   WIDER than 1024 — iPad Pro landscape is 1366, iPad Air landscape
-   1180, plus every touch laptop. There the frame renders, `mouseenter`
-   never fires, tapping a row navigates away, and no thumbnail appears
-   either: 38% of the row width spent on a photograph permanently stuck
-   on the first record.
+   A whole block lived here: `(max-width: 1024px), (hover: none),
+   (pointer: coarse)` chose between a sticky hover-driven frame
+   and a 200px inline thumbnail, because a frame that only
+   works with a mouse must retire where there is no mouse. The
+   set retires both — every record now carries its own
+   photograph at every width and on every pointer — so the
+   query has nothing left to choose between.
 
-   So the condition is the union, and it has to be: the frame must go
-   when the viewport is too narrow to hold its column OR when the
-   pointer cannot drive it. Written as a comma list rather than
-   `not (… and …)` because the comma IS the disjunction and needs no
-   Level-4 grouping support. `(hover: none)` and `(pointer: coarse)` are
-   De Morgan's other half of `(hover: hover) and (pointer: fine)`.
-
-   📌 An iPad with a Magic Keyboard trackpad reports `hover: hover` /
-   `pointer: fine` and keeps the frame — correctly, because there hover
-   genuinely works. The query asks the right question, so it gets the
-   right answer on hardware this table never enumerated.
-
-   ⚠️ A capability query CANNOT be verified by resizing a window, and the
-   two obvious ways to emulate one BOTH FAIL SILENTLY — measured, not
-   assumed. `Emulation.setEmulatedMedia {features:[{name:'hover',…}]}` is
-   accepted without error and changes nothing (`hover`/`pointer` are not
-   emulable features), and `--touch-events=enabled` enables touch EVENTS,
-   which is a different thing from the pointer this query describes. What
-   works is Blink's own settings, which is where the features are read
-   from: `--blink-settings=primaryPointerType=2,availablePointerTypes=2,
-   primaryHoverType=1,availableHoverTypes=1` (hover 1 = none, 2 = hover;
-   pointer 1 = none, 2 = coarse, 4 = fine). Assert the computed `display`
-   under that, never by eye at 1366 — `_bmad/tools/p26-frame-capability.js`.
+   📌 Its reasoning is kept in the record rather than here:
+   the De Morgan form of the disjunction, the iPad-with-
+   trackpad case, and 🔴 the finding that a capability query
+   CANNOT be emulated by resizing a window — `setEmulatedMedia`
+   accepts `hover`/`pointer` and changes nothing, and
+   `--touch-events` is a different thing. Only Blink's own
+   `--blink-settings=primaryPointerType=…` works. That is worth
+   more than the rules were: it is why `p26-frame-capability.js`
+   exists, and it applies to the next capability query anyone
+   writes. The probe itself is now obsolete — it is off-board,
+   so nothing goes red, but it measures an element that no
+   longer ships.
    ----------------------------------------------------------- */
-
-@media (max-width: 1024px), (hover: none), (pointer: coarse) {
-  .wk-catalogue {
-    grid-template-columns: 1fr;
-  }
-
-  .wk-frame {
-    display: none;
-  }
-
-  /* 200px, not 96 — the RICH LIST (Session XXII, H43 part two). Mahesh:
-     *"we might need to change this to a list or tile view style."* Four
-     options were rendered at 1366 under a touch pointer and looked at:
-     the list as shipped (96px thumb, 4,076px page), a 3-up tile
-     (267×200, 4,460px), a 2-up tile (440×330, 6,021px) and this. He took
-     this one.
-
-     🔴 THE TWO TILE OPTIONS ARE NOT FREELY AVAILABLE and the renders are
-     kept to say why: this file's own structural rules bar **"grids of
-     identical cards"**, and P4 of the Opportunity Register already
-     declined the photo-grid index on REALITY rather than taste — it needs
-     a library of strong photography the four rooms do not have (F2, with
-     G6 undated). The pictures added two faults argument had not reached:
-     the captions RAG (*"DECA 035 — Al Zorah Marina Residences ·
-     VISUALISATION"* wraps to two lines and pushes its district out of
-     line with its neighbours), and **13 records into 3 columns leaves a
-     lone tile beside two empty slots.** A grid also puts a THIRD
-     photograph size on a page that already carries a lead plate and two
-     studies, so it reads as a contact sheet rather than a hierarchy.
-
-     This option keeps the list a list — one record per line, the name
-     leading, the district in its own column, the hairlines still doing
-     the structuring — and only grows the photograph. It needs no
-     guideline revision and no new photography, and it costs one
-     declaration. The page runs 5,194px against 4,076.
-
-     📌 The ≤767 rule below keeps its 72px and is NOT touched: 200px in a
-     335px row is the whole row. */
-  .wk-row__thumb {
-    display: block;
-    inline-size: 200px;
-    block-size: auto;
-    flex: none;
-  }
-
-  .wk-row__link {
-    align-items: center;
-    padding-block: var(--gap-tight);
-  }
-
-  .wk-table .wk-row__thumb {
-    display: block;
-    margin-block-start: var(--gap-inline);
-  }
-}
 
 @media (max-width: 767px) {
   .wk-studies {
@@ -788,67 +669,27 @@
     row-gap: var(--gap-component);
   }
 
-  /* 🔴 THE ROW STACKS, because four columns cannot hold a name AND its
-     metadata in ~335px. Rendered at a true 375 the fixed grid gave the
-     name 99px and every one wrapped to three lines — "Woodlem Park
-     School, Hamidiya" over three, "AL TALLAH" over two, rows ~135px tall.
-     Auto layout was no better: it hands the short values their content
-     width first and squeezes the name, which is the one thing that must
-     stay readable.
+  /* 🔴 THE SET GOES TWO-UP, AND THE ORPHAN TAKES THE WHOLE WIDTH.
+     The row's grouping is markup — decided once, at build, against a
+     960px reference column — so CSS cannot regroup it here. What it can
+     do is stop justifying: below 767 the row becomes a two-column grid,
+     which holds at a true 375 (a 335px column gives ~155px tiles) where
+     a justified row of four would give 55px.
 
-     So below 767 the row becomes what it was before the merge — the name
-     on its own line, its metadata as one quiet run beneath. The elements
-     carry explicit ARIA roles in the markup precisely so this `display`
-     change does not cost them their table semantics. */
-  .wk-room__table,
-  .wk-room__table tbody,
-  .wk-room__table .wk-table__row,
-  .wk-room__table .wk-table__name,
-  .wk-room__table .wk-table__cell {
-    display: block;
-    inline-size: auto;
+     A row of three or of five then leaves its last tile alone on a line,
+     and `:last-child:nth-child(odd)` is exactly the test for that — the
+     last tile sits at an odd position only when nothing shares its line.
+     It spans both columns rather than sitting beside a hole, so every
+     line is full at every width and the phone gets a large closing
+     photograph instead of a gap. */
+  .wk-set__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap-block);
   }
 
-  .wk-room__table .wk-table__row {
-    padding-block: var(--pad-table-row);
-    border-block-start: 1px solid var(--color-hairline);
-  }
-
-  .wk-room__table .wk-table__row:first-child {
-    border-block-start: 0;
-  }
-
-  .wk-room__table .wk-table__name,
-  .wk-room__table .wk-table__cell {
-    padding-block: 0;
-    padding-inline-end: 0;
-    border-block-start: 0;
-  }
-
-  /* The metadata reads as one run, and an absent value takes no space —
-     a blank district must not open a gap where a dot would go. The
-     general-sibling combinator is what makes that work: it puts the
-     separator before any non-empty cell that has ANY non-empty cell
-     before it, however many empties sit between them. */
-  .wk-room__table .wk-table__cell {
-    display: inline;
-    font-size: var(--fs-caption);
-  }
-
-  .wk-room__table .wk-table__cell:empty {
-    display: none;
-  }
-
-  .wk-room__table .wk-table__cell:not(:empty) ~ .wk-table__cell:not(:empty)::before {
-    content: "\00B7\00A0";
-  }
-
-  .wk-room__table .wk-table__cell--year {
-    text-align: start;
-  }
-
-  .wk-row__thumb {
-    inline-size: 72px;
+  .wk-tile:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
   }
 }
 
@@ -863,8 +704,6 @@
   .chrome-plate,
   .menu-nib,
   .menu-overlay,
-  .wk-frame,
-  .wk-row__thumb,
   .wk-band,
   .site-footer {
     display: none !important;

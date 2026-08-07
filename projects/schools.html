@@ -198,116 +198,23 @@
   </div>
 
   <!--
-    The catalogue. Desktop: quiet rows beside a standing photograph frame,
-    sticky in its column, driven by row hover AND keyboard focus (js/work.js),
-    defaulting to the first catalogue record. Mobile: the frame is gone and
-    each row carries a small inline thumbnail instead. The frame is
-    decorative — every image it shows exists on the project page itself —
-    so it is aria-hidden and the swap carries no transition.
+    The catalogue, as the band (7 Aug). It was quiet rows beside a standing
+    photograph frame — sticky, hover-driven, defaulting to the first record —
+    with a small inline thumbnail replacing the frame below 1024 or on a
+    coarse pointer. Both are gone: the band gives every record its own
+    photograph at every width, so a single frame showing one record at a time
+    has nothing left to do, and the capability query that chose between them
+    has nothing left to choose.
+
+    🔴 WHAT STAYS ABOVE THIS IS THE POINT. The print and the two studies are
+    not a leftover — they are the only countable difference between this page
+    and the arrival's room, which carries the identical set (15 records here,
+    15 in Learns). Three records render above 500px here and none do there.
+    Delete them and this page becomes a strict subset of one room of
+    /projects, which is exactly why /projects/list was deleted.
   -->
   <section class="wk-catalogue container" aria-label="All Schools">
-    <ul class="wk-rows" data-rows>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/edu-crownbritish.html" data-thumb="../images/projects/edu-crownbritish/thumb.webp">
-          <span class="wk-row__name t-meta-value">Crown British School</span>
-          <span class="wk-row__meta t-caption"><span class="wk-row__year">2021</span></span>
-          <img class="wk-row__thumb" src="../images/projects/edu-crownbritish/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/edu-cityamerican.html" data-thumb="../images/projects/edu-cityamerican/thumb.webp">
-          <span class="wk-row__name t-meta-value">City American School</span>
-          <span class="wk-row__meta t-caption"><span class="wk-row__year">2020</span></span>
-          <img class="wk-row__thumb" src="../images/projects/edu-cityamerican/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/woodlem.html" data-thumb="../images/projects/woodlem/thumb.webp">
-          <span class="wk-row__name t-meta-value">Woodlem Park Private School</span>
-          <span class="wk-row__meta t-caption"><span>Al Jurf</span><span class="wk-row__year">2017</span></span>
-          <img class="wk-row__thumb" src="../images/projects/woodlem/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/edu-woodlemparkhamidiya.html" data-thumb="../images/projects/edu-woodlemparkhamidiya/thumb.webp">
-          <span class="wk-row__name t-meta-value">Woodlem Park School, Hamidiya</span>
-          <span class="wk-row__meta t-caption"><span>Hamidiya</span><span class="wk-row__year">2021</span></span>
-          <img class="wk-row__thumb" src="../images/projects/edu-woodlemparkhamidiya/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/edu-northgatebritish.html" data-thumb="../images/projects/edu-northgatebritish/thumb.webp">
-          <span class="wk-row__name t-meta-value">North Gate British School</span>
-          <span class="wk-row__meta t-caption"><span class="wk-row__year">2024</span></span>
-          <img class="wk-row__thumb" src="../images/projects/edu-northgatebritish/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/edu-metropolitan.html" data-thumb="../images/projects/edu-metropolitan/thumb.webp">
-          <span class="wk-row__name t-meta-value">Metropolitan School</span>
-          <span class="wk-row__meta t-caption"><span class="wk-row__year">2024</span></span>
-          <img class="wk-row__thumb" src="../images/projects/edu-metropolitan/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/edu-habitataltallah.html" data-thumb="../images/projects/edu-habitataltallah/thumb.webp">
-          <span class="wk-row__name t-meta-value">Habitat School, Al Tallah</span>
-          <span class="wk-row__meta t-caption"><span>Al Tallah</span><span class="wk-row__year">2017</span></span>
-          <img class="wk-row__thumb" src="../images/projects/edu-habitataltallah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/edu-ajmanamerican.html" data-thumb="../images/projects/edu-ajmanamerican/thumb.webp">
-          <span class="wk-row__name t-meta-value">Ajman American School</span>
-          <span class="wk-row__meta t-caption"><span class="wk-row__year">2017</span></span>
-          <img class="wk-row__thumb" src="../images/projects/edu-ajmanamerican/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/frontlineschool.html" data-thumb="../images/projects/frontlineschool/thumb.webp">
-          <span class="wk-row__name t-meta-value">Frontline International School</span>
-          <span class="wk-row__meta t-caption"><span>Al Tallah</span><span class="wk-row__year">2016</span></span>
-          <img class="wk-row__thumb" src="../images/projects/frontlineschool/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/edu-delhiprivate.html" data-thumb="../images/projects/edu-delhiprivate/thumb.webp">
-          <span class="wk-row__name t-meta-value">Delhi Private School</span>
-          <span class="wk-row__meta t-caption"><span class="wk-row__year">2017</span></span>
-          <img class="wk-row__thumb" src="../images/projects/edu-delhiprivate/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/edu-cityuniversity.html" data-thumb="../images/projects/edu-cityuniversity/thumb.webp">
-          <span class="wk-row__name t-meta-value">City University</span>
-          <span class="wk-row__meta t-caption"><span>University</span><span class="wk-row__year">2017</span></span>
-          <img class="wk-row__thumb" src="../images/projects/edu-cityuniversity/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/edu-woodlemparkaljurf.html" data-thumb="../images/projects/edu-woodlemparkaljurf/thumb.webp">
-          <span class="wk-row__name t-meta-value">Woodlem Park School, Al Jurf</span>
-          <span class="wk-row__meta t-caption"><span>Al Jurf</span><span class="wk-row__year">2017</span></span>
-          <img class="wk-row__thumb" src="../images/projects/edu-woodlemparkaljurf/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-    </ul>
-    <figure class="wk-frame" data-frame aria-hidden="true">
-      <img class="wk-frame__img" src="../images/projects/edu-crownbritish/thumb.webp" alt="" width="800" height="600" decoding="async">
-    </figure>
+    <div class="wk-set"><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:2.1695"><a class="wk-tile__link" href="../projects/edu-crownbritish.html"><img class="wk-tile__img" src="../images/projects/edu-crownbritish/band.webp" srcset="../images/projects/edu-crownbritish/band.webp 800w, ../images/projects/edu-crownbritish/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="738" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Crown British School</span><span class="wk-tile__meta t-caption">2021</span></span></a></li><li class="wk-tile" style="--a:1.7036"><a class="wk-tile__link" href="../projects/edu-cityamerican.html"><img class="wk-tile__img" src="../images/projects/edu-cityamerican/band.webp" srcset="../images/projects/edu-cityamerican/band.webp 800w, ../images/projects/edu-cityamerican/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="939" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">City American School</span><span class="wk-tile__meta t-caption">2020</span></span></a></li></ul><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.4995"><a class="wk-tile__link" href="../projects/woodlem.html"><img class="wk-tile__img" src="../images/projects/woodlem/band.webp" srcset="../images/projects/woodlem/band.webp 800w, ../images/projects/woodlem/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Woodlem Park Private School</span><span class="wk-tile__meta t-caption">Al Jurf &middot; 2017</span></span></a></li><li class="wk-tile" style="--a:1.5673"><a class="wk-tile__link" href="../projects/edu-woodlemparkhamidiya.html"><img class="wk-tile__img" src="../images/projects/edu-woodlemparkhamidiya/band.webp" srcset="../images/projects/edu-woodlemparkhamidiya/band.webp 800w, ../images/projects/edu-woodlemparkhamidiya/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1021" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Woodlem Park School, Hamidiya</span><span class="wk-tile__meta t-caption">Hamidiya &middot; 2021</span></span></a></li><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="../projects/edu-northgatebritish.html"><img class="wk-tile__img" src="../images/projects/edu-northgatebritish/band.webp" srcset="../images/projects/edu-northgatebritish/band.webp 800w, ../images/projects/edu-northgatebritish/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">North Gate British School</span><span class="wk-tile__meta t-caption">2024</span></span></a></li></ul><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="../projects/edu-metropolitan.html"><img class="wk-tile__img" src="../images/projects/edu-metropolitan/band.webp" srcset="../images/projects/edu-metropolitan/band.webp 800w, ../images/projects/edu-metropolitan/hero-md.webp 1024w" sizes="(max-width: 767px) 46vw, 30vw" width="1024" height="576" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Metropolitan School</span><span class="wk-tile__meta t-caption">2024</span></span></a></li><li class="wk-tile" style="--a:1.7021"><a class="wk-tile__link" href="../projects/edu-habitataltallah.html"><img class="wk-tile__img" src="../images/projects/edu-habitataltallah/band.webp" srcset="../images/projects/edu-habitataltallah/band.webp 800w, ../images/projects/edu-habitataltallah/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="940" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Habitat School, Al Tallah</span><span class="wk-tile__meta t-caption">Al Tallah &middot; 2017</span></span></a></li><li class="wk-tile" style="--a:1.6509"><a class="wk-tile__link" href="../projects/edu-ajmanamerican.html"><img class="wk-tile__img" src="../images/projects/edu-ajmanamerican/band.webp" srcset="../images/projects/edu-ajmanamerican/band.webp 800w, ../images/projects/edu-ajmanamerican/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="969" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Ajman American School</span><span class="wk-tile__meta t-caption">2017</span></span></a></li><li class="wk-tile" style="--a:1.4995"><a class="wk-tile__link" href="../projects/frontlineschool.html"><img class="wk-tile__img" src="../images/projects/frontlineschool/band.webp" srcset="../images/projects/frontlineschool/band.webp 800w, ../images/projects/frontlineschool/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Frontline International School</span><span class="wk-tile__meta t-caption">Al Tallah &middot; 2016</span></span></a></li></ul><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.5521"><a class="wk-tile__link" href="../projects/edu-delhiprivate.html"><img class="wk-tile__img" src="../images/projects/edu-delhiprivate/band.webp" srcset="../images/projects/edu-delhiprivate/band.webp 800w, ../images/projects/edu-delhiprivate/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1031" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Delhi Private School</span><span class="wk-tile__meta t-caption">2017</span></span></a></li><li class="wk-tile" style="--a:1.8251"><a class="wk-tile__link" href="../projects/edu-cityuniversity.html"><img class="wk-tile__img" src="../images/projects/edu-cityuniversity/band.webp" srcset="../images/projects/edu-cityuniversity/band.webp 800w, ../images/projects/edu-cityuniversity/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="877" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">City University</span><span class="wk-tile__meta t-caption">2017</span></span></a></li><li class="wk-tile" style="--a:1.9917"><a class="wk-tile__link" href="../projects/edu-woodlemparkaljurf.html"><img class="wk-tile__img" src="../images/projects/edu-woodlemparkaljurf/band.webp" srcset="../images/projects/edu-woodlemparkaljurf/band.webp 800w, ../images/projects/edu-woodlemparkaljurf/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="803" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Woodlem Park School, Al Jurf</span><span class="wk-tile__meta t-caption">Al Jurf &middot; 2017</span></span></a></li></ul></div>
   </section>
 
   <p class="wk-also container">Also: <a class="wk-also__link" href="malls.html">Malls &amp; shops</a> &middot; <a class="wk-also__link" href="homes.html">Homes</a> &mdash; and <a class="wk-also__link" href="../projects/alghalamosque.html">one mosque</a>.</p>

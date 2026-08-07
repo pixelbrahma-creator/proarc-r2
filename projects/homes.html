@@ -198,124 +198,23 @@
   </div>
 
   <!--
-    The catalogue. Desktop: quiet rows beside a standing photograph frame,
-    sticky in its column, driven by row hover AND keyboard focus (js/work.js),
-    defaulting to the first catalogue record. Mobile: the frame is gone and
-    each row carries a small inline thumbnail instead. The frame is
-    decorative — every image it shows exists on the project page itself —
-    so it is aria-hidden and the swap carries no transition.
+    The catalogue, as the band (7 Aug). It was quiet rows beside a standing
+    photograph frame — sticky, hover-driven, defaulting to the first record —
+    with a small inline thumbnail replacing the frame below 1024 or on a
+    coarse pointer. Both are gone: the band gives every record its own
+    photograph at every width, so a single frame showing one record at a time
+    has nothing left to do, and the capability query that chose between them
+    has nothing left to choose.
+
+    🔴 WHAT STAYS ABOVE THIS IS THE POINT. The print and the two studies are
+    not a leftover — they are the only countable difference between this page
+    and the arrival's room, which carries the identical set (15 records here,
+    15 in Learns). Three records render above 500px here and none do there.
+    Delete them and this page becomes a strict subset of one room of
+    /projects, which is exactly why /projects/list was deleted.
   -->
   <section class="wk-catalogue container" aria-label="All Homes">
-    <ul class="wk-rows" data-rows>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/exclusivevillas.html" data-thumb="../images/projects/exclusivevillas/thumb.webp">
-          <span class="wk-row__name t-meta-value">Exclusive Villas</span>
-          <span class="wk-row__meta t-caption"><span>Al Zorah</span></span>
-          <img class="wk-row__thumb" src="../images/projects/exclusivevillas/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/emiratescity.html" data-thumb="../images/projects/emiratescity/thumb.webp">
-          <span class="wk-row__name t-meta-value">Emirates City D1 Tower</span>
-          <span class="wk-row__meta t-caption"><span>Emirates City</span></span>
-          <img class="wk-row__thumb" src="../images/projects/emiratescity/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/gfloorpenthouse.html" data-thumb="../images/projects/gfloorpenthouse/thumb.webp">
-          <span class="wk-row__name t-meta-value">G+8 Floor + Penthouse</span>
-          <span class="wk-row__meta t-caption"><span>Al Zorah</span></span>
-          <img class="wk-row__thumb" src="../images/projects/gfloorpenthouse/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/greenbuildings.html" data-thumb="../images/projects/greenbuildings/thumb.webp">
-          <span class="wk-row__name t-meta-value">Green Buildings</span>
-          <span class="wk-row__meta t-caption"></span>
-          <img class="wk-row__thumb" src="../images/projects/greenbuildings/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/jeddahheights.html" data-thumb="../images/projects/jeddahheights/thumb.webp">
-          <span class="wk-row__name t-meta-value">Jeddah Heights</span>
-          <span class="wk-row__meta t-caption"><span class="wk-row__year">2018</span></span>
-          <img class="wk-row__thumb" src="../images/projects/jeddahheights/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/one-678.html" data-thumb="../images/projects/one-678/thumb.webp">
-          <span class="wk-row__name t-meta-value">One 678 <span class="wk-row__genre">&middot; Visualisation</span></span>
-          <span class="wk-row__meta t-caption"><span>Aamra</span></span>
-          <img class="wk-row__thumb" src="../images/projects/one-678/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/bluebell-residence.html" data-thumb="../images/projects/bluebell-residence/thumb.webp">
-          <span class="wk-row__name t-meta-value">Bluebell Residence <span class="wk-row__genre">&middot; Visualisation</span></span>
-          <span class="wk-row__meta t-caption"><span>Aamra</span></span>
-          <img class="wk-row__thumb" src="../images/projects/bluebell-residence/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/star-giga-tower.html" data-thumb="../images/projects/star-giga-tower/thumb.webp">
-          <span class="wk-row__name t-meta-value">Star Giga Tower <span class="wk-row__genre">&middot; Visualisation</span></span>
-          <span class="wk-row__meta t-caption"><span>Emirates City</span></span>
-          <img class="wk-row__thumb" src="../images/projects/star-giga-tower/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/deca-035.html" data-thumb="../images/projects/deca-035/thumb.webp">
-          <span class="wk-row__name t-meta-value">DECA 035 — Al Zorah Marina Residences <span class="wk-row__genre">&middot; Visualisation</span></span>
-          <span class="wk-row__meta t-caption"><span>Al Zorah</span></span>
-          <img class="wk-row__thumb" src="../images/projects/deca-035/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/azha-park-residences.html" data-thumb="../images/projects/azha-park-residences/thumb.webp">
-          <span class="wk-row__name t-meta-value">Azha Park Residences <span class="wk-row__genre">&middot; Visualisation</span></span>
-          <span class="wk-row__meta t-caption"><span>Aamra</span></span>
-          <img class="wk-row__thumb" src="../images/projects/azha-park-residences/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/zamzam-tower.html" data-thumb="../images/projects/zamzam-tower/thumb.webp">
-          <span class="wk-row__name t-meta-value">Zamzam Tower</span>
-          <span class="wk-row__meta t-caption"><span>Aalia</span></span>
-          <img class="wk-row__thumb" src="../images/projects/zamzam-tower/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/sealine.html" data-thumb="../images/projects/sealine/thumb.webp">
-          <span class="wk-row__name t-meta-value">Sealine Residences</span>
-          <span class="wk-row__meta t-caption"><span>Al Zorah</span></span>
-          <img class="wk-row__thumb" src="../images/projects/sealine/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-      <li class="wk-row">
-        <a class="wk-row__link" href="../projects/gateway.html" data-thumb="../images/projects/gateway/thumb.webp">
-          <span class="wk-row__name t-meta-value">Gateway Residences</span>
-          <span class="wk-row__meta t-caption"><span>Marina &amp; Creek</span></span>
-          <img class="wk-row__thumb" src="../images/projects/gateway/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      
-    </ul>
-    <figure class="wk-frame" data-frame aria-hidden="true">
-      <img class="wk-frame__img" src="../images/projects/exclusivevillas/thumb.webp" alt="" width="800" height="600" decoding="async">
-    </figure>
+    <div class="wk-set"><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="../projects/exclusivevillas.html"><img class="wk-tile__img" src="../images/projects/exclusivevillas/band.webp" srcset="../images/projects/exclusivevillas/band.webp 800w, ../images/projects/exclusivevillas/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Exclusive Villas</span><span class="wk-tile__meta t-caption">Al Zorah</span></span></a></li><li class="wk-tile" style="--a:1.4995"><a class="wk-tile__link" href="../projects/emiratescity.html"><img class="wk-tile__img" src="../images/projects/emiratescity/band.webp" srcset="../images/projects/emiratescity/band.webp 800w, ../images/projects/emiratescity/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Emirates City D1 Tower</span><span class="wk-tile__meta t-caption">Emirates City</span></span></a></li></ul><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.7391"><a class="wk-tile__link" href="../projects/gfloorpenthouse.html"><img class="wk-tile__img" src="../images/projects/gfloorpenthouse/band.webp" srcset="../images/projects/gfloorpenthouse/band.webp 800w, ../images/projects/gfloorpenthouse/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="920" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">G+8 Floor + Penthouse</span><span class="wk-tile__meta t-caption">Al Zorah</span></span></a></li><li class="wk-tile" style="--a:1.4747"><a class="wk-tile__link" href="../projects/greenbuildings.html"><img class="wk-tile__img" src="../images/projects/greenbuildings/band.webp" srcset="../images/projects/greenbuildings/band.webp 800w, ../images/projects/greenbuildings/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1085" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Green Buildings</span></span></a></li><li class="wk-tile" style="--a:1.4995"><a class="wk-tile__link" href="../projects/jeddahheights.html"><img class="wk-tile__img" src="../images/projects/jeddahheights/band.webp" srcset="../images/projects/jeddahheights/band.webp 800w, ../images/projects/jeddahheights/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Jeddah Heights</span><span class="wk-tile__meta t-caption">2018</span></span></a></li></ul><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:0.8000"><a class="wk-tile__link" href="../projects/one-678.html"><img class="wk-tile__img" src="../images/projects/one-678/band.webp" srcset="../images/projects/one-678/band.webp 800w, ../images/projects/one-678/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="2000" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">One 678<span class="wk-tile__genre"> &middot; Visualisation</span></span><span class="wk-tile__meta t-caption">Aamra</span></span></a></li><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="../projects/bluebell-residence.html"><img class="wk-tile__img" src="../images/projects/bluebell-residence/band.webp" srcset="../images/projects/bluebell-residence/band.webp 800w, ../images/projects/bluebell-residence/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Bluebell Residence<span class="wk-tile__genre"> &middot; Visualisation</span></span><span class="wk-tile__meta t-caption">Aamra</span></span></a></li><li class="wk-tile" style="--a:0.7333"><a class="wk-tile__link" href="../projects/star-giga-tower.html"><img class="wk-tile__img" src="../images/projects/star-giga-tower/band.webp" srcset="../images/projects/star-giga-tower/band.webp 800w, ../images/projects/star-giga-tower/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="2182" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Star Giga Tower<span class="wk-tile__genre"> &middot; Visualisation</span></span><span class="wk-tile__meta t-caption">Emirates City</span></span></a></li><li class="wk-tile" style="--a:1.3393"><a class="wk-tile__link" href="../projects/deca-035.html"><img class="wk-tile__img" src="../images/projects/deca-035/band.webp" srcset="../images/projects/deca-035/band.webp 800w, ../images/projects/deca-035/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1195" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">DECA 035 — Al Zorah Marina Residences<span class="wk-tile__genre"> &middot; Visualisation</span></span><span class="wk-tile__meta t-caption">Al Zorah</span></span></a></li></ul><ul class="wk-set__row" role="list"><li class="wk-tile" style="--a:1.6327"><a class="wk-tile__link" href="../projects/azha-park-residences.html"><img class="wk-tile__img" src="../images/projects/azha-park-residences/band.webp" srcset="../images/projects/azha-park-residences/band.webp 800w, ../images/projects/azha-park-residences/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="980" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Azha Park Residences<span class="wk-tile__genre"> &middot; Visualisation</span></span><span class="wk-tile__meta t-caption">Aamra</span></span></a></li><li class="wk-tile" style="--a:0.9748"><a class="wk-tile__link" href="../projects/zamzam-tower.html"><img class="wk-tile__img" src="../images/projects/zamzam-tower/band.webp" srcset="../images/projects/zamzam-tower/band.webp 800w, ../images/projects/zamzam-tower/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="1641" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Zamzam Tower</span><span class="wk-tile__meta t-caption">Aalia</span></span></a></li><li class="wk-tile" style="--a:1.6976"><a class="wk-tile__link" href="../projects/sealine.html"><img class="wk-tile__img" src="../images/projects/sealine/band.webp" srcset="../images/projects/sealine/band.webp 800w, ../images/projects/sealine/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="942" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Sealine Residences</span><span class="wk-tile__meta t-caption">Al Zorah</span></span></a></li><li class="wk-tile" style="--a:1.7778"><a class="wk-tile__link" href="../projects/gateway.html"><img class="wk-tile__img" src="../images/projects/gateway/band.webp" srcset="../images/projects/gateway/band.webp 800w, ../images/projects/gateway/hero-md.webp 1600w" sizes="(max-width: 767px) 46vw, 30vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><span class="wk-tile__cap"><span class="wk-tile__name t-meta-value">Gateway Residences</span><span class="wk-tile__meta t-caption">Marina & Creek</span></span></a></li></ul></div>
   </section>
 
   <p class="wk-also container">Also: <a class="wk-also__link" href="schools.html">Schools</a> &middot; <a class="wk-also__link" href="malls.html">Malls &amp; shops</a> &mdash; and <a class="wk-also__link" href="../projects/alghalamosque.html">one mosque</a>.</p>

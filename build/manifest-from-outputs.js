@@ -68,6 +68,11 @@ function buildProjectEntry(project) {
     hero: has('hero.webp') ? `images/projects/${slug}/hero.webp` : '',
     heroMd: has('hero-md.webp') ? `images/projects/${slug}/hero-md.webp` : '',
     thumb: has('thumb.webp') ? `images/projects/${slug}/thumb.webp` : '',
+    // The band's own derivative (build/band-derivatives.js) — the hero's frame
+    // uncropped at 800w. OPTIONAL by design: absent, the band's srcset simply
+    // omits its small candidate and serves hero-md, which is heavier but
+    // correct. A missing optimisation must never fail a build.
+    band: has('band.webp') ? `images/projects/${slug}/band.webp` : '',
     gallery,
   };
 
@@ -76,7 +81,7 @@ function buildProjectEntry(project) {
   // so the markup must carry width/height or the page reflows as the hero
   // decodes. A flat map keeps `hero`/`thumb`/`gallery` as plain strings, so
   // no existing consumer changes.
-  [entry.hero, entry.heroMd, entry.thumb, ...gallery].filter(Boolean).forEach((rel) => {
+  [entry.hero, entry.heroMd, entry.thumb, entry.band, ...gallery].filter(Boolean).forEach((rel) => {
     const size = webpSize(path.join(ROOT, rel));
     if (size) sizes[rel] = [size.width, size.height];
   });

@@ -238,6 +238,182 @@ function plate(project, manifest, prefix) {
 }
 
 /* ------------------------------------------------------------------ *
+ * THE BAND — every record in a set, as a photograph (03-work §4.1.4)
+ * ------------------------------------------------------------------ *
+ *
+ * Mahesh, 7 Aug: *"all projects need to be seen with an image .. it need not
+ * be a regular tile view of same size, but well cropped images stacked in a
+ * nice random way."* Rendered five ways and measured on the live page before
+ * any of it was written; the record is in the session board.
+ *
+ * THE RULE, and it is one sentence: **each row fills the column exactly;
+ * within a row every photograph shares a height; the height is whatever makes
+ * that row fit.** Nothing is cropped, so the variation the eye reads is the
+ * BUILDINGS' OWN PROPORTIONS — 41 landscape frames, 6 portrait, aspects from
+ * 0.605 to 2.184 — rather than a pattern laid over them.
+ *
+ * 🔴 THE ARITHMETIC IS NOT DONE HERE. This file decides only WHICH records
+ * share a row; the justification itself is CSS (`work.css` § the band): each
+ * tile takes `flex-grow` equal to its aspect ratio against `flex-basis: 0`,
+ * which distributes the row's free width in proportion to the aspects, and
+ * `aspect-ratio` then makes every height in that row identical by
+ * construction. That is the same fill at every viewport width, in RTL, and at
+ * a zoom this file never hears about. Computing pixel widths at build time
+ * would freeze the layout to one column width and put a px value in the
+ * markup, which the hard rules bar anyway.
+ *
+ * 🔴 AND "RANDOM" IS A STATED RULE, NEVER `Math.random()`. This project has
+ * already paid for that once: /ajman's marks are scattered every build, so an
+ * arrangement fixed by chance is re-arranged by the next record that lands —
+ * three pairs merged into single blobs under a completely green board. The
+ * same 47 records must always produce the same page, or a screenshot in a
+ * document stops being evidence about the site.
+ */
+
+/* The beat. Two photographs on one row, then three, then four, then three —
+   the count is fixed so the SIZE cannot be. Rendered against the alternatives
+   (a uniform 200px cap, and caps alternating 300/150) and chosen: the caps
+   read as a stripe pattern because the eye hears the beat, where a varying
+   count reads as composition. */
+const BAND_PATTERN = [2, 3, 4, 3];
+
+/* 🔴 THE PATTERN ALONE IS NOT SAFE, AND THE MEASUREMENT SAYS SO. Applied
+   bare, `homes` produced rows of 683px, 438px and 548px — two portrait
+   heroes sharing a row divide the column between two narrow aspects and the
+   height explodes. So the count is a STARTING POINT that the clamp corrects:
+   grow the row until it fits under the cap, shrink it if it would be a
+   letterbox. Measured across all four rooms and all three catalogues after
+   clamping, the tallest row anywhere is 312px.
+
+   The cap is expressed against a REFERENCE column (the 1120 container's
+   960px content box at desktop) because the grouping is markup and must be
+   decided once, while the rendered height scales with the viewport. A row
+   that is 312px at 960 is 236px at 728 — the proportion is what is fixed. */
+const BAND_REF_COLUMN = 960;
+const BAND_GAP = 24; // --gap-block, the gutter between tiles
+const BAND_MAX_H = 340;
+const BAND_MIN_H = 120;
+const BAND_MAX_PER_ROW = 5;
+
+/** The height a row of these aspects would take in the reference column. */
+function bandRowHeight(aspects) {
+  const sum = aspects.reduce((a, x) => a + x, 0);
+  return (BAND_REF_COLUMN - BAND_GAP * (aspects.length - 1)) / sum;
+}
+
+/**
+ * Group a set into rows: the beat, corrected by the clamp, with no row of one.
+ *
+ * 🔴 A TRAILING ROW OF ONE IS MERGED BACKWARDS, and that is not tidiness. A
+ * lone tile fills the column on its own, so its height is the column divided
+ * by its aspect — 640px for an ordinary landscape frame, taller than any
+ * other row on the page and decided by nothing but the set's cardinality.
+ * `schools` ends on one; `homes` does not. A composition rule that produces a
+ * hero-scale photograph for some rooms and not others is arbitrary, and
+ * arbitrary is the thing this whole shape exists to avoid.
+ */
+function bandGroups(aspects) {
+  const rows = [];
+  let i = 0;
+  let beat = 0;
+  while (i < aspects.length) {
+    const remaining = aspects.length - i;
+    let n = Math.min(BAND_PATTERN[beat % BAND_PATTERN.length], remaining);
+    while (n < Math.min(BAND_MAX_PER_ROW, remaining) && bandRowHeight(aspects.slice(i, i + n)) > BAND_MAX_H) n++;
+    while (n > 2 && bandRowHeight(aspects.slice(i, i + n)) < BAND_MIN_H) n--;
+    rows.push([i, i + n]);
+    i += n;
+    beat++;
+  }
+  if (rows.length > 1 && rows[rows.length - 1][1] - rows[rows.length - 1][0] === 1) {
+    const tail = rows.pop();
+    rows[rows.length - 1][1] = tail[1];
+  }
+  return rows;
+}
+
+/**
+ * One tile. The photograph carries no text (hard rule 8) — the name and its
+ * metadata sit BENEATH it, on paper, which is also what lets the tile be
+ * 129px wide without a wrapped line.
+ *
+ * 🔴 E9.3 GOVERNS INDEX ROWS WITH "Exempt: none", so a Visualisation says so
+ * here exactly as it does in a list. Five of the forty-seven records carry
+ * the label and all five are in `homes`; a band that dropped it would be the
+ * first index surface on the site to show a render unmarked.
+ */
+function bandTile(project, manifest, prefix, aspect) {
+  const images = manifest.projects[project.slug] || {};
+  const large = image(manifest, images.heroMd || images.hero, project.slug, prefix);
+  const small = images.band ? image(manifest, images.band, project.slug, prefix) : null;
+  const provenance = R.provenance(project);
+  const place = rowPlace(project);
+  const year = R.parseYear(project) || '';
+  const meta = [place, year].filter(Boolean).join(' &middot; ');
+
+  /* The small candidate first: a tile is 129–677px wide, so most of them want
+     the 800w file and only the widest reach for hero-md. `sizes` can only be
+     an approximation — the widths differ per tile by construction — so it
+     names the common case and lets the browser be wrong in the safe
+     direction on the few that are wider. */
+  const srcset = small && small.width !== large.width
+    ? ` srcset="${small.src} ${small.width}w, ${large.src} ${large.width}w" sizes="(max-width: 767px) 46vw, 30vw"`
+    : '';
+
+  /* 🔴 THE ASPECT RIDES ON THE `li`, NOT ON THE LINK, because the `li` is the
+     flex item the row distributes. And it is an inline CUSTOM PROPERTY, which
+     is the established way this codebase carries a per-element DATUM into CSS
+     — `--mark-index` on /ajman's marks, `--elev-index` on Services' rises,
+     `--mark-count` on the map itself. The hard rule bars inline STYLED
+     VALUES, so that stylelint can see them; a building's own proportion is a
+     measurement, like the `width` and `height` attributes beside it. */
+  return (
+    `<li class="wk-tile" style="--a:${aspect.toFixed(4)}">` +
+    `<a class="wk-tile__link" href="${prefix}projects/${project.slug}.html">` +
+    `<img class="wk-tile__img" src="${small ? small.src : large.src}"${srcset} ` +
+    `width="${large.width}" height="${large.height}" alt="" loading="lazy" decoding="async">` +
+    `<span class="wk-tile__cap">` +
+    `<span class="wk-tile__name t-meta-value">${escapeText(project.title)}` +
+    (provenance ? `<span class="wk-tile__genre"> &middot; ${escapeText(provenance)}</span>` : '') +
+    `</span>` +
+    (meta ? `<span class="wk-tile__meta t-caption">${meta}</span>` : '') +
+    `</span></a></li>`
+  );
+}
+
+/**
+ * The band for a set, as markup.
+ *
+ * Returned as a string rather than as view data because the shape is three
+ * levels deep (band → row → tile) and the page engine carries `{{#each}}`
+ * without nesting that far. `alsoLineHtml` and the drawn surfaces in
+ * `services.js` and `districts.js` are the same decision for the same reason.
+ */
+function bandHtml(set, manifest, prefix) {
+  if (set.length < 2) {
+    throw new Error(`the band was asked for ${set.length} record(s) — a band of one is a full-column photograph, not a row.`);
+  }
+  const aspects = set.map((p) => {
+    const images = manifest.projects[p.slug];
+    if (!images) throw new Error(`${p.slug}: not in the manifest.`);
+    const size = manifest.sizes[images.hero];
+    if (!size) throw new Error(`${p.slug}: no intrinsic size for its hero — run npm run build:manifest.`);
+    return size[0] / size[1];
+  });
+
+  /* 🔴 `role="list"` IS NOT REDUNDANT, and this page has the precedent in its
+     own table: a list styled with `list-style: none` loses its implicit list
+     role in Safari, exactly as a table given `display: block` loses its row
+     roles. Stated here, the semantics survive the layout. */
+  const rows = bandGroups(aspects).map(([from, to]) => {
+    const tiles = set.slice(from, to).map((p, k) => bandTile(p, manifest, prefix, aspects[from + k]));
+    return `<ul class="wk-set__row" role="list">${tiles.join('')}</ul>`;
+  });
+
+  return `<div class="wk-set">${rows.join('')}</div>`;
+}
+
+/* ------------------------------------------------------------------ *
  * The three sector pages — copy from 04-copy-direction.md v3.3 §2,
  * verbatim
  * ------------------------------------------------------------------ */
@@ -301,9 +477,22 @@ function sectorViewData(srcName, prefix) {
     throw new Error(`${srcName}: the set holds ${set.length} records — below the exhibition's own anatomy.`);
   }
 
-  const unsaid = UNSAID_NOUNS[cfg.key];
-  const catalogue = set.slice(3).map((p) => rowData(p, manifest, prefix, unsaid));
+  /* 🔴 THE CATALOGUE'S ROWS BECAME THE BAND (7 Aug), AND THE PRINT AND THE
+     TWO STUDIES STAYED. That pairing is the decision, not a leftover. The
+     sector pages carry the SAME RECORDS as the arrival's rooms — counted,
+     schools is 1 print + 2 studies + 12 catalogue = 15, exactly the Learns
+     room; malls 12; homes 16 — and until now they differed in how many of
+     those records were photographs, three here against one there. Give both
+     surfaces the same band and that difference goes to ZERO, which is
+     precisely why `/projects/list` was deleted: its stated difference,
+     "image-led versus data-led", described an intention while the two pages
+     described a duplication.
 
+     Keeping the print and the studies keeps the difference COUNTABLE, which
+     is what this project requires of a claim that two surfaces differ in
+     kind: three records render above 500px here and none do on the arrival.
+     The sector page is where a sector has a HIERARCHY; the arrival is where
+     it has a SET. */
   return {
     sectorNoun: cfg.noun,
     sectorVerb: cfg.verb,
@@ -311,8 +500,7 @@ function sectorViewData(srcName, prefix) {
     backHref: `${prefix}projects.html`,
     print: [plate(set[0], manifest, prefix)],
     studies: [plate(set[1], manifest, prefix), plate(set[2], manifest, prefix)],
-    catalogueRows: catalogue,
-    frameSrc: catalogue[0].rowThumb,
+    catalogueBandHtml: bandHtml(set.slice(3), manifest, prefix),
     alsoHtml: alsoLineHtml(cfg, prefix),
     ogImage: leadImage(set[0], manifest, prefix).src,
   };
@@ -388,8 +576,14 @@ function arrivalViewData(prefix) {
       // D-2) carries its own flag
       roomHrefAbsent: room.href ? '' : '1',
       roomOpener: escapeText(room.opener),
-      lead: [plate(set[0], manifest, prefix)],
-      rows: set.map((p) => roomRow(p, manifest, prefix, ROOM_UNSAID_NOUNS[room.key])),
+      /* 🔴 THE LEAD PLATE AND THE TABLE ARE BOTH GONE, replaced by the band —
+         and the TABLE is what paid for it. Measured on the live page: the
+         band with its captions adds 1,066px, and removing the table takes
+         2,544px away. Every record gains a photograph and the page gets
+         SHORTER. The one thing lost with the table is the type noun, which
+         `ROOM_UNSAID_NOUNS` suppressed on 32 of the 46 rows anyway and which
+         remains reachable through the search index below. */
+      roomBandHtml: bandHtml(set, manifest, prefix),
     };
   });
 

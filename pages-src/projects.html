@@ -108,16 +108,17 @@
 
   {{#each rooms}}
   <section class="wk-room container">
-    {{#each lead}}
-    <figure class="wk-room__plate">
-      <img class="wk-plate__img" src="{{plateSrc}}"{{#if plateSrcset}} srcset="{{plateSrcset}}" sizes="(max-width: 1200px) 100vw, 1120px"{{/if}}
-           width="{{plateWidth}}" height="{{plateHeight}}" alt="{{plateName}}" loading="lazy" decoding="async">
-      <figcaption class="wk-plate__caption">
-        <a class="wk-plate__name t-meta-value" href="{{plateHref}}">{{plateName}}</a>{{#if plateProvenance}}<span class="wk-plate__genre">{{plateProvenance}}</span>{{/if}}{{#if platePlace}}<span class="wk-plate__place t-caption">{{platePlace}}</span>{{/if}}
-      </figcaption>
-    </figure>
-    {{/each}}
+    <!-- 🔴 THE HEADING COMES FIRST NOW, and the reason is not symmetry. The
+         plate sat ABOVE the room's name because it was ONE photograph
+         introducing a room. Fifteen photographs above the name is a different
+         sentence: the reader meets the whole set before being told what it
+         is, and the heading ends up labelling nothing that follows it. Named,
+         explained, then shown. Rendered both ways at 1440 and the page is
+         8,750px either way — this is a sentence, not a cost.
 
+         📌 The band's separation therefore lives at its TOP. It was a
+         `margin-block-end` while the band sat above the heading; moved and
+         left alone, the first row crowds the opener. -->
     {{#if roomHref}}
     <h2 class="wk-room__verb t-editorial"><a class="wk-room__verblink" href="{{roomHref}}">{{roomVerb}} <span aria-hidden="true">&rarr;</span></a></h2>
     {{/if}}
@@ -127,48 +128,25 @@
 
     <p class="wk-room__opener t-body-lg">{{roomOpener}}</p>
 
-    <!-- The room's own set, in the ledger's columns. The header row is
-         visually hidden per room — four visible NAME/DISTRICT/TYPE/YEAR
-         bands down one page would be furniture, but a table whose columns
-         are unnamed is unreadable to a screen reader, so the header is
-         hidden rather than dropped. -->
-    <!-- 🔴 The explicit ARIA roles are NOT redundant. At ≤767 the CSS lays
-         these rows out as blocks, and changing a table element's `display`
-         makes the browser drop its implicit table roles — the rows stop
-         being rows for a screen reader at exactly the width where most
-         readers meet them. Stated here, the semantics survive the layout. -->
-    <table class="wk-table wk-room__table" role="table">
-      <caption class="u-visually-hidden">{{roomVerb}} &mdash; name, district, type and year</caption>
-      <!-- 🔴 The widths live HERE, not on the header cells. `.u-visually-hidden`
-           is position:absolute, which takes the <thead> out of the table's
-           column model entirely — widths declared on those cells would be
-           silently ignored and each room would negotiate its own columns,
-           which is exactly the misalignment the rendered option showed. -->
-      <colgroup>
-        <col class="wk-col--name">
-        <col class="wk-col--place">
-        <col class="wk-col--noun">
-        <col class="wk-col--year">
-      </colgroup>
-      <thead class="u-visually-hidden">
-        <tr role="row">
-          <th scope="col">Name</th>
-          <th scope="col">District</th>
-          <th scope="col">Type</th>
-          <th scope="col">Year</th>
-        </tr>
-      </thead>
-      <tbody role="rowgroup">
-        {{#each rows}}
-        <tr class="wk-table__row" role="row">
-          <th class="wk-table__name" scope="row" role="rowheader"><a class="wk-table__link" href="{{rowHref}}">{{rowName}}</a>{{#if rowProvenance}}<span class="wk-row__genre"> &middot; {{rowProvenance}}</span>{{/if}}</th>
-          <td class="wk-table__cell" role="cell">{{rowPlace}}</td>
-          <td class="wk-table__cell" role="cell">{{rowNoun}}</td>
-          <td class="wk-table__cell wk-table__cell--year" role="cell">{{rowYear}}</td>
-        </tr>
-        {{/each}}
-      </tbody>
-    </table>
+    <!-- THE BAND (7 Aug) — the room's whole set, every record a photograph.
+         It replaces BOTH the single lead plate and the four-column table, and
+         the table is what paid for it: measured on the live page, the band
+         with its captions adds 1,066px and the table's removal takes 2,544px
+         away, so every record gains a picture and the page gets shorter.
+
+         The rule is one sentence — each row fills the column exactly, every
+         photograph in a row shares a height, and the height is whatever makes
+         that row fit — so nothing is cropped and the variation the eye reads
+         is the buildings' own proportions. The grouping is decided in
+         `build/lib/work.js` (§ THE BAND); the justification itself is CSS, so
+         it re-fits at every width and in RTL without a number in the markup.
+
+         🔴 The type noun is the one datum that leaves the page with the
+         table. `ROOM_UNSAID_NOUNS` already suppressed it on 32 of the 46 rows
+         — which is why a control over that column was refused twice — and it
+         stays reachable through the search index below, whose hint still
+         names it. -->
+    {{roomBandHtml}}
   </section>
   {{/each}}
 

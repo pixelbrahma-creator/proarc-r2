@@ -53,28 +53,23 @@
   </div>
 
   <!--
-    The catalogue. Desktop: quiet rows beside a standing photograph frame,
-    sticky in its column, driven by row hover AND keyboard focus (js/work.js),
-    defaulting to the first catalogue record. Mobile: the frame is gone and
-    each row carries a small inline thumbnail instead. The frame is
-    decorative — every image it shows exists on the project page itself —
-    so it is aria-hidden and the swap carries no transition.
+    The catalogue, as the band (7 Aug). It was quiet rows beside a standing
+    photograph frame — sticky, hover-driven, defaulting to the first record —
+    with a small inline thumbnail replacing the frame below 1024 or on a
+    coarse pointer. Both are gone: the band gives every record its own
+    photograph at every width, so a single frame showing one record at a time
+    has nothing left to do, and the capability query that chose between them
+    has nothing left to choose.
+
+    🔴 WHAT STAYS ABOVE THIS IS THE POINT. The print and the two studies are
+    not a leftover — they are the only countable difference between this page
+    and the arrival's room, which carries the identical set (15 records here,
+    15 in Learns). Three records render above 500px here and none do there.
+    Delete them and this page becomes a strict subset of one room of
+    /projects, which is exactly why /projects/list was deleted.
   -->
   <section class="wk-catalogue container" aria-label="All {{sectorNoun}}">
-    <ul class="wk-rows" data-rows>
-      {{#each catalogueRows}}
-      <li class="wk-row">
-        <a class="wk-row__link" href="{{rowHref}}" data-thumb="{{rowThumb}}">
-          <span class="wk-row__name t-meta-value">{{rowName}}{{#if rowProvenance}} <span class="wk-row__genre">&middot; {{rowProvenance}}</span>{{/if}}</span>
-          <span class="wk-row__meta t-caption">{{#if rowPlace}}<span>{{rowPlace}}</span>{{/if}}{{#if rowNoun}}<span>{{rowNoun}}</span>{{/if}}{{#if rowYear}}<span class="wk-row__year">{{rowYear}}</span>{{/if}}</span>
-          <img class="wk-row__thumb" src="{{rowThumb}}" alt="" width="800" height="600" loading="lazy" decoding="async">
-        </a>
-      </li>
-      {{/each}}
-    </ul>
-    <figure class="wk-frame" data-frame aria-hidden="true">
-      <img class="wk-frame__img" src="{{frameSrc}}" alt="" width="800" height="600" decoding="async">
-    </figure>
+    {{catalogueBandHtml}}
   </section>
 
   <p class="wk-also container">{{alsoHtml}}</p>

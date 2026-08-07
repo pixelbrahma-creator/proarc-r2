@@ -21,21 +21,16 @@
   'use strict';
 
   /* ---------------------------------------------------------------- *
-   * The frame — sector catalogue and ledger, pointer and keyboard
+   * The frame is GONE (7 Aug), and with it the only pointer-dependent
+   * behaviour on these pages.
+   *
+   * It swapped one standing photograph as the cursor moved down the
+   * catalogue — the sector pages' answer to showing more than three
+   * records as images, and an answer only a mouse could ask for. The set
+   * gives every record its own photograph at every width and on every
+   * pointer, so there is nothing left to swap and nothing left that a
+   * keyboard reader had to be given a `focusin` equivalent of.
    * ---------------------------------------------------------------- */
-
-  var frame = document.querySelector('[data-frame] img');
-  if (frame) {
-    var links = document.querySelectorAll('a[data-thumb]');
-    Array.prototype.forEach.call(links, function (link) {
-      var swap = function () {
-        var thumb = link.getAttribute('data-thumb');
-        if (thumb && frame.getAttribute('src') !== thumb) frame.setAttribute('src', thumb);
-      };
-      link.addEventListener('mouseenter', swap);
-      link.addEventListener('focusin', swap);
-    });
-  }
 
   /* ---------------------------------------------------------------- *
    * ?q= — shared by both search surfaces

@@ -5,6 +5,8 @@
   "description": "ProArc website, R2 \u2014 static output, no runtime dependencies",
   "scripts": {
     "build:images": "node build/process-images.js",
+    "build:band": "node build/band-derivatives.js",
+    "build:band:check": "node build/band-derivatives.js --check",
     "build:manifest": "node build/manifest-from-outputs.js",
     "build:manifest:check": "node build/manifest-from-outputs.js --check",
     "build:pages": "node build/inject-partials.js",
