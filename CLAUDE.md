@@ -523,15 +523,26 @@ own `pageScript`.
 npm run serve            # 127.0.0.1:8765 — every probe needs an HTTP origin
 npm run check:fast       # the 8 static checks, ~1s. Run this constantly.
 npm run check:changed    # + the probes your diff implicates
-npm run check            # everything, in parallel. ~69s. Before every commit.
+npm run check            # everything, in parallel. ~62s. Before every commit.
 ```
 
-**The cost was never the checking, it was Chrome starting.** Measured: the eight
-static checks total **1.8s**; the sixteen browser probes total **~250s** and were
+**The cost was never the checking, it was Chrome starting.** Measured: the
+twelve static checks total **~3s**; the browser probes total **~330s** and were
 run one after another for no reason but that a shell loop is written that way.
 They are independent, so `board.js` runs them concurrently on assigned ports and
-the board's floor is now its slowest single check (p21, 59s) rather than the sum
-— **69s wall for 257s of work.**
+the board's floor is now its slowest single check (p21, ~58s) rather than the
+sum — **62s wall for 334s of work at 43 checks**, which is *faster* than the
+32-check board it replaced.
+
+> 🔴 **DO NOT JUDGE THE BOARD'S RUNTIME FROM ONE RUN.** Session XXVII's first
+> 43-check run took **1,399s**, with `p11` and `p21` — files nothing had
+> touched — **21–27× slower**. That reads exactly like "the new checks broke
+> the board." It was **contention**: 40 Chrome processes and load average 29.6
+> on the machine. Two clean re-runs gave 61.7s and 64.6s. Before believing a
+> slow board, check `uptime` and `ps aux | grep Chrome`, and kill orphaned
+> probe instances with `pkill -f "remote-debugging-port="`. **One timing
+> measurement cannot separate contention from regression** — the same rule
+> this project already applies to flake attribution.
 
 > 🔴 **`--changed` NARROWS, IT NEVER QUIETLY COVERS LESS.** Each check declares
 > the source paths that can move what it measures, and the skipped set is
@@ -550,12 +561,22 @@ the board's floor is now its slowest single check (p21, 59s) rather than the sum
 
 Run through this list and state the result:
 
-1. `npm run check` passes — 32/32. (`npx stylelint "src/**/*.css"` alone is
-   assertion 1 of 32.) The number moves when a probe is added; it was 27
-   before the Work surfaces' set landed (7 Aug) and this line had been
-   reading 24 since well before that. **A stale count here trains a reader
-   to ignore the line**, which is the same failure `sweep-pins` reports for
-   documents.
+1. `npm run check` passes — **43/43**. (`npx stylelint "src/**/*.css"` alone is
+   assertion 1 of 43.) The number moves when a probe is added; it was 32
+   before Session XXVII registered ten files that had never run, 27 before
+   the Work surfaces' set landed (7 Aug), and this line had been reading 24
+   since well before that. **A stale count here trains a reader to ignore the
+   line**, which is the same failure `sweep-pins` reports for documents.
+
+   🔴 **AND 32 → 43 WAS NOT TEN NEW PROBES — IT WAS TEN THAT ALREADY EXISTED
+   AND WERE NEVER REGISTERED.** 24 of 39 probe files were off the board;
+   among them sat 460 already-green assertions and **two live reds**
+   (`sweep-services` 80/81 for three commits, `p17-contact` 39/40). **Read
+   the board's LIST, not its verdict** — a check that is absent reports
+   nothing, and nothing looks exactly like green. `00u` §1.0a is the full
+   inventory, including the **13 files still off the board**, which are not
+   one kind: four assert a *deleted* design (dead, not red — do not
+   register), two *throw*, seven untriaged.
 2. No new hardcoded hex, px font-size, or physical margin/padding/border.
 3. Any new text/background pair has a measured contrast ratio.
 4. Checked at 375px, 768px and 1440px.
