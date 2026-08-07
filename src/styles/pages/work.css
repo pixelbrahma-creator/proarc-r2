@@ -629,10 +629,17 @@
    genuinely works. The query asks the right question, so it gets the
    right answer on hardware this table never enumerated.
 
-   ⚠️ A capability query CANNOT be verified by resizing a window. Assert
-   the computed `display` under an emulated touch device
-   (`Emulation.setTouchEmulationEnabled` + `setEmitTouchEventsForMouse`),
-   never by eye at 1366 — see `_bmad/tools/p26-frame-capability.js`.
+   ⚠️ A capability query CANNOT be verified by resizing a window, and the
+   two obvious ways to emulate one BOTH FAIL SILENTLY — measured, not
+   assumed. `Emulation.setEmulatedMedia {features:[{name:'hover',…}]}` is
+   accepted without error and changes nothing (`hover`/`pointer` are not
+   emulable features), and `--touch-events=enabled` enables touch EVENTS,
+   which is a different thing from the pointer this query describes. What
+   works is Blink's own settings, which is where the features are read
+   from: `--blink-settings=primaryPointerType=2,availablePointerTypes=2,
+   primaryHoverType=1,availableHoverTypes=1` (hover 1 = none, 2 = hover;
+   pointer 1 = none, 2 = coarse, 4 = fine). Assert the computed `display`
+   under that, never by eye at 1366 — `_bmad/tools/p26-frame-capability.js`.
    ----------------------------------------------------------- */
 
 @media (max-width: 1024px), (hover: none), (pointer: coarse) {
@@ -644,15 +651,44 @@
     display: none;
   }
 
+  /* 200px, not 96 — the RICH LIST (Session XXII, H43 part two). Mahesh:
+     *"we might need to change this to a list or tile view style."* Four
+     options were rendered at 1366 under a touch pointer and looked at:
+     the list as shipped (96px thumb, 4,076px page), a 3-up tile
+     (267×200, 4,460px), a 2-up tile (440×330, 6,021px) and this. He took
+     this one.
+
+     🔴 THE TWO TILE OPTIONS ARE NOT FREELY AVAILABLE and the renders are
+     kept to say why: this file's own structural rules bar **"grids of
+     identical cards"**, and P4 of the Opportunity Register already
+     declined the photo-grid index on REALITY rather than taste — it needs
+     a library of strong photography the four rooms do not have (F2, with
+     G6 undated). The pictures added two faults argument had not reached:
+     the captions RAG (*"DECA 035 — Al Zorah Marina Residences ·
+     VISUALISATION"* wraps to two lines and pushes its district out of
+     line with its neighbours), and **13 records into 3 columns leaves a
+     lone tile beside two empty slots.** A grid also puts a THIRD
+     photograph size on a page that already carries a lead plate and two
+     studies, so it reads as a contact sheet rather than a hierarchy.
+
+     This option keeps the list a list — one record per line, the name
+     leading, the district in its own column, the hairlines still doing
+     the structuring — and only grows the photograph. It needs no
+     guideline revision and no new photography, and it costs one
+     declaration. The page runs 5,194px against 4,076.
+
+     📌 The ≤767 rule below keeps its 72px and is NOT touched: 200px in a
+     335px row is the whole row. */
   .wk-row__thumb {
     display: block;
-    inline-size: 96px;
+    inline-size: 200px;
     block-size: auto;
     flex: none;
   }
 
   .wk-row__link {
     align-items: center;
+    padding-block: var(--gap-tight);
   }
 
   .wk-table .wk-row__thumb {
