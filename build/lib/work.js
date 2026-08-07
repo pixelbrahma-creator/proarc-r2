@@ -458,6 +458,30 @@ function searchText(project, provenance) {
     .toLowerCase();
 }
 
+/**
+ * 🔴 THE NOUN IS ITS OWN FIELD, not just a word in the blob (Session XXII).
+ *
+ * `text` is a single lowercased run of title + verb + sector noun + building
+ * noun + district + year + summary, and `matches()` looks for a substring in
+ * it. That is right for "black square" and wrong for a KIND, and the three
+ * ways it goes wrong were all measured on the built page rather than guessed:
+ *
+ *   1. THE SECTOR NOUN. Every shops record carries "Malls & shops", so
+ *      `mall` returned 13 — all twelve shops records plus one more — where
+ *      the Mall kind is 5. Eight of those thirteen matched nothing but the
+ *      sector's own name.
+ *   2. THE SUMMARY PROSE. `university` returned 5, three of them because
+ *      City School and the two City Lifes say they are "part of the city
+ *      university campus". `tower` caught "a residential tower featuring",
+ *      `showroom` caught Car Souq's "50 professional showrooms", and `mall`
+ *      caught Jeddah Heights' "the extensive mall and Ajman skyline".
+ *   3. THE PLURAL. A substring match cannot tell `tower` from "towers".
+ *
+ * So a noun query stops consulting the blob and reads this field instead —
+ * `university` is 2 and `mall` is 5, which is what the room tables show.
+ * The blob is untouched for every other query, so "learns", "shops" and a
+ * building's own name all still find the set the way they did.
+ */
 function searchIndexJson(db, prefix) {
   const records = ordered(db.projects).map((p) => {
     const provenance = R.provenance(p);
@@ -466,6 +490,7 @@ function searchIndexJson(db, prefix) {
       href: `${prefix}projects/${p.slug}.html`,
       name: p.title + (provenance ? ` · ${provenance}` : ''),
       meta: meta.join(' · '),
+      noun: buildingNoun(p).toLowerCase(),
       text: searchText(p, provenance),
     };
   });

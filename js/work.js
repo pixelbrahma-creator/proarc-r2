@@ -65,6 +65,35 @@
   }
 
   /* ---------------------------------------------------------------- *
+   * A BARE NOUN MEANS THE KIND (Session XXII)
+   *
+   * `text` is one lowercased blob and `matches` looks for a substring in
+   * it, which is right for "black square" and wrong for a KIND. Measured
+   * on the built index: `mall` returned 13 because every shops record
+   * carries the sector's own name "Malls & shops"; `university` returned 5
+   * because City School and the two City Lifes say they are "part of the
+   * city university campus"; `tower` returned 7 because a substring cannot
+   * tell "tower" from "towers". None of those is a Mall, a University or a
+   * Tower, and the room tables beside the field say 5, 2 and 4.
+   *
+   * So when the WHOLE query is exactly one of the twelve building nouns,
+   * it reads the record's own `noun` field and ignores the blob. Anything
+   * else — a name, a district, a year, a verb, two words — is unchanged,
+   * so "learns", "shops", "al zorah" and "black square" all still work.
+   *
+   * 🔴 It is keyed on the whole query, not on each term, and that is
+   * deliberate: "mall 2016" is a reader narrowing by hand and must keep
+   * the blob's reach, or the year would have nothing to match against.
+   * ---------------------------------------------------------------- */
+  function nounSet(records) {
+    var set = {};
+    for (var i = 0; i < records.length; i++) {
+      if (records[i].noun) set[records[i].noun] = true;
+    }
+    return set;
+  }
+
+  /* ---------------------------------------------------------------- *
    * THE LEDGER'S CONTROLLER IS GONE (Session XXI, 6 Aug)
    *
    * ~140 lines stood here driving projects/list.html: the chips
@@ -98,8 +127,12 @@
     var arrivalTally = document.querySelector('[data-tally]');
     if (!input || !results) return;
 
+    var NOUNS = nounSet(records);
+
     var renderResults = function (q) {
       var searchTerms = terms(q);
+      var whole = q.toLowerCase().trim();
+      var asNoun = NOUNS[whole] ? whole : null;
 
       if (!searchTerms.length) {
         results.hidden = true;
@@ -111,7 +144,7 @@
       }
 
       var hits = records.filter(function (r) {
-        return matches(r.text, searchTerms);
+        return asNoun ? r.noun === asNoun : matches(r.text, searchTerms);
       });
 
       results.textContent = '';

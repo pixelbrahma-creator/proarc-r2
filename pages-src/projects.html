@@ -37,9 +37,31 @@
          js/work.js still writes the live search result count into it,
          because a count the reader asked for by typing is not the same
          claim as a portfolio size printed at rest. -->
+    <!-- THE HINT IS THE FILTER'S ONLY FURNITURE (Session XXII, 6 Aug).
+         The ask was "selected work might need a filter like shops villas
+         mall etc." The filter already existed as this field; it had two
+         faults, and only one of them was in the code. It was UNDISCOVERABLE
+         — the label says SEARCH and nothing said a type works — and it was
+         IMPRECISE, which build/lib/work.js's noun field now fixes.
+
+         🔴 The noun column was measured as the control and REFUSED on the
+         measurement: ROOM_UNSAID_NOUNS suppresses each room's dominant
+         noun, so 32 of the 46 rows render an EMPTY type cell and a
+         clickable column would reach 14. That is the same fault that ruled
+         out a chip row in §4.1 — "8 records unreachable is worse than no
+         filter: it is a lie about the set" — four times over, and it fails
+         on Mahesh's own example, since Mall is one of the suppressed four.
+
+         The vocabulary is the room table's own caption ("name, district,
+         type and year"), not a second set of words for one set of columns.
+         The example names MALL first on purpose: it is a type the page can
+         never show as a cell, so it is exactly what a reader could not
+         otherwise learn. No count appears here — E12, and "we are not
+         giving number anywhere". -->
     <form class="wk-search" data-search role="search">
       <label class="wk-search__label t-meta-label" for="wk-q">Search</label>
-      <input class="wk-search__field" type="search" id="wk-q" name="q" autocomplete="off" spellcheck="false">
+      <input class="wk-search__field" type="search" id="wk-q" name="q" autocomplete="off" spellcheck="false" aria-describedby="wk-q-hint">
+      <p class="wk-search__hint t-caption" id="wk-q-hint">Name, district, type or year &mdash; try Mall or Superstore.</p>
       <p class="wk-search__tally t-caption" data-tally></p>
     </form>
     <ul class="wk-results" data-results hidden></ul>

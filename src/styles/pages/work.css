@@ -436,6 +436,18 @@
   outline-offset: 2px;
 }
 
+/* The hint sits under the field and is permanent — it is not a placeholder.
+   A placeholder vanishes at the first keystroke, which is precisely when a
+   reader who mistyped a type most needs to see what the field accepts, and
+   it cannot be read by anything but the eye. This is a real element wired
+   with `aria-describedby`, so it survives typing and reaches a screen
+   reader. Ink-secondary is 7.00:1 on paper (§5) — not a hierarchy made of
+   opacity, which §9.16 bars. */
+.wk-search__hint {
+  margin: var(--gap-inline) 0 0;
+  color: var(--color-ink-secondary);
+}
+
 .wk-search__tally {
   margin: var(--gap-inline) 0 0;
   font-variant-numeric: tabular-nums;
@@ -580,13 +592,50 @@
   /* The room table gives up the catalogue's 38% and takes the whole
      measure. Below 1024 there is no standing frame anywhere on these
      pages, so the column it was leaving room for does not exist — and at
-     these widths the metadata needs every pixel it can get. */
+     these widths the metadata needs every pixel it can get.
+
+     🔴 THIS ONE IS GENUINELY A WIDTH, and it stays keyed on width — it is
+     about how many pixels the metadata gets, not about whether a pointer
+     can hover. It is also the arrival's table, which has no frame beside
+     it on any device. Do not fold it into the capability query below. */
   .wk-room__table {
     max-inline-size: none;
   }
+}
 
-  /* Below 1024 the standing/floating frame is gone and the
-     rows carry their thumbnails (hover cannot be relied on). */
+/* -----------------------------------------------------------
+   THE STANDING FRAME IS A CAPABILITY, NOT A WIDTH (Session XXII).
+
+   🔴 The rule below was keyed on `max-width: 1024px` while the thing it
+   actually depends on is `hover: hover`. Measured on /projects/homes
+   before the fix: at 1440 · 1366 · 1180 the frame rendered and NO row
+   carried a thumbnail; at 1024 and below the frame hid and every row
+   did. That is correct for a mouse and wrong for every touch device
+   WIDER than 1024 — iPad Pro landscape is 1366, iPad Air landscape
+   1180, plus every touch laptop. There the frame renders, `mouseenter`
+   never fires, tapping a row navigates away, and no thumbnail appears
+   either: 38% of the row width spent on a photograph permanently stuck
+   on the first record.
+
+   So the condition is the union, and it has to be: the frame must go
+   when the viewport is too narrow to hold its column OR when the
+   pointer cannot drive it. Written as a comma list rather than
+   `not (… and …)` because the comma IS the disjunction and needs no
+   Level-4 grouping support. `(hover: none)` and `(pointer: coarse)` are
+   De Morgan's other half of `(hover: hover) and (pointer: fine)`.
+
+   📌 An iPad with a Magic Keyboard trackpad reports `hover: hover` /
+   `pointer: fine` and keeps the frame — correctly, because there hover
+   genuinely works. The query asks the right question, so it gets the
+   right answer on hardware this table never enumerated.
+
+   ⚠️ A capability query CANNOT be verified by resizing a window. Assert
+   the computed `display` under an emulated touch device
+   (`Emulation.setTouchEmulationEnabled` + `setEmitTouchEventsForMouse`),
+   never by eye at 1366 — see `_bmad/tools/p26-frame-capability.js`.
+   ----------------------------------------------------------- */
+
+@media (max-width: 1024px), (hover: none), (pointer: coarse) {
   .wk-catalogue {
     grid-template-columns: 1fr;
   }
