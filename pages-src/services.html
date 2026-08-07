@@ -67,69 +67,54 @@
          widths because the test was a box test. Measured here against the
          rendered ink. -->
     <section class="sv-claim container">
-      <h1 class="sv-claim__line t-editorial">One practice, accountable from first approval to handover</h1>
-      <p class="sv-claim__body t-body-lg">We bring architecture, structure and building services together in one office, so the scheme that is approved is the scheme that gets built &mdash; and we stay with it through construction.</p>
-      <p class="sv-claim__theme">Schools, malls, offices and homes &mdash; one practice answers for all of them.</p>
+      <h1 class="sv-claim__line t-editorial">At Proarc, we draw it, engineer it, and stay until handover</h1>
+      <p class="sv-claim__theme" id="sv-range-statement">The smallest building here and the tallest carry the same responsibility.</p>
     </section>
 
-    <!-- 2 · THE RANGE, DRAWN (§3) — V-1, decided 31 Jul on the
-         implementation study. Line elevations, NEVER photographs: this is
-         evidence, not illustration, and it pairs with the /ajman map as the
-         site's two drawn artefacts — the practice in plan there, in
-         elevation here.
+    <!-- 2 · THE RANGE, DRAWN (§3) — V-1, decided 31 Jul; RE-CUT Session
+         XXVI on Freya's calibration. Line elevations, NEVER photographs:
+         this is evidence, not illustration, and it pairs with the /ajman
+         map as the site's two drawn artefacts — plan there, elevation here.
 
          Every line is generated from data/projects.json by
          build/lib/services.js, which carries the rules: only a record whose
          file names its levels is drawn (E7.2 — no height is ever inferred),
-         basements are drawn BELOW the datum (E3.7 — the datum is real), the
-         footprint is the one invented value and is identical for every
-         building (E3.3), and the order is ascending by what a reader can
-         see.
+         basements are drawn BELOW the datum (E3.7 — the datum is real), and
+         the two invented values are named — E3.3 the footprint, identical
+         for every building and DERIVED (tallest draws at 6.5:1), E3.3b the
+         storey pitch, invented identically for every level of the same
+         named kind. The order is ascending by DRAWN HEIGHT — by what a
+         reader can see.
 
-         NO LABELS ON THE DRAWING. Fifteen names under 42-unit elevations
-         render around 9px, below the 12px floor — and the anonymous middle
-         is what lets a record that is not standing be drawn at all (E9.6).
-         The caption names and links the two ends, and nothing else on this
-         page names a building.
+         THE SECTION IS FULL-BLEED, NOT A .container: the datum runs past
+         the outermost elevations to the viewport edges — the ground leaves
+         the frame, which is the difference between a site and a chart. The
+         route row below carries its own .container.
+
+         NO LABELS ON THE DRAWING (names render ~9px, below the 12px floor)
+         and 🔴 NO CAPNOTE EITHER — removed on Mahesh's call, Session XXVI,
+         after the named ends went the same morning. The page now names no
+         building and carries NO set-level disclosure that seven of the
+         fifteen are not standing; E9.6's discharge for this drawing is an
+         OPEN ITEM for the letter, not something this markup provides.
 
          The drawing ships FINISHED. js/services.js arms it and plays the
          draw-in once; a broken script, a blocked file or no JS at all
          leaves the whole range drawn. -->
-    <section class="sv-range container" aria-labelledby="sv-range-statement">
+    <section class="sv-range" aria-labelledby="sv-range-statement">
       <figure class="sv-range__figure">
         <div class="sv-drawing" data-drawing>
           <svg class="sv-drawing__svg" viewBox="{{drawViewBox}}" role="img" aria-label="Line elevations of the buildings whose records name their levels, drawn shortest to tallest." preserveAspectRatio="xMidYMid meet">{{drawHtml}}</svg>
         </div>
-
-        <!-- The caption block, in order (§3.5): two ruled rows — from and
-             to, so it survives 375px — then the capnote, then the
-             statement below the figure.
-
-             The rows carry the name, linked to its own page, with the
-             DISTRICT as its support. No configuration string: a quantity's
-             place is that building's own spec table (E12).
-
-             NO STATUS ON EITHER END — an amendment to §3.5 and to the
-             capnote's second clause, decided 1 Aug. The spec asks a named
-             end to carry its record's status where the building is not
-             standing; records.js suppresses exactly that string on all 47
-             because the site never says a building is unbuilt, and this
-             page would be the only surface reintroducing it. E9.6's duty is
-             discharged for the SET by the capnote, which names nobody. -->
-        <figcaption class="sv-range__caption">
-          <ul class="sv-caption">
-            {{#each ends}}
-            <li class="sv-caption__row">
-              <a class="sv-caption__name" href="{{endHref}}">{{endName}} <span aria-hidden="true">&rarr;</span></a>
-              <span class="sv-caption__place">{{endPlace}}</span>
-            </li>
-            {{/each}}
-          </ul>
-          <p class="sv-capnote">Drawn from the records &mdash; every building whose file names its levels, and every level it names. Some of these are still rising.</p>
-        </figcaption>
       </figure>
 
-      <p class="sv-statement" id="sv-range-statement">The smallest building here and the tallest carry the same responsibility.</p>
+      <!-- The route row — the caption slot's successor. The two named ends
+           were also this section's two links; with them gone this ruled row
+           is the range's one way out to the records, and the page's only
+           route besides the band's Contact. One link per beat (§2). -->
+      <div class="container">
+        <p class="sv-range__route"><a class="sv-link" href="{{workHref}}">The work <span aria-hidden="true">&rarr;</span></a></p>
+      </div>
     </section>
 
     <!-- 3 · The mechanism (§2) — the lead, then the six blocks in the order
@@ -149,8 +134,17 @@
          the block names its work. The rules it clears are in the page
          comment above; the evidence is in `06-services.md` §9.1. -->
     <section class="sv-mechanism container">
-      <p class="sv-mechanism__lead t-body-lg">Every project starts with the site, the budget and the approvals it will need. Then we draw.</p>
+      <!-- 🔴 THE LEAD IS REMOVED — Mahesh's call, Session XXVI, on the
+           rendered page. It read "Every project starts with the site, the
+           budget and the approvals it will need…" and the Architecture
+           block four rows below says "The brief, the site, the approvals it
+           will need, and the drawings that answer them". The lead was
+           restating a block's own words one screen above it.
 
+           The section now opens on its first ruled row. That is deliberate:
+           the six blocks are name-and-sentence and need no announcement,
+           and the order they are in IS the order a building is made — the
+           lead was describing an arrangement the reader can already see. -->
       <div class="sv-blocks">
         <section class="sv-block">
           <h2 class="sv-block__name t-h3">Master planning</h2>
@@ -211,25 +205,14 @@
       </section>
     </section>
 
-    <!-- 4 · The delivery (§2) — the page's second owned fact, and its one
-         route to the work. Numberless by construction: it names the two
-         districts where buildings are going up rather than counting them.
-
-         Its register was stepped down from the fragment scale at rev 6 —
-         this is a sentence pair, and a fragment's scale read as a shout. -->
-    <section class="sv-delivery container">
-      <p class="sv-statement">What we have designed is standing across the Emirates. What we are designing now is going up in Aamra and Al Zorah.</p>
-      <p class="sv-delivery__route"><a class="sv-link" href="{{workHref}}">The work <span aria-hidden="true">&rarr;</span></a></p>
-    </section>
-
-    <!-- 5 · The close (§2) — one responsibility, held to the end. The X13
-         candidate second sentence ("Much of our work is for clients who
-         have built with us before") does NOT ship: repeat-client copy lives
-         in the project block, and this page's one candidate line is waiting
-         on Mahesh's check with ProArc. -->
-    <section class="sv-close container">
-      <p class="sv-statement">Design, engineering, supervision and handover are one responsibility, and we hold it until the building is finished.</p>
-    </section>
+    <!-- 4 · The delivery and the close are both REMOVED — Mahesh's calls,
+         Session XXVI. The delivery statement ("What we have designed is
+         standing across the Emirates…") took the page's future tense and
+         its only geography with it; its route link moved up into the range
+         section rather than surviving here alone in a 634px band. The close
+         ("Design, engineering, supervision and handover are one
+         responsibility…") was a restatement of the H1 and the body. X13's
+         candidate second sentence never shipped and is moot. -->
 
   </div>
 

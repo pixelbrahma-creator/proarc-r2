@@ -44,8 +44,52 @@
    from ~1025 to ~1200px, and a box test passed it every time because the box
    was 960px wide where the line was 870. Measured here against the rendered
    ink. */
+/* 🔴 THE FOOT OF THIS SECTION IS NOT --gap-section, AND THAT IS DELIBERATE
+   (Session XXVI, Mahesh on the rendered page). --gap-section is calibrated
+   for a TEXT boundary, where the next section's ink starts at its own top
+   edge. The range does not: its box is 407px tall and its own upper-left is
+   empty by construction, because the set is sorted ascending and the short
+   end is 23u against the tall end's 434u. Directly beneath the claim, the
+   nearest ink was ~560px away — the section token plus the drawing's own
+   internal void, paid twice.
+
+   So the boundary is stated in the units the fault appears in: THE CLAIM'S
+   FOOT IS THE GAP TO THE DRAWING'S BOX, NOT TO ITS INK, and it is set to
+   the component step. The drawing's own empty upper region supplies the
+   rest of the breathing room and does not need help. */
+/* 🔴 BOTH ENDS OF THIS SECTION ARE STATED, AND NEITHER IS --gap-section.
+   Session XXVI, calibrated against the rendered chrome rather than chosen.
+
+   THE HEAD — the wordmark plate's mark ends at y=82 and --arrival-clearance
+   alone put the H1's line box at 128, a clearance of 46px beneath a heading
+   whose own line is 59.8px. A claim that clears the chrome by less than one
+   line of itself reads as crowded however much room is below it. One line
+   of clearance turned out to be the FLOOR, not the target: at 1.17 lines
+   it still read tight on the rendered page, so the rule is stated at the
+   value that actually holds — THE CLAIM CLEARS THE WORDMARK BY ROUGHLY TWO
+   OF ITS OWN LINES. That is 200px of padding, a 115px clearance, 1.92
+   line-heights.
+
+   🔴 AND IT IS BUILT FROM --gap-block ×3, WHICH LOOKS ARBITRARY AND IS NOT.
+   The obvious spelling is --arrival-clearance + --gap-heading. It was tried
+   and p21 caught it: --gap-heading RESTATES ITSELF at 1023 (64→40) and
+   again at 767 (40→24), so a clearance built from it inherits those
+   breakpoints and CLIFFS — measured, /services stepped 27.4px across
+   1024→1023 and 31.7px across 768→767, against p21's 24px limit. Of the
+   gap tokens only --gap-block is width-constant, so it is the only one a
+   clearance may be built from without importing a breakpoint it did not
+   ask for. A rule made of tokens inherits THOSE tokens' breakpoints.
+
+   THE FOOT — --gap-section is calibrated for a TEXT boundary, where the
+   next section's ink starts at its own top edge. The range does not: its
+   box is 407px tall and its upper-left is empty by construction, because
+   the set sorts ascending and the short end is 23u against the tall end's
+   434u. Beneath the claim the nearest ink was ~560px away — the section
+   token plus the drawing's own internal void, paid twice. The statement
+   and the drawing are ONE beat (the sentence reads the drawing), so they
+   take the within-beat step and the drawing's own air supplies the rest. */
 .sv-claim {
-  padding-block: var(--arrival-clearance) var(--gap-section);
+  padding-block: calc(var(--arrival-clearance) + var(--gap-block) * 3) var(--gap-block);
 }
 
 /* The ≤1023 restatement that used to sit here is GONE — the value now lives in
@@ -63,12 +107,11 @@
   color: var(--color-on-dark-body);
 }
 
-/* The statement register: the theme line, the range statement, the delivery
-   and the close. Four moments a scroll apart, one voice — the page states
-   four times and never raises its own volume to do it. Light, 32px,
-   #FFFFFF. */
-.sv-claim__theme,
-.sv-statement {
+/* The statement register — ONE moment since Session XXVI. The theme slot
+   carries the range statement ("The smallest building here and the
+   tallest…"); the delivery and the close are gone, and the drawing sits
+   directly under the sentence that reads it. Light, 32px, #FFFFFF. */
+.sv-claim__theme {
   margin: 0;
   max-inline-size: var(--measure-h2);
   font-size: var(--fs-h2);
@@ -160,85 +203,19 @@
 }
 
 /* -----------------------------------------------------------
-   4 · The caption block (§3.5)
+   4 · The route row — the caption slot's successor (Session XXVI)
    ----------------------------------------------------------- */
 
-.sv-range__caption {
-  margin-block-start: var(--gap-component);
-}
-
-.sv-caption {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-/* Two ruled rows, from and to. Name at the inline-start, district at the
-   inline-end — the same from-and-to shape the /ajman ledger's rows carry,
-   and it survives 375px by stacking rather than squeezing. */
-.sv-caption__row {
+/* One ruled row under the drawing, the link at the inline-end — the shape
+   the two named ends' rows carried, kept for their successor. This is the
+   range's one way out to the records and the page's only route besides the
+   band's Contact. */
+.sv-range__route {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--gap-inline);
-  align-items: baseline;
-  justify-content: space-between;
-  padding-block: var(--pad-table-row);
+  justify-content: flex-end;
+  margin: var(--gap-component) 0 0;
+  padding-block-start: var(--pad-table-row);
   border-block-start: 1px solid var(--color-hairline-dark);
-}
-
-.sv-caption__row:last-child {
-  border-block-end: 1px solid var(--color-hairline-dark);
-}
-
-/* The only two building names on this page. Link grammar is the site's:
-   weight and an underline that thickens, never colour. */
-.sv-caption__name {
-  font-size: var(--fs-metadata);
-  font-weight: var(--fw-medium);
-  line-height: var(--lh-metadata);
-  color: var(--color-on-dark);
-  border-block-end: 1px solid transparent;
-}
-
-.sv-caption__name:hover,
-.sv-caption__name:focus-visible {
-  border-block-end-color: currentcolor;
-}
-
-.sv-caption__name:focus-visible {
-  outline: 2px solid var(--color-on-dark);
-  outline-offset: 2px;
-}
-
-/* The district is a RECORD SURFACE (E10.2a), read through records.js so this
-   caption and that building's own page cannot disagree about where it
-   stands. No configuration string beside it: a quantity's place is that
-   building's spec table (E12). */
-.sv-caption__place {
-  font-size: var(--fs-caption);
-  font-weight: var(--fw-medium);
-  line-height: var(--lh-caption);
-  letter-spacing: var(--ls-caption);
-  color: var(--color-on-dark-secondary);
-}
-
-/* E9.6's duty in words, for the whole set. It names nobody, which is what
-   lets the seven records that are not standing be drawn at all. 12px
-   uppercase at the caption floor — with the specialist lead, the only
-   uppercase prose on the page (§5). */
-.sv-capnote {
-  margin: var(--gap-block) 0 0;
-  max-inline-size: var(--measure-body);
-  font-size: var(--fs-caption);
-  font-weight: var(--fw-medium);
-  line-height: var(--lh-caption);
-  letter-spacing: var(--ls-caption);
-  text-transform: uppercase;
-  color: var(--color-on-dark-secondary);
-}
-
-.sv-range > .sv-statement {
-  margin-block-start: var(--gap-heading);
 }
 
 /* -----------------------------------------------------------
@@ -247,11 +224,6 @@
 
 .sv-mechanism {
   padding-block-end: var(--gap-section);
-}
-
-.sv-mechanism__lead {
-  margin: 0 0 var(--gap-heading);
-  color: var(--color-on-dark-body);
 }
 
 /* Name and sentence on one ruled row. The #333333 rule separates two text
@@ -327,15 +299,6 @@
 /* -----------------------------------------------------------
    7 · The delivery and the close (§2)
    ----------------------------------------------------------- */
-
-.sv-delivery,
-.sv-close {
-  padding-block-end: var(--gap-section);
-}
-
-.sv-delivery__route {
-  margin: var(--gap-heading) 0 0;
-}
 
 .sv-link {
   display: inline-block;
@@ -417,25 +380,43 @@
     margin-block-end: var(--gap-tight);
   }
 
-  /* §3.7 — THE INTERNAL RULES ARE DELETED WHOLE below 768px, all of them or
-     none. The drawing scales with its column, so the floor pitch falls with
-     it and a tall stack fills solid; a rule that cannot be read is worse
-     than an absent one because it is still ink. The silhouette and the
-     datum carry the range at this width, which is what the range is.
-
-     Deleted, never shrunk: the stroke is non-scaling, so shrinking is not
-     even available — the only options are legible or solid. */
-  .sv-floors {
+  /* §3.7 — the CORNER RETURNS are deleted whole below 768px. At 375 the
+     return sits 3.2px from the silhouette edge — two 1px verticals 3px
+     apart are noise, not a volume. The silhouette and the datum carry the
+     range at this width, which is what the range is. */
+  .sv-rise--return {
     display: none;
   }
 }
 
-/* The caption row's two parts stop competing for one line. */
-@media (max-width: 480px) {
-  .sv-caption__row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0;
+/* §3.7 — THE INTERNAL RULES ARE DELETED WHOLE below 1280px, all of them or
+   none; a rule that cannot be read is worse than an absent one because it
+   is still ink.
+
+   🔴 THIS BREAKPOINT HAS NOW MOVED TWICE IN ONE SESSION, AND THAT IS THE
+   WHOLE LESSON. It was 768, cut against the old container-width geometry.
+   Full-bleed made it 1024. Then RATIO went 6.5 → 5.5, which widened the
+   sheet from 1423 to 1685 user units — and a wider sheet rendered at the
+   same CSS width is a SMALLER scale, so the pitch shrank and 1024 silently
+   stopped clearing. A RULE MADE OF DERIVED GEOMETRY INHERITS THAT
+   GEOMETRY'S BREAKPOINTS: change RATIO and this number must be re-derived,
+   every time.
+
+   Stated in the units the fault appears in: THE TIGHTEST PITCH BAND MUST
+   RENDER ≥5px AGAINST A 1px STROKE. The tightest band is E3.3b's parking
+   deck at 7u. Against sheet 1685 that needs a scale of 5/7 = 0.714, so the
+   DERIVED MINIMUM IS 1204px. The breakpoint here is 1280 — the nearest
+   standard width above it — so the rule is applied with 76px to spare and
+   1204..1279 is deleted conservatively rather than kept marginally. That is
+   a choice, not the derivation, and it is recorded as one: if a future
+   RATIO moves the minimum ABOVE 1280 this number must move with it, and no
+   assertion on the board will notice if it does not.
+
+   Deleted, never shrunk: the stroke is non-scaling, so shrinking is not
+   even available — the only options are legible or solid. */
+@media (max-width: 1279px) {
+  .sv-floors {
+    display: none;
   }
 }
 

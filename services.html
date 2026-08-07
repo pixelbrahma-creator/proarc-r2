@@ -204,74 +204,54 @@
          widths because the test was a box test. Measured here against the
          rendered ink. -->
     <section class="sv-claim container">
-      <h1 class="sv-claim__line t-editorial">One practice, accountable from first approval to handover</h1>
-      <p class="sv-claim__body t-body-lg">We bring architecture, structure and building services together in one office, so the scheme that is approved is the scheme that gets built &mdash; and we stay with it through construction.</p>
-      <p class="sv-claim__theme">Schools, malls, offices and homes &mdash; one practice answers for all of them.</p>
+      <h1 class="sv-claim__line t-editorial">At Proarc, we draw it, engineer it, and stay until handover</h1>
+      <p class="sv-claim__theme" id="sv-range-statement">The smallest building here and the tallest carry the same responsibility.</p>
     </section>
 
-    <!-- 2 · THE RANGE, DRAWN (§3) — V-1, decided 31 Jul on the
-         implementation study. Line elevations, NEVER photographs: this is
-         evidence, not illustration, and it pairs with the /ajman map as the
-         site's two drawn artefacts — the practice in plan there, in
-         elevation here.
+    <!-- 2 · THE RANGE, DRAWN (§3) — V-1, decided 31 Jul; RE-CUT Session
+         XXVI on Freya's calibration. Line elevations, NEVER photographs:
+         this is evidence, not illustration, and it pairs with the /ajman
+         map as the site's two drawn artefacts — plan there, elevation here.
 
          Every line is generated from data/projects.json by
          build/lib/services.js, which carries the rules: only a record whose
          file names its levels is drawn (E7.2 — no height is ever inferred),
-         basements are drawn BELOW the datum (E3.7 — the datum is real), the
-         footprint is the one invented value and is identical for every
-         building (E3.3), and the order is ascending by what a reader can
-         see.
+         basements are drawn BELOW the datum (E3.7 — the datum is real), and
+         the two invented values are named — E3.3 the footprint, identical
+         for every building and DERIVED (tallest draws at 6.5:1), E3.3b the
+         storey pitch, invented identically for every level of the same
+         named kind. The order is ascending by DRAWN HEIGHT — by what a
+         reader can see.
 
-         NO LABELS ON THE DRAWING. Fifteen names under 42-unit elevations
-         render around 9px, below the 12px floor — and the anonymous middle
-         is what lets a record that is not standing be drawn at all (E9.6).
-         The caption names and links the two ends, and nothing else on this
-         page names a building.
+         THE SECTION IS FULL-BLEED, NOT A .container: the datum runs past
+         the outermost elevations to the viewport edges — the ground leaves
+         the frame, which is the difference between a site and a chart. The
+         route row below carries its own .container.
+
+         NO LABELS ON THE DRAWING (names render ~9px, below the 12px floor)
+         and 🔴 NO CAPNOTE EITHER — removed on Mahesh's call, Session XXVI,
+         after the named ends went the same morning. The page now names no
+         building and carries NO set-level disclosure that seven of the
+         fifteen are not standing; E9.6's discharge for this drawing is an
+         OPEN ITEM for the letter, not something this markup provides.
 
          The drawing ships FINISHED. js/services.js arms it and plays the
          draw-in once; a broken script, a blocked file or no JS at all
          leaves the whole range drawn. -->
-    <section class="sv-range container" aria-labelledby="sv-range-statement">
+    <section class="sv-range" aria-labelledby="sv-range-statement">
       <figure class="sv-range__figure">
         <div class="sv-drawing" data-drawing>
-          <svg class="sv-drawing__svg" viewBox="0 0 972 483" role="img" aria-label="Line elevations of the buildings whose records name their levels, drawn shortest to tallest." preserveAspectRatio="xMidYMid meet"><path class="sv-datum" pathLength="1" d="M 0 457 H 972"></path><path class="sv-rise" style="--elev-index:0" pathLength="1" d="M 0 457 V 439"></path><path class="sv-rise" style="--elev-index:0" pathLength="1" d="M 48 457 V 439 H 0"></path><path class="sv-floors" style="--elev-index:0" d="M 0 448 H 48"></path><path class="sv-rise" style="--elev-index:1" pathLength="1" d="M 66 457 V 421"></path><path class="sv-rise" style="--elev-index:1" pathLength="1" d="M 114 457 V 421 H 66"></path><path class="sv-floors" style="--elev-index:1" d="M 66 448 H 114 M 66 439 H 114 M 66 430 H 114"></path><path class="sv-rise" style="--elev-index:2" pathLength="1" d="M 132 457 V 412"></path><path class="sv-rise" style="--elev-index:2" pathLength="1" d="M 180 457 V 412 H 132"></path><path class="sv-floors" style="--elev-index:2" d="M 132 448 H 180 M 132 439 H 180 M 132 430 H 180 M 132 421 H 180"></path><path class="sv-rise" style="--elev-index:3" pathLength="1" d="M 198 457 V 412"></path><path class="sv-rise" style="--elev-index:3" pathLength="1" d="M 246 457 V 412 H 198"></path><path class="sv-floors" style="--elev-index:3" d="M 198 448 H 246 M 198 439 H 246 M 198 430 H 246 M 198 421 H 246"></path><path class="sv-rise" style="--elev-index:4" pathLength="1" d="M 264 457 V 412"></path><path class="sv-rise" style="--elev-index:4" pathLength="1" d="M 312 457 V 412 H 264"></path><path class="sv-floors" style="--elev-index:4" d="M 264 448 H 312 M 264 439 H 312 M 264 430 H 312 M 264 421 H 312"></path><path class="sv-rise" style="--elev-index:5" pathLength="1" d="M 330 457 V 376"></path><path class="sv-rise" style="--elev-index:5" pathLength="1" d="M 378 457 V 376 H 330"></path><path class="sv-floors" style="--elev-index:5" d="M 330 448 H 378 M 330 439 H 378 M 330 430 H 378 M 330 421 H 378 M 330 412 H 378 M 330 403 H 378 M 330 394 H 378 M 330 385 H 378"></path><path class="sv-rise" style="--elev-index:6" pathLength="1" d="M 396 457 V 367"></path><path class="sv-rise" style="--elev-index:6" pathLength="1" d="M 444 457 V 367 H 396"></path><path class="sv-floors" style="--elev-index:6" d="M 396 448 H 444 M 396 439 H 444 M 396 430 H 444 M 396 421 H 444 M 396 412 H 444 M 396 403 H 444 M 396 394 H 444 M 396 385 H 444 M 396 376 H 444"></path><path class="sv-rise" style="--elev-index:7" pathLength="1" d="M 462 457 V 367"></path><path class="sv-rise" style="--elev-index:7" pathLength="1" d="M 510 457 V 367 H 462"></path><path class="sv-rise" style="--elev-index:7" pathLength="1" d="M 462 457 V 475 H 510 V 457"></path><path class="sv-floors" style="--elev-index:7" d="M 462 448 H 510 M 462 439 H 510 M 462 430 H 510 M 462 421 H 510 M 462 412 H 510 M 462 403 H 510 M 462 394 H 510 M 462 385 H 510 M 462 376 H 510 M 462 466 H 510"></path><path class="sv-rise" style="--elev-index:8" pathLength="1" d="M 528 457 V 295"></path><path class="sv-rise" style="--elev-index:8" pathLength="1" d="M 576 457 V 295 H 528"></path><path class="sv-floors" style="--elev-index:8" d="M 528 448 H 576 M 528 439 H 576 M 528 430 H 576 M 528 421 H 576 M 528 412 H 576 M 528 403 H 576 M 528 394 H 576 M 528 385 H 576 M 528 376 H 576 M 528 367 H 576 M 528 358 H 576 M 528 349 H 576 M 528 340 H 576 M 528 331 H 576 M 528 322 H 576 M 528 313 H 576 M 528 304 H 576"></path><path class="sv-rise" style="--elev-index:9" pathLength="1" d="M 594 457 V 277"></path><path class="sv-rise" style="--elev-index:9" pathLength="1" d="M 642 457 V 277 H 594"></path><path class="sv-floors" style="--elev-index:9" d="M 594 448 H 642 M 594 439 H 642 M 594 430 H 642 M 594 421 H 642 M 594 412 H 642 M 594 403 H 642 M 594 394 H 642 M 594 385 H 642 M 594 376 H 642 M 594 367 H 642 M 594 358 H 642 M 594 349 H 642 M 594 340 H 642 M 594 331 H 642 M 594 322 H 642 M 594 313 H 642 M 594 304 H 642 M 594 295 H 642 M 594 286 H 642"></path><path class="sv-rise" style="--elev-index:10" pathLength="1" d="M 660 457 V 250"></path><path class="sv-rise" style="--elev-index:10" pathLength="1" d="M 708 457 V 250 H 660"></path><path class="sv-floors" style="--elev-index:10" d="M 660 448 H 708 M 660 439 H 708 M 660 430 H 708 M 660 421 H 708 M 660 412 H 708 M 660 403 H 708 M 660 394 H 708 M 660 385 H 708 M 660 376 H 708 M 660 367 H 708 M 660 358 H 708 M 660 349 H 708 M 660 340 H 708 M 660 331 H 708 M 660 322 H 708 M 660 313 H 708 M 660 304 H 708 M 660 295 H 708 M 660 286 H 708 M 660 277 H 708 M 660 268 H 708 M 660 259 H 708"></path><path class="sv-rise" style="--elev-index:11" pathLength="1" d="M 726 457 V 169"></path><path class="sv-rise" style="--elev-index:11" pathLength="1" d="M 774 457 V 169 H 726"></path><path class="sv-floors" style="--elev-index:11" d="M 726 448 H 774 M 726 439 H 774 M 726 430 H 774 M 726 421 H 774 M 726 412 H 774 M 726 403 H 774 M 726 394 H 774 M 726 385 H 774 M 726 376 H 774 M 726 367 H 774 M 726 358 H 774 M 726 349 H 774 M 726 340 H 774 M 726 331 H 774 M 726 322 H 774 M 726 313 H 774 M 726 304 H 774 M 726 295 H 774 M 726 286 H 774 M 726 277 H 774 M 726 268 H 774 M 726 259 H 774 M 726 250 H 774 M 726 241 H 774 M 726 232 H 774 M 726 223 H 774 M 726 214 H 774 M 726 205 H 774 M 726 196 H 774 M 726 187 H 774 M 726 178 H 774"></path><path class="sv-rise" style="--elev-index:12" pathLength="1" d="M 792 457 V 25"></path><path class="sv-rise" style="--elev-index:12" pathLength="1" d="M 840 457 V 25 H 792"></path><path class="sv-floors" style="--elev-index:12" d="M 792 448 H 840 M 792 439 H 840 M 792 430 H 840 M 792 421 H 840 M 792 412 H 840 M 792 403 H 840 M 792 394 H 840 M 792 385 H 840 M 792 376 H 840 M 792 367 H 840 M 792 358 H 840 M 792 349 H 840 M 792 340 H 840 M 792 331 H 840 M 792 322 H 840 M 792 313 H 840 M 792 304 H 840 M 792 295 H 840 M 792 286 H 840 M 792 277 H 840 M 792 268 H 840 M 792 259 H 840 M 792 250 H 840 M 792 241 H 840 M 792 232 H 840 M 792 223 H 840 M 792 214 H 840 M 792 205 H 840 M 792 196 H 840 M 792 187 H 840 M 792 178 H 840 M 792 169 H 840 M 792 160 H 840 M 792 151 H 840 M 792 142 H 840 M 792 133 H 840 M 792 124 H 840 M 792 115 H 840 M 792 106 H 840 M 792 97 H 840 M 792 88 H 840 M 792 79 H 840 M 792 70 H 840 M 792 61 H 840 M 792 52 H 840 M 792 43 H 840 M 792 34 H 840"></path><path class="sv-rise" style="--elev-index:13" pathLength="1" d="M 858 457 V 16"></path><path class="sv-rise" style="--elev-index:13" pathLength="1" d="M 906 457 V 16 H 858"></path><path class="sv-rise" style="--elev-index:13" pathLength="1" d="M 858 457 V 475 H 906 V 457"></path><path class="sv-floors" style="--elev-index:13" d="M 858 448 H 906 M 858 439 H 906 M 858 430 H 906 M 858 421 H 906 M 858 412 H 906 M 858 403 H 906 M 858 394 H 906 M 858 385 H 906 M 858 376 H 906 M 858 367 H 906 M 858 358 H 906 M 858 349 H 906 M 858 340 H 906 M 858 331 H 906 M 858 322 H 906 M 858 313 H 906 M 858 304 H 906 M 858 295 H 906 M 858 286 H 906 M 858 277 H 906 M 858 268 H 906 M 858 259 H 906 M 858 250 H 906 M 858 241 H 906 M 858 232 H 906 M 858 223 H 906 M 858 214 H 906 M 858 205 H 906 M 858 196 H 906 M 858 187 H 906 M 858 178 H 906 M 858 169 H 906 M 858 160 H 906 M 858 151 H 906 M 858 142 H 906 M 858 133 H 906 M 858 124 H 906 M 858 115 H 906 M 858 106 H 906 M 858 97 H 906 M 858 88 H 906 M 858 79 H 906 M 858 70 H 906 M 858 61 H 906 M 858 52 H 906 M 858 43 H 906 M 858 34 H 906 M 858 25 H 906 M 858 466 H 906"></path><path class="sv-rise" style="--elev-index:14" pathLength="1" d="M 924 457 V 16"></path><path class="sv-rise" style="--elev-index:14" pathLength="1" d="M 972 457 V 16 H 924"></path><path class="sv-rise" style="--elev-index:14" pathLength="1" d="M 924 457 V 475 H 972 V 457"></path><path class="sv-floors" style="--elev-index:14" d="M 924 448 H 972 M 924 439 H 972 M 924 430 H 972 M 924 421 H 972 M 924 412 H 972 M 924 403 H 972 M 924 394 H 972 M 924 385 H 972 M 924 376 H 972 M 924 367 H 972 M 924 358 H 972 M 924 349 H 972 M 924 340 H 972 M 924 331 H 972 M 924 322 H 972 M 924 313 H 972 M 924 304 H 972 M 924 295 H 972 M 924 286 H 972 M 924 277 H 972 M 924 268 H 972 M 924 259 H 972 M 924 250 H 972 M 924 241 H 972 M 924 232 H 972 M 924 223 H 972 M 924 214 H 972 M 924 205 H 972 M 924 196 H 972 M 924 187 H 972 M 924 178 H 972 M 924 169 H 972 M 924 160 H 972 M 924 151 H 972 M 924 142 H 972 M 924 133 H 972 M 924 124 H 972 M 924 115 H 972 M 924 106 H 972 M 924 97 H 972 M 924 88 H 972 M 924 79 H 972 M 924 70 H 972 M 924 61 H 972 M 924 52 H 972 M 924 43 H 972 M 924 34 H 972 M 924 25 H 972 M 924 466 H 972"></path></svg>
+          <svg class="sv-drawing__svg" viewBox="0 0 1685 476" role="img" aria-label="Line elevations of the buildings whose records name their levels, drawn shortest to tallest." preserveAspectRatio="xMidYMid meet"><path class="sv-datum" pathLength="1" d="M 0 450 H 1685"></path><path class="sv-rise" style="--elev-index:0" pathLength="1" d="M 40 450 V 427"></path><path class="sv-rise" style="--elev-index:0" pathLength="1" d="M 119 450 V 427 H 40"></path><path class="sv-rise sv-rise--return" style="--elev-index:0" pathLength="1" d="M 54 450 V 427"></path><path class="sv-floors" style="--elev-index:0" d="M 40 436 H 119"></path><path class="sv-rise" style="--elev-index:1" pathLength="1" d="M 149 450 V 411"></path><path class="sv-rise" style="--elev-index:1" pathLength="1" d="M 228 450 V 411 H 149"></path><path class="sv-rise sv-rise--return" style="--elev-index:1" pathLength="1" d="M 163 450 V 411"></path><path class="sv-floors" style="--elev-index:1" d="M 149 436 H 228 M 149 429 H 228 M 149 420 H 228"></path><path class="sv-rise" style="--elev-index:2" pathLength="1" d="M 258 450 V 408"></path><path class="sv-rise" style="--elev-index:2" pathLength="1" d="M 337 450 V 408 H 258"></path><path class="sv-rise sv-rise--return" style="--elev-index:2" pathLength="1" d="M 272 450 V 408"></path><path class="sv-floors" style="--elev-index:2" d="M 258 436 H 337 M 258 427 H 337 M 258 420 H 337 M 258 413 H 337"></path><path class="sv-rise" style="--elev-index:3" pathLength="1" d="M 367 450 V 408"></path><path class="sv-rise" style="--elev-index:3" pathLength="1" d="M 446 450 V 408 H 367"></path><path class="sv-rise sv-rise--return" style="--elev-index:3" pathLength="1" d="M 381 450 V 408"></path><path class="sv-floors" style="--elev-index:3" d="M 367 436 H 446 M 367 427 H 446 M 367 420 H 446 M 367 413 H 446"></path><path class="sv-rise" style="--elev-index:4" pathLength="1" d="M 476 450 V 408"></path><path class="sv-rise" style="--elev-index:4" pathLength="1" d="M 555 450 V 408 H 476"></path><path class="sv-rise sv-rise--return" style="--elev-index:4" pathLength="1" d="M 490 450 V 408"></path><path class="sv-floors" style="--elev-index:4" d="M 476 436 H 555 M 476 427 H 555 M 476 420 H 555 M 476 413 H 555"></path><path class="sv-rise" style="--elev-index:5" pathLength="1" d="M 585 450 V 364"></path><path class="sv-rise" style="--elev-index:5" pathLength="1" d="M 664 450 V 364 H 585"></path><path class="sv-rise sv-rise--return" style="--elev-index:5" pathLength="1" d="M 599 450 V 364"></path><path class="sv-floors" style="--elev-index:5" d="M 585 436 H 664 M 585 427 H 664 M 585 418 H 664 M 585 409 H 664 M 585 400 H 664 M 585 391 H 664 M 585 382 H 664 M 585 373 H 664"></path><path class="sv-rise" style="--elev-index:6" pathLength="1" d="M 694 450 V 355"></path><path class="sv-rise" style="--elev-index:6" pathLength="1" d="M 773 450 V 355 H 694"></path><path class="sv-rise sv-rise--return" style="--elev-index:6" pathLength="1" d="M 708 450 V 355"></path><path class="sv-floors" style="--elev-index:6" d="M 694 436 H 773 M 694 427 H 773 M 694 418 H 773 M 694 409 H 773 M 694 400 H 773 M 694 391 H 773 M 694 382 H 773 M 694 373 H 773 M 694 364 H 773"></path><path class="sv-rise" style="--elev-index:7" pathLength="1" d="M 803 450 V 355"></path><path class="sv-rise" style="--elev-index:7" pathLength="1" d="M 882 450 V 355 H 803"></path><path class="sv-rise sv-rise--return" style="--elev-index:7" pathLength="1" d="M 817 450 V 355"></path><path class="sv-rise" style="--elev-index:7" pathLength="1" d="M 803 450 V 468 H 882 V 450"></path><path class="sv-floors" style="--elev-index:7" d="M 803 436 H 882 M 803 427 H 882 M 803 418 H 882 M 803 409 H 882 M 803 400 H 882 M 803 391 H 882 M 803 382 H 882 M 803 373 H 882 M 803 364 H 882 M 803 459 H 882"></path><path class="sv-rise" style="--elev-index:8" pathLength="1" d="M 912 450 V 291"></path><path class="sv-rise" style="--elev-index:8" pathLength="1" d="M 991 450 V 291 H 912"></path><path class="sv-rise sv-rise--return" style="--elev-index:8" pathLength="1" d="M 926 450 V 291"></path><path class="sv-floors" style="--elev-index:8" d="M 912 436 H 991 M 912 429 H 991 M 912 422 H 991 M 912 415 H 991 M 912 404 H 991 M 912 395 H 991 M 912 386 H 991 M 912 377 H 991 M 912 368 H 991 M 912 359 H 991 M 912 350 H 991 M 912 341 H 991 M 912 332 H 991 M 912 323 H 991 M 912 314 H 991 M 912 305 H 991 M 912 296 H 991"></path><path class="sv-rise" style="--elev-index:9" pathLength="1" d="M 1021 450 V 273"></path><path class="sv-rise" style="--elev-index:9" pathLength="1" d="M 1100 450 V 273 H 1021"></path><path class="sv-rise sv-rise--return" style="--elev-index:9" pathLength="1" d="M 1035 450 V 273"></path><path class="sv-floors" style="--elev-index:9" d="M 1021 436 H 1100 M 1021 429 H 1100 M 1021 422 H 1100 M 1021 415 H 1100 M 1021 408 H 1100 M 1021 399 H 1100 M 1021 390 H 1100 M 1021 381 H 1100 M 1021 372 H 1100 M 1021 363 H 1100 M 1021 354 H 1100 M 1021 345 H 1100 M 1021 336 H 1100 M 1021 327 H 1100 M 1021 318 H 1100 M 1021 309 H 1100 M 1021 300 H 1100 M 1021 291 H 1100 M 1021 282 H 1100"></path><path class="sv-rise" style="--elev-index:10" pathLength="1" d="M 1130 450 V 250"></path><path class="sv-rise" style="--elev-index:10" pathLength="1" d="M 1209 450 V 250 H 1130"></path><path class="sv-rise sv-rise--return" style="--elev-index:10" pathLength="1" d="M 1144 450 V 250"></path><path class="sv-floors" style="--elev-index:10" d="M 1130 436 H 1209 M 1130 429 H 1209 M 1130 422 H 1209 M 1130 415 H 1209 M 1130 408 H 1209 M 1130 401 H 1209 M 1130 394 H 1209 M 1130 385 H 1209 M 1130 376 H 1209 M 1130 367 H 1209 M 1130 358 H 1209 M 1130 349 H 1209 M 1130 340 H 1209 M 1130 331 H 1209 M 1130 322 H 1209 M 1130 313 H 1209 M 1130 304 H 1209 M 1130 295 H 1209 M 1130 286 H 1209 M 1130 277 H 1209 M 1130 268 H 1209 M 1130 259 H 1209"></path><path class="sv-rise" style="--elev-index:11" pathLength="1" d="M 1239 450 V 169"></path><path class="sv-rise" style="--elev-index:11" pathLength="1" d="M 1318 450 V 169 H 1239"></path><path class="sv-rise sv-rise--return" style="--elev-index:11" pathLength="1" d="M 1253 450 V 169"></path><path class="sv-floors" style="--elev-index:11" d="M 1239 436 H 1318 M 1239 429 H 1318 M 1239 422 H 1318 M 1239 415 H 1318 M 1239 408 H 1318 M 1239 401 H 1318 M 1239 394 H 1318 M 1239 385 H 1318 M 1239 376 H 1318 M 1239 367 H 1318 M 1239 358 H 1318 M 1239 349 H 1318 M 1239 340 H 1318 M 1239 331 H 1318 M 1239 322 H 1318 M 1239 313 H 1318 M 1239 304 H 1318 M 1239 295 H 1318 M 1239 286 H 1318 M 1239 277 H 1318 M 1239 268 H 1318 M 1239 259 H 1318 M 1239 250 H 1318 M 1239 241 H 1318 M 1239 232 H 1318 M 1239 223 H 1318 M 1239 214 H 1318 M 1239 205 H 1318 M 1239 196 H 1318 M 1239 187 H 1318 M 1239 178 H 1318"></path><path class="sv-rise" style="--elev-index:12" pathLength="1" d="M 1348 450 V 23"></path><path class="sv-rise" style="--elev-index:12" pathLength="1" d="M 1427 450 V 23 H 1348"></path><path class="sv-rise sv-rise--return" style="--elev-index:12" pathLength="1" d="M 1362 450 V 23"></path><path class="sv-floors" style="--elev-index:12" d="M 1348 436 H 1427 M 1348 429 H 1427 M 1348 422 H 1427 M 1348 415 H 1427 M 1348 408 H 1427 M 1348 401 H 1427 M 1348 394 H 1427 M 1348 383 H 1427 M 1348 374 H 1427 M 1348 365 H 1427 M 1348 356 H 1427 M 1348 347 H 1427 M 1348 338 H 1427 M 1348 329 H 1427 M 1348 320 H 1427 M 1348 311 H 1427 M 1348 302 H 1427 M 1348 293 H 1427 M 1348 284 H 1427 M 1348 275 H 1427 M 1348 266 H 1427 M 1348 257 H 1427 M 1348 248 H 1427 M 1348 239 H 1427 M 1348 230 H 1427 M 1348 221 H 1427 M 1348 212 H 1427 M 1348 203 H 1427 M 1348 194 H 1427 M 1348 185 H 1427 M 1348 176 H 1427 M 1348 167 H 1427 M 1348 158 H 1427 M 1348 149 H 1427 M 1348 140 H 1427 M 1348 131 H 1427 M 1348 122 H 1427 M 1348 113 H 1427 M 1348 104 H 1427 M 1348 95 H 1427 M 1348 86 H 1427 M 1348 77 H 1427 M 1348 68 H 1427 M 1348 59 H 1427 M 1348 50 H 1427 M 1348 41 H 1427 M 1348 32 H 1427"></path><path class="sv-rise" style="--elev-index:13" pathLength="1" d="M 1457 450 V 16"></path><path class="sv-rise" style="--elev-index:13" pathLength="1" d="M 1536 450 V 16 H 1457"></path><path class="sv-rise sv-rise--return" style="--elev-index:13" pathLength="1" d="M 1471 450 V 16"></path><path class="sv-rise" style="--elev-index:13" pathLength="1" d="M 1457 450 V 468 H 1536 V 450"></path><path class="sv-floors" style="--elev-index:13" d="M 1457 436 H 1536 M 1457 429 H 1536 M 1457 422 H 1536 M 1457 415 H 1536 M 1457 408 H 1536 M 1457 401 H 1536 M 1457 394 H 1536 M 1457 385 H 1536 M 1457 376 H 1536 M 1457 367 H 1536 M 1457 358 H 1536 M 1457 349 H 1536 M 1457 340 H 1536 M 1457 331 H 1536 M 1457 322 H 1536 M 1457 313 H 1536 M 1457 304 H 1536 M 1457 295 H 1536 M 1457 286 H 1536 M 1457 277 H 1536 M 1457 268 H 1536 M 1457 259 H 1536 M 1457 250 H 1536 M 1457 241 H 1536 M 1457 232 H 1536 M 1457 223 H 1536 M 1457 214 H 1536 M 1457 205 H 1536 M 1457 196 H 1536 M 1457 187 H 1536 M 1457 178 H 1536 M 1457 169 H 1536 M 1457 160 H 1536 M 1457 151 H 1536 M 1457 142 H 1536 M 1457 133 H 1536 M 1457 124 H 1536 M 1457 115 H 1536 M 1457 106 H 1536 M 1457 97 H 1536 M 1457 88 H 1536 M 1457 79 H 1536 M 1457 70 H 1536 M 1457 61 H 1536 M 1457 52 H 1536 M 1457 43 H 1536 M 1457 34 H 1536 M 1457 25 H 1536 M 1457 459 H 1536"></path><path class="sv-rise" style="--elev-index:14" pathLength="1" d="M 1566 450 V 16"></path><path class="sv-rise" style="--elev-index:14" pathLength="1" d="M 1645 450 V 16 H 1566"></path><path class="sv-rise sv-rise--return" style="--elev-index:14" pathLength="1" d="M 1580 450 V 16"></path><path class="sv-rise" style="--elev-index:14" pathLength="1" d="M 1566 450 V 468 H 1645 V 450"></path><path class="sv-floors" style="--elev-index:14" d="M 1566 436 H 1645 M 1566 429 H 1645 M 1566 422 H 1645 M 1566 415 H 1645 M 1566 408 H 1645 M 1566 401 H 1645 M 1566 394 H 1645 M 1566 385 H 1645 M 1566 376 H 1645 M 1566 367 H 1645 M 1566 358 H 1645 M 1566 349 H 1645 M 1566 340 H 1645 M 1566 331 H 1645 M 1566 322 H 1645 M 1566 313 H 1645 M 1566 304 H 1645 M 1566 295 H 1645 M 1566 286 H 1645 M 1566 277 H 1645 M 1566 268 H 1645 M 1566 259 H 1645 M 1566 250 H 1645 M 1566 241 H 1645 M 1566 232 H 1645 M 1566 223 H 1645 M 1566 214 H 1645 M 1566 205 H 1645 M 1566 196 H 1645 M 1566 187 H 1645 M 1566 178 H 1645 M 1566 169 H 1645 M 1566 160 H 1645 M 1566 151 H 1645 M 1566 142 H 1645 M 1566 133 H 1645 M 1566 124 H 1645 M 1566 115 H 1645 M 1566 106 H 1645 M 1566 97 H 1645 M 1566 88 H 1645 M 1566 79 H 1645 M 1566 70 H 1645 M 1566 61 H 1645 M 1566 52 H 1645 M 1566 43 H 1645 M 1566 34 H 1645 M 1566 25 H 1645 M 1566 459 H 1645"></path></svg>
         </div>
-
-        <!-- The caption block, in order (§3.5): two ruled rows — from and
-             to, so it survives 375px — then the capnote, then the
-             statement below the figure.
-
-             The rows carry the name, linked to its own page, with the
-             DISTRICT as its support. No configuration string: a quantity's
-             place is that building's own spec table (E12).
-
-             NO STATUS ON EITHER END — an amendment to §3.5 and to the
-             capnote's second clause, decided 1 Aug. The spec asks a named
-             end to carry its record's status where the building is not
-             standing; records.js suppresses exactly that string on all 47
-             because the site never says a building is unbuilt, and this
-             page would be the only surface reintroducing it. E9.6's duty is
-             discharged for the SET by the capnote, which names nobody. -->
-        <figcaption class="sv-range__caption">
-          <ul class="sv-caption">
-            
-            <li class="sv-caption__row">
-              <a class="sv-caption__name" href="projects/royalfurniture.html">Royal Furniture <span aria-hidden="true">&rarr;</span></a>
-              <span class="sv-caption__place">Al Jurf, Ajman</span>
-            </li>
-            
-            <li class="sv-caption__row">
-              <a class="sv-caption__name" href="projects/one-678.html">One 678 <span aria-hidden="true">&rarr;</span></a>
-              <span class="sv-caption__place">Aamra, Ajman</span>
-            </li>
-            
-          </ul>
-          <p class="sv-capnote">Drawn from the records &mdash; every building whose file names its levels, and every level it names. Some of these are still rising.</p>
-        </figcaption>
       </figure>
 
-      <p class="sv-statement" id="sv-range-statement">The smallest building here and the tallest carry the same responsibility.</p>
+      <!-- The route row — the caption slot's successor. The two named ends
+           were also this section's two links; with them gone this ruled row
+           is the range's one way out to the records, and the page's only
+           route besides the band's Contact. One link per beat (§2). -->
+      <div class="container">
+        <p class="sv-range__route"><a class="sv-link" href="projects.html">The work <span aria-hidden="true">&rarr;</span></a></p>
+      </div>
     </section>
 
     <!-- 3 · The mechanism (§2) — the lead, then the six blocks in the order
@@ -291,8 +271,17 @@
          the block names its work. The rules it clears are in the page
          comment above; the evidence is in `06-services.md` §9.1. -->
     <section class="sv-mechanism container">
-      <p class="sv-mechanism__lead t-body-lg">Every project starts with the site, the budget and the approvals it will need. Then we draw.</p>
+      <!-- 🔴 THE LEAD IS REMOVED — Mahesh's call, Session XXVI, on the
+           rendered page. It read "Every project starts with the site, the
+           budget and the approvals it will need…" and the Architecture
+           block four rows below says "The brief, the site, the approvals it
+           will need, and the drawings that answer them". The lead was
+           restating a block's own words one screen above it.
 
+           The section now opens on its first ruled row. That is deliberate:
+           the six blocks are name-and-sentence and need no announcement,
+           and the order they are in IS the order a building is made — the
+           lead was describing an arrangement the reader can already see. -->
       <div class="sv-blocks">
         <section class="sv-block">
           <h2 class="sv-block__name t-h3">Master planning</h2>
@@ -353,25 +342,14 @@
       </section>
     </section>
 
-    <!-- 4 · The delivery (§2) — the page's second owned fact, and its one
-         route to the work. Numberless by construction: it names the two
-         districts where buildings are going up rather than counting them.
-
-         Its register was stepped down from the fragment scale at rev 6 —
-         this is a sentence pair, and a fragment's scale read as a shout. -->
-    <section class="sv-delivery container">
-      <p class="sv-statement">What we have designed is standing across the Emirates. What we are designing now is going up in Aamra and Al Zorah.</p>
-      <p class="sv-delivery__route"><a class="sv-link" href="projects.html">The work <span aria-hidden="true">&rarr;</span></a></p>
-    </section>
-
-    <!-- 5 · The close (§2) — one responsibility, held to the end. The X13
-         candidate second sentence ("Much of our work is for clients who
-         have built with us before") does NOT ship: repeat-client copy lives
-         in the project block, and this page's one candidate line is waiting
-         on Mahesh's check with ProArc. -->
-    <section class="sv-close container">
-      <p class="sv-statement">Design, engineering, supervision and handover are one responsibility, and we hold it until the building is finished.</p>
-    </section>
+    <!-- 4 · The delivery and the close are both REMOVED — Mahesh's calls,
+         Session XXVI. The delivery statement ("What we have designed is
+         standing across the Emirates…") took the page's future tense and
+         its only geography with it; its route link moved up into the range
+         section rather than surviving here alone in a 634px band. The close
+         ("Design, engineering, supervision and handover are one
+         responsibility…") was a restatement of the H1 and the body. X13's
+         candidate second sentence never shipped and is moot. -->
 
   </div>
 
