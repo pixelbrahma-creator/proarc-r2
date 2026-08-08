@@ -273,6 +273,19 @@
   border-block-start: 1px solid var(--color-hairline);
 }
 
+/* 🔴 TRACKING IS STATED ON EVERY HEAD, AND IT WAS NOT UNTIL 8 Aug (XXXIII).
+   These are bare <h2> elements, and base.css sets `h2 { letter-spacing:
+   var(--ls-h2) }` — the THIRTY-TWO pixel value, -0.02em. A page class wins
+   only on the properties it DECLARES, so /about's six 24px heads were
+   rendering at the 32px tracking while /services' 24px heads (via .t-h3) ran
+   at --ls-h3's -0.015em. Measured, both pages, same width: -0.0200em against
+   -0.0150em. /about was the ONLY page whose section headings carried no .t-*
+   class, which is why it was the only page with this drift.
+   This is CLAUDE.md's own rule — "a heading's REGISTER is stated by the page,
+   never inherited" — and it had been half-obeyed: the size and weight were
+   stated, the tracking was left to fall through.
+   The WEIGHT difference against /services (400 here, 600 there) is NOT this
+   fault. It is 07-about §5's deliberate one-register decision and it stays. */
 .ab-purpose__head {
   /* A two-word label over its own sentence is INTRA-OBJECT, not a section
      head — the ≤767 render was the proof, not a mobile exception: the same
@@ -280,6 +293,7 @@
      to 24. So it takes --gap-block at every width. */
   margin: 0 0 var(--gap-block);
   font-size: var(--fs-h3);
+  letter-spacing: var(--ls-h3);
   font-weight: var(--fw-regular);
   line-height: var(--lh-h3);
   color: var(--color-ink);
@@ -380,6 +394,7 @@
 .ab-wall__clients {
   margin: 0 0 var(--ab-head);
   font-size: var(--fs-h3);
+  letter-spacing: var(--ls-h3);
   font-weight: var(--fw-regular);
   line-height: var(--lh-h3);
   color: var(--color-ink);
@@ -562,6 +577,7 @@
 .ab-lead__head {
   margin: 0 0 var(--ab-head);
   font-size: var(--fs-h3);
+  letter-spacing: var(--ls-h3);
   font-weight: var(--fw-regular);
   line-height: var(--lh-h3);
   color: var(--color-ink);
@@ -667,6 +683,12 @@
   padding-inline-end: var(--gap-tight);
   text-align: start;
   font-size: var(--fs-metadata);
+  /* STATED, not inherited — /contact's .ct-facts__label states --lh-metadata
+     and this rule inherited --lh-body. Same table idiom, one property apart.
+     It is the second half of the fault already recorded against this exact
+     pair of rules: the UA's `th { text-align: center }` was fixed on both,
+     the leading on contact only. */
+  line-height: var(--lh-metadata);
   font-weight: var(--fw-medium);
   letter-spacing: var(--ls-nav);
   text-transform: uppercase;
@@ -707,6 +729,7 @@
 .ab-certs__head {
   margin: 0 0 var(--ab-head);
   font-size: var(--fs-h3);
+  letter-spacing: var(--ls-h3);
   font-weight: var(--fw-regular);
   line-height: var(--lh-h3);
   color: var(--color-ink);
@@ -764,6 +787,7 @@
 .ab-join__head {
   margin: 0 0 var(--ab-head);
   font-size: var(--fs-h3);
+  letter-spacing: var(--ls-h3);
   font-weight: var(--fw-regular);
   line-height: var(--lh-h3);
   color: var(--color-ink);
