@@ -462,3 +462,118 @@
     transition-delay: 0s;
   }
 }
+
+/* -----------------------------------------------------------
+   12 · The closing wall — Session XXXIV
+   ----------------------------------------------------------- */
+
+/* THE DESCENT. Row occupancy rises 5-6-7-8-9 down the band, so tile size
+   falls monotonically. The arrangement is carried by the MARKUP (one div per
+   row, N tiles in it) and the size by `flex: 1`, which is why no row needs a
+   column count in CSS and why changing the beat is a one-line edit in
+   build/lib/services.js rather than a CSS rewrite.
+
+   Every tile is 4:3 because every `thumb` derivative is 4:3, so `object-fit`
+   crops nothing at all here — the variety is row-to-row scale, not shape.
+   That is deliberate: Freya rendered the aspect-varied bento and it BEHEADS
+   buildings, because a landscape frame forced into a portrait cell flips the
+   crop axis. A wall of buildings may not cut their tops off. */
+/* THE GROUT IS 8px, NOT --gap-inline's 12. At nine to seventeen tiles per
+   row the gap is spent up to sixteen times across the viewport, so 12px
+   costs 192px of the widest row — more than one whole tile. The grout is a
+   function of the COLUMN COUNT, which is why it is stated here rather than
+   inherited from a token cut for two- and three-column work. */
+/* The wall is one link. `display: block` because an inline anchor would
+   give the rows an inline formatting context and put a text baseline gap
+   under the last row — the classic image-in-anchor descender. The focus
+   ring is on the ANCHOR, not the tiles: there is one tab stop here, and a
+   keyboard reader must be able to see the thing they are about to follow. */
+.sv-wall__route {
+  display: block;
+  text-decoration: none;
+}
+
+.sv-wall__route:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+
+.sv-wall {
+  --wall-grout: 8px;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--wall-grout);
+}
+
+.sv-wall__row {
+  display: flex;
+  gap: var(--wall-grout);
+}
+
+/* The eyebrow, in the specialist list's own form (§5). It sits in the
+   container while the wall runs full-bleed beneath it, so the label is
+   aligned to the page's text column and the pictures are not. */
+.sv-wall__lead {
+  /* The lead rides its own .container so it lands on the page's axis; p21
+     measures the INK against that axis at sixteen widths and went red when
+     this sat on the section instead — 80px against 120 at 1200. A label for
+     a full-bleed band still belongs to the text column. */
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-caption);
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin: 0 0 var(--gap-block);
+}
+
+/* `min-width: 0` is load-bearing: a flex item's default `min-width: auto` is
+   its CONTENT width, so without this the 9-tile row refuses to shrink below
+   nine intrinsic image widths and the row overflows the viewport instead of
+   dividing it. The failure is invisible at 1440 and total at 375. */
+.sv-wall__tile {
+  flex: 1 1 0;
+  min-width: 0;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+/* BELOW 768 THE BEAT IS ABANDONED, NOT SHRUNK — the same doctrine as §3.7's
+   floor lines. Carried down, the 9-tile row renders ~40px tiles at 375 and a
+   descent nobody can read; `display: contents` dissolves the row divs so all
+   35 tiles become direct children of one wrapping flex container and the band
+   re-forms as a uniform 4-up mosaic. One DOM, two arrangements, no script.
+
+   `flex-grow: 0` matters on the last line: with `1` the remainder tiles
+   stretch to fill the row and the wall ends on three enormous pictures — the
+   fault that killed the uniform-frieze option, arriving at the one edge that
+   meets the black band. */
+@media (max-width: 767px) {
+  .sv-wall {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .sv-wall__row {
+    display: contents;
+  }
+
+  .sv-wall__tile {
+    flex: 0 0 calc((100% - var(--wall-grout) * 5) / 6);
+  }
+}
+
+/* AND ONE STEP FURTHER DOWN. At 375 a 4-up tile computes to 85px — below
+   the size at which a building is a building rather than a texture. Three
+   up gives 113px. The breakpoint is 480 rather than a device width because
+   the number that matters is the TILE, and the tile is a division of the
+   viewport: 4-up crosses 100px at ~436px of viewport, so 480 clears it with
+   room. Derived, like §3.7's 1280 — and it must be re-derived if the
+   column count or the gap changes. */
+@media (max-width: 479px) {
+  .sv-wall__tile {
+    flex: 0 0 calc((100% - var(--wall-grout) * 3) / 4);
+  }
+}

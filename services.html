@@ -49,7 +49,7 @@
 <link rel="stylesheet" href="src/styles/base.css?v=c1bb4db1">
 <link rel="stylesheet" href="src/styles/layout.css?v=575f374f">
 <link rel="stylesheet" href="src/styles/components.css?v=9db156de">
-<link rel="stylesheet" href="src/styles/pages/services.css?v=345f698b">
+<link rel="stylesheet" href="src/styles/pages/services.css?v=609fd404">
 
 </head>
 <body>
@@ -160,18 +160,19 @@
   Services — Screen 06. Spec: 06-services.md. Copy authority:
   ../_bmad/wds/E-Brand-Framework/04-copy-direction.md v3.3 §4, VERBATIM.
 
-  The page in one line: the claim → the theme → the range drawn → the six
-  discipline blocks → the specialist list → the delivery → the close → the
-  inverted band → the footer.
+  The page in one line: the claim → the range drawn → the six discipline
+  blocks → the specialist list → the closing wall → the band → the footer.
+  (Four beats since Session XXVI, plus the wall added Session XXXIV; the
+  body, theme line, mechanism lead, range caption, delivery and close were
+  all removed on Mahesh's calls against the rendered page.)
 
   GROUND BLACK (§1) — an amendment to E1, decided 31 Jul on two rendered
   frames. Home, Services and /ajman state; Work and the 47 record pages
   prove, on paper. The closing band is this page's ONE ground exception.
 
   E12 THROUGHOUT: there is not one digit in this page's own copy. The range
-  is carried by a drawing and by a caption naming its two ends — the drawing
-  may show what prose may not say — and the delivery names its districts
-  rather than counting its buildings. No verb (learns/shops/works/lives)
+  is carried by the drawing alone — the drawing may show what prose may not
+  say — and nothing here counts its buildings. No verb (learns/shops/works/lives)
   appears here: a verb names a set of buildings and this page is not about
   the city. The masterplans are NAMED AND NEVER COUNTED — E12 has no
   exemption that would let this page say how many there are, or carry the
@@ -180,10 +181,13 @@
   *Ajman Hills* is a name — E10.2's own closing sentence, "an Ajman or a
   School inside a title is never counted or suppressed."
 
-  THE PAGE NAMES EXACTLY TWO BUILDINGS, both of them ends of the range
-  caption. No discipline block names a building (E7.2): `scope` is empty on
-  all 47, so naming one beside a discipline would assert who did what in
-  order to have something to link.
+  THE PAGE NAMES NO BUILDING AT ALL — the two ends of the range caption went
+  with the caption in Session XXVI, and the closing wall is uncaptioned and
+  unlinked by the same rule. No discipline block names a building (E7.2):
+  `scope` is empty on all 47, so naming one beside a discipline would assert
+  who did what in order to have something to link. `p13-services.js` asserts
+  this; the comment that used to say "exactly two" contradicted it for two
+  sessions and shipped, in page source, to anyone who opened it.
 
   THE MASTERPLANS ARE THE ONE THING NAMED BESIDE A DISCIPLINE, and they are
   not an exception to that rule — they fall outside it twice over. A
@@ -231,7 +235,8 @@
          file names its levels is drawn (E7.2 — no height is ever inferred),
          basements are drawn BELOW the datum (E3.7 — the datum is real), and
          the two invented values are named — E3.3 the footprint, identical
-         for every building and DERIVED (tallest draws at 6.5:1), E3.3b the
+         for every building and DERIVED (tallest draws at 5.5:1 — the value
+         moved 6.5 -> 5.5 on Mahesh's call, Session XXVI), E3.3b the
          storey pitch, invented identically for every level of the same
          named kind. The order is ascending by DRAWN HEIGHT — by what a
          reader can see.
@@ -363,6 +368,145 @@
          ("Design, engineering, supervision and handover are one
          responsibility…") was a restatement of the H1 and the body. X13's
          candidate second sentence never shipped and is moot. -->
+
+    <!-- 5 · THE CLOSING WALL — Session XXXIV, Mahesh's call on the rendered
+         page: "a full wall of smaller and different sized images of many
+         projects", then "we can reduce the image dimensions ... the idea is
+         to give a feel of many projects in an interesting way."
+
+         IT IS A DESCENT, AND IT ANSWERS THE DRAWING. Row occupancy rises
+         5-6-7-8-9 down the band, so tile size falls monotonically. The
+         elevations at the head of this page ascend shortest-to-tallest; the
+         wall at its foot descends, and settles into its finest grain exactly
+         where the invitation begins. The rule is felt, never stated.
+
+         SILENT BY THE SAME LAW AS /about's MOSAIC (07-about.md §7):
+         uncaptioned, unlinked, and out of the accessibility tree. A caption
+         makes it a teaser, a link makes it an index, and this page indexes
+         nothing — Work owns the records. Rule 8 bars type on a photograph,
+         so there is nowhere a label could sit even if one were wanted.
+
+         🔴 THE TILE LIST IS AN ALLOW-LIST, NOT A QUERY, AND THE REASON IS
+         MEASURED. `provenance` has no positive value — the only string in
+         the data is "Visualisation", on five records, and there is no
+         "Photograph" — so a derived set can only mean "not LABELLED a
+         render". Three records in the unlabelled set ARE renders, found by
+         opening them, and one of them reads as photographic on the
+         composite-sky measurement. build/lib/services.js names them and
+         carries the guards. The standing fix is a letter item: one line per
+         record, photograph or visualisation. -->
+    <section class="sv-wall-block container" aria-labelledby="sv-wall-lead">
+      <!-- THE HEADING IS AN EYEBROW, NOT A SECTION LABEL. Rule 9 bars an
+           invented section heading, and §5 fixes the 12px uppercase eyebrow
+           as this page's one form for labelling a block — it is the shape
+           the specialist list already uses. It echoes the H1's three verbs
+           because that is exactly what the wall is evidence OF, and every
+           frame in it is a Completed record, so the claim is one the
+           curation actually supports. ✅ WORDING APPROVED — Mahesh, Session
+           XXXIV.
+
+           🔴 AND THE BLOCK IS .container, NOT FULL-BLEED — Mahesh, same
+           session: "this need not be full width .. we can maintain normal
+           width." That is the ONE thing separating this band from the
+           drawing above it, which IS full-bleed by decision (§3: the ground
+           leaves the frame, which is the difference between a site and a
+           chart). The drawing runs to the viewport edge because it is the
+           page's argument; the wall sits in the text column because it is
+           the page's evidence, and evidence is read at the measure the rest
+           of the page is read at. -->
+      <p class="sv-wall__lead" id="sv-wall-lead">Drawn, engineered, handed over</p>
+      <!-- 🔴 THE WHOLE WALL IS ONE LINK — Mahesh, Session XXXIV: "when
+           clicking anywhere it can go to works page". This OVERRULES the
+           silence law the band was built under (/about's mosaic, 07-about.md
+           §7: "a link makes it an index"), and it is recorded as an
+           overrule rather than absorbed, because the rule still governs
+           /about's mosaic and the next reader must not take this as its
+           repeal.
+
+           TWO CONSEQUENCES, BOTH HANDLED HERE. The tiles are aria-hidden
+           with empty alts, so the anchor would have NO accessible name at
+           all — a link that announces nothing. `aria-label` gives it one
+           without putting type on a photograph (rule 8) or a caption under
+           the band. And the page now carries TWO routes to Work, this and
+           the range section's `The work →`; §7 said three routes, so this
+           is a fourth. Same destination, different beat — flagged in
+           06-services.md rather than silently widening §2's one-link-per-
+           beat rule. -->
+      <a class="sv-wall__route" href="projects.html" aria-label="See all the work">
+        <span class="sv-wall" aria-hidden="true">
+      <div class="sv-wall__row">
+        <img class="sv-wall__tile" src="images/projects/blacksquare/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/alghalamosque/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/citylifekhor/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/rosetower/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/souksalah/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/ajmanbank/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/cityuniversity/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/seasidehills/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/edu-northgatebritish/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/jeddahheights/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+      </div>
+      <div class="sv-wall__row">
+        <img class="sv-wall__tile" src="images/projects/azhagarden/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/edu-ajmanamerican/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/cityschool/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/habitatschool/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/emiratescity/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/citylifejurf/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/edu-delhiprivate/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/greenbuildings/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/edu-cityamerican/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/woodlem/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/edu-habitataltallah/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+      </div>
+      <div class="sv-wall__row">
+        <img class="sv-wall__tile" src="images/projects/gfloorpenthouse/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/edu-metropolitan/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/citymalluaq/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/edu-woodlemparkaljurf/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/edu-crownbritish/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/marksaverashdiya/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/marksavealtallah/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/marksavealjurf/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/homesrus/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/royalfurniture/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/carsouq/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/citylifealtallah/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+      </div>
+      <div class="sv-wall__row">
+        <img class="sv-wall__tile" src="images/projects/edu-cityuniversity/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/edu-woodlemparkhamidiya/thumb.webp" width="800" height="600" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/blacksquare/gallery-02.webp" width="1920" height="1189" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/alghalamosque/gallery-01.webp" width="1600" height="1067" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/citylifekhor/gallery-02.webp" width="1920" height="1177" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/rosetower/gallery-02.webp" width="1920" height="1080" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/souksalah/gallery-03.webp" width="1920" height="965" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/ajmanbank/gallery-02.webp" width="1920" height="1339" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/seasidehills/gallery-02.webp" width="1920" height="1227" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/edu-northgatebritish/gallery-02.webp" width="1920" height="1080" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/jeddahheights/gallery-02.webp" width="800" height="1200" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/azhagarden/gallery-02.webp" width="1920" height="1080" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/edu-ajmanamerican/gallery-02.webp" width="1920" height="1061" alt="" loading="lazy" decoding="async">
+      </div>
+      <div class="sv-wall__row">
+        <img class="sv-wall__tile" src="images/projects/cityschool/gallery-02.webp" width="1920" height="1149" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/habitatschool/gallery-02.webp" width="1920" height="1037" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/emiratescity/gallery-03.webp" width="1920" height="1314" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/citylifejurf/gallery-02.webp" width="1920" height="948" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/edu-delhiprivate/gallery-02.webp" width="1920" height="1206" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/greenbuildings/gallery-01.webp" width="1920" height="1098" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/edu-cityamerican/gallery-02.webp" width="1920" height="1228" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/woodlem/gallery-02.webp" width="1920" height="1149" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/edu-habitataltallah/gallery-02.webp" width="1920" height="1221" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/gfloorpenthouse/gallery-02.webp" width="1468" height="1920" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/edu-metropolitan/gallery-02.webp" width="1920" height="1080" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/citymalluaq/gallery-02.webp" width="1920" height="1026" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/edu-woodlemparkaljurf/gallery-02.webp" width="1920" height="1117" alt="" loading="lazy" decoding="async">
+        <img class="sv-wall__tile" src="images/projects/edu-crownbritish/gallery-02.webp" width="1920" height="1149" alt="" loading="lazy" decoding="async">
+      </div>
+        </span>
+      </a>
+    </section>
 
   </div>
 

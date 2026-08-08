@@ -32,7 +32,7 @@
  *
  *   E3.3 — THE FOOTPRINT IS AN INVENTED VALUE, invented identically for
  *   every building, and since Session XXVI it is DERIVED, not picked: the
- *   tallest elevation draws at RATIO (6.5:1) and every building takes that
+ *   tallest elevation draws at RATIO (5.5:1 since Session XXVI) and every building takes that
  *   same footprint. A 90-storey record widens every plan on the sheet;
  *   nobody edits a constant. (The records hold no drawable plan dimension —
  *   `builtUpArea` exists on 44 but W3 bars it and BUA/storeys is an E7.2
@@ -345,6 +345,200 @@ function drawing(rows) {
  * The page
  * ------------------------------------------------------------------ */
 
+/* ------------------------------------------------------------------ *
+ * THE CLOSING WALL — Session XXXIV, Mahesh's call on the rendered page
+ * ------------------------------------------------------------------ *
+ *
+ * "just above 'have project in mind' I would like to have a full wall of
+ * smaller and different sized images of many projects", then, on the
+ * rendered options: "we can reduce the image dimensions ... the idea is to
+ * give a feel of many projects in an interesting way."
+ *
+ * THE ARRANGEMENT IS A DESCENT, AND IT ANSWERS THE DRAWING. Row occupancy
+ * rises 5-6-7-8-9, so tile size FALLS monotonically down the band. The
+ * elevations at the head of this page ascend shortest-to-tallest; the wall
+ * at its foot descends, and settles into its finest grain exactly where the
+ * invitation begins. That is the rule a reader can feel without being told,
+ * and it is why this is not "a grid of identical cards".
+ *
+ * 🔴 THE LIST IS AN ALLOW-LIST AND IT IS NOT DERIVABLE. This is the X24
+ * mechanism, and the reason is measured rather than cautious:
+ *
+ *   `provenance` HAS NO POSITIVE VALUE. The only string that appears
+ *   anywhere in projects.json is "Visualisation", on five records. There is
+ *   no `Photograph`. So a derived set can only ever mean "not LABELLED a
+ *   render", which is absence of evidence — and that is not the same claim.
+ *
+ *   THREE RECORDS IN THE UNLABELLED SET ARE RENDERS, FOUND BY OPENING THEM:
+ *   `citylifetallah` (placeholder "Tenant" fascia boards, CGI palms,
+ *   rendered figures), `rholding` (rendered sky, rendered palms, generic
+ *   skyline — and records.js already records this record as holding "four
+ *   renders, one of them a different building"), and `frontlineschool`
+ *   (flat rendered sky, rendered cars, no camera in it). All three are
+ *   status `Completed` with no provenance flag, so they defeat about.js's
+ *   mosaic guard, and they defeat a status guard too.
+ *
+ *   AND THE MEASUREMENT CANNOT SEE THEM. The composite-sky test that
+ *   separates a replaced sky from a photographed one (H13) reads
+ *   `frontlineschool` at 450 distinct colours in its top band — solidly in
+ *   the photographic range. It detects a SWAPPED SKY on a photograph, not a
+ *   wholly rendered image. A tool that answers a narrower question than the
+ *   one being asked returns a confident wrong answer.
+ *
+ * So the wall names its tiles, a human has looked at every one, and the
+ * guards below are the floor rather than the selection. Letter item: one
+ * line per record, photograph or visualisation — X17's sibling.
+ */
+const WALL = [
+  /* Row 1 — the largest tiles take the most distinct frames: a dark tower at
+     dusk, the one religious building on the site, a black angular retail
+     block, a tower, and the site's only interior. */
+  'blacksquare', 'alghalamosque', 'citylifekhor', 'rosetower', 'souksalah',
+  /* 6 */
+  'ajmanbank', 'cityuniversity', 'seasidehills', 'edu-northgatebritish', 'jeddahheights', 'azhagarden',
+  /* 7 */
+  'edu-ajmanamerican', 'cityschool', 'habitatschool', 'emiratescity', 'citylifejurf', 'edu-delhiprivate', 'greenbuildings',
+  /* 8 */
+  'edu-cityamerican', 'woodlem', 'edu-habitataltallah', 'gfloorpenthouse', 'edu-metropolitan', 'citymalluaq',
+  'edu-woodlemparkaljurf', 'edu-crownbritish',
+  /* 9 — the finest grain, where the retail row reads as texture rather than
+     as nine separate claims. */
+  'marksaverashdiya', 'marksavealtallah', 'marksavealjurf', 'homesrus', 'royalfurniture', 'carsouq',
+  'citylifealtallah', 'edu-cityuniversity', 'edu-woodlemparkhamidiya',
+];
+
+/* The beat. It is asserted against the list rather than trusted: a beat and
+   a list that disagree draw a short last row, which is the one row the
+   reader meets hardest — it is the edge that touches the black band. */
+/* FIVE ROWS, +1 OCCUPANCY EACH — Mahesh, Session XXXIV: "5 rows .. with
+   light increase in each row .. biggest top .. smallest bottom". +1 is the
+   lightest gradient a row beat can carry, and because tile height is the
+   row's width divided by its count, a +1 step in occupancy is a GENTLE step
+   in height: 85px at the top to 60px at the foot inside the container. */
+const WALL_BEAT = [10, 11, 12, 13, 14];
+
+/* 🔴 EVERY IMAGE OF AN APPROVED RECORD IS NOT AN APPROVED IMAGE. Session
+   XXXIV, second pass — Mahesh: "much smaller photos, but more of them."
+   Going from one tile per record (35) to every frame of those records (121)
+   multiplies the render exposure, because `provenance` is RECORD-level and
+   a Completed, unlabelled record can still hold renders in its gallery.
+   Four were found by opening them: `cityuniversity` carries THREE, and its
+   record is Completed with no flag. This list is the second allow-list, and
+   it exists because the first one cannot reach inside a record.
+
+   🔴 AND IT IS NOT A GUARANTEE. Thirty-five frames can be audited by eye in
+   one pass; a hundred and twenty-one cannot, and I say so rather than imply
+   a completeness the method does not have. The real fix is the letter item:
+   one line per IMAGE, photograph or visualisation. */
+const WALL_EXCLUDE = new Set([
+  'images/projects/citylifekhor/gallery-03.webp',
+  'images/projects/cityuniversity/gallery-02.webp',
+  'images/projects/cityuniversity/gallery-03.webp',
+  'images/projects/cityuniversity/gallery-04.webp',
+]);
+
+function wall(prefix) {
+  const db = loadDb();
+  const manifest = JSON.parse(
+    fs.readFileSync(path.join(ROOT, 'images', 'manifest.json'), 'utf8')
+  );
+  const bySlug = new Map(db.projects.map((p) => [p.slug, p]));
+
+
+  if (new Set(WALL).size !== WALL.length) {
+    throw new Error('services: the wall names a record twice.');
+  }
+
+  const frames = [];
+  WALL.forEach((slug) => {
+    const record = bySlug.get(slug);
+    if (!record) throw new Error(`services: wall tile "${slug}" names no record the site holds.`);
+
+    /* E9.3, the same clause about.js's mosaic states: an uncaptioned tile
+       cannot carry a provenance label, so a labelled record cannot appear. */
+    if (record.provenance) {
+      throw new Error(
+        `services: wall tile "${slug}" is a ${record.provenance} — an uncaptioned wall ` +
+          'cannot label one (E9.3), so it cannot appear. Pick a photograph.'
+      );
+    }
+    /* 🔴 AND THE SECOND HALF, WHICH about.js DOES NOT HAVE. Three of the
+       eight records that are not standing carry NO provenance flag at all —
+       gateway, sealine and zamzam-tower. A guard keyed on provenance alone
+       ships them as evidence of finished work, which is the quiet failure
+       E9.6 exists to prevent. The wall claims standing buildings; only a
+       Completed record may make that claim. */
+    if (record.status !== 'Completed') {
+      throw new Error(
+        `services: wall tile "${slug}" is ${record.status}, not Completed. The wall is ` +
+          'the page\'s claim that this work STANDS (E9.6) — an unbuilt record cannot make it, ' +
+          'and provenance alone cannot see this: three unbuilt records carry no flag.'
+      );
+    }
+
+    const images = manifest.projects[slug] || {};
+    if (!images.thumb) {
+      throw new Error(`services: wall tile "${slug}" has no thumb derivative.`);
+    }
+    frames.push(
+      [images.thumb, ...(images.gallery || [])].filter((rel) => !WALL_EXCLUDE.has(rel))
+    );
+  });
+
+  /* 🔴 ROUND-ROBIN, NOT HEAD-OF-LIST. Three rows (Mahesh, Session XXXIV:
+     "we can have just 3 rows here") spend 42 of the 117 surviving frames,
+     so the set has to be CUT — and the cut is a stated rule rather than a
+     hand-pick, because a hand-picked 42 is a judgement nobody can re-derive
+     and every later edit re-opens.
+     The rule: EVERY PROJECT APPEARS ONCE BEFORE ANY PROJECT APPEARS TWICE.
+     Taking the first 42 frames in list order would have spent the whole
+     budget on the first dozen records and drawn a wall of the same twelve
+     buildings — the opposite of "a feel of many projects". */
+  const want = WALL_BEAT.reduce((a, b) => a + b, 0);
+  const tiles = [];
+  for (let depth = 0; tiles.length < want; depth += 1) {
+    if (depth > 12) throw new Error('services: the wall ran out of frames before its beat was spent.');
+    frames.forEach((recordFrames) => {
+      if (tiles.length >= want) return;
+      const rel = recordFrames[depth];
+      if (!rel) return;
+      const wh = manifest.sizes && manifest.sizes[rel];
+      if (!wh) {
+        throw new Error(`services: wall frame "${rel}" has no intrinsic size. Run npm run build:manifest.`);
+      }
+      tiles.push(
+        `<img class="sv-wall__tile" src="${prefix}${rel}" width="${wh[0]}" height="${wh[1]}" alt="" loading="lazy" decoding="async">`
+      );
+    });
+  }
+
+  const beatTotal = WALL_BEAT.reduce((a, b) => a + b, 0);
+  if (beatTotal !== tiles.length) {
+    throw new Error(
+      `services: the wall's beat ${WALL_BEAT.join('-')} spends ${beatTotal} tiles but ` +
+        `${tiles.length} frames survived the two allow-lists. A beat and a set that disagree ` +
+        'draw a short last row — the one edge the reader meets hardest, against the black band.'
+    );
+  }
+
+  const rows = [];
+  let i = 0;
+  WALL_BEAT.forEach((n) => {
+    rows.push(
+      `      <div class="sv-wall__row">\n        ${tiles.slice(i, i + n).join('\n        ')}\n      </div>`
+    );
+    i += n;
+  });
+
+  console.log(
+    `    services: the closing wall ships ${tiles.length} frames from ${WALL.length} records on the beat ` +
+      `${WALL_BEAT.join('-')} (Session XXXIV). Every slug is human-confirmed: ` +
+      `3 unlabelled RENDERS were found by eye in the unlabelled set and are excluded ` +
+      `(citylifetallah, rholding, frontlineschool) — no field and no measurement can see them.`
+  );
+  return rows.join('\n');
+}
+
 function viewData(prefix) {
   const db = loadDb();
   const rows = drawnSet(db);
@@ -368,7 +562,8 @@ function viewData(prefix) {
       workHref: `${prefix}projects.html`,
       contactHref: `${prefix}contact.html`,
     },
-    drawing(rows)
+    drawing(rows),
+    { wallHtml: wall(prefix) }
   );
 }
 
@@ -376,4 +571,4 @@ function hasViewData(srcName) {
   return srcName === 'services';
 }
 
-module.exports = { hasViewData, viewData, parseConfiguration, drawnSet, KIND_PITCH, RATIO, geometry };
+module.exports = { hasViewData, viewData, parseConfiguration, drawnSet, KIND_PITCH, RATIO, geometry, WALL, WALL_BEAT, WALL_EXCLUDE };
