@@ -40,6 +40,26 @@
 
   var CLOSE_FALLBACK_MS = 650;
 
+  /* How long the pointer must REST on a door before it takes the stage.
+     Not a motion value — the motion lives in components.css, as ever — but
+     an intent threshold, and it sits here for the same reason
+     CLOSE_FALLBACK_MS does: it is behaviour, not choreography.
+
+     🔴 It exists because the reader's path to the stage runs THROUGH the
+     other doors. "All projects →" sits at the stage's foot while WORK sits
+     at the nav's head, so a pointer travelling to it crosses SERVICES and
+     ABOUT and — before this — handed the stage to each in turn, tearing
+     down the panel the reader was aiming at. Walking a real cursor along
+     that path is what showed it. **The two-state swap had the same fault**:
+     hovering SERVICES called setSwap(false) and hid the preview. Nobody
+     reported it until the stage got big enough to notice.
+
+     90ms is under the threshold at which a deliberate hover feels delayed
+     and far above the few milliseconds a transiting pointer spends on any
+     one row. Keyboard focus does not wait: focus LANDS on things, so it is
+     never in transit. */
+  var STAGE_INTENT_MS = 90;
+
   var isOpen = false;
   var closeTimer = null;
 
@@ -246,35 +266,138 @@
     overlay.style.setProperty('--rail-on', row < 0 ? '0' : '1');
   }
 
+  /* The pointer's half, which waits; setStage() itself never does. */
+  var intent = null;
+  var intentTarget = null;
+  function clearIntent() {
+    if (intent) { clearTimeout(intent); intent = null; }
+    intentTarget = null;
+  }
+
+  /* 🔴 IS THE POINTER CROSSING THIS DOOR, OR CHOOSING IT?
+
+     The dwell alone cannot tell them apart: a slow deliberate diagonal
+     rests on each row for longer than any threshold worth having, and a
+     threshold long enough to survive it would make a real hover feel
+     broken. The discriminator is DIRECTION, not time — the stage sits at
+     the row's inline end, so a pointer travelling toward it is in transit
+     and a pointer that is not is choosing.
+
+     Which side "toward the stage" is on is read from the rendered boxes
+     rather than from a direction constant, so RTL needs no restatement:
+     the regions flip by logical properties and this flips with them. */
+  var lastX = null;
+  function stageIsInlineEndOf(navEl) {
+    var c = overlay.querySelector('[data-menu-centre]');
+    if (!c || !navEl) return null;
+    return c.getBoundingClientRect().left > navEl.getBoundingClientRect().left;
+  }
+  function travellingToStage(x, navEl) {
+    if (lastX === null) return false;
+    var dx = x - lastX;
+    if (Math.abs(dx) < 2) return false;          /* settled — a choice */
+    var toRight = stageIsInlineEndOf(navEl);
+    if (toRight === null) return false;
+    return toRight ? dx > 0 : dx < 0;
+  }
+
+  function requestStage(item) {
+    var want = item ? item.getAttribute('data-menu-stage') : REST_STAGE;
+    if (want === overlay.getAttribute('data-stage')) { clearIntent(); return; }
+
+    /* 🔴 IDEMPOTENT FOR THE SAME TARGET, and that is the whole point. A
+       pointer moving across a door fires mousemove every few milliseconds;
+       restarting the timer on each one meant it never survived long enough
+       to fire, so a deliberate hover NEVER took the stage while the pointer
+       was still creeping. Measured, not reasoned: a pure vertical move onto
+       SERVICES left the stage on WORK for the entire traverse. The dwell
+       counts from the FIRST sample on a door, not the last. */
+    if (intent && intentTarget === want) return;
+
+    clearIntent();
+    intentTarget = want;
+    intent = setTimeout(function () {
+      intent = null;
+      intentTarget = null;
+      setStage(item);
+    }, STAGE_INTENT_MS);
+  }
+
   function stageFor(event) {
     var item = event.target.closest('.menu-nav__item');
     if (item) {
-      setStage(item);
+      requestStage(item);
       return true;
     }
-    /* Moving from an item into the stage keeps the stage — that is the
-       path a pointer actually takes to reach a thumbnail. */
-    return !!event.target.closest('[data-menu-centre]');
+    /* Reaching the stage CANCELS any pending change: the reader has
+       arrived at what they were aiming for, and a door they merely crossed
+       on the way must not take it from them. */
+    if (event.target.closest('[data-menu-centre]')) {
+      clearIntent();
+      return true;
+    }
+    return false;
   }
 
   setStage(null);
 
+  /* 🔴 THE POINTER MUST BE ABLE TO REACH THE STAGE, AND THE PATH RUNS
+     THROUGH DEAD GROUND. A reader going from WORK to "All projects →"
+     crosses the 64px gutter between the nav column and the stage, where the
+     event target is the regions grid — neither a nav item nor the stage.
+     Resetting there tore the panel down mid-journey and made the exit link
+     unreachable by pointer: it was reported from the live site, and walking
+     the real cursor along that path reproduced it at the exact step the
+     target became `menu-overlay__regions`.
+
+     So the pointer NEVER resets on neutral ground. Only leaving the overlay
+     does. That is the contract the original two-state swap had — its
+     handler fell through without resetting — and widening the swap to five
+     occupants is what quietly dropped it.
+
+     Focus is different and keeps its reset: focus lands ON things, so
+     moving it to the trigger or the plate is a real departure rather than a
+     journey across a gap. */
   if (window.matchMedia('(hover: hover)').matches) {
+    overlay.addEventListener('mousemove', function (event) {
+      var item = event.target.closest('.menu-nav__item');
+      if (item) {
+        /* A door crossed on the way to the stage does not take it. A door
+           the pointer has settled on does, after the dwell. */
+        if (travellingToStage(event.clientX, item)) clearIntent();
+        else requestStage(item);
+      } else if (event.target.closest('[data-menu-centre]')) {
+        clearIntent();
+      }
+      lastX = event.clientX;
+    });
+
     overlay.addEventListener('mouseover', function (event) {
-      if (!stageFor(event)) setStage(null);
+      stageFor(event);
     });
     overlay.addEventListener('mouseleave', function () {
+      clearIntent();
+      lastX = null;
       setStage(null);
     });
   }
 
+  /* Focus is instant — it lands on things rather than travelling across
+     them, so it is never in transit and must never feel delayed. */
   overlay.addEventListener('focusin', function (event) {
-    if (!stageFor(event)) setStage(null);
+    clearIntent();
+    var item = event.target.closest('.menu-nav__item');
+    if (item) { setStage(item); return; }
+    if (event.target.closest('[data-menu-centre]')) return;
+    setStage(null);
   });
 
   /* Closing returns the stage to rest, so the next open does not flash the
      last thing the previous reader hovered. */
   overlay.addEventListener('transitionend', function (event) {
-    if (event.propertyName === 'clip-path' && !overlay.classList.contains('is-open')) setStage(null);
+    if (event.propertyName === 'clip-path' && !overlay.classList.contains('is-open')) {
+      clearIntent();
+      setStage(null);
+    }
   });
 })();
