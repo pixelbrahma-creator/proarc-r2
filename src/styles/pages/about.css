@@ -37,7 +37,9 @@
    Services' claim. The H1 starts in the top inline-start corner, which is
    the corner the menu trigger is fixed in. */
 .ab-story {
-  padding-block: var(--arrival-clearance) var(--gap-section);
+  /* The arrival clearance is UNTOUCHED — it is a site rule, not this page's
+     rhythm. Only the foot steps down with the rest of the stack. */
+  padding-block: var(--arrival-clearance) var(--ab-stack);
 }
 
 /* The ≤1023 restatement that used to sit here is GONE — the value now lives in
@@ -116,6 +118,213 @@
 }
 
 /* -----------------------------------------------------------
+   0 · ABOUT'S OWN STACK RHYTHM (Session XXXI, 8 Aug)
+   -----------------------------------------------------------
+
+   🔴 MEASURED, NOT ADJUSTED BY EYE. Mahesh, reading the six-block page:
+   "there is a lot of spacing issues". At 1440 the gaps between blocks came
+   out 225 · 200 · 200 · 200 · 200 · 340 — **1,365px of white between blocks
+   in a 5,518px page, a quarter of it** — while the same page at a true 375
+   ran 121 · 96 · 96 · 96 · 96 · 168 and he had already said the narrow one
+   read better.
+
+   WHY IT ONLY SHOWS NOW. --gap-section is 200px at desktop and it was right
+   when About had FOUR visible blocks, one of which was the 2,186px wall: a
+   long block earns a long gap. The page has six now, four of them short, and
+   a short block at a 200px remove reads adrift rather than airy. Nothing
+   about the token changed; the page around it did.
+
+   🔴 SCOPED TO THIS PAGE ON PURPOSE. --gap-section, --gap-heading and
+   --gap-component are shared tokens; editing them moves all fifty-seven
+   routes for a complaint made about one. These are page-local values that
+   step at the same two breakpoints the tokens do, so About still breathes
+   with the site rather than against it.
+
+   MOBILE IS DELIBERATELY UNCHANGED AT 96px — it is the reading Mahesh
+   preferred, so it is the target the desktop step moves toward, not a value
+   to be re-tuned alongside it. */
+/* 🔴 GROUPED, NOT UNIFORM — and the first attempt at this was WRONG.
+   Session XXXI first answered "a lot of spacing issues" by taking every gap
+   from 200px to 128px. Freya killed it on the render and the reason is a
+   rule this project already carries: **when a design complaint recurs,
+   re-read the complaint rather than tightening the threshold.** Five
+   identical gaps of 128 are exactly as undifferentiated as five identical
+   gaps of 200 — the complaint was never that the gaps were big, it was that
+   six blocks in one column never say which of them belong together.
+
+   So the gap now CARRIES THE GROUPING, and the grouping is the page's
+   argument (Mahesh, 8 Aug, "grouped order now"):
+
+     what ProArc says about itself   story · mission/vision
+     ————— the photograph —————
+     the people                      leadership · join us
+     what others say about ProArc    certifications · the client wall
+
+   200 between groups, 96 within one. The ratio is 2.08:1, which reads as
+   grouping; 1:1 cannot, at any value.
+
+   🔴 EACH SECTION'S BOTTOM GAP DESCRIBES WHAT FOLLOWS IT, NOT WHAT IT IS.
+   That is why .ab-lead is 96 and .ab-join is 200 when both are "a block":
+   Leadership is followed by its own group's second half, Join us is followed
+   by a different group. Move a section and its value moves with the wrong
+   block — so any reorder must revisit this list, and nothing on the board
+   can see that. It is written down here because that is the only place it
+   can be seen. */
+.ab-story  { --ab-stack: 96px;  }   /* -> mission/vision, same group */
+.ab-purpose{ --ab-stack: 200px; }   /* -> the photograph, group break */
+.ab-seam   { --ab-stack: 200px; }   /* -> leadership, group break */
+.ab-lead   { --ab-stack: 96px;  }   /* -> join us, same group */
+.ab-join   { --ab-stack: 200px; }   /* -> certifications, group break */
+.ab-certs  { --ab-stack: 96px;  }   /* -> the wall, same group */
+.ab-wall   { --ab-stack: 200px; }   /* -> the band, which owns the switch */
+
+/* 🔴 --ab-head IS MEASURED TO THE FIRST INK, AND A 1px RULE IS INK.
+   Freya read this block's fault as "one token, three optical gaps" —
+   Leadership and Certifications each open on a hairline with --gap-block
+   beneath it, Join us opens straight onto its paragraph — and the first fix
+   subtracted that structure so the gap to the CONTENT was constant. Two
+   things killed it, both only visible in a render:
+
+     · at =<767 the subtraction went NEGATIVE (--ab-head 24 minus
+       --gap-block 24 minus the border), and the block's first hairline rode
+       up level with its own heading;
+     · clamped at 0 it still read wrong — the rule sat ON the heading.
+
+   The premise was the error, not the arithmetic. **A hairline is not
+   structure between the heading and the content; it is the first thing the
+   eye lands on.** So every heading sits --ab-head above its first ink, and
+   for a ruled block that ink is the rule. One token, one rule, no
+   subtraction, nothing to go negative. */
+.ab-story,
+.ab-purpose,
+.ab-seam,
+.ab-lead,
+.ab-certs,
+.ab-join,
+.ab-wall {
+  --ab-head: 40px;
+}
+
+@media (max-width: 1119px) {
+  .ab-story  { --ab-stack: 72px;  }
+  .ab-purpose{ --ab-stack: 144px; }
+  .ab-seam   { --ab-stack: 144px; }
+  .ab-lead   { --ab-stack: 72px;  }
+  .ab-join   { --ab-stack: 144px; }
+  .ab-certs  { --ab-stack: 72px;  }
+  .ab-wall   { --ab-stack: 144px; }
+
+  .ab-story,
+  .ab-purpose,
+  .ab-seam,
+  .ab-lead,
+  .ab-certs,
+  .ab-join,
+  .ab-wall {
+    --ab-head: 32px;
+  }
+}
+
+@media (max-width: 767px) {
+  .ab-story  { --ab-stack: 56px; }
+  .ab-purpose{ --ab-stack: 96px; }
+  .ab-seam   { --ab-stack: 96px; }
+  .ab-lead   { --ab-stack: 56px; }
+  .ab-join   { --ab-stack: 96px; }
+  .ab-certs  { --ab-stack: 56px; }
+  .ab-wall   { --ab-stack: 96px; }
+
+  .ab-story,
+  .ab-purpose,
+  .ab-seam,
+  .ab-lead,
+  .ab-certs,
+  .ab-join,
+  .ab-wall {
+    --ab-head: 24px;
+  }
+}
+
+/* -----------------------------------------------------------
+   1c · The seam photograph (X23)
+   -----------------------------------------------------------
+
+   FULL BLEED — the only element on /about that leaves the container, and
+   the reason is that a photograph inside the 960px column is a picture ON
+   the page while one that reaches both edges is a change OF the page. The
+   block exists to be a ground change, so it takes the whole width.
+
+   HEIGHT IS A BAND, NOT AN ASPECT RATIO. clamp(260px, 29vw, 420px) holds a
+   letterbox at every width; the source is 1920x879 (2.18:1) and the band is
+   3.4:1 at 1440, so the crop is vertical there and the horizon stays. 🔴 At
+   375 the band is 1.44:1 and the crop axis FLIPS to horizontal — a recorded
+   trap on this project: a full-bleed crops on PROPORTION, not on subject.
+   The 375 render is checked for that specifically, not assumed.
+
+   width/height ARE STATED so the box is reserved before the bytes arrive.
+   Without them the whole page below jumps when a 1920px image decodes. */
+.ab-seam {
+  padding-block-end: var(--ab-stack);
+}
+
+.ab-seam__image {
+  display: block;
+  inline-size: 100%;
+  block-size: clamp(260px, 29vw, 420px);
+  object-fit: cover;
+  object-position: center;
+}
+
+/* -----------------------------------------------------------
+   1b · Mission & Vision (Session XXXI, 8 Aug)
+   -----------------------------------------------------------
+
+   TWO ITEMS, TWO COLUMNS, ONE HAIRLINE EACH. The page's grammar is
+   horizontal hairlines and no frames, so a mission "card" is out; the rule
+   above each statement is the same device the proof line already uses, and
+   it is what makes the pair read as two things rather than one paragraph.
+
+   THE LABEL TAKES THE PAGE'S ONE HEADING REGISTER — --fs-h3 regular, ink,
+   no uppercase, no letterspacing. That is exactly .ab-wall__head and
+   .ab-lead__head, and using a fourth size for a fourth block is how a page
+   acquires a type system it did not have.
+
+   THE STATEMENT TAKES --measure-body-lg, the support line's own column.
+   Two 1fr columns at 1120+; the statements are short enough that neither
+   reaches the measure cap, so the cap only bites if the copy grows. */
+.ab-purpose {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: var(--gap-component);
+  padding-block-end: var(--ab-stack);
+}
+
+.ab-purpose__item {
+  padding-block-start: var(--gap-block);
+  border-block-start: 1px solid var(--color-hairline);
+}
+
+.ab-purpose__head {
+  /* A two-word label over its own sentence is INTRA-OBJECT, not a section
+     head — the ≤767 render was the proof, not a mobile exception: the same
+     block reads correctly there precisely because --gap-heading collapses
+     to 24. So it takes --gap-block at every width. */
+  margin: 0 0 var(--gap-block);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-h3);
+  color: var(--color-ink);
+}
+
+.ab-purpose__line {
+  margin: 0;
+  max-inline-size: var(--measure-body-lg);
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-lg);
+  color: var(--color-ink);
+}
+
+/* -----------------------------------------------------------
    2 · The client wall (§5) — W-A, one stack
    ----------------------------------------------------------- */
 
@@ -124,7 +333,7 @@
    in this section mean "one client", and a rule between groups would mean
    the same thing at a different scale. */
 .ab-wall {
-  padding-block-end: var(--gap-section);
+  padding-block-end: var(--ab-stack);
 }
 
 /* table-layout: fixed, because auto layout treats a column's inline-size as
@@ -289,11 +498,11 @@
    them at a 32px gap come out at 216 exactly, and stating the fraction means
    the block survives a container change that a typed pixel would not. */
 .ab-lead {
-  padding-block-end: var(--gap-section);
+  padding-block-end: var(--ab-stack);
 }
 
 .ab-lead__head {
-  margin: 0 0 var(--gap-heading);
+  margin: 0 0 var(--ab-head);
   font-size: var(--fs-h3);
   font-weight: var(--fw-regular);
   line-height: var(--lh-h3);
@@ -404,11 +613,61 @@
 }
 
 /* -----------------------------------------------------------
+   3c · Certifications (X21) — placeholder rows (Session XXXI, 8 Aug)
+   -----------------------------------------------------------
+
+   RULED ROWS, NO FRAME. The same reason §6's facts table gives: a border
+   around a short list of pending things makes it look like a form with
+   fields missing. The hairline sits ABOVE each row so the list has a top
+   edge and no bottom one, which is the wall's register.
+
+   THE ROWS ARE SECONDARY INK BECAUSE THEY ARE PENDING, not because they are
+   small print. When X21 answers, the bracket goes and the colour steps up to
+   --color-ink in the same rule; nothing else about the block moves. */
+.ab-certs {
+  padding-block-end: var(--ab-stack);
+}
+
+.ab-certs__head {
+  margin: 0 0 var(--ab-head);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-h3);
+  color: var(--color-ink);
+}
+
+.ab-certs__list {
+  margin: 0;
+  padding: 0;
+  max-inline-size: var(--measure-body-lg);
+  list-style: none;
+}
+
+.ab-certs__item {
+  padding-block: var(--gap-block);
+  border-block-start: 1px solid var(--color-hairline);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-ink-secondary);
+}
+
+/* -----------------------------------------------------------
    4 · Join us (§8)
    ----------------------------------------------------------- */
 
 .ab-join {
-  padding-block-end: var(--gap-section);
+  padding-block-end: var(--ab-stack);
+}
+
+/* The heading §3's beat table always specified and the build never shipped.
+   Same register as .ab-lead__head and .ab-wall__head — the page has ONE
+   heading size and this does not add a second. */
+.ab-join__head {
+  margin: 0 0 var(--ab-head);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-h3);
+  color: var(--color-ink);
 }
 
 .ab-join__prose {
@@ -517,6 +776,18 @@
   .ab-wall__namecell--first {
     inline-size: auto;
     padding-inline-end: 0;
+  }
+
+  /* The pair restacks rather than narrowing: at 1119 two 1fr columns put
+     each statement in a ~460px measure, and the mission sets four lines
+     against the vision's three, which reads as a mistake rather than as a
+     pair. Stacked, each takes the support line's own measure. */
+  .ab-purpose {
+    display: block;
+  }
+
+  .ab-purpose__item + .ab-purpose__item {
+    margin-block-start: var(--gap-component);
   }
 
   .ab-lead__grid {
