@@ -210,6 +210,81 @@ function pairRows(marks) {
   return out;
 }
 
+/**
+ * THE MOSAIC (X24) — Mahesh's 8-Aug reversal of a rendered kill (Session
+ * XXXII). Freya built a 15-tile page-foot mosaic, killed it on the render
+ * as "/projects with the captions removed", and Mahesh — shown that render
+ * beside /projects — chose the mosaic over the seam photograph anyway. His
+ * call, and the build is her tightened re-cut: FIVE tiles in two rows, the
+ * work's index at the wall's foot, not a second catalogue.
+ *
+ * THE FIVE ARE ¶2'S SENTENCE — learn, shop, pray, work, live — one tile
+ * per human sense, which is the page's own argument in pictures. They are
+ * DUMMIES: the real selection is ProArc's (X24, data-placeholder in the
+ * template), and swapping a slug here is the whole edit.
+ *
+ * 🔴 A TILE MUST BE A PHOTOGRAPH. E9.3 exempts nothing from provenance
+ * labelling on an index surface, an uncaptioned mosaic cannot label a
+ * Visualisation, so a record carrying the label simply cannot appear —
+ * this build THROWS rather than shipping a render unmarked.
+ *
+ * The aspects are CHOSEN, not intrinsic — object-fit crops the source into
+ * the stated box, and the row heights fall out of the flex arithmetic
+ * (row width minus gaps, over the aspect sum). The portrait tile is the
+ * strip's one vertical; the class, not the position, carries that fact,
+ * because mobile reorders it to close the strip full-width.
+ */
+const MOSAIC = [
+  { row: 0, slug: 'cityschool',       a: 1.7027 },              // learn
+  { row: 0, slug: 'citylifealtallah', a: 1.5    },              // shop
+  { row: 1, slug: 'alghalamosque',    a: 0.6667, tall: true },  // pray
+  { row: 1, slug: 'ajmanbank',        a: 1.5    },              // work
+  { row: 1, slug: 'rosetower',        a: 1.6341 },              // live
+];
+
+function mosaic(manifest, prefix) {
+  const data = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'projects.json'), 'utf8'));
+  const bySlug = new Map(data.projects.map((p) => [p.slug, p]));
+  const rows = [[], []];
+  MOSAIC.forEach((t) => {
+    const record = bySlug.get(t.slug);
+    if (!record) throw new Error(`about: mosaic tile "${t.slug}" names no record the site holds.`);
+    if (record.provenance) {
+      throw new Error(
+        `about: mosaic tile "${t.slug}" is a ${record.provenance} — an uncaptioned mosaic ` +
+          'cannot label one (E9.3, exempt: none), so it cannot appear. Pick a photograph.'
+      );
+    }
+    const images = manifest.projects[t.slug] || {};
+    const sizeOf = (rel) => {
+      const wh = manifest.sizes && manifest.sizes[rel];
+      if (!wh) throw new Error(`about: mosaic tile "${t.slug}" has no intrinsic size for ${rel}. Run npm run build:manifest.`);
+      return { src: prefix + rel, w: wh[0], h: wh[1] };
+    };
+    if (!images.band || !images.heroMd) {
+      throw new Error(`about: mosaic tile "${t.slug}" is missing its band/hero-md derivatives — a tile without its weight decision is not a tile.`);
+    }
+    const small = sizeOf(images.band);
+    const large = sizeOf(images.heroMd);
+    // Emitted as generated markup, like /projects' tiles — the --a datum
+    // may ride generated output but never an authored source (CLAUDE.md's
+    // inline-style bar is on pages-src/, where stylelint cannot see).
+    rows[t.row].push(
+      `<img class="ab-index__tile${t.tall ? ' ab-index__tile--tall' : ''}" style="--a:${t.a.toFixed(4)}" ` +
+        `src="${small.src}" srcset="${small.src} ${small.w}w, ${large.src} ${large.w}w" ` +
+        `sizes="(max-width: 767px) 46vw, 35vw" width="${large.w}" height="${large.h}" ` +
+        `alt="" loading="lazy" decoding="async">`
+    );
+  });
+  console.log(
+    `    about: X24 — the mosaic ships ${MOSAIC.length} DUMMY tiles ` +
+      `(${MOSAIC.map((t) => t.slug).join(' · ')}); the selection is ProArc's to confirm.`
+  );
+  return rows
+    .map((tiles) => `      <div class="ab-index__row">\n        ${tiles.join('\n        ')}\n      </div>`)
+    .join('\n');
+}
+
 function viewData(prefix) {
   const { groups, rows, manifest } = loadWall();
 
@@ -223,9 +298,10 @@ function viewData(prefix) {
     return {
       groupHead: escapeText(head),
       // The head names its own table through <caption>. Four tables rather
-      // than one with head rows: a caption is a table's own name, where a
-      // heading above the wall would be the invented section label §9.9
-      // and 05-ajman §6.1 both refuse.
+      // than one with head rows: a caption is a table's own name. The
+      // section heading above them — "Clients" — is Mahesh's 8-Aug
+      // reversal of §9.9/05-ajman §6.1's refusal (Session XXXII); the
+      // captions still do the group labelling beneath it.
       groupId: 'ab-wall-' + head.toLowerCase().replace(/[^a-z]+/g, '-').replace(/^-|-$/g, ''),
       pairs: pairRows(
         members.map((c) => {
@@ -307,6 +383,7 @@ function viewData(prefix) {
 
   return {
     wall,
+    mosaicTiles: mosaic(manifest, prefix),
     leadership,
     workHref: `${prefix}projects.html`,
     careersHref: `${prefix}careers.html`,

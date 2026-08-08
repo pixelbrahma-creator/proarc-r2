@@ -155,28 +155,27 @@
    So the gap now CARRIES THE GROUPING, and the grouping is the page's
    argument (Mahesh, 8 Aug, "grouped order now"):
 
-     what ProArc says about itself   story · mission/vision
-     ————— the photograph —————
-     the people                      leadership · join us
-     what others say about ProArc    certifications · the client wall
+     who we are                      story · mission/vision · leadership
+     who trusts us                   the quotation (X9) · the client wall
+     the foot                        join us · certifications
 
-   200 between groups, 96 within one. The ratio is 2.08:1, which reads as
-   grouping; 1:1 cannot, at any value.
+   Re-grouped 8 Aug (Session XXXII) for Mahesh's reorder; the seam
+   photograph retired with it. 200 between groups, 96 within one. The
+   ratio is 2.08:1, which reads as grouping; 1:1 cannot, at any value.
 
    🔴 EACH SECTION'S BOTTOM GAP DESCRIBES WHAT FOLLOWS IT, NOT WHAT IT IS.
-   That is why .ab-lead is 96 and .ab-join is 200 when both are "a block":
-   Leadership is followed by its own group's second half, Join us is followed
-   by a different group. Move a section and its value moves with the wrong
-   block — so any reorder must revisit this list, and nothing on the board
-   can see that. It is written down here because that is the only place it
-   can be seen. */
+   That is why .ab-purpose is 96 and .ab-lead is 200 when both are "a
+   block": Mission & Vision is followed by its own group's third beat,
+   Leadership is followed by a different group. Move a section and its
+   value moves with the wrong block — so any reorder must revisit this
+   list, and nothing on the board can see that. It is written down here
+   because that is the only place it can be seen. */
 .ab-story  { --ab-stack: 96px;  }   /* -> mission/vision, same group */
-.ab-purpose{ --ab-stack: 200px; }   /* -> the photograph, group break */
-.ab-seam   { --ab-stack: 200px; }   /* -> leadership, group break */
-.ab-lead   { --ab-stack: 96px;  }   /* -> join us, same group */
-.ab-join   { --ab-stack: 200px; }   /* -> certifications, group break */
-.ab-certs  { --ab-stack: 96px;  }   /* -> the wall, same group */
-.ab-wall   { --ab-stack: 200px; }   /* -> the band, which owns the switch */
+.ab-purpose{ --ab-stack: 96px;  }   /* -> leadership, same group */
+.ab-lead   { --ab-stack: 200px; }   /* -> the wall (the quotation, when X9 lands), group break */
+.ab-wall   { --ab-stack: 200px; }   /* -> join us, group break */
+.ab-join   { --ab-stack: 96px;  }   /* -> certifications, same group */
+.ab-certs  { --ab-stack: 200px; }   /* -> the band, which owns the switch */
 
 /* 🔴 --ab-head IS MEASURED TO THE FIRST INK, AND A 1px RULE IS INK.
    Freya read this block's fault as "one token, three optical gaps" —
@@ -197,7 +196,6 @@
    subtraction, nothing to go negative. */
 .ab-story,
 .ab-purpose,
-.ab-seam,
 .ab-lead,
 .ab-certs,
 .ab-join,
@@ -207,16 +205,14 @@
 
 @media (max-width: 1119px) {
   .ab-story  { --ab-stack: 72px;  }
-  .ab-purpose{ --ab-stack: 144px; }
-  .ab-seam   { --ab-stack: 144px; }
-  .ab-lead   { --ab-stack: 72px;  }
-  .ab-join   { --ab-stack: 144px; }
-  .ab-certs  { --ab-stack: 72px;  }
+  .ab-purpose{ --ab-stack: 72px;  }
+  .ab-lead   { --ab-stack: 144px; }
   .ab-wall   { --ab-stack: 144px; }
+  .ab-join   { --ab-stack: 72px;  }
+  .ab-certs  { --ab-stack: 144px; }
 
   .ab-story,
   .ab-purpose,
-  .ab-seam,
   .ab-lead,
   .ab-certs,
   .ab-join,
@@ -227,52 +223,20 @@
 
 @media (max-width: 767px) {
   .ab-story  { --ab-stack: 56px; }
-  .ab-purpose{ --ab-stack: 96px; }
-  .ab-seam   { --ab-stack: 96px; }
-  .ab-lead   { --ab-stack: 56px; }
-  .ab-join   { --ab-stack: 96px; }
-  .ab-certs  { --ab-stack: 56px; }
+  .ab-purpose{ --ab-stack: 56px; }
+  .ab-lead   { --ab-stack: 96px; }
   .ab-wall   { --ab-stack: 96px; }
+  .ab-join   { --ab-stack: 56px; }
+  .ab-certs  { --ab-stack: 96px; }
 
   .ab-story,
   .ab-purpose,
-  .ab-seam,
   .ab-lead,
   .ab-certs,
   .ab-join,
   .ab-wall {
     --ab-head: 24px;
   }
-}
-
-/* -----------------------------------------------------------
-   1c · The seam photograph (X23)
-   -----------------------------------------------------------
-
-   FULL BLEED — the only element on /about that leaves the container, and
-   the reason is that a photograph inside the 960px column is a picture ON
-   the page while one that reaches both edges is a change OF the page. The
-   block exists to be a ground change, so it takes the whole width.
-
-   HEIGHT IS A BAND, NOT AN ASPECT RATIO. clamp(260px, 29vw, 420px) holds a
-   letterbox at every width; the source is 1920x879 (2.18:1) and the band is
-   3.4:1 at 1440, so the crop is vertical there and the horizon stays. 🔴 At
-   375 the band is 1.44:1 and the crop axis FLIPS to horizontal — a recorded
-   trap on this project: a full-bleed crops on PROPORTION, not on subject.
-   The 375 render is checked for that specifically, not assumed.
-
-   width/height ARE STATED so the box is reserved before the bytes arrive.
-   Without them the whole page below jumps when a 1920px image decodes. */
-.ab-seam {
-  padding-block-end: var(--ab-stack);
-}
-
-.ab-seam__image {
-  display: block;
-  inline-size: 100%;
-  block-size: clamp(260px, 29vw, 420px);
-  object-fit: cover;
-  object-position: center;
 }
 
 /* -----------------------------------------------------------
@@ -285,7 +249,7 @@
    it is what makes the pair read as two things rather than one paragraph.
 
    THE LABEL TAKES THE PAGE'S ONE HEADING REGISTER — --fs-h3 regular, ink,
-   no uppercase, no letterspacing. That is exactly .ab-wall__head and
+   no uppercase, no letterspacing. That is exactly .ab-wall__clients and
    .ab-lead__head, and using a fourth size for a fourth block is how a page
    acquires a type system it did not have.
 
@@ -359,22 +323,36 @@
 /* The group head is the table's own <caption> — 12px uppercase secondary,
    the site's small-label register. text-align is stated because a caption
    centres by default, and this wall has one alignment axis. */
-/* W-B RAISES THE HEAD, and this is the half of the change that does the
-   work. At 12px uppercase secondary the four heads were labels on one long
-   list; at --fs-h3 in ink they are the thing that makes the wall read as
-   four sets. NOT .t-marker and not --fs-mega: 84px uppercase would out-shout
-   a 52px H1 two screens above, which is why Freya declined it explicitly.
+/* W-B's RAISE, REVERSED 8 Aug (Session XXXII). The raise put the four
+   heads at --fs-h3 so the wall read as four sets — and under Mahesh's
+   reorder that became the fault: nine headings at one register in one
+   column, the page's last stretch reading as four more sections. "Clients"
+   (.ab-wall__clients, below) now does the naming, so the heads return to
+   the site's small-label register — the caption letterform W-A originally
+   gave them — and only subdivide the block the heading owns. This is the
+   only 12px-uppercase on the wall, so it cannot be mistaken for content.
 
    text-align is still stated — a caption centres by default and this wall
    has one alignment axis per pair. */
 .ab-wall__head {
   padding-block-end: var(--gap-block);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-caption);
+  line-height: var(--lh-caption);
+  text-align: start;
+  text-transform: uppercase;
+  color: var(--color-ink-secondary);
+}
+
+/* The wall's one heading — Mahesh's word, his reversal, recorded in the
+   source above the section. The page's ONE heading register; the heads
+   beneath it are captions, not competitors. */
+.ab-wall__clients {
+  margin: 0 0 var(--ab-head);
   font-size: var(--fs-h3);
   font-weight: var(--fw-regular);
-  letter-spacing: normal;
   line-height: var(--lh-h3);
-  text-align: start;
-  text-transform: none;
   color: var(--color-ink);
 }
 
@@ -446,8 +424,59 @@
 
 /* The wall's own door. --gap-section from the last row, so it reads as the
    section's foot rather than a thirty-third client. */
+/* -----------------------------------------------------------
+   3x · The mosaic (X24) — the work's index at the wall's foot
+   -----------------------------------------------------------
+
+   /projects' justified-row mechanics, borrowed whole: each tile carries
+   its CHOSEN aspect as the --a datum, flex distributes the row in
+   proportion, and the row's height falls out of the arithmetic. The 12px
+   gap (--gap-inline) on BOTH axes is what makes it one picture rather
+   than /projects-with-the-captions-deleted — at --gap-block the tiles
+   separate back into a grid of things (Freya, rendered, 8 Aug).
+
+   The strip and the route sit at the wall's own inter-group pacing
+   (--gap-component * 1.5 — 96/60/60), so the mosaic reads as the wall's
+   fifth movement and the link beneath reads as the index's door. */
+.ab-index {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-inline);
+  margin-block-start: calc(var(--gap-component) * 1.5);
+}
+
+.ab-index__row {
+  display: flex;
+  gap: var(--gap-inline);
+}
+
+.ab-index__tile {
+  flex: var(--a) 1 0;
+  min-inline-size: 0;
+  aspect-ratio: var(--a);
+  block-size: auto;
+  object-fit: cover;
+}
+
+/* ≤767: each row becomes a two-column grid and the portrait tile — keyed
+   on what it IS, never on where it sits — reorders to close the strip
+   full-width, /projects' own mobile rule. Mid-row it tears a 134px hole
+   in the grid (rendered and killed). */
+@media (max-width: 767px) {
+  .ab-index__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .ab-index__tile--tall {
+    order: 9;
+    grid-column: 1 / -1;
+  }
+}
+
 .ab-wall__route {
-  margin: var(--gap-section) 0 0;
+  margin: calc(var(--gap-component) * 1.5) 0 0;
 }
 
 /* §1.5a rule 4 caps a mark at 32px optical height — a CAP, NOT A FLOOR, so
@@ -636,19 +665,42 @@
   color: var(--color-ink);
 }
 
+/* The measure is the body measure PLUS the seal column — at the bare
+   measure the icon column steals 72px from the sentence and orphans the
+   closing bracket onto its own line (Freya, render-caught, 8 Aug). */
 .ab-certs__list {
   margin: 0;
   padding: 0;
-  max-inline-size: var(--measure-body-lg);
+  max-inline-size: calc(var(--measure-body-lg) + 48px + var(--gap-block));
   list-style: none;
 }
 
 .ab-certs__item {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  column-gap: var(--gap-block);
+  align-items: start;
   padding-block: var(--gap-block);
   border-block-start: 1px solid var(--color-hairline);
   font-size: var(--fs-body);
   line-height: var(--lh-body);
   color: var(--color-ink-secondary);
+}
+
+/* The dummy seal — a drawn hairline ring, the same pendingness grammar as
+   Leadership's grey frames. Hairline, never ink or secondary: a ring in
+   ink reads as a CHOSEN glyph, and a dummy must never look chosen. 32px is
+   §1.5a rule 4's cap, so the placeholder occupies exactly the box a real
+   certification mark will. The -3px start margin centres the 32px seal on
+   the row's 25.6px first line box, and holds when the text wraps at 375. */
+.ab-certs__seal {
+  margin-block-start: -3px;
+}
+
+.ab-certs__seal circle {
+  fill: none;
+  stroke: var(--color-hairline);
+  stroke-width: 3;
 }
 
 /* -----------------------------------------------------------
@@ -660,8 +712,8 @@
 }
 
 /* The heading §3's beat table always specified and the build never shipped.
-   Same register as .ab-lead__head and .ab-wall__head — the page has ONE
-   heading size and this does not add a second. */
+   Same register as .ab-lead__head and .ab-wall__clients — the page has
+   ONE heading size and this does not add a second. */
 .ab-join__head {
   margin: 0 0 var(--ab-head);
   font-size: var(--fs-h3);
