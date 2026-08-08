@@ -525,6 +525,38 @@ own `pageScript`.
 > faithfully at 2.6× the bytes, and exact alpha is what lets a sweep assert
 > that a file's box equals its ink box.
 
+## Fine-tuning runs — a different loop, and it is a RULE
+
+**Standing rule, Mahesh, 8 Aug 2026.** When the work is *fine-tuning a
+surface that already exists* — polish, "move this / remove this / tighten
+this", or the second and later iterations of a new page — the full ceremony
+below is **not** run per change. It is run once, at the end of the run.
+
+The canonical rule is `_bmad/wds/D-UX-Design/00-Fine-Tuning-Loop.md`. **Read
+it before starting a tuning session.** The enforceable summary:
+
+- **Three tiers — state which one you are running, before you run it.**
+  `JUST DO IT` (edit → build → hash-check, ~20s) · `TUNE` (the loop, ~60–90s
+  to a picture, the default) · `FULL` (everything below — new surface, token
+  change, or blast radius greater than one page).
+- **Paid once per run, never per change:** the server stays up, Chrome stays
+  warm on the surface, and Saga and Freya are spawned once and *continued*
+  rather than respawned.
+- **Per change:** edit the true source (never the generated `.html`) →
+  rebuild → 🔴 **hash-check that it took effect** → 🔴 **`npm run
+  check:fast`** → shoot the affected band → stop. Those two red steps are
+  four seconds together and are never dropped.
+- **Saga and Freya run in parallel with the edit, never in front of it.**
+  Nothing Mahesh is waiting to see is gated on an agent returning. Freya's
+  render-then-propose mode answers *"what should this be"*, not *"is this
+  right"*.
+- **Every ~5 changes, or at any pause:** `npm run check:changed`.
+- **At the close:** full board, doc pass, **both repos** committed.
+
+🔴 **Batching small changes is NOT the optimisation and was ruled out** — a
+tuning change is not decided until it is seen, so batching ten decides nine
+blind. The cost is moved out of the loop, not gathered up inside it.
+
 ## Checking your work — the board, and how fast it is
 
 ```
