@@ -308,12 +308,10 @@
        what lets the invitation below run into the footer. -->
   <section class="hm-map" aria-labelledby="hm-map-head">
     <div class="container">
-      <h2 id="hm-map-head" class="hm-map__head t-editorial">{{livingSpaceLabel}}.</h2>
-
       <!-- TWO COLUMNS ABOVE 1024, STACKED BELOW, AND ONE DOM ORDER SERVES
-           BOTH: the drawing, then what the drawing answers with. The aside is
-           the right-hand column on a desktop and the next thing down on a
-           phone, so neither width needs a second arrangement.
+           BOTH: the head, the drawing, then what the drawing answers with. The
+           aside is the right-hand column on a desktop and the next thing down
+           on a phone, so neither width needs a second arrangement.
 
            🔴 THE BREAKPOINT IS THE PARTITION'S, NOT THE LAYOUT'S. Above 1024
            the pointer resolves to a MARK and the card names one building;
@@ -325,6 +323,25 @@
            floor for countability is 3.9x under a floor for targeting. The
            layout follows that number; it did not choose it. -->
       <div class="hm-map__layout">
+
+        <!-- 🔴 THE HEAD IS A GRID ITEM NOW, NOT A SIBLING ABOVE THE GRID
+             (Mahesh, 8 Aug: *"can we make the heading 4200.. into 3 lines and
+             show it on it's right side above 'Where proarc has built'"*).
+
+             It is the same element, the same id and the same string; only its
+             PLACEMENT moved. Above 1024 home.css puts it in column two, row
+             one — so the figure now sits directly over the ten districts it
+             is the sum of, and the drawing rises to meet the top of the band
+             instead of starting a screen-height below its own title.
+
+             📌 IT IS STILL FIRST IN THE DOM, and that is the whole reason it
+             was moved INTO the grid rather than into the aside. Placement is
+             CSS, so the stacked width below 1024 reads head, drawing, answer
+             in source order exactly as it did before, and the section's
+             `aria-labelledby` still resolves to a heading that precedes what
+             it names. Moving the markup into `.hm-map__aside` would have put
+             the band's title after its map for every reader on a phone. -->
+        <h2 id="hm-map-head" class="hm-map__head t-editorial">{{livingSpaceLabel}}.</h2>
 
         <div class="hm-map__drawing">
           <!-- `data-map` is on the FIELD, not on the section: js/home.js adds

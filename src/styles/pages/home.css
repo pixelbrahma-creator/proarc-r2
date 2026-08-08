@@ -1000,30 +1000,40 @@
 }
 
 /* The head states the subject and the record states the figure — the split
-   E12 asks for. It sits above the drawing at the band's own heading gap;
-   § 6.1's "no section label" is untouched, because this is a statement and
-   not an invented eyebrow. */
-/* 🔴 `text-wrap: balance` IS THE FIGURE'S DOING, and it is a typographic
+   E12 asks for. § 6.1's "no section label" is untouched, because this is a
+   statement and not an invented eyebrow.
+
+   🔴 IT NO LONGER SITS ABOVE THE DRAWING AT EVERY WIDTH (Mahesh, 8 Aug). Above
+   1024 it is placed in the SECOND column, over the roll call — see § 7a. Below
+   that width it is still the band's first line, and the margin here is what
+   holds that: the layout is a grid, so the head's own `margin-block-end` and
+   the grid's `row-gap` ADD. Stated as the difference between the two tokens,
+   the stacked head keeps exactly `--gap-heading` of air and keeps it through
+   both steps of the ladder — 40 - 24 at ≤1023 and 24 - 24 at ≤767, where the
+   two tokens meet and the margin correctly falls to zero. A raw 16px would
+   have been the same number at one width and wrong at the other.
+
+   🔴 `text-wrap: balance` IS THE FIGURE'S DOING, and it is a typographic
    decision rather than a polish pass. The head was one line and became two the
    moment it took the magnitude — 1168.9px of sentence in a 960px column at
    52px — and the browser's own greedy break put 944.4px on the first line and
-   "around it." alone on the second. Balance minimises the longest line, and
-   the shortest longest-line here is the break at the COMMA: 639.1 / 519.1,
-   which is the sentence's own hinge. The magnitude gets a line and the place
-   gets a line.
+   "around it." alone on the second. Balance minimises the longest line, so it
+   re-derives the break at every column width it is given rather than holding a
+   number tuned to one of them: in the 960px column it broke at the sentence's
+   own hinge, the COMMA; in the 496px column it now has, it breaks three ways.
+   This is why the head could be moved into a half-width column at all.
 
-   Chosen over a tuned `max-inline-size`, which is the other way to reach that
-   break and needs a raw px value between 639.1 and 689.0 — an invented number
-   that would hold only at this font size, in this language, until any of the
-   three moved. Balance re-derives itself.
+   Chosen over a tuned `max-inline-size`, which is the other way to reach a
+   break and needs a raw px value that holds only at this font size, in this
+   language, until any of the three moves.
 
    Note that `--measure-body-lg` below is INERT on this element and always has
    been: a `ch` is the width of a zero in the element's OWN type, so 48ch at
-   52px is 1425.22px against a 960px column. It is left in place because it
-   would bind on a wider container, but it is not what wraps this head and a
-   future reading of it should not think it is. */
+   52px is 1425.22px — larger than any column this head has ever had. It is
+   left in place because it would bind on a wider container, but it is not what
+   wraps this head and a future reading of it should not think it is. */
 .hm-map__head {
-  margin: 0 0 var(--gap-heading);
+  margin: 0 0 calc(var(--gap-heading) - var(--gap-block));
   max-inline-size: var(--measure-body-lg);
   text-wrap: balance;
 }
@@ -1130,19 +1140,81 @@
    That is /ajman's recorded "clicking Al Zorah lit Emirates City" arriving
    through layout instead of through scroll, and it is why this is a grid. */
 @media (min-width: 1024px) {
+  /* 🔴 THE ROW GAP IS THE HEADING GAP, AND IT IS A GROUPING FIX RATHER THAN
+     AIR. At the base `--gap-block` the label "Where Proarc has built" sat 24px
+     under the head and 24px of INK above its own first district — the label
+     read as the head's second line as readily as the list's title, which is
+     the one thing a label must never be ambiguous about. Its own attachment to
+     the list is 12px and cannot be tightened further, so the separation has to
+     come from above: 64 against 12 is unmistakable at a glance.
+
+     `--gap-heading` is the token by name — this is a heading and this is the
+     gap under it, the same one it spent at full width before it moved.
+
+     It is safe to raise here because the drawing SPANS both rows, so this gap
+     falls between the head and the roll call and nowhere else. Below 1024 the
+     base `--gap-block` still governs the drawing-to-answer stack. */
   .hm-map__layout {
     grid-template-columns: var(--map-width) minmax(0, 1fr);
     column-gap: var(--gap-component);
+    row-gap: var(--gap-heading);
     align-items: start;
   }
 
-  /* 🔴 THE ROLL CALL NO LONGER YIELDS ITS SLOT (Mahesh, 8 Aug). The aside was
+  /* 🔴 THE FIGURE MOVES INTO THE SECOND COLUMN, OVER THE DISTRICTS IT IS THE
+     SUM OF (Mahesh, 8 Aug). It stood full-width above everything, so the band
+     opened with a 52px sentence and then a --gap-heading of nothing before the
+     drawing began: the title and the thing it titles could not be read in one
+     glance, and the right column started 180px lower than the left for no
+     reason a reader could see. Placed here, the head and the roll call are one
+     block of words facing one drawing, and the band's top edge is the map's.
+
+     THE PLACEMENT IS EXPLICIT ON ALL THREE CHILDREN, never auto-flow. Three
+     items into a two-column grid places them 1/1, 2/1, 1/2 — the head beside
+     the drawing and the ROLL CALL UNDER IT, which is the same auto-placement
+     fault this band already paid for once inside `.hm-card` on 8 Aug. Naming
+     every cell is what stops a fourth child, whenever one arrives, silently
+     re-flowing the other three.
+
+     The drawing spans both rows, so the second column's height is free: the
+     head may take two lines or four and nothing under the pointer moves.
+
+     🔴 THE ROLL CALL NO LONGER YIELDS ITS SLOT (Mahesh, 8 Aug). The aside was
      a one-cell grid and the card took the cell, hiding the ten names behind
      `visibility: hidden` — nothing moved and the band never grew, and it was
      still wrong: the reader lost the doors at the moment they were most likely
      to want one. The card now opens UNDER THE DRAWING and this column holds
      nothing but the roll call, which is therefore always readable. */
+  /* 🔴 THE SIZE COMES DOWN ONE STEP IN THIS COLUMN, AND THE NUMBER WAS
+     MEASURED, NOT PICKED. Mahesh asked for three lines. The column is 336px
+     at 1440 and 320px at 1024, and the sentence is ~1,137px of ink at 52px,
+     so it cannot be three lines at H1: it renders FOUR at 1440 and FIVE at
+     1024. Rendered at 52 / 44 / 40 / 36 / 32 / 28 in both columns, exactly
+     one step gives three lines at BOTH widths — 36 is three at 1440 and four
+     at 1024, which is a value that holds at the width it was tuned on and
+     breaks 416px later. H2 is also the last size that cannot fall to TWO
+     lines: 700px of ink over a 336px column has no two-line solution.
 
+     It stays `.t-editorial` — light, editorial tracking, editorial leading.
+     Only the size moves, because only the column moved. This is the same
+     sentence in a narrower measure, not a demoted heading, and against the
+     roll call's 14px label 32px is still unambiguously the band's title. */
+  .hm-map__head {
+    grid-column: 2;
+    grid-row: 1;
+    margin-block-end: 0;
+    font-size: var(--fs-h2);
+  }
+
+  .hm-map__drawing {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .hm-map__aside {
+    grid-column: 2;
+    grid-row: 2;
+  }
 }
 
 /* -----------------------------------------------------------
