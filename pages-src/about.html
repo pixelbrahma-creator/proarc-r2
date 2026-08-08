@@ -105,6 +105,79 @@
     <p class="ab-story__prose t-body">A city is not a set of sectors. It is where people learn, shop, pray, work and live &mdash; and here we have drawn all of them. The schools our clients&rsquo; children attend, the malls their neighbourhoods use, the mosque they pray at, the offices they work in and the homes they return to were, often enough, the work of one team.</p>
 
   </section>
+  <!-- 4 · The facts (§6) — BUILT, AND SHIPPED HIDDEN until X6, so unhiding
+       is one attribute rather than a build. Ruled rows, no frame, no
+       heading: a border around three facts makes them look like a form with
+       fields missing (Screen 04's finding, reused).
+
+       🔴 THREE ROWS SHIP, AND THE BLOCK IS NO LONGER HIDDEN (Mahesh, 8 Aug,
+       Session XXXIII: "add a quick view like second image"). He sent v1's
+       three-row card — FOUNDING YEAR / HEADQUARTERS / TEAM. Two of those
+       three could not ship as written, and the fix was not to drop them:
+
+         Headquarters -> OFFICE. The refusal was aimed at the WORD and the
+         VALUE, not the row. "Headquarters" implies branches the practice
+         does not have; 13003 is a PO Box and stays on Contact, which already
+         publishes it. "Office - Ajman, United Arab Emirates" says the true
+         thing the row was reaching for, and it is ¶1's own claim.
+
+         Team -> DISCIPLINES, and this is the whole reversal. The Team string
+         was refused because it named neither an interior designer nor an
+         urban planner while /services ships six blocks including both. Freya
+         read the fault correctly on 8 Aug: it was the REGISTER, not the
+         question. X6's staffing list is OPEN and omits those two; /services'
+         six blocks are CLOSED (Mahesh, 1 Aug). Asking the same question of
+         the closed register names exactly the two people the staffing list
+         dropped, carries no headcount (X9 stays clear), no titles and no
+         quantity — and it is the only NEW fact on the block. About's <main>
+         carries three links and NO route to /services, while its H1 names
+         three disciplines and the site ships six. This row is the first time
+         About states the range.
+
+       🔴 THE ROW IS READ OFF /services, NEVER RETYPED (build/lib/about.js).
+       Two surfaces that retype one list are two surfaces that will disagree,
+       and sweep-about asserts the two agree name for name.
+
+       🔴 THIS DOES NOT ANSWER X6. X6 is the DISCIPLINE SET and it still gates
+       the H1 and ¶1's three-discipline list. What changed is that the facts
+       table no longer draws on it: the row now sources a closed register, so
+       unhiding stopped being an answer to an unasked question. X6's other two
+       surfaces are untouched and still wait on the letter.
+
+       Founding year is unchanged — E12 exemption 2, a year is a date. It
+       restates ¶1's "since 2006", and at 5,000px from it that reads as a
+       summary rather than an echo: Freya rendered the card directly under the
+       story and KILLED it there, because "FOUNDING YEAR 2006" landed ~320px
+       below "...since 2006" and "OFFICE Ajman" ~380px below an H1 ending "in
+       Ajman" — both echoes visible in one glance. The slot §6 designed is the
+       right one.
+
+       Ruled rows, no frame, no heading: a border around three facts makes
+       them look like a form with fields missing (Screen 04's finding, reused).
+       A HEADING WOULD BE A FIFTH INVENTED SECTION LABEL — §9.9 refuses it and
+       the wall's own heading count asserts 7.
+
+       Rows are a record surface, so E12 permits a quantity here. None of the
+       three carries one — and the PO Box leaving took the only digit that
+       would have tripped the prose check. -->
+  <section class="ab-facts container">
+    <table class="ab-facts__table">
+      <tbody>
+        <tr class="ab-facts__row">
+          <th class="ab-facts__label" scope="row">Founding year</th>
+          <td class="ab-facts__value">2006</td>
+        </tr>
+        <tr class="ab-facts__row">
+          <th class="ab-facts__label" scope="row">Office</th>
+          <td class="ab-facts__value">Ajman, United Arab Emirates</td>
+        </tr>
+        <tr class="ab-facts__row">
+          <th class="ab-facts__label" scope="row">Disciplines</th>
+          <td class="ab-facts__value">{{disciplines}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
   <!-- 2b · MISSION & VISION (Mahesh, 8 Aug, Session XXXI — "A, own block").
 
        🔴 THIS REVERSES A REFUSAL, AND THE REFUSAL'S REASON WAS FALSE.
@@ -401,80 +474,7 @@
       <li class="ab-certs__item"><svg class="ab-certs__seal" viewBox="0 0 32 32" width="32" height="32" aria-hidden="true" focusable="false"><circle cx="16" cy="16" r="14.5"/><circle cx="16" cy="16" r="5"/></svg><span class="ab-certs__claim">[ Certification to confirm &mdash; name, issuing body, year ]</span></li>
     </ul>
   </section>
-  <!-- 4 · The facts (§6) — BUILT, AND SHIPPED HIDDEN until X6, so unhiding
-       is one attribute rather than a build. Ruled rows, no frame, no
-       heading: a border around three facts makes them look like a form with
-       fields missing (Screen 04's finding, reused).
-
-       🔴 THREE ROWS SHIP, AND THE BLOCK IS NO LONGER HIDDEN (Mahesh, 8 Aug,
-       Session XXXIII: "add a quick view like second image"). He sent v1's
-       three-row card — FOUNDING YEAR / HEADQUARTERS / TEAM. Two of those
-       three could not ship as written, and the fix was not to drop them:
-
-         Headquarters -> OFFICE. The refusal was aimed at the WORD and the
-         VALUE, not the row. "Headquarters" implies branches the practice
-         does not have; 13003 is a PO Box and stays on Contact, which already
-         publishes it. "Office - Ajman, United Arab Emirates" says the true
-         thing the row was reaching for, and it is ¶1's own claim.
-
-         Team -> DISCIPLINES, and this is the whole reversal. The Team string
-         was refused because it named neither an interior designer nor an
-         urban planner while /services ships six blocks including both. Freya
-         read the fault correctly on 8 Aug: it was the REGISTER, not the
-         question. X6's staffing list is OPEN and omits those two; /services'
-         six blocks are CLOSED (Mahesh, 1 Aug). Asking the same question of
-         the closed register names exactly the two people the staffing list
-         dropped, carries no headcount (X9 stays clear), no titles and no
-         quantity — and it is the only NEW fact on the block. About's <main>
-         carries three links and NO route to /services, while its H1 names
-         three disciplines and the site ships six. This row is the first time
-         About states the range.
-
-       🔴 THE ROW IS READ OFF /services, NEVER RETYPED (build/lib/about.js).
-       Two surfaces that retype one list are two surfaces that will disagree,
-       and sweep-about asserts the two agree name for name.
-
-       🔴 THIS DOES NOT ANSWER X6. X6 is the DISCIPLINE SET and it still gates
-       the H1 and ¶1's three-discipline list. What changed is that the facts
-       table no longer draws on it: the row now sources a closed register, so
-       unhiding stopped being an answer to an unasked question. X6's other two
-       surfaces are untouched and still wait on the letter.
-
-       Founding year is unchanged — E12 exemption 2, a year is a date. It
-       restates ¶1's "since 2006", and at 5,000px from it that reads as a
-       summary rather than an echo: Freya rendered the card directly under the
-       story and KILLED it there, because "FOUNDING YEAR 2006" landed ~320px
-       below "...since 2006" and "OFFICE Ajman" ~380px below an H1 ending "in
-       Ajman" — both echoes visible in one glance. The slot §6 designed is the
-       right one.
-
-       Ruled rows, no frame, no heading: a border around three facts makes
-       them look like a form with fields missing (Screen 04's finding, reused).
-       A HEADING WOULD BE A FIFTH INVENTED SECTION LABEL — §9.9 refuses it and
-       the wall's own heading count asserts 7.
-
-       Rows are a record surface, so E12 permits a quantity here. None of the
-       three carries one — and the PO Box leaving took the only digit that
-       would have tripped the prose check. -->
-  <section class="ab-facts container">
-    <table class="ab-facts__table">
-      <tbody>
-        <tr class="ab-facts__row">
-          <th class="ab-facts__label" scope="row">Founding year</th>
-          <td class="ab-facts__value">2006</td>
-        </tr>
-        <tr class="ab-facts__row">
-          <th class="ab-facts__label" scope="row">Office</th>
-          <td class="ab-facts__value">Ajman, United Arab Emirates</td>
-        </tr>
-        <tr class="ab-facts__row">
-          <th class="ab-facts__label" scope="row">Disciplines</th>
-          <td class="ab-facts__value">{{disciplines}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-  <!-- 6 · The closing band — E1.2, the inverse of its page, so on paper it
+    <!-- 6 · The closing band — E1.2, the inverse of its page, so on paper it
        is the one dark surface and it owns the switch (E1.2a). The register
        is the site's: 32px light on all fifty-four pages that carry it. The
        footer continues the black behind it. -->

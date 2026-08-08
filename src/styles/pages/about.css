@@ -160,29 +160,25 @@
    value moves with the wrong block — so any reorder must revisit this
    list, and nothing on the board can see that. It is written down here
    because that is the only place it can be seen. */
-.ab-story  { --ab-stack: 96px;  }   /* -> mission/vision, same group */
+.ab-story  { --ab-stack: 96px;  }   /* -> the quick view, same group */
 .ab-purpose{ --ab-stack: 96px;  }   /* -> leadership, same group */
 .ab-lead   { --ab-stack: 200px; }   /* -> the wall (the quotation, when X9 lands), group break */
 .ab-wall   { --ab-stack: 200px; }   /* -> join us, group break */
 .ab-join   { --ab-stack: 96px;  }   /* -> certifications, same group */
-.ab-certs  { --ab-stack: 96px;  }   /* -> the facts table, same group: two record surfaces */
-/* 🔴 .ab-facts WAS MISSING FROM THIS LIST, and the omission was invisible
-   because the table ships hidden. Found by Saga, 8 Aug (Session XXXIII).
-   Certs' next sibling in the DOM is .ab-facts, NOT the band — the comment
-   above said "the band" and was true only because facts is display:none. Un-
-   hide it and certs' 200 describes the facts table while the facts table
-   hands ZERO gap to the dark band, which would butt straight onto the last
-   row. That is this very block's own stated trap ("any reorder must revisit
-   this list, and nothing on the board can see that"), and un-hiding is a
-   reorder in that sense.
-   Fixed now rather than on the day X6 clears, for the same reason the UA
-   `th { text-align: center }` fault in this table was fixed by reading: a
-   hidden block's faults ship the moment it is shown.
-   200 is the group-break value — the facts are a record surface, not part of
-   the certifications group. If they are ever meant to read AS one group with
-   certs, certs drops to 96 and this stays 200; that is a content decision and
-   it waits for the rows. */
-.ab-facts  { --ab-stack: 200px; }   /* -> the band, which owns the switch */
+.ab-certs  { --ab-stack: 200px; }   /* -> the band, which owns the switch */
+/* 🔴 THE QUICK VIEW MOVED TO THE TOP (Mahesh, 8 Aug, Session XXXIII:
+   "this needs to come somewere towards the top .. not at the bottom"), and
+   THIS LIST IS WHAT A REORDER COSTS. Every value below describes the section
+   that FOLLOWS it, so moving one block re-aimed three of them: story now
+   hands to the quick view (96), the quick view to mission/vision (96), and
+   certifications goes back to 200 because the band is its neighbour again.
+   Nothing here is a re-tuning — the numbers are unchanged, the neighbours
+   are not.
+   `.ab-facts` was absent from this list entirely until earlier today, which
+   is why un-hiding it would have handed the dark band a ZERO gap. The board
+   can see this now: sweep-about derives the section list from the rendered
+   order and fails if any section is missing from the map, at any tier. */
+.ab-facts  { --ab-stack: 96px;  }   /* -> mission/vision, same group */
 
 /* 🔴 --ab-head IS MEASURED TO THE FIRST INK, AND A 1px RULE IS INK.
    Freya read this block's fault as "one token, three optical gaps" —
@@ -216,8 +212,8 @@
   .ab-lead   { --ab-stack: 144px; }
   .ab-wall   { --ab-stack: 144px; }
   .ab-join   { --ab-stack: 72px;  }
-  .ab-certs  { --ab-stack: 72px;  }
-  .ab-facts  { --ab-stack: 144px; }
+  .ab-certs  { --ab-stack: 144px; }
+  .ab-facts  { --ab-stack: 72px;  }
 
   .ab-story,
   .ab-purpose,
@@ -235,8 +231,8 @@
   .ab-lead   { --ab-stack: 96px; }
   .ab-wall   { --ab-stack: 96px; }
   .ab-join   { --ab-stack: 56px; }
-  .ab-certs  { --ab-stack: 56px; }
-  .ab-facts  { --ab-stack: 96px; }
+  .ab-certs  { --ab-stack: 96px; }
+  .ab-facts  { --ab-stack: 56px; }
 
   .ab-story,
   .ab-purpose,
