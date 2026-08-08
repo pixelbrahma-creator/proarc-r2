@@ -270,9 +270,9 @@
          the evidence that its stylesheet was dead.
 
          NO SECTION LABEL, per § 6.1: the head is a statement, not an
-         invented eyebrow, and the link line is still the caption. The
-         hairline above it is decorative and separates two text sections,
-         which is the one thing 1.66:1 is permitted to do.
+         invented eyebrow. The caption under the drawing is Mahesh's own line
+         of 8 Aug. The "link line" this note described was deleted on 7 Aug
+         and the sentence went on describing it for a day.
 
          🔴 THE HEAD NOW CARRIES THE MAGNITUDE, AND THAT IS AN AMENDMENT TO
          E12 RATHER THAN AN EXCEPTION TO IT (Mahesh, 6 Aug, in his own
@@ -310,57 +310,86 @@
     <div class="container">
       <h2 id="hm-map-head" class="hm-map__head t-editorial">{{livingSpaceLabel}}.</h2>
 
-      <!-- `data-map` is on the FIELD, not on the section: js/home.js adds
-           `hm-map--armed` to whatever it finds, and the stylesheet's rules
-           are descendant selectors off that element. The svg ships FINISHED
-           — every mark placed — and the script arms it, so a script that
-           never runs leaves a complete drawing rather than an empty field.
+      <!-- TWO COLUMNS ABOVE 1024, STACKED BELOW, AND ONE DOM ORDER SERVES
+           BOTH: the drawing, then what the drawing answers with. The aside is
+           the right-hand column on a desktop and the next thing down on a
+           phone, so neither width needs a second arrangement.
 
-           THE HITS ARE LAST INSIDE THE SVG and the order is the interaction,
-           not tidiness: an SVG shape takes pointer events by default, so a
-           region layer beneath the marks would let a dot swallow the pointer.
-           See build/lib/home.js — they are /ajman's own Voronoi regions, so
-           the two maps cannot disagree about which area a point falls in. -->
-      <div class="hm-map__field" data-map>
-        <svg class="hm-map__svg" viewBox="{{mapViewBox}}" aria-hidden="true" focusable="false"
-             preserveAspectRatio="xMidYMid meet">{{mapCoastHtml}}{{mapMarksHtml}}{{mapHitsHtml}}</svg>
+           🔴 THE BREAKPOINT IS THE PARTITION'S, NOT THE LAYOUT'S. Above 1024
+           the pointer resolves to a MARK and the card names one building;
+           below it the pointer resolves to a DISTRICT and the cards name that
+           district's buildings. build/lib/districts.js markRegions() carries
+           the measurement: the per-mark cells run 12.4px inscribed at the 320
+           render against a 44px minimum target and 17 of 28 fail it, because
+           scatter.minSeparation was set so two marks stay COUNTABLE and a
+           floor for countability is 3.9x under a floor for targeting. The
+           layout follows that number; it did not choose it. -->
+      <div class="hm-map__layout">
+
+        <div class="hm-map__drawing">
+          <!-- `data-map` is on the FIELD, not on the section: js/home.js adds
+               `hm-map--armed` to whatever it finds, and the stylesheet's rules
+               are descendant selectors off that element. The svg ships
+               FINISHED — every mark placed — and the script only arms it, so a
+               script that never runs leaves a complete drawing rather than an
+               empty field.
+
+               BOTH HIT LAYERS SHIP AND CSS DECIDES WHICH ONE ANSWERS — the
+               district layer first, the mark layer last, and `pointer-events`
+               retires whichever the width does not use. Document order is
+               therefore not what resolves the pointer, which is what stops
+               either layer from silently answering for the other. -->
+          <div class="hm-map__field" data-map>
+            <svg class="hm-map__svg" viewBox="{{mapViewBox}}" aria-hidden="true" focusable="false"
+                 preserveAspectRatio="xMidYMid meet">{{mapCoastHtml}}{{mapMarksHtml}}{{mapHitsHtml}}</svg>
+          </div>
+
+          <!-- Mahesh's own line, 8 Aug. "Selected" carries the honesty a count
+               used to: these are selected works, so the drawing is a selection
+               and says so in one word rather than in a ratio. "by Proarc" is
+               load-bearing — without it the line reads as *Ajman's* landmarks,
+               which is a far larger claim than the set supports. -->
+          <p class="hm-map__caption t-caption">Selected Proarc landmarks across Ajman</p>
+        </div>
+
+        <div class="hm-map__aside">
+          <!-- THE CARDS SHIP EMPTY AND NO PROJECT NAME APPEARS IN THIS SOURCE.
+               One list, filled by script, holding ONE card above 1024 and a
+               district's worth below it — the same element and the same code
+               path at both widths, so the two mechanics cannot drift apart.
+
+               🔴 NAMES ARE NEVER MARKUP, AND THAT IS TWO ASSERTIONS' DOING
+               rather than tidiness: "G+8 Floor + Penthouse" would put a digit
+               in the band, which sweep-home's E12 audit fails outside the
+               head, and 28 names printed here would each be a building named
+               twice against the four rooms above.
+
+               `hidden` is the resting state and home.css restates it as
+               `display:none`. An author `display` on this element would beat
+               the UA's [hidden] rule and the list would ship visible on every
+               load — which is the state `.wk-sectors` is in right now. -->
+          <p class="hm-cards__place t-meta-label" data-cards-place hidden></p>
+          <ul class="hm-cards" data-cards hidden></ul>
+
+          <!-- THE ROLL CALL — the ten districts, in text, and the band's only
+               tab stops. It retires the locked v1.3 clause "Home shows the
+               SHAPE, /ajman names it", on Mahesh's own instruction of 8 Aug
+               ("yes, change that rule"); the amendment is recorded in the
+               workshop, not on this published surface.
+
+               No counts — E12.1, and his reason: these are selected works, so
+               a number is a claim the set does not make. Each name reaches its
+               filtered set on /projects rather than /ajman, also his call:
+               /ajman "is almost a repetition of this", and a reader who has
+               just pointed at a map does not want a second map. -->
+          <nav class="hm-roll" aria-labelledby="hm-roll-label">
+            <p class="hm-roll__label t-meta-label" id="hm-roll-label">Where Proarc has built</p>
+            <ul class="hm-roll__list">{{mapRollCallHtml}}</ul>
+          </nav>
+        </div>
+
       </div>
-
-      <!-- THE READOUT — the drawing's caption, and the reason it is one line
-           and not ten labels: § 6.1 refused labels because ten names at a true
-           12px on this field, with no ledger beneath to answer them, is a
-           scatter of words. This is the ledger, one row at a time, summoned by
-           the reader for the area under the pointer, and EMPTY until they ask.
-
-           It sits against the DRAWING at --gap-block, not against the link,
-           because that is what it answers. Rendered the other way — on the
-           link's own line, pushed to the drawing's right edge — it composed
-           well while hovered and left a lone right-aligned link adrift in
-           black at rest, which is the state most readers see.
-
-           `aria-hidden` because it mirrors a pointer state assistive
-           technology has no way to be in, and because everything it can say is
-           said in text on /ajman — the link below it, in the tab order.
-
-           `data-readout-place`, not `data-place`: the ten hit regions carry
-           `data-place` as their DATA and they are earlier in the document, so
-           `document.querySelector('[data-place]')` resolves to the first
-           region — an `<a>` wrapping a `<path>`, whose textContent is "".
-           That is not hypothetical; it is what the first probe of this band
-           read, and it reported the readout empty while the marks lit
-           correctly beside it. Distinct names, no collision available. -->
-      <!-- The two spans sit on their own lines and the whitespace between
-           them is harmless: `.hm-map__readout` is a flex container, and a
-           contiguous run of child text that is only white space is not
-           rendered. Written closed-up on one line it built into a page whose
-           source could not be read, and the tripwire aimed at it decayed on
-           an attribute that had wrapped to the next line. -->
-      <p class="hm-map__readout" data-readout aria-hidden="true">
-        <span class="hm-map__place" data-readout-place></span>
-        <span class="hm-map__of" data-readout-of></span>
-      </p>
-
-      </div>
+    </div>
   </section>
 
   <!-- 6 · The invitation — BLACK now, and it runs into the footer (Mahesh,

@@ -682,8 +682,15 @@ function roomFullData(db, manifest, prefix, room) {
  * No labels either, and that half of the note STANDS. E7.1 puts labels at a
  * true 12px, and ten of them on a field this size — with no ledger beneath
  * to answer them — is a scatter of words, not a map. It also gives the two
- * surfaces a clean division of labour: Home shows the SHAPE, /ajman names
- * it. The link line is the caption.
+ * surfaces a clean division of labour on the FIELD itself.
+ *
+ * 🔴 THE WIDER CLAUSE — "Home shows the SHAPE, /ajman names it" — WAS RETIRED
+ * ON 8 AUG (Mahesh: "yes, change that rule"). It was locked in v1.3, so the
+ * amendment carries his signature and lives in 00-Design-Continuity.md. What
+ * survives is the half about the DRAWING: no names are set on the field, and
+ * the ten that now ship sit in a column beside it. The old sentence also
+ * ended "the link line is the caption", and that link line had been deleted
+ * a day before this comment was read.
  */
 /* THE MAGNITUDE (Mahesh, 5 Aug): "xxxxxx million square meters of living
    space in Ajman and around — give a random figure now, we can get the actual
@@ -733,48 +740,7 @@ function livingSpaceData() {
   };
 }
 
-/* What a district HAS, in the site's own set nouns — "Schools",
-   "Malls & shops", "Homes", "Offices", "Mosque".
- *
- * Derived from the records, never authored: a district's answer changes when
- * a building lands in it, exactly as its mark count does. The nouns come from
- * `records.js` SECTORS — the same strings the sector pages, the Work rail and
- * every record's back link are set in — because a second list of names for
- * one set of buildings is how two surfaces start disagreeing about what a
- * building IS.
- *
- * The order is SECTORS' own declaration order, not first-seen: first-seen is
- * a function of the scatter's sweep and would reorder a district's answer on
- * a build that moved no buildings. */
-function districtHoldings(marks, projects) {
-  const bySlug = new Map(projects.map((p) => [p.slug, p]));
-  const order = Object.keys(R.SECTORS);
-  const held = new Map();
-
-  marks.forEach((m) => {
-    const record = bySlug.get(m.slug);
-    if (!record) {
-      throw new Error(
-        `home: the map places a mark for "${m.slug}" and data/projects.json holds no such record. ` +
-          'A mark without a record cannot be named, and E7.2 places no mark by inference — so this ' +
-          'is a renamed slug or a deleted record, not a missing label.'
-      );
-    }
-    if (!held.has(m.district)) held.set(m.district, new Set());
-    held.get(m.district).add(R.sectorKey(record));
-  });
-
-  const out = new Map();
-  held.forEach((keys, district) => {
-    out.set(
-      district,
-      order.filter((k) => keys.has(k)).map((k) => R.SECTORS[k].noun).join(', ')
-    );
-  });
-  return out;
-}
-
-function mapData(projects, prefix) {
+function mapData(projects, prefix, manifest) {
   const marks = D.buildDistrictMarks();
 
   // E7.3 — a spatial sweep, west to east. The sort lives in districts.js
@@ -795,7 +761,7 @@ function mapData(projects, prefix) {
     .map(
       (m, i) =>
         `<circle class="hm-mark" style="--mark-index:${i}" data-district="${slugify(m.district)}" ` +
-        `cx="${m.x}" cy="${m.y}" r="5"></circle>`
+        `data-slug="${escapeAttr(m.slug)}" cx="${m.x}" cy="${m.y}" r="5"></circle>`
     )
     .join('');
 
@@ -815,77 +781,113 @@ function mapData(projects, prefix) {
     ? `<path class="hm-coast" d="${marks.coast.path}" fill="none"></path>`
     : '';
 
-  /* THE MAP ANSWERS BACK (Mahesh, 6 Aug): *"on mouse over we have to show the
-     place name and something like 'School, Malls' relevant to that area …
-     clicking on that can go to /ajman page."*
+  /* THE MAP ANSWERS BACK WITH A BUILDING (Mahesh, 8 Aug): *"can each dot
+   * beautifully show thumbnail of that project, with small caption … and on
+   * click goes to that project specific page? on mobile touch on a dot can do
+   * the same thing?"* — and, granting the freedom the second half needed,
+   * *"in mobile it need not be exact."*
    *
-   * § 6.1's "no labels" is NOT overturned by this, and the distinction is the
-   * whole reason it can be built. That clause refused TEN NAMES AT ONCE — a
-   * true 12px each, on a field this size, with no ledger beneath to answer
-   * them, which is a scatter of words rather than a map. One name, summoned by
-   * the reader, for the area the reader is pointing at, is the opposite object:
-   * it is the ledger /ajman has, arriving one row at a time. "Home shows the
-   * SHAPE, /ajman names it" survives intact — Home still ships showing shape
-   * alone, and every name here is a door to the surface that does the naming.
+   * 🔴 SO THERE ARE TWO PARTITIONS AND THE BREAKPOINT BETWEEN THEM IS
+   * MEASURED, NOT STYLED. Above 1024 the pointer resolves to a MARK; below it
+   * the pointer resolves to a DISTRICT. The reason is in districts.js's
+   * markRegions(): the per-mark cells run 12.4px inscribed at the 320 render
+   * against a 44px minimum target and 17 of 28 fail it, because
+   * scatter.minSeparation was chosen so two marks stay COUNTABLE and a floor
+   * for countability is 3.9x under a floor for targeting. The district cells
+   * clear 44px at every width. Neither partition is a preference and neither
+   * can do the other's job.
    *
-   * THE REGIONS ARE /ajman'S OWN, not a second geometry. `districtRegions` is
-   * the Voronoi partition of the field that page's hit layer already uses, so
-   * the two maps cannot disagree about which area a point belongs to, and a
-   * building landing in a new district re-cuts both.
+   * 🔴 NO PROJECT NAME IS VISIBLE TEXT IN THIS BUILD, AND THAT IS ARCHITECTURE
+   * RATHER THAN TASTE. The card is ONE element, populated by script from these
+   * data attributes. Shipping 28 names as markup would print "G+8 Floor +
+   * Penthouse" into the band — a digit, which sweep-home's E12 audit fails
+   * outside the head — and would put every name on the page a second time,
+   * which the "no building is named twice anywhere on the page" assertion
+   * fails against the four rooms above. Both are avoided by never rendering
+   * the names, not by widening either assertion.
    *
-   * LAST IN THE SVG, and that is load-bearing: an SVG shape takes pointer
-   * events by default, so a hit layer under the marks would let a dot swallow
-   * the pointer and the district under the cursor would depend on whether the
-   * reader happened to be over a mark. On top, there is exactly one element
-   * under the pointer anywhere on the field.
+   * 🔴 THE ?q= HREFS ARE PERCENT-ENCODED AND THAT IS LOAD-BEARING. work.js
+   * reads the query with /[?&]q=([^&]*)/, so a RAW ampersand terminates the
+   * match: "?q=Marina & Creek" fills the field with "Marina " and returns two
+   * records instead of one. A reader who types never hits this because
+   * writeQuery() encodes; a build-authored href gets no such treatment.
    *
-   * `fill="none"` with `pointer-events="all"` is what makes a region invisible
-   * and still hittable — an unfilled shape is not a target otherwise. Both are
-   * attributes rather than CSS because they are what the element IS: a
-   * stylesheet that failed to load would otherwise put ten opaque plates over
-   * the drawing.
-   *
-   * 🔴 A REAL LINK, WITH NO TAB STOP, AND BOTH HALVES ARE DELIBERATE. /ajman's
-   * regions carry no `<a>` because their click SCROLLS the page — a JS handler
-   * is honestly what that is. These navigate to another page, and a
-   * cross-document move that only a script can make is a link pretending not
-   * to be one: no middle-click, no open-in-new-tab, no destination on the
-   * status bar. So each region IS an `<a href>`. `tabindex="-1"` keeps the tab
-   * order exactly where it was — the svg is `aria-hidden`, and a focusable
-   * element inside an aria-hidden subtree is a fault in itself, which is the
-   * trap an `<a>` walks into if it is added without one.
-   *
-   * Nothing is reachable ONLY by pointer: the link line below the drawing is
-   * the same door, it is in the tab order, and /ajman names every district in
-   * text the moment a reader arrives. */
-  const holdings = districtHoldings(marks.marks, projects);
-  const hits = D.districtRegions(marks)
+   * THE REGIONS ARE REAL LINKS. A cross-document move only a script can make
+   * is a link pretending not to be one, and it is also the whole no-JS story:
+   * with no script a district region still reaches its filtered set on
+   * /projects and a mark region still reaches its own record page.
+   * `tabindex="-1"` keeps them out of the tab order — the svg is aria-hidden,
+   * and the roll call below carries the keyboard's doors in text. */
+  const bySlug = new Map(projects.map((r) => [r.slug, r]));
+  const images = (manifest && manifest.projects) || {};
+
+  const markHits = D.markRegions(marks)
     .map((r) => {
-      const slug = slugify(r.name);
-      const of = holdings.get(r.name);
-      if (!of) {
+      const record = bySlug.get(r.slug);
+      if (!record) {
         throw new Error(
-          `home: district "${r.name}" has a hit region and no holdings, so it would announce a ` +
-            'place name and nothing about it. districtRegions() and districtHoldings() are both ' +
-            'derived from the same marks, so this means one of them was changed alone.'
+          `home: the map places a mark for "${r.slug}" and data/projects.json holds no such ` +
+            'record. A mark with no record cannot be named, and E7.2 places no mark by ' +
+            'inference — so this is a renamed slug or a deleted record, not a missing caption.'
+        );
+      }
+      const thumb = (images[r.slug] || {}).thumb;
+      if (!thumb) {
+        throw new Error(
+          `home: "${r.slug}" has a mark and no thumb in images/manifest.json, so its card would ` +
+            'open empty. The manifest is keyed by SLUG — imagePrefix is an ingest key and names ' +
+            'no output path.'
         );
       }
       return (
-        `<a class="hm-hit" href="${prefix}ajman.html#district-${slug}" tabindex="-1" ` +
-        `data-district="${slug}" data-place="${escapeAttr(r.name)}" data-of="${escapeAttr(of)}">` +
+        `<a class="hm-hit hm-hit--mark" href="${prefix}projects/${r.slug}.html" tabindex="-1" ` +
+        `data-slug="${escapeAttr(r.slug)}" data-district="${slugify(r.district)}" ` +
+        `data-name="${escapeAttr(record.title)}" data-noun="${escapeAttr(W.buildingNoun(record))}" ` +
+        `data-place="${escapeAttr(r.district)}" data-thumb="${escapeAttr(prefix + thumb)}">` +
         `<path fill="none" pointer-events="all" ` +
-        `d="M${r.points.map((p) => `${p[0]} ${p[1]}`).join('L')}Z"></path></a>`
+        `d="M${r.points.map((pt) => `${pt[0]} ${pt[1]}`).join('L')}Z"></path></a>`
       );
     })
+    .join('');
+
+  const districtHits = D.districtRegions(marks)
+    .map((r) => {
+      return (
+        `<a class="hm-hit hm-hit--district" href="${prefix}projects.html?q=${encodeURIComponent(r.name)}" ` +
+        `tabindex="-1" data-district="${slugify(r.name)}" data-place="${escapeAttr(r.name)}">` +
+        `<path fill="none" pointer-events="all" ` +
+        `d="M${r.points.map((pt) => `${pt[0]} ${pt[1]}`).join('L')}Z"></path></a>`
+      );
+    })
+    .join('');
+
+  /* THE ROLL CALL — the ten district names, in text, as the keyboard's and
+     the screen reader's doors. Mahesh, 8 Aug, on being told this retires the
+     locked v1.3 clause "Home shows the SHAPE, /ajman names it": *"yes, change
+     that rule."* It is recorded in 00-Design-Continuity.md, not here.
+
+     NO COUNTS, on his instruction: *"these are selected works .. so putting a
+     number to it doesn't make sense."* E12.1 already says the same thing —
+     where a quantity was doing work, a name does it.
+
+     The order is the districts' authored order, which is the order the marks
+     were laid down in, so the list and the drawing cannot drift apart. */
+  const rollCall = D.districtRegions(marks)
+    .map(
+      (r) =>
+        `<li class="hm-roll__item"><a class="hm-roll__link" ` +
+        `href="${prefix}projects.html?q=${encodeURIComponent(r.name)}" ` +
+        `data-district="${slugify(r.name)}">${escapeText(r.name)}</a></li>`
+    )
     .join('');
 
   return {
     mapViewBox: marks.viewBox,
     mapCoastHtml: coast,
     mapMarksHtml: circles,
-    mapHitsHtml: hits,
+    mapHitsHtml: districtHits + markHits,
+    mapRollCallHtml: rollCall,
     mapMarkCount: swept.length,
-    mapDistrictCount: holdings.size,
   };
 }
 
@@ -1166,7 +1168,7 @@ function viewData(prefix, srcName) {
 
   const seaside = findRecord(db.projects, 'seasidehills');
   const hero = W.plate(seaside, manifest, prefix);
-  const map = mapData(db.projects, prefix);
+  const map = mapData(db.projects, prefix, manifest);
 
   const bandSrcs = [];
   const bandHtml = openBandHtml(db, manifest, prefix, bandSrcs);

@@ -517,6 +517,50 @@ function districtRegions(data) {
 }
 
 /**
+ * One region per MARK, clipped to the viewBox — the ≥ 1024 partition.
+ *
+ * The same construction and the same clipper as districtRegions, seeded on
+ * each mark's own drawn position rather than on its cluster's centroid, so
+ * "which building is the pointer nearest" has an exact answer and the cells
+ * tile the field with no gap to fall into.
+ *
+ * 🔴 IT IS A DESKTOP PARTITION, AND THAT IS A MEASURED LIMIT RATHER THAN A
+ * PREFERENCE. Below 1024 the band uses districtRegions instead. Measured on
+ * the shipped marks, these cells' inscribed diameters at the 320px render run
+ * 12.4px at worst and 39.7px at the median against a 44px minimum target —
+ * 17 of 28 fail it, and 21 of the 28 marks sit in the four crowded districts
+ * where a finger spans three cells. The cause is in data/districts.json's own
+ * note: scatter.minSeparation is 20 units because two marks must be COUNTABLE
+ * ("20 buys a 1.6px gap at the narrowest band"), and a floor chosen for
+ * countability is 3.9x under a floor chosen for targeting. The district cells
+ * clear 44px at every width (58.4px at worst); these cannot at any width the
+ * drawing actually ships at, so the two partitions are not interchangeable
+ * and the breakpoint is not a style choice.
+ */
+function markRegions(data) {
+  const [, , w, h] = data.viewBox.split(/\s+/).map(Number);
+  const sites = data.marks.map((m) => [m.x, m.y]);
+
+  return data.marks.map((m, i) => {
+    let poly = [
+      [0, 0],
+      [w, 0],
+      [w, h],
+      [0, h],
+    ];
+    sites.forEach((other, j) => {
+      if (i !== j) poly = clipHalfPlane(poly, sites[i], other);
+    });
+    return {
+      slug: m.slug,
+      district: m.district,
+      site: sites[i],
+      points: poly.map((p) => [Math.round(p[0] * 10) / 10, Math.round(p[1] * 10) / 10]),
+    };
+  });
+}
+
+/**
  * The constellation, as the menu overlay draws it (09-menu §6).
  *
  * It is ornament and nothing else: no labels, no links, no hit areas, no
@@ -549,4 +593,5 @@ module.exports = {
   decodeEntities,
   sweepOrder,
   districtRegions,
+  markRegions,
 };

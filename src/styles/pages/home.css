@@ -468,8 +468,10 @@
    3 · Links on black — the draw, never a fade
    ----------------------------------------------------------- */
 
-/* The route links: "The practice →", "One Emirate, drawn →". Uppercase
-   label with a 1px rule at rest that thickens rather than fades. */
+/* The route links: "Who we are →" and the room verbs. Uppercase label with a
+   1px rule at rest that thickens rather than fades. ("One Emirate, drawn →"
+   was the map band's caption link and was deleted on 7 Aug; this comment went
+   on naming it as an example for a day.) */
 .hm-link {
   display: inline-block;
   border-block-end: 1px solid currentcolor;
@@ -875,12 +877,19 @@
    its own padding. Same seam, same token, moved to whichever section is
    standing last. */
 /* The marks are TRUE 5px (E7.1), which is only true if the drawing does
-   not scale under them. So the field takes one of three KNOWN widths —
+   not scale under them. So the field takes one of two KNOWN widths —
    never a fluid one — and --mark-scale cancels each one exactly:
 
-     ≥961px   840 wide (1.5× the authored 560) → marks × 0.6667
-     640–960  560 wide (the authored size)     → marks × 1
+     ≥640     560 wide (the authored size)     → marks × 1
      <640     320 wide (0.5714×)               → marks × 1.75
+
+   🔴 THE 840 TIER IS GONE (8 Aug). The drawing used to be drawn 1.5× at
+   ≥961 and it cannot be, now that it shares its row with the card column:
+   the content column is 960px at every width from 1120 up, so 840 leaves
+   120px beside it. At the authored 560 the column is 336px at 1440 and
+   240px at 1024, which is where the two-column arrangement starts and why
+   it starts there. The drawing is now ONE size from 640 up, so nothing
+   about it changes across the arrangement — only where it sits.
 
    The positions scale and the marks do not, which is the whole of E7.1:
    a constellation that spreads across the page while every mark stays
@@ -928,8 +937,8 @@
  * which is this project's recorded "a rule made of tokens inherits THOSE
  * tokens' breakpoints" fault wearing a different coat. */
 .hm-map {
-  --map-width: 840px;
-  --mark-scale: 0.6667;
+  --map-width: 560px;
+  --mark-scale: 1;
 
   padding-block: var(--gap-section) calc(var(--gap-section-major) / 2);
   background: var(--color-surface);
@@ -1031,29 +1040,59 @@
    the map. What the stylesheet owns is the cursor, because that is
    presentation: the region is a link and it says so under the pointer.
 
-   No focus rule and no outline, deliberately. Every region carries
-   `tabindex="-1"` inside an `aria-hidden` svg, so nothing here is ever in the
-   tab order — see build/lib/home.js for why it is an `<a>` at all. The
-   keyboard's door to /ajman is `.hm-map__line`, one element below. */
+   No focus rule and no outline, deliberately: every region is `tabindex="-1"`
+   inside an `aria-hidden` svg and is never in the tab order. The band's
+   keyboard doors are the roll call's ten links, in text, below.
+
+   🔴 THE WIDTH CHOOSES THE PARTITION, AND THAT CHOICE IS WHAT THE BAND MEANS.
+   At ≥1024 the pointer resolves to a MARK and the card names one building;
+   below it the pointer resolves to a DISTRICT and the cards name that
+   district's buildings. Both layers ship in every build and `pointer-events`
+   retires whichever this width does not use — so the answer never depends on
+   document order, and neither layer can quietly start answering for the other
+   because a mark moved. The measurement behind the number is in
+   build/lib/districts.js markRegions().
+
+   🔴 IT MUST BE STATED ON THE PATH, NOT ON THE ANCHOR. The path carries
+   `pointer-events="all"` as a presentation ATTRIBUTE, because that is what the
+   element IS and a stylesheet that failed to load must not leave the drawing
+   unreachable. An inherited `none` from the anchor LOSES to the child's own
+   attribute; a CSS rule on the path beats it. Written on the anchor this rule
+   is silently inert and both layers stay live at every width — which reads
+   exactly like the breakpoint working. */
 .hm-hit {
   cursor: pointer;
 }
 
+.hm-hit--district > path {
+  pointer-events: none;
+}
+
 /* THE ECHO, AND IT IS /ajman's, VALUE FOR VALUE. That page's §3.4 answer to
-   "which district is current" is: the current cluster holds #FFFFFF while
-   every other mark drops to #A6A6A6 — two measured tokens from its own
+   "which mark is current" is: the current mark holds the display ink while
+   every other drops to secondary — two measured tokens from its own
    rest-and-current grammar, and NEVER opacity, which §9.16 prohibits.
 
    It is copied here rather than re-decided because the two maps draw the same
    marks from the same file, and a reader who meets a selection on Home and
    then on /ajman must meet the same object. Size is not available as a signal
    and that is E7.1, not taste: a mark is a TRUE 5px at every width, so the
-   drawing scales under it and growing one would break the one property the
-   whole field is built on.
+   drawing scales under it and growing one would break the property the whole
+   field rests on.
 
    Keyed off `[data-current]` on the FIELD, so the rest state costs nothing
-   until a pointer is actually on the map — with no district current, every
-   mark is simply white and neither rule applies. */
+   until a pointer is actually on the map — with nothing current, every mark is
+   simply ink and neither rule applies.
+
+   🔴 THESE TWO RULES WERE DELETED BY ACCIDENT ON 8 AUG and the band shipped
+   that way for the length of one build. The span replaced when the readout
+   became a card ran from the hit layer's comment to the caption link's, and
+   the echo sat between them. Nothing caught it: `p25` asserted that
+   `.is-current` was APPLIED and `[data-current]` was SET, and both were — the
+   class on the right circle, the attribute on the right field — and not one
+   pixel moved, because the rules those hooks exist to trigger were gone.
+   **A class-based assertion cannot see whether any ink changed.** p25 now
+   reads the computed `fill` of the current mark against its neighbours'. */
 [data-current] .hm-mark {
   fill: var(--color-ink-secondary);
 }
@@ -1062,72 +1101,192 @@
   fill: var(--color-ink);
 }
 
-/* THE READOUT — the drawing's caption, and it replaces the record row and the
-   placeholder note that stood here until 6 Aug.
+/* -----------------------------------------------------------
+   7a · The layout — the drawing beside its answer (8 Aug)
+   ----------------------------------------------------------- */
 
-   IT BELONGS TO THE DRAWING, at --gap-block, not to the link 64 below it. The
-   other arrangement was built and photographed: the readout and the link as
-   the two ends of one row, capped at --map-width so the link's ink landed
-   exactly on the drawing's right edge — the shared-datum construction § 4
-   uses for the second beat, and `.hm-invitation`'s label-at-start /
-   action-at-end gesture. It composed well HOVERED and failed at REST, which
-   is the state nearly every reader sees: with the readout empty there is no
-   label, and what is left is a lone link floating against the right edge of
-   a field of black. The datum idiom needs a RULE to land on; a link on its
-   own is not that object.
+/* 🔴 THE ANSWER SITS BESIDE THE QUESTION, AND THAT IS THE FAULT THIS BAND WAS
+   REOPENED FOR. Measured on the shipped build: the readout stood 587px below
+   the topmost mark, and head-plus-drawing-plus-answer needed 893px against an
+   813px viewport — so at 1440x813, 1280x720 and 1024x768 a reader who hovered
+   with the heading in view got a shade change and an answer off the bottom of
+   the screen. A column costs nothing and removes the distance entirely.
 
-   🔴 ITS HEIGHT IS RESERVED, AND THAT IS NOT COSMETIC. The element is empty
-   at rest, and an empty block is zero-tall: without a floor, the first hover
-   would push the link down by a line and the band would grow under the
-   reader's pointer. The regions TILE the field, so anything that moves the
-   drawing moves the region under the cursor and changes the answer to the
-   question being asked — /ajman's recorded "clicking Al Zorah lit Emirates
-   City", arriving through layout instead of through scroll.
+   ONE DOM ORDER SERVES BOTH ARRANGEMENTS: drawing, then aside. Above 1024 they
+   are two columns; below, the aside is simply the next thing down. */
+.hm-map__layout {
+  display: grid;
+  gap: var(--gap-block);
+}
 
-   `min-block-size` in the element's own type rather than a px value: it is one
-   line of THIS font-size at THIS breakpoint, so it tracks the token through
-   every step instead of needing a restatement beside each one.
+/* 🔴 THE ASIDE IS A ONE-CELL GRID AND BOTH CHILDREN SHARE THE CELL, so the
+   slot is as tall as the taller of them and RESERVED — showing a card cannot
+   push the roll call down, and nothing under the pointer moves. A floor stated
+   as a length would be a number tuned to today's type tokens; this is the same
+   guarantee with no number in it.
 
-   Capped at --map-width so a long answer wraps inside the drawing rather than
-   running past it — the same edge the drawing itself takes, read from the one
-   place that states it. */
-.hm-map__readout {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--gap-inline);
-  align-items: baseline;
+   The regions TILE the field, so anything that moves the drawing moves the
+   region under the cursor and changes the answer to the question being asked.
+   That is /ajman's recorded "clicking Al Zorah lit Emirates City" arriving
+   through layout instead of through scroll, and it is why this is a grid. */
+@media (min-width: 1024px) {
+  .hm-map__layout {
+    grid-template-columns: var(--map-width) minmax(0, 1fr);
+    column-gap: var(--gap-component);
+    align-items: start;
+  }
+
+  .hm-map__aside {
+    display: grid;
+    grid-template-areas: 'slot';
+  }
+
+  .hm-cards,
+  .hm-roll {
+    grid-area: slot;
+  }
+
+  /* The roll call keeps its space and yields the slot — `visibility`, not
+     `display`, because collapsing it would drop the cell's floor to the card's
+     own height and reintroduce the movement this grid exists to prevent. */
+  .hm-map__aside:has(.hm-cards:not([hidden])) .hm-roll {
+    visibility: hidden;
+  }
+}
+
+/* -----------------------------------------------------------
+   7b · The caption, the cards and the roll call
+   ----------------------------------------------------------- */
+
+/* Mahesh's line, 8 Aug: "Selected Proarc landmarks across Ajman". It belongs
+   to the DRAWING at --gap-block, and it replaces both the readout and the
+   deleted placeholder note — one standing sentence that is true before any
+   pointer arrives, which is the state nearly every reader is in. */
+.hm-map__caption {
   max-inline-size: var(--map-width);
   margin: var(--gap-block) 0 0;
-  min-block-size: calc(var(--fs-body) * var(--lh-body));
-  font-size: var(--fs-body);
-  line-height: var(--lh-body);
-}
-
-/* The place leads, in the display ink. This is the name § 6.1 refused to put
-   on the field ten times over, arriving once, where it can be read. */
-.hm-map__place {
-  color: var(--color-ink);
-}
-
-/* What stands there, quieter — the site's own set nouns, from records.js.
-   Secondary ink at 8.63:1, which is a rest state and never an unreadable
-   one; §9.16 again, the distinction is colour value and not opacity. */
-.hm-map__of {
-  font-size: var(--fs-metadata);
   color: var(--color-ink-secondary);
 }
 
-/* `.hm-map__line` — the "One Emirate, drawn →" caption — is DELETED (Mahesh,
-   7 Aug). The map itself is the door now: ten regions, each a real link into
-   its own district's block on /ajman.
+/* THE CARDS — one above 1024, a district's worth below it, and the same element
+   either way.
  *
- * ⚠️ WHAT THAT COSTS, RECORDED RATHER THAN DISCOVERED LATER: the regions are
- * `tabindex="-1"` by design, so this band no longer offers /ajman to the
- * keyboard. It is still one tab away in the footer's nav and in the menu
- * overlay, on this and every other page, so nothing became unreachable — but
- * `sweep-home`'s "Home's door to /ajman" guard had to be re-aimed at the
- * REGIONS, because their hrefs would have kept that assertion passing
- * vacuously after the element it was written about was gone. */
+ * 🔴 `[hidden]` IS RESTATED AS `display:none` AND THAT IS NOT BELT-AND-BRACES.
+ * An author `display` on this element beats the UA's [hidden] rule, so the list
+ * would ship VISIBLE on every load and a script-less reader would meet an empty
+ * box. That is not hypothetical — it is the state `.wk-sectors` is in on
+ * /projects right now, and components.css already records the same trap in the
+ * same words. */
+/* The set's heading, and its [hidden] restated for the same reason the list's
+   is: an author `display` here would beat the UA rule and ship an empty line
+   on every load. */
+.hm-cards__place {
+  margin: 0 0 var(--gap-inline);
+  color: var(--color-ink-secondary);
+}
+
+.hm-cards__place[hidden] {
+  display: none;
+}
+
+.hm-cards {
+  display: grid;
+  gap: var(--gap-block);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hm-cards[hidden] {
+  display: none;
+}
+
+/* Below the two-column width the DISTRICT layer answers and the mark layer
+   stands down — the swap the section head measures. Stated on the paths,
+   never on the anchors, or the presentation attribute wins and both layers
+   stay live. */
+@media (max-width: 1023px) {
+  .hm-hit--district > path {
+    pointer-events: all;
+  }
+
+  .hm-hit--mark > path {
+    pointer-events: none;
+  }
+
+  .hm-cards {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+.hm-card {
+  display: block;
+  text-decoration: none;
+}
+
+/* The intrinsic ratio is stated so a row reserves its height before the image
+   decodes. Every thumb in images/manifest.json is 800x600 — checked, not
+   assumed — so one ratio serves all of them. */
+.hm-card__thumb {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--color-hairline);
+}
+
+.hm-card__name {
+  display: block;
+  margin-block-start: var(--gap-inline);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-ink);
+}
+
+/* The noun and the district, quieter — the site's own set nouns, from
+   records.js. Secondary ink at 7.00:1 on paper: a rest state, never an
+   unreadable one, and the distinction is colour value and never opacity. */
+.hm-card__meta {
+  display: block;
+  font-size: var(--fs-metadata);
+  line-height: var(--lh-metadata);
+  color: var(--color-ink-secondary);
+}
+
+/* THE ROLL CALL — the ten districts, in text, and the only tab stops this band
+   has ever had. It retires the locked v1.3 clause "Home shows the SHAPE,
+   /ajman names it" on Mahesh's instruction of 8 Aug; the amendment is in the
+   workshop record, not on this published surface. No counts (E12.1) — these
+   are selected works, so a number is a claim the set does not make. */
+.hm-roll__label {
+  margin: 0 0 var(--gap-inline);
+  color: var(--color-ink-secondary);
+}
+
+.hm-roll__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hm-roll__item + .hm-roll__item {
+  border-block-start: 1px solid var(--color-hairline);
+}
+
+.hm-roll__link {
+  display: block;
+  padding-block: var(--gap-inline);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+/* `.hm-map__line` — the "One Emirate, drawn ->" caption — was DELETED on 7 Aug
+   and its keyboard cost stood open until 8 Aug. The roll call closes it: ten
+   real links, in the tab order, in text. The map's regions stay `tabindex="-1"`
+   and stay pointer-only, which is now a redundancy rather than a gap. */
 
 /* -----------------------------------------------------------
    8 · The invitation (§6.2) — BLACK now, and it runs into the footer
@@ -1236,15 +1395,6 @@
      the clearance must not either. No new value, no new token. */
   .hm-claim-band {
     padding-block-start: var(--arrival-clearance);
-  }
-}
-
-/* The authored size — the drawing is 1:1 with its viewBox here, so the mark
-   needs no correction at all. */
-@media (max-width: 960px) {
-  .hm-map {
-    --map-width: 560px;
-    --mark-scale: 1;
   }
 }
 
