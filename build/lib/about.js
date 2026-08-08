@@ -285,8 +285,78 @@ function mosaic(manifest, prefix) {
     .join('\n');
 }
 
+/* THE FIVE-STAR RATING LIVES UNDER THE GROUP IT NAMES (Mahesh, 8 Aug,
+ * Session XXXIII: "move ... to client section below Government and
+ * Authorities"). It left the story, where it had been the closing beat, for
+ * the one group on the wall it is actually about — a MUNICIPAL rating read
+ * beside the municipality's own peers rather than beside strangers.
+ *
+ * Keyed to the head BY NAME and it THROWS if that head ever leaves
+ * clients.json. A proof that silently detaches from its group does not
+ * vanish — it re-attaches to whichever group happens to be first, which is
+ * a false attribution rather than a missing one. Same doctrine as the coast
+ * parser: refuse rather than draw something plausible.
+ */
+/* THE DISCIPLINES ROW READS /services, IT DOES NOT RETYPE IT.
+ *
+ * The facts table's Team row was refused because it drew from X6's OPEN
+ * staffing register, which names neither an interior designer nor an urban
+ * planner while /services ships six blocks including both. Freya's read, 8
+ * Aug (Session XXXIII): the fault was the REGISTER, not the question. So the
+ * row asks the same question of the CLOSED register — the six blocks Mahesh
+ * called on 1 Aug — and the two omissions disappear with it.
+ *
+ * Read from `pages-src/services.html`, exactly as `home.js` reads it for the
+ * services line, and for the same reason: two surfaces that retype one list
+ * are two surfaces that will disagree. SOURCE, not the built page — build
+ * order is not a contract.
+ *
+ * The middot is bound to the name BEFORE it with a non-breaking space and
+ * each name is nowrap, so a line can only break AFTER a separator. Freya
+ * rendered the plain-space version at 768 and it broke onto "· Interior
+ * design", where a leading separator reads as a bullet.
+ */
+function disciplineNames() {
+  const src = fs.readFileSync(path.join(ROOT, 'pages-src', 'services.html'), 'utf8');
+  const names = [...src.matchAll(/class="sv-block__name[^"]*">([^<]+)</g)].map((m) => m[1].trim());
+  if (names.length < 2) {
+    throw new Error(
+      'about: the disciplines row is read off pages-src/services.html rather than retyped, and ' +
+        `that page yielded ${names.length} name(s). A markup change there has to be followed here ` +
+        'rather than silently shipping a shorter list of what the practice does.'
+    );
+  }
+  return names;
+}
+
+function disciplinesRow() {
+  const names = disciplineNames();
+  return names
+    .map((n, i) => {
+      const name = escapeText(n);
+      return i === names.length - 1
+        ? `<span class="ab-facts__d">${name}</span>`
+        : `<span class="ab-facts__d">${name}&nbsp;&middot;</span>`;
+    })
+    .join(' ');
+}
+
+const PROOF_HEAD = 'Government & authorities';
+const PROOF_LINE =
+  'Ajman Municipality and Planning Department awarded us a five-star rating in 2023.';
+
 function viewData(prefix) {
   const { groups, rows, manifest } = loadWall();
+
+  const disciplines = disciplinesRow();
+
+  if (!groups.includes(PROOF_HEAD)) {
+    throw new Error(
+      `about: the five-star proof is keyed to the head "${PROOF_HEAD}", which is not in ` +
+        `clients.json (${groups.join(' · ')}). Re-home the proof deliberately; do not let it ` +
+        `fall to another group.`
+    );
+  }
 
   const wall = groups.map((head) => {
     const members = rows
@@ -297,6 +367,10 @@ function viewData(prefix) {
     }
     return {
       groupHead: escapeText(head),
+      /* Explicitly empty, never absent — {{#each}} merges the item over the
+         page data, so an absent key inherits the outer scope's value and the
+         proof would print under every group. */
+      proof: head === PROOF_HEAD ? escapeText(PROOF_LINE) : '',
       // The head names its own table through <caption>. Four tables rather
       // than one with head rows: a caption is a table's own name. The
       // section heading above them — "Clients" — is Mahesh's 8-Aug
@@ -383,6 +457,7 @@ function viewData(prefix) {
 
   return {
     wall,
+    disciplines,
     mosaicTiles: mosaic(manifest, prefix),
     leadership,
     workHref: `${prefix}projects.html`,

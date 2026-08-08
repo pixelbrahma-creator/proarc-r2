@@ -79,16 +79,6 @@
    The rule is horizontal, which is the only kind this page has (§1.5a rule 5,
    and the wall's own register). It separates the proof from the invitation —
    which is work worth doing here, and would not have been higher up. */
-.ab-story__proof {
-  margin: var(--gap-heading) 0 0;
-  padding-block-start: var(--gap-block);
-  border-block-start: 1px solid var(--color-hairline);
-  max-inline-size: var(--measure-body-lg);
-  font-size: var(--fs-body-lg);
-  line-height: var(--lh-body-lg);
-  color: var(--color-ink);
-}
-
 .ab-story__route {
   margin: var(--gap-heading) 0 0;
 }
@@ -175,7 +165,24 @@
 .ab-lead   { --ab-stack: 200px; }   /* -> the wall (the quotation, when X9 lands), group break */
 .ab-wall   { --ab-stack: 200px; }   /* -> join us, group break */
 .ab-join   { --ab-stack: 96px;  }   /* -> certifications, same group */
-.ab-certs  { --ab-stack: 200px; }   /* -> the band, which owns the switch */
+.ab-certs  { --ab-stack: 96px;  }   /* -> the facts table, same group: two record surfaces */
+/* 🔴 .ab-facts WAS MISSING FROM THIS LIST, and the omission was invisible
+   because the table ships hidden. Found by Saga, 8 Aug (Session XXXIII).
+   Certs' next sibling in the DOM is .ab-facts, NOT the band — the comment
+   above said "the band" and was true only because facts is display:none. Un-
+   hide it and certs' 200 describes the facts table while the facts table
+   hands ZERO gap to the dark band, which would butt straight onto the last
+   row. That is this very block's own stated trap ("any reorder must revisit
+   this list, and nothing on the board can see that"), and un-hiding is a
+   reorder in that sense.
+   Fixed now rather than on the day X6 clears, for the same reason the UA
+   `th { text-align: center }` fault in this table was fixed by reading: a
+   hidden block's faults ship the moment it is shown.
+   200 is the group-break value — the facts are a record surface, not part of
+   the certifications group. If they are ever meant to read AS one group with
+   certs, certs drops to 96 and this stays 200; that is a content decision and
+   it waits for the rows. */
+.ab-facts  { --ab-stack: 200px; }   /* -> the band, which owns the switch */
 
 /* 🔴 --ab-head IS MEASURED TO THE FIRST INK, AND A 1px RULE IS INK.
    Freya read this block's fault as "one token, three optical gaps" —
@@ -209,7 +216,8 @@
   .ab-lead   { --ab-stack: 144px; }
   .ab-wall   { --ab-stack: 144px; }
   .ab-join   { --ab-stack: 72px;  }
-  .ab-certs  { --ab-stack: 144px; }
+  .ab-certs  { --ab-stack: 72px;  }
+  .ab-facts  { --ab-stack: 144px; }
 
   .ab-story,
   .ab-purpose,
@@ -227,7 +235,8 @@
   .ab-lead   { --ab-stack: 96px; }
   .ab-wall   { --ab-stack: 96px; }
   .ab-join   { --ab-stack: 56px; }
-  .ab-certs  { --ab-stack: 96px; }
+  .ab-certs  { --ab-stack: 56px; }
+  .ab-facts  { --ab-stack: 96px; }
 
   .ab-story,
   .ab-purpose,
@@ -318,6 +327,30 @@
    token rather than typed as 96px. */
 .ab-wall__group + .ab-wall__group {
   margin-block-start: calc(var(--gap-component) * 1.5);
+}
+
+/* THE FIVE-STAR RATING, under the authorities group (Session XXXIII). It was
+   .ab-story__proof and it kept the support line's size, which it keeps here —
+   this is a stated fact, not a caption, and dropping it to body would file it
+   with the client names.
+
+   🔴 IT CARRIES THE GROUP SEPARATION, because it BREAKS the rule above it.
+   `.ab-wall__group + .ab-wall__group` is an adjacent-sibling selector, and
+   this <p> sits between two groups — so the group AFTER the proof stops
+   matching and would take a zero gap. The margin below is therefore not
+   decoration: it is the separation that rule can no longer supply. The gap
+   above is the smaller one on purpose — it attaches the proof to the group
+   it names rather than floating it between two.
+
+   NO BORDER. The story gave it a hairline to cut it from prose; here the
+   group's own row rules already close the table above it, and a second line
+   would read as a divider. */
+.ab-wall__proof {
+  margin: var(--gap-block) 0 calc(var(--gap-component) * 1.5);
+  max-inline-size: var(--measure-body-lg);
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-lg);
+  color: var(--color-ink);
 }
 
 /* The group head is the table's own <caption> — 12px uppercase secondary,
@@ -602,6 +635,13 @@
   display: none;
 }
 
+/* The gap it hands to the band. Every other section on this page spends its
+   --ab-stack as padding-block-end; this one did not, which is the other half
+   of the omission above. */
+.ab-facts {
+  padding-block-end: var(--ab-stack);
+}
+
 .ab-facts__table {
   inline-size: 100%;
   border-collapse: collapse;
@@ -625,7 +665,9 @@
    is hidden behind X6, which is exactly why the fault could sit unseen and
    why it is fixed now rather than on the day the attribute comes off. */
 .ab-facts__label {
-  inline-size: 40%;
+  /* 28, not 40. Freya's render: at 40% a 384px gutter opened in front of a
+     six-name list and the names wrapped early for no reason. */
+  inline-size: 28%;
   padding-inline-end: var(--gap-tight);
   text-align: start;
   font-size: var(--fs-metadata);
@@ -639,6 +681,15 @@
   font-size: var(--fs-body);
   line-height: var(--lh-body);
   color: var(--color-ink);
+}
+
+/* A DISCIPLINE NAME NEVER BREAKS, AND A SEPARATOR NEVER LEADS A LINE. The
+   middot is bound to the name BEFORE it with &nbsp; (build/lib/about.js), so
+   a wrap can only fall AFTER a separator. Freya rendered the plain-space
+   version at 768 and it broke onto "· Interior design" — a separator opening
+   a line reads as a bullet, i.e. as a list the row is not. */
+.ab-facts__d {
+  white-space: nowrap;
 }
 
 /* -----------------------------------------------------------

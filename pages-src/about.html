@@ -104,8 +104,6 @@
 
     <p class="ab-story__prose t-body">A city is not a set of sectors. It is where people learn, shop, pray, work and live &mdash; and here we have drawn all of them. The schools our clients&rsquo; children attend, the malls their neighbourhoods use, the mosque they pray at, the offices they work in and the homes they return to were, often enough, the work of one team.</p>
 
-    <p class="ab-story__proof">Ajman Municipality and Planning Department awarded us a five-star rating in 2023.</p>
-
   </section>
   <!-- 2b · MISSION & VISION (Mahesh, 8 Aug, Session XXXI — "A, own block").
 
@@ -277,6 +275,23 @@
         {{/each}}
       </tbody>
     </table>
+    {{#if proof}}
+    <!-- THE FIVE-STAR RATING, RE-HOMED (Mahesh, 8 Aug, Session XXXIII).
+         It was the story's closing beat; it is now the authorities group's
+         own footnote, which is where the sentence was always pointing — the
+         rating is municipal and the group above it is the municipality's.
+         Printed only under the head it names (build/lib/about.js throws if
+         that head leaves the data), so it cannot re-attach to strangers.
+
+         NO RULE ABOVE IT. In the story it carried a hairline because it had
+         to separate itself from prose; here the group's own last row rule
+         already does that, and a second line would read as a divider that
+         means something. It takes the group's remaining separation instead:
+         attached to the table above by --gap-block, and holding the group
+         below off at the full group gap — which is also why
+         `.ab-wall__group + .ab-wall__group` no longer matches across it. -->
+    <p class="ab-wall__proof">{{proof}}</p>
+    {{/if}}
     {{/each}}
 
     <!-- THE MOSAIC (X24) — the work's index at the wall's foot, and a
@@ -391,30 +406,70 @@
        heading: a border around three facts makes them look like a form with
        fields missing (Screen 04's finding, reused).
 
-       ONE ROW SHIPS. Of §6's three, only Founding year survives on its own
-       facts, and even it is already inside ¶1 ("since 2006") — which is why
-       the table is hidden rather than merely thin. The other two are held
-       out with their reasons, not forgotten:
+       🔴 THREE ROWS SHIP, AND THE BLOCK IS NO LONGER HIDDEN (Mahesh, 8 Aug,
+       Session XXXIII: "add a quick view like second image"). He sent v1's
+       three-row card — FOUNDING YEAR / HEADQUARTERS / TEAM. Two of those
+       three could not ship as written, and the fix was not to drop them:
 
-         Headquarters · 13003, Ajman, UAE — two faults. "Headquarters"
-         implies branches the practice does not have, when the claim is one
-         office; and 13003 is a PO Box, which belongs on Contact.
+         Headquarters -> OFFICE. The refusal was aimed at the WORD and the
+         VALUE, not the row. "Headquarters" implies branches the practice
+         does not have; 13003 is a PO Box and stays on Contact, which already
+         publishes it. "Office - Ajman, United Arab Emirates" says the true
+         thing the row was reaching for, and it is ¶1's own claim.
 
-         Team · Architects, Engineers, MEP & Site Engineers — cannot ship in
-         any form. It is the X6 staffing register verbatim and names neither
-         an interior designer nor an urban planner, while Services ships six
-         blocks including Interior design and Master planning. Roles-without-
-         titles is the same list with the same omissions, and X9 bars a
-         headcount permanently, so there is no third form to fall back to.
+         Team -> DISCIPLINES, and this is the whole reversal. The Team string
+         was refused because it named neither an interior designer nor an
+         urban planner while /services ships six blocks including both. Freya
+         read the fault correctly on 8 Aug: it was the REGISTER, not the
+         question. X6's staffing list is OPEN and omits those two; /services'
+         six blocks are CLOSED (Mahesh, 1 Aug). Asking the same question of
+         the closed register names exactly the two people the staffing list
+         dropped, carries no headcount (X9 stays clear), no titles and no
+         quantity — and it is the only NEW fact on the block. About's <main>
+         carries three links and NO route to /services, while its H1 names
+         three disciplines and the site ships six. This row is the first time
+         About states the range.
 
-       Rows are a record surface, so E12 permits a quantity here. None of
-       the surviving rows carries one. -->
-  <section class="ab-facts container" hidden>
+       🔴 THE ROW IS READ OFF /services, NEVER RETYPED (build/lib/about.js).
+       Two surfaces that retype one list are two surfaces that will disagree,
+       and sweep-about asserts the two agree name for name.
+
+       🔴 THIS DOES NOT ANSWER X6. X6 is the DISCIPLINE SET and it still gates
+       the H1 and ¶1's three-discipline list. What changed is that the facts
+       table no longer draws on it: the row now sources a closed register, so
+       unhiding stopped being an answer to an unasked question. X6's other two
+       surfaces are untouched and still wait on the letter.
+
+       Founding year is unchanged — E12 exemption 2, a year is a date. It
+       restates ¶1's "since 2006", and at 5,000px from it that reads as a
+       summary rather than an echo: Freya rendered the card directly under the
+       story and KILLED it there, because "FOUNDING YEAR 2006" landed ~320px
+       below "...since 2006" and "OFFICE Ajman" ~380px below an H1 ending "in
+       Ajman" — both echoes visible in one glance. The slot §6 designed is the
+       right one.
+
+       Ruled rows, no frame, no heading: a border around three facts makes
+       them look like a form with fields missing (Screen 04's finding, reused).
+       A HEADING WOULD BE A FIFTH INVENTED SECTION LABEL — §9.9 refuses it and
+       the wall's own heading count asserts 7.
+
+       Rows are a record surface, so E12 permits a quantity here. None of the
+       three carries one — and the PO Box leaving took the only digit that
+       would have tripped the prose check. -->
+  <section class="ab-facts container">
     <table class="ab-facts__table">
       <tbody>
         <tr class="ab-facts__row">
           <th class="ab-facts__label" scope="row">Founding year</th>
           <td class="ab-facts__value">2006</td>
+        </tr>
+        <tr class="ab-facts__row">
+          <th class="ab-facts__label" scope="row">Office</th>
+          <td class="ab-facts__value">Ajman, United Arab Emirates</td>
+        </tr>
+        <tr class="ab-facts__row">
+          <th class="ab-facts__label" scope="row">Disciplines</th>
+          <td class="ab-facts__value">{{disciplines}}</td>
         </tr>
       </tbody>
     </table>

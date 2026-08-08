@@ -601,8 +601,10 @@ sum — **62s wall for 334s of work at 43 checks**, which is *faster* than the
 
 Run through this list and state the result:
 
-1. `npm run check` passes — **48/48**. (`npx stylelint "src/**/*.css"` alone is
-   assertion 1 of 48.) The number moves when a probe is added; it was 45
+1. `npm run check` passes — **49/49**. (`npx stylelint "src/**/*.css"` alone is
+   assertion 1 of 49.) 🔴 **This line read 48 while the board ran 49** — the
+   exact decay it warns about two paragraphs down, found 8 Aug (XXXIII).
+   The number moves when a probe is added; it was 45
    before the menu re-cut registered `p29-menu` three times (8 Aug), 43
    before /about's re-cut registered `p16-about-rtl` and added
    `p28-about-placeholder` (7 Aug), 32 before Session XXVII registered ten
