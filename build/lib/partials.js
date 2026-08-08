@@ -1,5 +1,6 @@
 'use strict';
 
+const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const { render } = require('./render');
@@ -135,6 +136,31 @@ function pageStyles(pageData) {
 }
 
 /**
+ * Every stylesheet link carries a content-hash query, so a browser that
+ * cached yesterday's CSS cannot read today's page against it. Session
+ * XXXI was judged partly on a stale about.css — no query on any <link>,
+ * and a plain file server answers 304 — while every probe disables its
+ * own cache, so the harness could never have reproduced what the
+ * reviewer saw. The version is a hash of the file's bytes, not an
+ * mtime, so a rebuild with unchanged CSS leaves every page
+ * byte-identical.
+ */
+const styleVersions = new Map();
+
+function styleVersion(relPath) {
+  if (!styleVersions.has(relPath)) {
+    const bytes = fs.readFileSync(path.join(__dirname, '..', '..', relPath));
+    styleVersions.set(relPath, crypto.createHash('md5').update(bytes).digest('hex').slice(0, 8));
+  }
+  return styleVersions.get(relPath);
+}
+
+function bustStyles(headHtml) {
+  return headHtml.replace(/href="([^"]*?)(src\/styles\/[^"?]+\.css)"/g,
+    (whole, prefix, rel) => `href="${prefix}${rel}?v=${styleVersion(rel)}"`);
+}
+
+/**
  * Renders the shared partials against page-level data.
  *
  * pageData: { title, description, canonical, ogImage, assetPrefix,
@@ -167,7 +193,7 @@ function renderShell(pageData) {
   });
 
   return {
-    head: render(loadPartial('head'), data),
+    head: bustStyles(render(loadPartial('head'), data)),
     header: render(loadPartial('header'), data),
     footer: render(loadPartial('footer'), data),
     scripts: render(loadPartial('scripts'), data),
