@@ -97,6 +97,14 @@ Summarised. The clause text governs; read it.
   buildings stand in Ajman"* rather than a count.
 - **E13.1–E13.4 — menu amendments.** The overlay is the site's only
   navigation surface at every width, with a permanent-field trigger.
+  **Amended 8 Aug (09-menu §13):** its centre is a STAGE with five
+  occupants — one per door, plus the page the reader is already on at rest
+  — and a 2px rail in the gutter that travels one row per step. Every
+  string on it is read off the page that authors it by `build/lib/menu.js`,
+  which throws rather than shipping a shorter list; **never retype one.**
+  The constellation is retired from this surface (Mahesh: nobody could tell
+  what it was) and `renderConstellation()` is orphaned by it. ≤1024 is
+  unchanged — nav + contact, redistributed, not re-contented.
 
 ## Structural rules
 
@@ -561,12 +569,22 @@ sum — **62s wall for 334s of work at 43 checks**, which is *faster* than the
 
 Run through this list and state the result:
 
-1. `npm run check` passes — **45/45**. (`npx stylelint "src/**/*.css"` alone is
-   assertion 1 of 45.) The number moves when a probe is added; it was 43
+1. `npm run check` passes — **48/48**. (`npx stylelint "src/**/*.css"` alone is
+   assertion 1 of 48.) The number moves when a probe is added; it was 45
+   before the menu re-cut registered `p29-menu` three times (8 Aug), 43
    before /about's re-cut registered `p16-about-rtl` and added
    `p28-about-placeholder` (7 Aug), 32 before Session XXVII registered ten
    files that had never run, 27 before the Work surfaces' set landed, and
    this line had been reading 24 since well before that.
+
+   🔴 **`p29-menu` is the first check that ever OPENED the overlay** — the
+   site's only navigation surface (E13.1), on all fifty-eight pages, with
+   no rendered coverage in the state a reader uses it in until 8 Aug. p24
+   reads the trigger's retreat while CLOSED, probe.js gates on the trigger
+   existing, sweep-careers reads the `<nav>` as TEXT. The fault it now
+   guards — four doors reaching two distinct centres — was green for as
+   long as it existed. **Ask of any surface: is there a check that puts it
+   in the state a reader meets it in?**
 
    📌 **`p16` is the whole lesson in one file.** It had been green with seven
    assertions the entire time and could not be registered because it printed

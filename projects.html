@@ -102,24 +102,37 @@
      leaves the flow entirely when it is not running. -->
 <span class="menu-nib" data-menu-nib aria-hidden="true"></span>
 
-<div class="menu-overlay" id="site-menu" data-menu-overlay inert>
+<div class="menu-overlay" id="site-menu" data-menu-overlay data-stage="work" inert>
   <div class="menu-overlay__regions">
 
     <nav class="menu-nav" aria-label="Main">
       <ul class="menu-nav__list">
-        <li class="menu-nav__row"><a class="menu-nav__item is-lit" href="projects.html" aria-current="page" data-menu-work>Work</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="services.html">Services</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="about.html">About</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="contact.html">Contact</a></li>
+        <li class="menu-nav__row"><a class="menu-nav__item is-lit" href="projects.html" aria-current="page" data-menu-stage="work">Work</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="services.html" data-menu-stage="services">Services</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="about.html" data-menu-stage="about">About</a></li><li class="menu-nav__row"><a class="menu-nav__item" href="contact.html" data-menu-stage="contact">Contact</a></li>
       </ul>
     </nav>
 
     <!--
-      The centre holds one idea at a time (G-4, "the swap"): the
-      constellation at rest, the preview while WORK is hovered or focused,
-      never both. The swap is instant and has no animation of its own — a
-      transition here would compete with the open.
+      The stage — G-4's swap, widened from two occupants to five (§4.4's
+      own revision, taken 8 Aug). It holds ONE idea at a time and never
+      two: WORK's preview, SERVICES' six blocks, ABOUT's line, CONTACT's
+      three steps, and the resting line beneath them all.
+
+      Every occupant ships in the document and CSS decides which is shown,
+      so an overlay with no JavaScript is complete rather than empty. The
+      swap itself stays instant — a transition on the occupant would
+      compete with the open (§4 rule 1); the RAIL is what moves.
+
+      The constellation that was the resting image until 8 Aug is gone from
+      this surface by Mahesh's decision — §6 built it as ornament with no
+      label, link or count, and it read as nothing to a reader who had not
+      been told. /ajman keeps its map.
     -->
     <div class="menu-centre" data-menu-centre>
-      <svg class="menu-constellation" viewBox="0 0 560 440" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><circle class="menu-dot" style="--dot-index:0" cx="380" cy="146" r="3.5"></circle><circle class="menu-dot" style="--dot-index:1" cx="411" cy="138" r="3.5"></circle><circle class="menu-dot" style="--dot-index:2" cx="420" cy="112" r="3.5"></circle><circle class="menu-dot" style="--dot-index:3" cx="398" cy="106" r="3.5"></circle><circle class="menu-dot" style="--dot-index:4" cx="389" cy="126" r="3.5"></circle><circle class="menu-dot" style="--dot-index:5" cx="373" cy="113" r="3.5"></circle><circle class="menu-dot" style="--dot-index:6" cx="460" cy="306" r="3.5"></circle><circle class="menu-dot" style="--dot-index:7" cx="428" cy="287" r="3.5"></circle><circle class="menu-dot" style="--dot-index:8" cx="481" cy="315" r="3.5"></circle><circle class="menu-dot" style="--dot-index:9" cx="440" cy="309" r="3.5"></circle><circle class="menu-dot" style="--dot-index:10" cx="481" cy="272" r="3.5"></circle><circle class="menu-dot" style="--dot-index:11" cx="449" cy="288" r="3.5"></circle><circle class="menu-dot" style="--dot-index:12" cx="189" cy="97" r="3.5"></circle><circle class="menu-dot" style="--dot-index:13" cx="190" cy="68" r="3.5"></circle><circle class="menu-dot" style="--dot-index:14" cx="165" cy="93" r="3.5"></circle><circle class="menu-dot" style="--dot-index:15" cx="164" cy="69" r="3.5"></circle><circle class="menu-dot" style="--dot-index:16" cx="206" cy="112" r="3.5"></circle><circle class="menu-dot" style="--dot-index:17" cx="350" cy="389" r="3.5"></circle><circle class="menu-dot" style="--dot-index:18" cx="342" cy="363" r="3.5"></circle><circle class="menu-dot" style="--dot-index:19" cx="390" cy="363" r="3.5"></circle><circle class="menu-dot" style="--dot-index:20" cx="398" cy="394" r="3.5"></circle><circle class="menu-dot" style="--dot-index:21" cx="268" cy="378" r="3.5"></circle><circle class="menu-dot" style="--dot-index:22" cx="235" cy="377" r="3.5"></circle><circle class="menu-dot" style="--dot-index:23" cx="295" cy="304" r="3.5"></circle><circle class="menu-dot" style="--dot-index:24" cx="117" cy="143" r="3.5"></circle><circle class="menu-dot" style="--dot-index:25" cx="318" cy="123" r="3.5"></circle><circle class="menu-dot" style="--dot-index:26" cx="132" cy="379" r="3.5"></circle><circle class="menu-dot" style="--dot-index:27" cx="255" cy="205" r="3.5"></circle></svg>
       <div class="menu-preview" data-menu-preview><div class="menu-preview__grid"><a class="menu-preview__item" href="projects/seasidehills.html"><img class="menu-preview__thumb" src="images/projects/seasidehills/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Seaside Hills Residence</span></a><a class="menu-preview__item" href="projects/habitatschool.html"><img class="menu-preview__thumb" src="images/projects/habitatschool/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Habitat School</span></a><a class="menu-preview__item" href="projects/souksalah.html"><img class="menu-preview__thumb" src="images/projects/souksalah/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Souk Salah</span></a><a class="menu-preview__item" href="projects/ajmanbank.html"><img class="menu-preview__thumb" src="images/projects/ajmanbank/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Ajman Bank Headquarters</span></a><a class="menu-preview__item" href="projects/cityuniversity.html"><img class="menu-preview__thumb" src="images/projects/cityuniversity/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">City University Campus</span></a><a class="menu-preview__item" href="projects/alghalamosque.html"><img class="menu-preview__thumb" src="images/projects/alghalamosque/thumb.webp" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="menu-preview__name">Al Ghala Mosque</span></a></div><a class="menu-preview__exit" href="projects.html">All projects <span class="menu-preview__arrow" aria-hidden="true">&rarr;</span></a></div>
+      <ul class="menu-stage menu-stage--services"><li class="menu-stage__row">Master planning</li><li class="menu-stage__row">Architecture</li><li class="menu-stage__row">Structural engineering</li><li class="menu-stage__row">MEP engineering</li><li class="menu-stage__row">Interior design</li><li class="menu-stage__row">Project management</li></ul>
+      <p class="menu-stage menu-stage--about">One office, one team, working across the Emirates since 2006.</p>
+      <ol class="menu-stage menu-stage--contact"><li class="menu-stage__row">We read your brief</li><li class="menu-stage__row">We get in touch</li><li class="menu-stage__row">We propose next steps</li></ol>
+      <p class="menu-stage menu-stage--rest">We are an architecture, engineering and project management practice in Ajman.</p>
     </div>
 
     <div class="menu-contact">

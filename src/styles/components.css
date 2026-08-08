@@ -404,13 +404,30 @@ html.is-menu-open .chrome-trigger:focus-visible { outline-color: var(--color-on-
 
 [dir="rtl"] .menu-overlay.is-open.is-closing { clip-path: inset(0 0 0 100%); }
 
+/* Two columns, and the block axis is CLAIMED (8 Aug, Freya's cut).
+
+   The fault this replaces was not a shortage of content — adding two new
+   stages to the old grid made the dead share WORSE, 49.3% -> 53.6%, because
+   a six-line list is shorter than the 28-mark field it displaced. The cause
+   was structural: three columns in a SINGLE row leave no second row for
+   `min-block-size: 100%` to distribute, so every region hung off the top
+   padding and 44-49% of the frame at 1440 was never claimed at all. Below
+   1024 the grid already collapsed to one column and two rows, which is why
+   the narrow widths were fine and only desktop was wrong.
+
+   So the identifiers leave their own column and become the FOOT of the nav
+   column, and everything they release goes to the stage. Measured at 1440:
+   dead below 49.3% -> 9.2%, and the 9.2% that remains is `--gutter-desktop`.
+   It also repairs a clearance the old arrangement broke by construction —
+   the identifiers sat 15.3px under the plate where the plate owes 25. */
 .menu-overlay__regions {
   display: grid;
-  grid-template-columns: 267px minmax(0, 1fr) auto;
+  grid-template-columns: 267px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
   gap: var(--gap-component);
   align-items: start;
   min-block-size: 100%;
-  padding-block: 120px var(--gutter-desktop);
+  padding-block: 132px var(--gutter-desktop);
 
   /* The chrome's own axis (G-2): the open overlay and the chrome are one
      object — the trigger is its ✕, the plate its Home door — so the nav
@@ -513,6 +530,82 @@ html:lang(ar) .menu-nav__item {
 
 
 /* -------------------------------------------------------------------------
+   The desktop arrangement (8 Aug) — the nav claims the block axis and the
+   identifiers become its foot.
+
+   Everything here is inside `min-width: 1025px` and nothing below it moves,
+   because the ≤1024 overlay is nav + contact by decision — approved by
+   Mahesh on the rendered 768/375 frames, with the alternative offered and
+   declined. Only its distribution changes: `align-content: space-between`
+   puts the identifiers on the floor rather than under the nav, which is a
+   change of position and not of content (dead below 22.1% -> 4.8% at 1024,
+   21.1% -> 3.3% at a true 375).
+   ------------------------------------------------------------------------- */
+
+@media (min-width: 1025px) {
+  .menu-nav     { grid-column: 1; grid-row: 1; align-self: stretch; }
+  .menu-contact { grid-column: 1; grid-row: 2; align-self: end; }
+  .menu-centre  { grid-column: 2; grid-row: 1 / span 2; align-self: stretch; }
+
+  /* The rows share the column's height rather than hugging their type, and
+     never fall below the 76px they had — a short viewport degrades instead
+     of crushing. The nav stays at --fs-menu-nav at every width, so §5's
+     measured 267px reserve is untouched. */
+  .menu-nav__list {
+    position: relative;
+    display: grid;
+    grid-auto-rows: minmax(76px, 1fr);
+    block-size: 100%;
+  }
+
+  /* The word STANDS ON its rule. Centred in a tall row the hairline floats
+     free of the word and stops reading as list furniture. */
+  .menu-nav__item {
+    display: flex;
+    align-items: flex-end;
+    block-size: 100%;
+    padding-block: 0 var(--gap-inline);
+  }
+
+  /* THE RAIL — the one thing that moves between sections.
+
+     A 2px line in the gutter that travels one row per step, so moving down
+     the list is a single continuous gesture rather than four jump cuts. It
+     is line-work drawing itself: the site's own vocabulary, and neither a
+     fade nor a text animation, so nothing in the motion language reopens.
+
+     It parks on the LIT row at rest, because the resting stage shows the
+     page the reader is already on — a stage saying "About" with no row
+     marked would be the ambiguity this whole change exists to remove. Where
+     nothing is lit it is simply absent (scaleY(0)).
+
+     25% is one row of four, which is the nav lock (§5, §11); the offset is
+     derived from the gutter it sits in rather than chosen, so a change to
+     --gap-component carries it. */
+  .menu-nav__list::before {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-end: calc((var(--gap-component) + 2px) / -2);
+    inline-size: 2px;
+    block-size: 25%;
+    background: var(--color-on-dark);
+    transform-origin: 0 0;
+    transform: translateY(calc(var(--rail-row, 0) * 100%)) scaleY(var(--rail-on, 0));
+    transition: transform 220ms var(--ease-out);
+    content: "";
+  }
+
+  [dir="rtl"] .menu-nav__list::before { transform-origin: 100% 0; }
+}
+
+/* Reduced motion leaves the rail AT its destination rather than halting it
+   mid-travel — a finished state, not a stopped one. */
+@media (prefers-reduced-motion: reduce) {
+  .menu-nav__list::before { transition: none; }
+}
+
+
+/* -------------------------------------------------------------------------
    The centre (§4) — G-4, "the swap"
 
    The constellation at rest; the preview while WORK is hovered or focused.
@@ -521,40 +614,63 @@ html:lang(ar) .menu-nav__item {
    animation competing with the open.
    ------------------------------------------------------------------------- */
 
+/* Every occupant is stacked in one grid area, so the stage's box does not
+   resize as the occupant changes and the four states share one optical
+   centre — measured within 1.8px. That is the continuity guarantee: the
+   reader moves down the list and the picture changes without the eye
+   being thrown. */
 .menu-centre {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: center;
   min-block-size: 0;
 }
 
-.menu-constellation {
-  inline-size: 100%;
-  max-block-size: 400px;
-}
+.menu-centre > * { grid-area: 1 / 1; }
 
-/* Ornament, not navigation: no labels, no links, no hit areas, no counts.
-   A reader who clicks a mark gets nothing, deliberately. */
-.menu-dot {
-  fill: var(--color-on-dark);
-  transform: scale(0);
-  transform-origin: center;
-  transform-box: fill-box;
-  transition: transform 140ms ease-out;
-}
+/* THE STAGE — §4.4's own revision, taken 8 Aug.
 
-/* The marks arrive one at a time, 34ms apart, from +520ms — the Home map's
-   own choreography (E7.3): a spatial sweep that claims nothing about time.
-   The delay lives on the open rule only, so closing is immediate. */
-.menu-overlay.is-open .menu-dot {
-  transform: scale(1);
-  transition-delay: calc(520ms + var(--dot-index) * 34ms);
-}
+   That clause refused a per-item panel because SERVICES, ABOUT and CONTACT
+   had "no honest preview content", and recorded the door as "open for a
+   later revision if content ever exists". It does, and the clause's test —
+   spend a page's STRUCTURE, never its picture — is what chooses it:
+   Services' six block names, About's own support line, Contact's three
+   authored steps. Every string is read off the page that authors it by
+   build/lib/menu.js, which throws rather than shipping a shorter list.
 
+   The resting occupant is the page the reader is ALREADY on; where no nav
+   item is lit (Home, /ajman, /careers) it is `--rest`, the story's opening
+   sentence. Its pair, `--about`, is the line immediately beneath that one
+   on /about — two halves of one paragraph, which is why they can share a
+   surface without colliding. */
+.menu-stage,
 .menu-preview { display: none; }
 
-.menu-overlay.show-work .menu-constellation { display: none; }
-.menu-overlay.show-work .menu-preview { display: block; }
+.menu-stage {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-heading, 1.3);
+  color: var(--color-on-dark);
+  max-inline-size: var(--measure-body-lg);
+}
+
+.menu-stage--services,
+.menu-stage--contact { display: none; }
+
+.menu-stage__row { padding-block: var(--gap-inline) 0; }
+.menu-stage__row:first-child { padding-block-start: 0; }
+
+/* One occupant at a time — never two (Mahesh: "both look crowded"). The
+   swap stays instant; §4 rule 1 prices a transition here against the OPEN,
+   and the rail is what carries the movement. */
+.menu-overlay[data-stage="work"]     .menu-preview       { display: block; }
+.menu-overlay[data-stage="services"] .menu-stage--services { display: block; }
+.menu-overlay[data-stage="about"]    .menu-stage--about    { display: block; }
+.menu-overlay[data-stage="contact"]  .menu-stage--contact  { display: block; }
+.menu-overlay[data-stage="rest"]     .menu-stage--rest     { display: block; }
 
 .menu-preview__grid {
   display: grid;
@@ -686,7 +802,13 @@ html.is-menu-open { overflow: hidden; }
 
   .menu-overlay__regions {
     grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
     gap: var(--gap-heading);
+
+    /* The identifiers take the floor rather than trailing the nav. Content
+       is unchanged — this is the same four items and two identifiers Mahesh
+       approved on the rendered frames, distributed instead of stacked. */
+    align-content: space-between;
     padding-block: 104px var(--gutter-tablet);
     padding-inline: var(--gutter-tablet);
   }

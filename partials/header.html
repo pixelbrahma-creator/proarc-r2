@@ -47,7 +47,7 @@
      leaves the flow entirely when it is not running. -->
 <span class="menu-nib" data-menu-nib aria-hidden="true"></span>
 
-<div class="menu-overlay" id="site-menu" data-menu-overlay inert>
+<div class="menu-overlay" id="site-menu" data-menu-overlay data-stage="{{menuRestStage}}" inert>
   <div class="menu-overlay__regions">
 
     <nav class="menu-nav" aria-label="Main">
@@ -57,14 +57,24 @@
     </nav>
 
     <!--
-      The centre holds one idea at a time (G-4, "the swap"): the
-      constellation at rest, the preview while WORK is hovered or focused,
-      never both. The swap is instant and has no animation of its own — a
-      transition here would compete with the open.
+      The stage — G-4's swap, widened from two occupants to five (§4.4's
+      own revision, taken 8 Aug). It holds ONE idea at a time and never
+      two: WORK's preview, SERVICES' six blocks, ABOUT's line, CONTACT's
+      three steps, and the resting line beneath them all.
+
+      Every occupant ships in the document and CSS decides which is shown,
+      so an overlay with no JavaScript is complete rather than empty. The
+      swap itself stays instant — a transition on the occupant would
+      compete with the open (§4 rule 1); the RAIL is what moves.
+
+      The constellation that was the resting image until 8 Aug is gone from
+      this surface by Mahesh's decision — §6 built it as ornament with no
+      label, link or count, and it read as nothing to a reader who had not
+      been told. /ajman keeps its map.
     -->
     <div class="menu-centre" data-menu-centre>
-      {{constellation}}
       {{preview}}
+      {{stages}}
     </div>
 
     <div class="menu-contact">

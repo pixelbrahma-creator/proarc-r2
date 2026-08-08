@@ -165,7 +165,7 @@
 
     var settle = function () {
       if (isOpen) return;  /* reopened mid-close: leave it alone */
-      overlay.classList.remove('is-open', 'is-closing', 'is-armed', 'show-work');
+      overlay.classList.remove('is-open', 'is-closing', 'is-armed');
       overlay.setAttribute('inert', '');
       document.documentElement.classList.remove('is-menu-open');
       if (nib) nib.classList.remove('is-running');
@@ -193,47 +193,88 @@
   document.addEventListener('focusin', onFocusIn);
 
   /* ---------------------------------------------------------------------
-     G-4, "the swap"
+     G-4, "the swap" — five occupants, and the rail (8 Aug)
 
-     The constellation is the resting centre; hovering or focusing WORK
-     swaps in the preview. Never both — the centre holds one idea at a time.
-     The swap is instant and has no animation of its own.
+     §4.4 left this door open in terms: it refused a per-item panel because
+     SERVICES, ABOUT and CONTACT had "no honest preview content", and
+     recorded that "a per-item panel system is open for a later revision if
+     content ever exists". It does. The stage now holds one of five, and
+     still never two.
+
+     The RESTING occupant is the page the reader is already on, and it is
+     decided by the BUILD — `data-stage` ships on the overlay, so an
+     overlay whose script never runs still opens on the right one. This
+     file reads that attribute once rather than re-deriving it from the lit
+     item, because two derivations of one fact is how two surfaces start
+     disagreeing about where the reader is.
+
+     The constellation was the resting occupant until 8 Aug, when Mahesh
+     refused it on the one ground no measurement reaches: nobody could tell
+     what it was. §6 had built it as ornament — no label, no link, no count
+     — so there was nothing in it to say.
 
      Focus is hover's twin, so nothing the pointer reveals is unreachable by
      keyboard. The pointer half is gated on a real hover capability: touch
-     has no hover, so the resting state simply stays and WORK navigates. The
-     preview is an enhancement, never the only route.
+     has no hover, so the resting stage simply stays and the item navigates.
+     Every stage is an enhancement of a route that already works.
      --------------------------------------------------------------------- */
 
-  function setSwap(showWork) {
-    overlay.classList.toggle('show-work', showWork);
+  /* Read once, at load, from what the build decided. */
+  var REST_STAGE = overlay.getAttribute('data-stage') || 'rest';
+
+  var navItems = Array.prototype.slice.call(overlay.querySelectorAll('.menu-nav__item'));
+
+  /* The row the rail parks on at rest: the lit item, or none. */
+  var restRow = -1;
+  navItems.forEach(function (el, i) {
+    if (el.classList.contains('is-lit')) restRow = i;
+  });
+
+  /* `item` is a nav element, or null for the resting state. The stage name
+     comes from the item's own data-menu-stage — the build's key, not a
+     list index, so reordering the nav cannot point an item at the wrong
+     stage and an Arabic label changes nothing. */
+  function setStage(item) {
+    var row = item ? navItems.indexOf(item) : restRow;
+    overlay.setAttribute('data-stage',
+      (item && item.getAttribute('data-menu-stage')) || REST_STAGE);
+
+    /* The rail travels to the hovered row, or parks on the lit one. A
+       stage that says "About" with no row marked is the ambiguity this
+       change exists to remove. */
+    overlay.style.setProperty('--rail-row', String(row < 0 ? 0 : row));
+    overlay.style.setProperty('--rail-on', row < 0 ? '0' : '1');
   }
 
-  function onNavPointer(event) {
+  function stageFor(event) {
     var item = event.target.closest('.menu-nav__item');
     if (item) {
-      setSwap(item.hasAttribute('data-menu-work'));
-      return;
+      setStage(item);
+      return true;
     }
-    /* Moving from WORK into the panel keeps the panel — that is the path a
-       pointer actually takes to reach a thumbnail. */
-    if (event.target.closest('[data-menu-preview]')) return;
+    /* Moving from an item into the stage keeps the stage — that is the
+       path a pointer actually takes to reach a thumbnail. */
+    return !!event.target.closest('[data-menu-centre]');
   }
 
+  setStage(null);
+
   if (window.matchMedia('(hover: hover)').matches) {
-    overlay.addEventListener('mouseover', onNavPointer);
+    overlay.addEventListener('mouseover', function (event) {
+      if (!stageFor(event)) setStage(null);
+    });
     overlay.addEventListener('mouseleave', function () {
-      setSwap(false);
+      setStage(null);
     });
   }
 
   overlay.addEventListener('focusin', function (event) {
-    var item = event.target.closest('.menu-nav__item');
-    if (item) {
-      setSwap(item.hasAttribute('data-menu-work'));
-      return;
-    }
-    if (event.target.closest('[data-menu-preview]')) return;
-    setSwap(false);
+    if (!stageFor(event)) setStage(null);
+  });
+
+  /* Closing returns the stage to rest, so the next open does not flash the
+     last thing the previous reader hovered. */
+  overlay.addEventListener('transitionend', function (event) {
+    if (event.propertyName === 'clip-path' && !overlay.classList.contains('is-open')) setStage(null);
   });
 })();

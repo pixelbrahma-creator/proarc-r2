@@ -3,8 +3,8 @@
 const fs = require('fs');
 const path = require('path');
 const { render } = require('./render');
-const { buildDistrictMarks, renderConstellation } = require('./districts');
 const { buildPreview, renderPreview } = require('./preview');
+const menu = require('./menu');
 const seo = require('./seo');
 const contact = require('./contact');
 
@@ -51,28 +51,19 @@ function navItems(pageData) {
       navLabel: item.label,
       navLitClass: isLit ? ' is-lit' : '',
       navCurrentAttr: isLit && exact ? ' aria-current="page"' : '',
-      // Only WORK carries a panel (§4 rule 4). The marker is an attribute
-      // rather than a label match so the swap keeps working when the
-      // bilingual build gives this item an Arabic label.
-      navSwapAttr: item.key === 'work' ? ' data-menu-work' : '',
+      // Every item now names its own stage (§4.4's revision, 8 Aug —
+      // WORK was the only one with a panel before it). It is an attribute
+      // rather than a label match so the stage keeps working when the
+      // bilingual build gives this item an Arabic label, and rather than a
+      // list index so that reordering the nav cannot silently point an
+      // item at the wrong stage.
+      navSwapAttr: ' data-menu-stage="' + item.key + '"',
     };
   });
 }
 
 function loadPartial(name) {
   return fs.readFileSync(path.join(PARTIALS_DIR, name + '.html'), 'utf8');
-}
-
-/**
- * The constellation is identical on every page and derived from two JSON
- * files, so it is built once per process rather than 58 times.
- */
-let constellationCache = null;
-function constellation() {
-  if (constellationCache === null) {
-    constellationCache = renderConstellation(buildDistrictMarks(), 'menu-constellation');
-  }
-  return constellationCache;
 }
 
 /**
@@ -161,8 +152,15 @@ function renderShell(pageData) {
   // fifty-eight pages shipped a RELATIVE og:image before this, which is not
   // a URL a scraper can fetch — every share card on the site was blank.
   const data = Object.assign({ assetPrefix: '', robots: 'index, follow' }, pageData, seo.shellData(pageData), chromeContact(), {
+    // The resting occupant, decided at BUILD time so an overlay with no
+    // JavaScript opens on the right one. It is the page the reader is
+    // already on; where no nav item is lit — Home, /ajman, /careers — it is
+    // the story's opening sentence. js/menu.js reads this attribute rather
+    // than re-deriving it, because two derivations of one fact is how two
+    // surfaces start disagreeing about where the reader is.
+    menuRestStage: pageData.navLit || 'rest',
     navItems: navItems(pageData),
-    constellation: constellation(),
+    stages: menu.stages(),
     preview: preview(pageData.assetPrefix || ''),
     pageScripts: pageScripts(pageData),
     pageStyles: pageStyles(pageData),
