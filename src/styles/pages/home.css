@@ -1136,22 +1136,13 @@
     align-items: start;
   }
 
-  .hm-map__aside {
-    display: grid;
-    grid-template-areas: 'slot';
-  }
+  /* 🔴 THE ROLL CALL NO LONGER YIELDS ITS SLOT (Mahesh, 8 Aug). The aside was
+     a one-cell grid and the card took the cell, hiding the ten names behind
+     `visibility: hidden` — nothing moved and the band never grew, and it was
+     still wrong: the reader lost the doors at the moment they were most likely
+     to want one. The card now opens UNDER THE DRAWING and this column holds
+     nothing but the roll call, which is therefore always readable. */
 
-  .hm-cards,
-  .hm-roll {
-    grid-area: slot;
-  }
-
-  /* The roll call keeps its space and yields the slot — `visibility`, not
-     `display`, because collapsing it would drop the cell's floor to the card's
-     own height and reintroduce the movement this grid exists to prevent. */
-  .hm-map__aside:has(.hm-cards:not([hidden])) .hm-roll {
-    visibility: hidden;
-  }
 }
 
 /* -----------------------------------------------------------
@@ -1187,6 +1178,10 @@
 
 .hm-cards__place[hidden] {
   display: none;
+}
+
+.hm-map__answer {
+  margin-block-start: var(--gap-block);
 }
 
 .hm-cards {
@@ -1281,6 +1276,55 @@
   line-height: var(--lh-body);
   color: var(--color-ink);
   text-decoration: none;
+}
+
+/* 🔴 THE DESKTOP CARD IS STATED HERE, AFTER THE BASE RULES, AND THE POSITION
+   IS THE POINT. It was first written inside § 7a's `min-width: 1024` block,
+   which sits ABOVE `.hm-card { display: block }` — same specificity, earlier in
+   source, so the base rule won and the card rendered stacked at every width.
+   It measured 481px tall against a 150px slot and the band grew 330px on
+   hover: the rule was present, correct and completely inert. A media query
+   grants no extra weight; only order and specificity do. */
+@media (min-width: 1024px) {
+  /* The answer's floor — the thumbnail's own height at the 200px column below.
+     One number, stated once, and the card is built to it rather than the
+     reverse. Reserved so that opening a card moves nothing at all: the two
+     columns are top-aligned, so the drawing and the roll call are immune by
+     arrangement, and this holds the band's own bottom edge still as well. */
+  .hm-map__answer {
+    min-block-size: 150px;
+  }
+
+  /* Horizontal, because the slot is 560 wide and only 150 tall: the thumbnail
+     takes its own width and the name and district read beside it, rather than
+     under a picture that would push the band down by its whole height. Below
+     1024 the same element is a grid of up to six, stacked. */
+  .hm-card {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    column-gap: var(--gap-block);
+    align-content: start;
+  }
+
+  /* 🔴 PLACED EXPLICITLY, BECAUSE AUTO-PLACEMENT PUT THE META UNDER THE
+     THUMBNAIL. Three children into two columns flows img→1/1, name→2/1,
+     meta→1/2 — so the card became two rows, 150 + 23, and overran its 150px
+     slot by exactly the height of a line nobody meant to put there. The
+     picture spans both rows; the text is column two. */
+  .hm-card__thumb {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .hm-card__name,
+  .hm-card__meta {
+    grid-column: 2;
+  }
+
+  .hm-card__name {
+    margin-block-start: 0;
+  }
 }
 
 /* `.hm-map__line` — the "One Emirate, drawn ->" caption — was DELETED on 7 Aug

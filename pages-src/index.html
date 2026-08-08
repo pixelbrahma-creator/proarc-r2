@@ -350,6 +350,34 @@
                load-bearing — without it the line reads as *Ajman's* landmarks,
                which is a far larger claim than the set supports. -->
           <p class="hm-map__caption t-caption">Selected Proarc landmarks across Ajman</p>
+
+          <!-- 🔴 THE ANSWER SITS UNDER THE DRAWING, NOT IN THE ROLL CALL'S SLOT
+               (Mahesh, 8 Aug: *"the list of cities disappearing and coming back
+               doesn't feel nice … can we place the mouse over pic in such a way
+               the list doesn't get hidden"*).
+
+               It shared the aside's one cell until then, and showing a card hid
+               the ten names behind `visibility: hidden`. Nothing moved and the
+               band never grew — the fault was that the reader lost the doors at
+               the moment they were most likely to want them.
+
+               THE WRAPPER IS WHAT RESERVES THE SLOT, not the list, and that
+               distinction is load-bearing: `[hidden]` on the list resolves to
+               `display: none`, so a reservation stated on the list itself
+               collapses in exactly the state it exists to hold open. The
+               wrapper is always present and always has the floor.
+
+               NOTHING THE POINTER CARES ABOUT MOVES. The two columns are
+               top-aligned, so a card opening here leaves the drawing and the
+               roll call exactly where they were; only the band's own bottom
+               edge is below it. The regions TILE the field, so a drawing that
+               moved would change the answer to the question being asked — that
+               is the fault this reservation is really about, and it is now
+               guaranteed by the arrangement rather than by a measured height. -->
+          <div class="hm-map__answer">
+            <p class="hm-cards__place t-meta-label" data-cards-place hidden></p>
+            <ul class="hm-cards" data-cards hidden></ul>
+          </div>
         </div>
 
         <div class="hm-map__aside">
@@ -368,9 +396,6 @@
                `display:none`. An author `display` on this element would beat
                the UA's [hidden] rule and the list would ship visible on every
                load — which is the state `.wk-sectors` is in right now. -->
-          <p class="hm-cards__place t-meta-label" data-cards-place hidden></p>
-          <ul class="hm-cards" data-cards hidden></ul>
-
           <!-- THE ROLL CALL — the ten districts, in text, and the band's only
                tab stops. It retires the locked v1.3 clause "Home shows the
                SHAPE, /ajman names it", on Mahesh's own instruction of 8 Aug
