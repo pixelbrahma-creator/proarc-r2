@@ -49,7 +49,7 @@
 <link rel="stylesheet" href="src/styles/base.css?v=c1bb4db1">
 <link rel="stylesheet" href="src/styles/layout.css?v=575f374f">
 <link rel="stylesheet" href="src/styles/components.css?v=d695541e">
-<link rel="stylesheet" href="src/styles/pages/services.css?v=7aeceba1">
+<link rel="stylesheet" href="src/styles/pages/services.css?v=0a3576c6">
 
 </head>
 <body>
@@ -279,13 +279,34 @@
         </div>
       </figure>
 
-      <!-- The route row — the caption slot's successor. The two named ends
-           were also this section's two links; with them gone this ruled row
-           is the range's one way out to the records, and the page's only
-           route besides the band's Contact. One link per beat (§2). -->
-      <div class="container">
-        <p class="sv-range__route"><a class="sv-link" href="projects.html">The work <span aria-hidden="true">&rarr;</span></a></p>
-      </div>
+      <!-- 🔴 THE ROUTE ROW IS GONE (Mahesh, 9 Aug, reading the live page).
+           It read `The work →` under a ruled line and it was this section's
+           only link; the comment it replaces called it "the page's only route
+           besides the band's Contact", and that was already false when it was
+           written. Counted before removing, because this session has spent a
+           day on exactly this class of claim: /services carries FIVE routes to
+           projects.html — the overlay's WORK item, the overlay preview's exit,
+           this row, `.sv-wall__route` at the wall's foot, and the footer's Work.
+           Removing this leaves FOUR, one of which (`.sv-wall__route`) is a
+           BODY-level door further down this same page, so the reader who never
+           opens the overlay still meets one. Nothing is orphaned.
+
+           What it cost while it stood: the drawing's own beat ended on a
+           ruled row rather than on the drawing, and the reader met 200px of
+           black, a hairline, four words, and 200px more before the mechanism
+           list began. The range now closes on the elevation it exists to show.
+           `p14`'s reduced-motion check read this row's anchor class for a
+           transition duration and would have THROWN on the null rather than
+           failed — it reads the drawing's own strokes now, which is what that
+           assertion is actually about.
+
+           ⚠️ THE CLASS NAME IS DELIBERATELY NOT SPELLED IN THIS COMMENT. It
+           was, for about a minute, and the liveness check I ran to prove the
+           class was dead found it — in this comment, in the built page. A
+           checker cannot tell USE from MENTION, so naming a retired selector
+           in prose keeps it alive to every grep that looks for it. The CSS
+           rules are still in services.css and are now unreferenced by markup;
+           that is a delete-pass item, not a silent tidy-up. -->
     </section>
 
     <!-- 3 · The mechanism (§2) — the lead, then the six blocks in the order

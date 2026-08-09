@@ -289,8 +289,23 @@
    ink sits. That is the set's lead removed, not a value invented
    — the section already holds the arrival gap.
    ----------------------------------------------------------- */
+/* 🔴 THE ARRIVAL UNDER THE CONTROL IS NOT A SECTION GAP (Mahesh, 9 Aug,
+   reading /projects.html?q=malls). --gap-section is the distance between two
+   BANDS the reader scrolls past. The first band under the sector control is
+   not that: the reader has just PRESSED something and is looking for its
+   answer, and 200px of white is the page appearing not to have responded.
+   Measured before: filter row bottom 514, the answer's first ink at 714.
+
+   The composition is `--gap-component + --gap-heading`, which is the site's
+   own arrival-clearance formula rather than an invented number — §"Spacing"
+   in CLAUDE.md bars a value that is not a token, and this is the one
+   composition the system already makes out of these two. 200 -> 128.
+
+   The ROOMS' own rhythm is untouched: see .wk-room below, where the general
+   sibling rule gives every room AFTER the first visible one the full section
+   gap back. */
 .wk-found {
-  padding-block-start: var(--gap-section);
+  padding-block-start: calc(var(--gap-component) + var(--gap-heading));
 }
 
 .wk-found .wk-set {
@@ -434,7 +449,21 @@
    The arrival's rooms
    ----------------------------------------------------------- */
 
+/* 🔴 KEYED ON THE FIRST *VISIBLE* ROOM, NOT THE FIRST IN THE DOM. Under a
+   sector filter the room that answers can be the third one — `?q=malls`
+   shows Shops, which is room 2 — so `:first-of-type` would put the tightened
+   arrival on a room the reader cannot see and leave the answer at 200.
+
+   Read it as: every room takes the tightened gap, and a room that has a
+   VISIBLE room before it takes the section gap back. `~` is the general
+   sibling, so this is true whichever rooms the filter has hidden, and it
+   needs no JavaScript to maintain — the same doctrine as the rest of this
+   page, where the control changes attributes and CSS decides the shape. */
 .wk-room {
+  padding-block-start: calc(var(--gap-component) + var(--gap-heading));
+}
+
+.wk-room:not([hidden]) ~ .wk-room {
   padding-block-start: var(--gap-section);
 }
 

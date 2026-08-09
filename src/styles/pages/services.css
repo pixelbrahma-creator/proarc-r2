@@ -129,8 +129,20 @@
    2 · The range, drawn (§3) — V-1
    ----------------------------------------------------------- */
 
+/* 🔴 THE RANGE CLOSES ON ITS OWN DRAWING NOW (Mahesh, 9 Aug). The route row
+   that used to sit here is gone, so this padding is no longer the distance
+   between a ruled text row and the next band — it is the distance between the
+   ELEVATION's ground line and the mechanism list, and --gap-section was
+   written for the former. Measured with the row still in: drawn ink ended at
+   934 and "Master planning" began at 1166, 232px ink to ink, on one
+   continuous black field with nothing in between to hold it.
+
+   `--gap-component + --gap-heading`, the same composition the /projects
+   arrival takes under its control, and for the same reason: it is the one
+   the system already makes out of these two, and CLAUDE.md's spacing clause
+   bars inventing a value that is not a token. 200 -> 128. */
 .sv-range {
-  padding-block-end: var(--gap-section);
+  padding-block-end: calc(var(--gap-component) + var(--gap-heading));
 }
 
 /* margin-BLOCK only. A figure reset of `margin: 0` on an element that is or
