@@ -636,6 +636,14 @@ sum — **62s wall for 334s of work at 43 checks**, which is *faster* than the
 > emits a count naming the cause, which is how the first pinned run reported a
 > **port collision** (24 orphaned Chromes, `innerWidth=768` on a check asking
 > for 1440) instead of an inexplicable blank.
+>
+> 🔴 **AND REGISTRATION IS NOW THE GATE, NOT REVIEW.** Pinning the seven was
+> the repair; it is not the fix. `board.js` refuses to run at all if ANY check
+> carries a falsy `expect` — it names every offender and exits **2**. It
+> refuses at registration rather than at run time, and it refuses the WHOLE
+> run rather than dropping the offending line, because a board that silently
+> ran 51 of 52 is the same class of fault one level down. Proved: nulling
+> `sweep-footer`'s expectation in a copy prints the name and exits 2.
 
 > 🔴 **`--changed` NARROWS, IT NEVER QUIETLY COVERS LESS.** Each check declares
 > the source paths that can move what it measures, and the skipped set is
