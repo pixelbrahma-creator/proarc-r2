@@ -194,9 +194,20 @@ inline-start rule.
   do not derive an inverted mark with a filter, ever. The open overlay forces
   the black state by CSS source order in `components.css` — keep those rules
   AFTER the `chrome-ink` ones.
-- **The chrome sits on the content axis** (container edge + gutter, the
-  `--chrome-axis` calc) and moves on the LAYOUT's breakpoints (1024/780).
+- **The chrome's INK sits on the content axis** (container edge + gutter,
+  the `--chrome-axis` calc) and moves on the LAYOUT's breakpoints (1024/780).
   Never reintroduce a bare-gutter offset or a 1023/767 chrome breakpoint.
+  🔴 **INK, not box** — amended Session XXXV, on Mahesh reading the page. The
+  trigger's box was on the axis and its three bars were `--chrome-pad` inside
+  it, because the trigger inherited the mark's clear space by SHARING A
+  SELECTOR with the plate rather than by owing it. §8's clear space is the
+  MARK's rule; the trigger is not the mark. The box is now pulled out by its
+  own padding — `calc(var(--chrome-axis) - var(--chrome-pad))` — and at ≤780
+  `--chrome-pad` narrows to the gutter, because 20 − 24 would put the box at
+  −4px and bleed its field off the edge of a page where the trigger never
+  retreats. 🔴 **Do NOT move the ink by shrinking the shared padding**: that
+  retires §8's clear space around the mark, and every chrome probe on the
+  board goes GREENER doing it. `p21` now asserts both halves.
 - **The chrome RETREATS (E13.2a, 4 Aug — the first amendment to a signed
   clause).** Past the page's own arrival a downward scroll retires it; any
   upward scroll, any focus inside it, and the open overlay return it. It

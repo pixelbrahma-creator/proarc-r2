@@ -274,7 +274,7 @@
 }
 
 /* The items run as one flowing line rather than a column of bullets: it is
-   an inventory, not a hierarchy, and a bulleted column of twelve would
+   an inventory, not a hierarchy, and a bulleted column of sixteen would
    compete with the six blocks above it. They stay real list items, so the
    count and the boundaries survive for a screen reader. */
 .sv-speclist__items {

@@ -72,7 +72,24 @@
      has two jobs — clear the plate, and give every page one arrival — and
      only the first is plate-shaped. So the de-duplication is taken and the
      re-basing is not. */
-  --arrival-clearance: calc(var(--gap-component) + var(--gap-heading));
+  /* 🔴 +2 CLEAR SPACES, Session XXXV (Mahesh, on the rendered arrivals).
+     Measured first: /about, /careers, /contact and /projects sat 18.3px
+     under the plate's bottom edge and the RECORD page — the one he
+     photographed — sat 25.3px. The tight pages were the plain ones, not
+     the record; the record is simply the only layout whose text also runs
+     under the plate horizontally, which is why it is where the eye catches
+     it. Now 68.3 and 75.3.
+
+     🔴 THIS IS NOT THE RE-BASING REFUSED ABOVE, and the difference is the
+     whole reason it may ship. That one DERIVED the clearance from the
+     plate, which made it 131.7 at 1440 but 117.4 at 1023 and 106.0 at 768
+     — narrower band, less arrival, the asymmetry H4-c had just repaired.
+     This ADDS A CONSTANT to the existing expression, so every band keeps
+     the step it already had and nothing is re-derived. The refusal stands
+     exactly as written; it is about a different move. */
+  --arrival-clearance: calc(
+    var(--gap-component) + var(--gap-heading) + var(--logo-clear-space-desktop) * 2
+  );
 
   /* ---- v1.2 §2.4 layout frame ----
      1120px is the locked value. Ravi's v1 branch carries 1250px from a
@@ -111,7 +128,8 @@
        mobile block below moves --gap-heading to 24, so this same expression
        resolves to 112 there without a third statement. */
     --arrival-clearance: calc(
-      var(--gap-component) + var(--gap-heading) + var(--gap-block) * 2
+      var(--gap-component) + var(--gap-heading) + var(--gap-block) * 2 +
+      var(--logo-clear-space) * 2
     );
   }
 }

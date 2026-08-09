@@ -95,16 +95,30 @@
   --mark-size: var(--logo-size-desktop);
   --mark-size-quiet: var(--logo-size-mobile);
 
+  /* The field's inset, named once so the offset below and the breakpoints
+     stay derived rather than hand-tuned in two places (H4-h's shape). */
+  --chrome-pad: var(--logo-clear-space-desktop);
+
   position: fixed;
   inset-block-start: 0;
   z-index: var(--z-nav);
-  padding: var(--logo-clear-space-desktop);
+  padding: var(--chrome-pad);
   background: var(--color-surface-dark);
 }
 
 /* C-1: the three lines on one side... */
 .chrome-trigger {
-  inset-inline-start: var(--chrome-axis);
+  /* 🔴 THE AXIS IS THE BARS' INK, NOT THE BUTTON'S BOX (Mahesh, Session
+     XXXV, on the rendered page): "the hamburger looks a little inside in
+     all pages ... visually on page it is misaligned most of the time."
+     Measured, the box sat dead on the text edge and the three lines sat
+     25px inside it — the field's own padding, which the trigger inherited
+     by SHARING A SELECTOR with the plate rather than by owing it. §8's
+     clear space is the MARK's rule; the trigger is not the mark. So the
+     box is pulled out by exactly its own padding and the ink lands on the
+     axis, while the field still surrounds it. Logical property, so the
+     RTL flip is carried by --chrome-axis alone and needs no second rule. */
+  inset-inline-start: calc(var(--chrome-axis) - var(--chrome-pad));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -787,10 +801,9 @@ html.is-menu-open { overflow: hidden; }
   .chrome-trigger,
   .chrome-plate {
     --chrome-axis: var(--gutter-tablet);
+    --chrome-pad: var(--logo-clear-space);
     --mark-size: var(--logo-size-tablet);
     --mark-size-quiet: var(--logo-size-mobile);
-
-    padding: var(--logo-clear-space);
   }
 
   .chrome-trigger__bars {
@@ -829,6 +842,25 @@ html.is-menu-open { overflow: hidden; }
     --chrome-axis: var(--gutter-mobile);
     --mark-size: var(--logo-size-mobile);
     --mark-size-quiet: var(--logo-size-mobile);
+  }
+
+  /* 🔴 THE MOBILE GUTTER (20) IS NARROWER THAN THE CLEAR SPACE (24), so
+     axis − pad would put the trigger's box at −4px and bleed its black
+     field off the inline-start edge of every page — and below 780 the
+     trigger is PERMANENT, so it never retreats out of shot. The trigger
+     owes §8 nothing, so its field narrows to the gutter instead. The
+     PLATE keeps 24: that one IS §8's clear space and is not touched. */
+  /* 🔴 AND THE AXES SPLIT, because narrowing the pad on all four sides
+     moved the bars UP as well as in: their ink started 4px above the
+     wordmark's at 780, 375 and 320, and 0px at 1440 and 1024 — the
+     horizontal spine corrected and the vertical one broken, at exactly the
+     widths where the two chrome objects sit close enough to compare. The
+     BLOCK padding stays the clear space; only the INLINE padding narrows
+     to the gutter. Found by Freya on the rendered page, measured after. */
+  .chrome-trigger {
+    padding-block: var(--logo-clear-space);
+    padding-inline: var(--gutter-mobile);
+    --chrome-pad: var(--gutter-mobile);
   }
 
   /* §10: overlay padding 24px. The nav keeps the full 52px scale — the

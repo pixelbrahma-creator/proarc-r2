@@ -967,6 +967,35 @@ function mapData(projects, prefix, manifest) {
    gallery-02 is not that frame, and it carries the shadow falloff, kerbs and
    planting of a photograph. If the answer comes back "render", this cell
    changes with every other frame of that record. */
+/**
+ * 🔴 THE MARKER IS THE BUILDING'S OWN NAME, NOT THE TERRITORY'S — Mahesh,
+ * Session XXXV: "make The Mosque to the name of mosque itself."
+ *
+ * The four rooms are SETS and a set takes a sector name. This is a set of
+ * one, and a set of one has a name. So the fifth marker stops being the
+ * odd one out twice over — it was the only marker that named no building
+ * while standing over a photograph of exactly one.
+ *
+ * NOTHING IS TYPED, WHICH IS THE POINT THE OLD DERIVATION WAS MAKING. The
+ * zone is still resolved FIRST and still by href, so a reordered opening
+ * band fails here exactly as loudly as it did when the label came from the
+ * zone; only the string taken is different. The band keeps "The mosque" —
+ * it names territories, and there the fifth is a territory like the rest.
+ */
+function mosqueMarkerName(projects) {
+  const href = 'projects/alghalamosque.html';
+  sectorLabel(href, 'the prays moment');
+  const slug = href.replace(/^projects\//, '').replace(/\.html$/, '');
+  const record = findRecord(projects, slug);
+  if (!record || !record.title) {
+    throw new Error(
+      `home: the prays moment's marker is data/projects.json's own title for "${slug}", ` +
+        'and no such record carries one. The marker is derived, never authored.'
+    );
+  }
+  return record.title;
+}
+
 const OPEN_BAND = [
   { label: 'Schools and universities', href: 'projects/schools.html', pair: true, cells: ['habitatschool', 'edu-cityuniversity'] },
   { label: 'Malls & shops', href: 'projects/malls.html', cells: ['souksalah'] },

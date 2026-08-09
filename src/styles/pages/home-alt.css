@@ -428,7 +428,27 @@
    has to change when a section returns is the one some other section grew
    while it was away. */
 .hm--alt .hm-prays {
-  padding-block: var(--gap-component) 0;
+  /* 🔴 THE TAIL WENT TO ZERO WHEN IT SHOULD HAVE GONE TO A ROOM'S VALUE
+     (Mahesh, Session XXXV, on the rendered page): "the black free space
+     under mosque is lesser than the above sections." Measured, it was not
+     a little less — the rooms close 278.8px below their last line and this
+     band closed 54.0px below its own, a 5.2x difference, and it was
+     DECLARED rather than caused by the shorter content.
+
+     The rule taken is EQUAL AIR BELOW THE LAST LINE, not equal padding:
+     .hm-dark already contributes --gap-component of its own below this
+     band, so restating the rooms' 280 here would overshoot by that much.
+     Subtracting it lands the black ground 270px below the ink against the
+     rooms' 278.8. 🔴 THAT IS 8.8px SHORT, AND THE SHORTFALL IS STRUCTURAL,
+     not a rounding: padding is measured from the content box, so it carries
+     the half-leading, and the rooms end in 32/36.8 type (1.2px of dead line
+     box) where this band ends in 16/25.6 (10px). Padding therefore cannot
+     deliver equal air exactly — true equal air here needs ~289. The tokens
+     are kept anyway: 8.8px on 280 is 3%, it is not perceptible on the
+     rendered band, and a number tuned to the picture would be a constant
+     nobody could re-derive. The rule is the target; this is the tokens'
+     closest honest approach to it. */
+  padding-block: var(--gap-component) calc(var(--gap-section-major) - var(--gap-component));
 }
 
 /* -----------------------------------------------------------
