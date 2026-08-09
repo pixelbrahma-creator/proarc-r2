@@ -13,9 +13,31 @@ const PARTIALS_DIR = path.join(__dirname, '..', '..', 'partials');
 
 /**
  * The nav — four noun labels, and the lock is four (09-menu §5, §11).
- * There is no Home item: the wordmark, which the overlay carries with its
- * field dissolved, is the Home door. /ajman and /careers are off-nav by
- * decision and light nothing.
+ * There is no Home item HERE: the wordmark, which THIS SURFACE carries with
+ * its field dissolved (`html.is-menu-open .chrome-plate { transform: none }`),
+ * is the Home door. /ajman and /careers are off-nav by decision and light
+ * nothing.
+ *
+ * 🔴 SCOPED 9 Aug (XXXVIII), and this sentence was the last unscoped copy in
+ * the tree — in the file an agent reads first. Both of its reasons are
+ * properties of THE OVERLAY: the four-item lock is 09-menu §10's, and the
+ * wordmark is present because this surface forces it present. Neither reaches
+ * the FOOTER, which has always shipped six items — two of them precisely
+ * because this nav refuses them — and carries no wordmark at all. Measured at
+ * the foot of any page at >=780, `chrome-quiet` and `chrome-retired` are BOTH
+ * armed and the on-screen home-door count is ZERO, so the footer now ships a
+ * Home item and `sweep-footer.js` asserts a non-plate home door on all 57
+ * routes. A refusal can be exactly right about its object and wrong about its
+ * scope; 09-menu §11 carries the same note.
+ *
+ * 📌 THE ORDER OF THESE FOUR IS ASSERTED NOWHERE, and is argued nowhere either
+ * (swept 9 Aug: §5 states it and never defends it, §11's refusals table has no
+ * order row). `navSwapAttr` is keyed by `key` rather than by index precisely so
+ * a permutation cannot mis-point a stage, and p29's rail check compares
+ * POSITIONAL indices — `'0,1,2,3'` reads true for any permutation — so a
+ * reorder ships green at 41/41. The one thing that actually moves is the rail's
+ * RESTING row: the whole project block lights WORK (see below), which is 51 of
+ * 58 routes, so WORK's position is where the rail parks on almost every page.
  */
 const NAV = [
   { key: 'work', label: 'Work', href: 'projects.html' },
