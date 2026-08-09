@@ -627,14 +627,16 @@ sum — **62s wall for 334s of work at 43 checks**, which is *faster* than the
 
 Run through this list and state the result:
 
-1. `npm run check` passes — **51/51**. (`npx stylelint "src/**/*.css"` alone is
-   assertion 1 of 51.) 🔴 **This line read 48 while the board ran 49** — the
+1. `npm run check` passes — **52/52**. (`npx stylelint "src/**/*.css"` alone is
+   assertion 1 of 52.) 🔴 **This line read 48 while the board ran 49** — the
    exact decay it warns about two paragraphs down, found 8 Aug (XXXIII). It
    moved to 50 on 9 Aug (XXXVII) when **`tripwire chain`** registered, and to 51
    the same day (XXXVIII) when **`sweep-footer`** did — the footer had been
    asserted NOWHERE: `.site-footer` appeared on eight lines across all 76 files
    in `_bmad/tools/` and not one of them read `.site-footer__list` or `__nav`,
    so six navigation links on 57 routes could be dropped and ship green.
+   It moved to 52 the same day when **`p30-search-fuzzy`** registered with the
+   search's fuzzy fallback.
    The number moves when a probe is added; it was 45
    before the menu re-cut registered `p29-menu` three times (8 Aug), 43
    before /about's re-cut registered `p16-about-rtl` and added

@@ -47,10 +47,101 @@
     window.history.replaceState(null, '', url);
   }
 
+  /* ------------------------------------------------------------------ *
+   * 🔴 FUZZY, AND ONLY WHERE EXACT FOUND NOTHING (Mahesh, 9 Aug: "the
+   * search can be fuzzy").
+   *
+   * The substring pass below is UNCHANGED and runs FIRST, so every query
+   * that worked before still takes the identical path and returns the
+   * identical set. `mall` still finds `malls`, `school 2016` still narrows.
+   * Fuzziness is a FALLBACK for a term that matched nothing at all — it can
+   * only ever ADD records to a result that was empty for that term, never
+   * re-rank or remove one. A search that silently reinterprets a query that
+   * was already working is worse than a strict one.
+   *
+   * 🔴 IT DOES NOT REACH THE SECTOR SHORTCUT, DELIBERATELY. `?q=malls`
+   * makes the page BECOME that room — heading, opener, band — which is
+   * 03-work §4.4a, ruled on the render. That shortcut is an exact lookup on
+   * the WHOLE query and stays exact: a typo may find you the records, it may
+   * not silently rebuild the page around a word you did not type. The two
+   * behaviours differ in what the reader SEES, so the looser one gets the
+   * smaller consequence.
+   *
+   * THE BUDGET IS LENGTH-SCALED, and short terms are exact-only. At three
+   * characters an edit distance of 1 reaches most of the index — `mal`
+   * would admit `man`, `mall`, `map`, `all`. Under 4: no fuzz. 4–6: one
+   * edit. 7+: two. That covers what a hand actually does — a transposed
+   * pair, a doubled letter, a dropped one, and the plural a reader types
+   * when the record is singular (`residences` against `residence` is one
+   * edit).
+   * ------------------------------------------------------------------ */
+
+  /* Bounded edit distance, WITH TRANSPOSITION (optimal string alignment).
+     Returns false as soon as the budget is provably blown, so a long
+     non-match costs a row of the matrix rather than all of it.
+
+     🔴 THE TRANSPOSITION ROW IS NOT AN OPTIMISATION, IT IS THE POINT.
+     Plain Levenshtein scores a swapped pair as TWO edits, so at a budget of
+     one it misses the single commonest typing error there is. Measured on
+     this index before it was added: `zorha` for `zorah` returned NOTHING
+     while `superstoer` for `superstore` worked — because the long word had a
+     budget of 2 and could afford to pay twice for one slip, and the short
+     one could not. A fuzzy search that forgives a typo in a long word and
+     refuses the same typo in a short one is worse than no fuzz at all,
+     because the reader cannot tell which rule they are under. Three rows
+     instead of two is the whole cost. */
+  function within(a, b, budget) {
+    var la = a.length, lb = b.length;
+    if (Math.abs(la - lb) > budget) return false;
+    var prev2 = null, prev = new Array(lb + 1), cur = new Array(lb + 1), i, j;
+    for (j = 0; j <= lb; j++) prev[j] = j;
+    for (i = 1; i <= la; i++) {
+      cur[0] = i;
+      var best = cur[0];
+      for (j = 1; j <= lb; j++) {
+        var cost = a.charCodeAt(i - 1) === b.charCodeAt(j - 1) ? 0 : 1;
+        var v = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + cost);
+        /* the swap: ...ab... read as ...ba..., one edit rather than two */
+        if (i > 1 && j > 1 &&
+            a.charCodeAt(i - 1) === b.charCodeAt(j - 2) &&
+            a.charCodeAt(i - 2) === b.charCodeAt(j - 1)) {
+          v = Math.min(v, prev2[j - 2] + 1);
+        }
+        cur[j] = v;
+        if (v < best) best = v;
+      }
+      if (best > budget) return false;
+      prev2 = prev;
+      prev = cur;
+      cur = new Array(lb + 1);
+    }
+    return prev[lb] <= budget;
+  }
+
+  function budgetFor(term) {
+    if (term.length < 4) return 0;
+    return term.length < 7 ? 1 : 2;
+  }
+
+  /* The record's own words, cached on the record the first time it is asked.
+     `text` is already lowercased and space-joined by the build. */
+  function wordsOf(r) {
+    if (!r.__w) r.__w = r.text.split(/[^a-z0-9]+/).filter(Boolean);
+    return r.__w;
+  }
+
   /** Every whitespace-separated term must match — "school 2016" narrows. */
-  function matches(text, terms) {
+  function matches(text, terms, record) {
     for (var i = 0; i < terms.length; i++) {
-      if (text.indexOf(terms[i]) === -1) return false;
+      if (text.indexOf(terms[i]) !== -1) continue;
+      /* Exact found nothing for THIS term. Fuzz it, or fail. */
+      var budget = budgetFor(terms[i]);
+      if (!budget || !record) return false;
+      var words = wordsOf(record), hit = false;
+      for (var k = 0; k < words.length; k++) {
+        if (within(terms[i], words[k], budget)) { hit = true; break; }
+      }
+      if (!hit) return false;
     }
     return true;
   }
@@ -395,7 +486,7 @@
 
       var hits = records.filter(function (r) {
         if (asSector) return r.sector === asSector;
-        return asNoun ? r.noun === asNoun : matches(r.text, searchTerms);
+        return asNoun ? r.noun === asNoun : matches(r.text, searchTerms, r);
       });
 
       /* 🔴 A QUERY THAT FINDS NOTHING LEAVES THE INDEX ALONE. Hiding the
