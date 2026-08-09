@@ -838,13 +838,15 @@
   padding-block-end: var(--gap-component);
 }
 
+/* 🔴 IT SETS NO TYPE OF ITS OWN ANY MORE, because the verb became the beat's
+   door (Mahesh, 9 Aug, Session XXXVI) and .ha-room__verb's rule is the site's:
+   an h3 whose register is stated by the link inside it. It carried --fs-h2
+   light for as long as it was the only verb on the page that was NOT a link —
+   a 32px sentence-close against the four rooms' uppercase route labels. Now
+   that it is a door it takes the door's register, and the fifth beat's first
+   object finally matches the four above it. */
 .hm-prays__verb {
   margin: 0;
-  font-size: var(--fs-h2);
-  font-weight: var(--fw-light);
-  line-height: var(--lh-h2);
-  letter-spacing: var(--ls-h2);
-  color: var(--color-on-dark);
 }
 
 .hm-prays__line {

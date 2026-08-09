@@ -511,9 +511,48 @@
 
 /* The marker never shrinks — .t-marker's size is a decided register, and a
    display word squeezed to fit is a different word. */
+/* 🔴 SO IT IS CAPPED IN MEASURE INSTEAD, AND THAT IS WHAT LETS THE MOSQUE BE
+   NAMED (Mahesh, 9 Aug, Session XXXVI: a set of one has a name). The marker
+   stopped being "The mosque" and became `Al Ghala Mosque`, which sets 801px
+   at 84px against a 960px column where the old label set 549. There is no
+   horizontal left to have: 801 + the 64px column-gap leaves 95px for the
+   evidence.
+
+   🔴 AND THE BAND DID NOT FAIL, IT STOOD DOWN. At 1440, 1024 and 768 the row
+   simply wrapped and p9-home reported **50 passed, 0 FAILED** against a pin
+   of 52 — the horizontal branch's three assertions replaced by the stacked
+   branch's one. Session XI's construction was gone at every desktop width
+   and the only thing that could see it was the per-configuration count.
+   Where the row DID stay horizontal it broke instead: verb -> marker 61.2 at
+   640 and 76.6 at RTL-1440 against the rooms' 24.0. The rename did not
+   degrade this band, it INVERTED it — the horizontal survived only at the
+   two widths where it fails, and was abandoned at the three where it worked.
+
+   🔴 § 3a's OWN CENTRAL CLAIM IS FALSE ON THE PAGE and this is why the cap
+   is a cap rather than another `flex` value. It says `flex: 1 1 0` takes the
+   marker out of the wrap decision so "the row can never wrap at all". It
+   does not: the line's `min-inline-size: min-content` is 132.6px, so the row
+   wraps whenever marker + 64 + 132.6 exceeds the column. Swept in 8px steps
+   from 1440 to 560, that put the horizontal back in ALTERNATING BANDS —
+   1016-832 and 760-640 horizontal (and sinking, 38.2 and 35.5->61.1), the
+   rest wrapped — which is H4-c's exact shape and the very fault § 3a was
+   written to remove. A hypothetical-size rule can only ever make the wrap
+   UNLIKELY. Capping the marker makes it IMPOSSIBLE: at every width the
+   capped marker is half the column, so half + 64 + 132.6 is inside the
+   column with room to spare and the row has no decision left to take.
+
+   HALF, and it is the design stated rather than a number tuned to a picture:
+   the marker takes at most half the row and the evidence takes the rest.
+   `Al Ghala Mosque` then sets as `AL GHALA / MOSQUE` at the full 84px, which
+   is not a new object — `Schools and universities` has set two lines at 84px
+   in the room above since the day the rooms were built. Measured at 1440 the
+   marker is 480 and the evidence 416, which is MORE column than the short
+   label ever left it (347). Register, stroke and the one-pen ratio are all
+   untouched, because nothing about the type moved. */
 .hm--alt .hm-prays__row .ha-marker {
   flex: 0 0 auto;
   margin-block-start: 0;
+  max-inline-size: 50%;
 }
 
 /* 🔴 `last baseline`, AND THE TWO OBVIOUS ALTERNATIVES ARE BOTH WRONG — this
@@ -532,24 +571,26 @@
   margin-block-start: 0;
 }
 
-/* The evidence begins a line of its own, so the break is the SENTENCE's and
-   not the column's. */
-.hm-prays__evidence {
-  display: block;
-}
+/* 🔴 THE EVIDENCE IS GONE AND SO ARE ITS TWO RULES (Mahesh, 9 Aug, Session
+   XXXVI: "Prayer runs through it all" is enough for the home page). They are
+   removed rather than left standing, because a rule that matches nothing is
+   not inert-but-harmless — it reads as a live constraint to the next person
+   and stylelint cannot tell the difference.
 
-/* THE BAND'S ONE TARGET STAYS IN ONE PIECE. Stated honestly: at the widths
-   this row is a horizontal the leftover column never falls below 252px and
-   the link is 128px, so **this declaration currently changes nothing on the
-   page** — it is a standing guard against a longer building name or a wider
-   marker, not a fix for a fault that is here. It was written up as the
-   construction's load-bearing floor for as long as flex-wrap decided the
-   stack; the media query took that job and this kept the old billing for
-   about an hour. p9-home asserts the door is one line, which is the
-   invariant; the assertion is falsifiable and was falsified. */
-.hm-prays__evidence .hm-link-inline {
-  white-space: nowrap;
-}
+   What went, and why each was here:
+
+     `.hm-prays__evidence { display: block }` — the evidence began a line of
+     its own so the break was the SENTENCE's and not the column's. There is
+     one sentence now, so there is no second block to break.
+
+     `.hm-prays__evidence .hm-link-inline { white-space: nowrap }` — the
+     band's one target kept in one piece. It was already billed in this file
+     as changing nothing on the page, a standing guard against a longer
+     building name. The building name left the caption; the guard leaves with
+     it. The door it protected is now the verb, and `p9-home` asserts THAT
+     door is one line.
+
+   The marker's own cap is what holds the horizontal now, above in § 3a. */
 
 /* 🔴 THE HORIZONTAL STOPS AT 639, AND THE NUMBER CAME OFF THE PAGE. Sharing a
    baseline means the SHORTER object drops to meet the taller one, so as the
@@ -612,8 +653,14 @@
   /* Transparent again, so the two intervals return to the elements that own
      them — and they are the rooms' own: --gap-block under the verb,
      --gap-heading under the marker. */
+  /* 🔴 AND THE CAP IS RELEASED WITH THEM. Half the ROW is the right measure
+     while there is a row; below 639 there is not one — `display: block`
+     above — so the same declaration would resolve against the whole column
+     and squeeze the marker into half a page for no reason. The cap belongs
+     to the horizontal, and it leaves when the horizontal does. */
   .hm--alt .hm-prays__row .ha-marker {
     margin-block-start: var(--gap-block);
+    max-inline-size: none;
   }
 
   .hm--alt .hm-prays__row .hm-prays__line {

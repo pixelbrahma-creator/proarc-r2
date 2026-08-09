@@ -497,7 +497,7 @@ function servicesLine() {
  * surfaces' register and they are not the band's words. The band says
  * "Schools and universities", which is the pair of cells it shows.)
  */
-function sectorLabel(href, what) {
+function bandZone(href, what) {
   const zones = OPEN_BAND.filter((z) => z.href === href);
   if (zones.length !== 1) {
     throw new Error(
@@ -507,7 +507,24 @@ function sectorLabel(href, what) {
         'guess and a reordered band would silently relabel a section.'
     );
   }
-  return zones[0].label;
+  return zones[0];
+}
+
+function sectorLabel(href, what) {
+  const zone = bandZone(href, what);
+  /* 🔴 A DERIVED ZONE HAS NO SECTOR NAME TO GIVE, AND THIS THROWS RATHER THAN
+     RETURNING null. The mosque's zone carries `label: null` on purpose; a
+     caller that asked for it and got null would have shipped an empty label
+     and a silently unnamed territory, which is exactly the class of fault the
+     rest of this function exists to prevent. */
+  if (zone.label === null) {
+    throw new Error(
+      `home: Home's ${what} asked the opening band for "${href}"'s sector name, and that zone ` +
+        'has none — its label is DERIVED from the record, because a set of one has a name rather ' +
+        'than a sector. Call mosqueMarkerName(db.projects) for it.'
+    );
+  }
+  return zone.label;
 }
 
 /**
@@ -984,7 +1001,7 @@ function mapData(projects, prefix, manifest) {
  */
 function mosqueMarkerName(projects) {
   const href = 'projects/alghalamosque.html';
-  sectorLabel(href, 'the prays moment');
+  bandZone(href, 'the prays moment');
   const slug = href.replace(/^projects\//, '').replace(/\.html$/, '');
   const record = findRecord(projects, slug);
   if (!record || !record.title) {
@@ -1001,7 +1018,15 @@ const OPEN_BAND = [
   { label: 'Malls & shops', href: 'projects/malls.html', cells: ['souksalah'] },
   { label: 'Offices', href: 'projects.html', cells: ['ajmanbank'] },
   { label: 'Homes', href: 'projects/homes.html', cells: ['seasidehills'] },
-  { label: 'The mosque', href: 'projects/alghalamosque.html', cells: ['alghalamosque'] },
+  /* 🔴 THE FIFTH ZONE'S LABEL IS DERIVED, NOT TYPED (Mahesh, 9 Aug, Session
+     XXXVI: rename it here as well). The four above are SETS and take a sector
+     name — that is what the band's words are. This is a set of one, and a set
+     of one has a name, so its label is the record's own title and `null` here
+     is the assertion that nobody may type it. Same source as the prays
+     moment's marker, which is the point: the band and the beat six screens
+     down now say the same word because they READ the same word, not because
+     two strings were kept in step by hand. */
+  { label: null, href: 'projects/alghalamosque.html', cells: ['alghalamosque'] },
 ];
 
 /**
@@ -1122,10 +1147,14 @@ function openBandHtml(db, manifest, prefix, seen) {
        thickens, never a colour and never an arrow. Five arrows across the
        fold would make the band a menu, which is the reading Board 20's
        frame removed when it dropped them. */
+    /* A null label is the DERIVED one — resolved here from the record's own
+       title, through the same function the prays moment's marker uses, so the
+       two can never drift. */
+    const label = zone.label === null ? mosqueMarkerName(db.projects) : zone.label;
     return (
       `<div class="${cls}"><div class="hm-open__cells">${cells}</div>` +
       `<p class="hm-open__label"><a class="hm-open__labellink" href="${prefix}${zone.href}">` +
-      `${escapeText(zone.label)}</a></p></div>`
+      `${escapeText(label)}</a></p></div>`
     );
   }).join('');
 }
@@ -1224,7 +1253,7 @@ function viewData(prefix, srcName) {
        whose href is the very link this section carries. Nothing is typed
        and nothing is invented; the territory that has been named four
        times gets named a fifth. */
-    mosqueSector: escapeText(sectorLabel('projects/alghalamosque.html', 'the prays moment')),
+    mosqueSector: escapeText(mosqueMarkerName(db.projects)),
 
     /* THE MOSQUE GETS A PHOTOGRAPH (Mahesh, 4 Aug) — see
        MOSQUE_FULL_FRAME for the frame and for what it was picked over.
