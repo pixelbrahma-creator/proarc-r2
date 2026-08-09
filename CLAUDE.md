@@ -610,6 +610,33 @@ sum — **62s wall for 334s of work at 43 checks**, which is *faster* than the
 > measurement cannot separate contention from regression** — the same rule
 > this project already applies to flake attribution.
 
+> 🔴 **EVERY BOARD LINE MUST BE PINNED TO AN ARITY, AND SEVEN WERE NOT**
+> (9 Aug, XXXVIII). `board.js` judges a check two ways —
+> `okCode = code === 0` and `okText = !check.expect || check.expect.test(out)`
+> — and **`expect: null` makes the second unconditionally true**, collapsing
+> the whole verdict to the exit code. `probe.js` ends with
+> `.then(v => { console.log(v); process.exit(0) })`: **it exits 0 whenever the
+> script RETURNS**, however many FAIL lines it printed. So a line declared
+> that way can only go red if Chrome dies. Seven were — `p24` × 5 routes,
+> `p12`, `p23` — **239 assertions behind a verdict that only detected a
+> crash**, and two of them were failing on the committed tree while the board
+> printed `ok`.
+>
+> 🔴 **AND NONE OF THE THREE COULD BE PINNED, BECAUSE NONE PRINTED A COUNT.**
+> That is `p16`'s recorded lesson one level out: the board matches on ARITY,
+> and *"nothing FAILED"* is not a claim about how much ran. **A probe that
+> emits no count line cannot be registered honestly — write the count first,
+> then the pin.** Proved closed by inverting `p24`'s payoff assertion in a
+> scratchpad copy: exit is still 0, the count line reads `39 passed, 1
+> FAILED`, and the board line now reads FAIL.
+>
+> 📌 **A pinned line needs its VOID path to report too.** `p24` returned a bare
+> array on a viewport mismatch — fine while it was unpinned, useless once
+> pinned, because the line could not say why it produced no arity. It now
+> emits a count naming the cause, which is how the first pinned run reported a
+> **port collision** (24 orphaned Chromes, `innerWidth=768` on a check asking
+> for 1440) instead of an inexplicable blank.
+
 > 🔴 **`--changed` NARROWS, IT NEVER QUIETLY COVERS LESS.** Each check declares
 > the source paths that can move what it measures, and the skipped set is
 > **printed by name on every run**. That declaration is a hand-written list —
