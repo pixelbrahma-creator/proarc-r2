@@ -48,7 +48,7 @@
 <link rel="stylesheet" href="../src/styles/tokens-layout.css?v=61d79e4b">
 <link rel="stylesheet" href="../src/styles/base.css?v=c1bb4db1">
 <link rel="stylesheet" href="../src/styles/layout.css?v=575f374f">
-<link rel="stylesheet" href="../src/styles/components.css?v=45484a8c">
+<link rel="stylesheet" href="../src/styles/components.css?v=d695541e">
 <link rel="stylesheet" href="../src/styles/pages/project.css?v=219bfb72">
 
 </head>
@@ -314,15 +314,25 @@
   other two are Home's map and About's story)" until 8 Aug and TWO of those
   three were fictional: About's body has never carried an /ajman link at all,
   and Home's map now reaches the filtered work sets on /projects instead. The
-  real second door is the district link on every project record page
+  real second door is the district link on project record pages
   (`pd-neighbours__restlink`), which nobody had counted. A door named in a
   comment and asserted nowhere is how a page comes to be reachable by one
   route while three are claimed. It also carries the marketing route to /careers, which is why the
   overlay refuses a careers item of its own.
 
+  🔴 CORRECTED 9 Aug — the sentence above said "on EVERY project record page"
+  and that was itself a door named in a comment and counted by nobody, in the
+  clause written to stop exactly that. COUNTED: 17 of the 47 records carry a
+  `pd-neighbours__restlink` into `../ajman.html#district-…` (6 Al Tallah, 6
+  Al Jurf, 5 Al Zorah); the other 30 point at a sector page instead. So on 30
+  record pages this footer is /ajman's ONLY door, which is the condition the
+  8 Aug correction was written to remove — it replaced two fictional doors
+  with a third overstated one. Still asserted nowhere.
+
   Deliberately NOT here, each a live v1 fault this replaces: the wordmark
   re-set as type in a <span class="brand">, a Testimonials item, "Projects"
-  where the decided label is Work, seven nav items where the nav is four,
+  where the decided label is Work, v1's seven-item nav — the SET, Testimonials
+  included, never the arithmetic (see the Home note below, which ships seven),
   the newsletter form posting to a contact.php that fatals on PHP 8, and six
   dead href="#" links of which three were the social row.
 -->
@@ -332,8 +342,48 @@
 
     <p class="site-footer__line">The buildings a city grows up in. Architecture, engineering and project management from one Ajman office.</p>
 
+    <!--
+      🔴 HOME IS FIRST, AND 09-menu §11's REFUSAL DOES NOT REACH THIS SURFACE
+      (Mahesh, 9 Aug, reading the foot of /projects/homes.html: "if we go to
+      the bottom of a page, then to go back to home, we now have to scroll all
+      the way up to the logo").
+
+      §11 refuses a Home nav item for two reasons — "the four-item lock" and
+      "the wordmark (present in the overlay, field dissolved) is the Home
+      door". Both are properties of the OVERLAY. The four-item lock is the
+      overlay's (§10); this footer has always shipped six, two of them
+      precisely because the overlay refuses them (see the /careers note
+      above). And the wordmark is not here. A refusal can be exactly right
+      about its object and wrong about its scope — this project has recorded
+      that once already, in Session XXXIII.
+
+      MEASURED, which is why this is a door and not a convenience. At the
+      foot of every page at >=780 the html carries `chrome-quiet chrome-retired`
+      TOGETHER: the plate is at translateY(-84.03) by the arrival rule and the
+      trigger at -67.25 because the reader armed it by scrolling down here.
+      Neither is in the viewport. Home doors on screen: ZERO, and the census
+      says 57 of 58 pages carry their ONLY route to index.html on the plate —
+      the one carrier the design deliberately removes. The route home from
+      this band was: scroll up past the 24px hysteresis, press the trigger,
+      click the wordmark. Three actions on desktop, two on mobile.
+
+      SEVEN ITEMS, and the "seven" this file's own list below warns about is a
+      SET, not a count: 00-Design-Continuity.md:389 records v1's as "the
+      seven-item nav including Testimonials", beside "Projects" where the
+      decided label is Work. Refusing a seventh item on the arithmetic would
+      be the same wrong-scope move as applying §11 here. Measured with it in:
+      one line at 1440, 1024, 780 and 500, and at a true 375 the list already
+      wrapped to two with six items and stays at two with seven.
+
+      NOT the wordmark, which was the first form tried and is barred by
+      E13.2a's own sentence — "identity is made once per page and does not
+      reintroduce itself over the argument" — the clause that made the plate
+      retreat in the first place. A second mark at the foot of 58 pages is the
+      literal thing it forbids.
+    -->
     <nav class="site-footer__nav" aria-label="Footer">
       <ul class="site-footer__list">
+        <li><a class="site-footer__link" href="../index.html">Home</a></li>
         <li><a class="site-footer__link" href="../projects.html">Work</a></li>
         <li><a class="site-footer__link" href="../services.html">Services</a></li>
         <li><a class="site-footer__link" href="../about.html">About</a></li>

@@ -488,14 +488,14 @@ own `pageScript`.
 > family is actually about — the class, the geometry — never at an incidental
 > attribute that rides alongside it.
 >
-> 🔴 **ALL NINE SWEEPS ARE GUARDED NOW, AND THE MODE IS ON THE BOARD**
+> 🔴 **ALL TEN SWEEPS ARE GUARDED NOW, AND THE MODE IS ON THE BOARD**
 > (9 Aug, XXXVII). Four of them — `sweep-about`, `sweep-careers`,
 > `sweep-contact`, `sweep-seo` — were bare `.replace()` chains carrying **78
 > families that had never been proved to land**, under the verdict
 > `failures ? 'Tripwire OK — the sweep can fail.'`: a claim about the whole
 > SET, proved by one member firing. **`npm run check` now runs
 > `tripwire-chain.js`**, which runs every sweep's mutations to completion and
-> requires 9/9. It costs **0.25s** — they are all static, so they run at once.
+> requires 10/10 (9/9 until `sweep-footer` joined on 9 Aug). It costs **0.25s** — they are all static, so they run at once.
 >
 > 🔴 **AND IT IS A CHAIN, NOT A LIST.** Each sweep exits on the FIRST inert
 > family, so a dead one behind it is invisible until the one in front is
@@ -627,10 +627,14 @@ sum — **62s wall for 334s of work at 43 checks**, which is *faster* than the
 
 Run through this list and state the result:
 
-1. `npm run check` passes — **50/50**. (`npx stylelint "src/**/*.css"` alone is
-   assertion 1 of 50.) 🔴 **This line read 48 while the board ran 49** — the
+1. `npm run check` passes — **51/51**. (`npx stylelint "src/**/*.css"` alone is
+   assertion 1 of 51.) 🔴 **This line read 48 while the board ran 49** — the
    exact decay it warns about two paragraphs down, found 8 Aug (XXXIII). It
-   moved to 50 on 9 Aug (XXXVII) when **`tripwire chain`** registered.
+   moved to 50 on 9 Aug (XXXVII) when **`tripwire chain`** registered, and to 51
+   the same day (XXXVIII) when **`sweep-footer`** did — the footer had been
+   asserted NOWHERE: `.site-footer` appeared on eight lines across all 76 files
+   in `_bmad/tools/` and not one of them read `.site-footer__list` or `__nav`,
+   so six navigation links on 57 routes could be dropped and ship green.
    The number moves when a probe is added; it was 45
    before the menu re-cut registered `p29-menu` three times (8 Aug), 43
    before /about's re-cut registered `p16-about-rtl` and added
