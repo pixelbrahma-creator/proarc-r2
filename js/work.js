@@ -560,7 +560,22 @@
            reaches the mosque, since Al Ghala is a name rather than a set
            (03-work §2.1) and belongs to no room. The four items reach 46;
            rest reaches all 47. */
-        var word = btn.getAttribute('data-sector') ? btn.getAttribute('data-label').toLowerCase() : '';
+        /* 🔴 THE QUERY WORD IS AN ATTRIBUTE, NOT THE DISPLAY LABEL (9 Aug,
+           XXXVIII). This read `data-label.toLowerCase()`, which made the
+           control's FUNCTION a derivation from its DISPLAY TEXT — so renaming
+           the shops item to its real name, `Malls & shops`, silently wrote
+           `?q=malls & shops`, which SECTOR_WORDS does not hold. Measured on
+           the naive rename: it still returned the right twelve records, so
+           p27's count assertion reported delta 0 and PASSED, while the
+           pressed state never lit and the page rendered the recomposed band
+           instead of becoming the Shops room. A label is for a reader; a
+           query word is for the map. They are now two attributes, and the
+           map's own comment already said so — "one taxonomy, two registers,
+           the translation lives here, once".
+
+           The fallback is deliberate and narrow: an item with no data-word
+           has none because it is "All", which is a RESET and writes ''. */
+        var word = btn.getAttribute('data-sector') ? (btn.getAttribute('data-word') || '') : '';
         input.value = word;
         writeQuery(word);
         renderResults(word);
