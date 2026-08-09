@@ -119,7 +119,7 @@
         {{#each facts}}
         <tr class="ct-facts__row">
           <th class="ct-facts__label" scope="row">{{label}}</th>
-          <td class="ct-facts__value"{{#if isolate}} dir="ltr"{{/if}}>{{#if href}}<a class="ct-facts__link" href="{{href}}">{{value}}</a>{{/if}}{{#if plain}}{{#each lines}}<span class="ct-facts__line">{{this}}</span>{{/each}}{{/if}}</td>
+          <td class="ct-facts__value"{{#if isolate}} dir="ltr"{{/if}}>{{#if href}}<a class="ct-facts__link" href="{{href}}">{{value}}</a>{{/if}}{{#if plain}}{{#each lines}}<span class="ct-facts__line">{{this}}</span>{{/each}}{{/if}}{{#if way}}<a class="ct-facts__way" href="{{wayHref}}" rel="noopener">{{wayMark}}<span>Directions</span></a>{{/if}}</td>
         </tr>
         {{/each}}
       </tbody>

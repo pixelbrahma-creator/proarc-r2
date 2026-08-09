@@ -774,6 +774,45 @@ html:lang(ar) .menu-nav__item {
   outline-offset: 4px;
 }
 
+/* -----------------------------------------------------------
+   THE DIRECTIONS MARK (Session XXXVII) — one drawing, three
+   surfaces, two grounds.
+
+   `currentColor` is the whole mechanism: the mark takes the
+   colour of the link it sits inside, so it is ink on Contact's
+   paper and --color-on-dark-secondary in the footer, and it
+   inherits every hover and focus state for free. That is what
+   removes the second asset an inverted mark would need — and
+   §1.5a's "never recolour, greyscale, invert or redraw" only
+   binds a THIRD-PARTY mark. This one is the site's own, drawn
+   in the hairline register About's ISO ring-seals established.
+
+   🔴 THE STROKE IS NOT SCALED. It is a true 1px at every width,
+   like /ajman's marks — a hairline that thickens with its box
+   stops being a hairline. So the box is fixed at 12x16 and the
+   drawing does not participate in the type scale.
+
+   `flex-shrink: 0` because the label may wrap and the drawing
+   may not: a squashed pin is a different drawing.
+   ----------------------------------------------------------- */
+.wayfind__mark {
+  flex-shrink: 0;
+  inline-size: 12px;
+  block-size: 16px;
+  overflow: visible;
+}
+
+/* The mark sits BESIDE the word, never above or instead of it
+   (07-about §13.5.4). The gap is the inline gap, so the pair
+   reads as one object rather than as two. */
+.menu-contact__item--way,
+.site-footer__waylink,
+.ct-facts__way {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-inline);
+}
+
 
 /* -------------------------------------------------------------------------
    Scroll lock (§4.7) — no scroll behind the overlay, and no layout shift
@@ -938,6 +977,12 @@ html.is-menu-open { overflow: hidden; }
 .site-footer__link:focus-visible {
   outline: 2px solid var(--color-on-dark);
   outline-offset: 4px;
+}
+
+/* Its own row, above the legal line. It is not a social account and does
+   not join that list; see the footer partial for why the naming matters. */
+.site-footer__way {
+  margin: 0;
 }
 
 .site-footer__legal {

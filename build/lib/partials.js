@@ -92,6 +92,18 @@ function chromeContact() {
       menuPhone: d.phone,
       menuMailto: 'mailto:' + d.email,
       menuEmail: d.email,
+      /* 🔴 DIRECTIONS REACHES THE CHROME FROM THE SAME FILE THE PHONE DOES,
+         and for the same recorded reason. The overlay's phone and email were
+         hand-written here while Contact derived its own from
+         data/contact.json, and Session I closed that: two sources for one
+         fact. A maps URL typed into a partial is the identical shape — and
+         v1 is the worked example of what it costs, since its Get Directions
+         button asks Google Maps for the PO BOX and has done for years.
+
+         The mark is emitted rather than written into the two partials for
+         the same reason again: one drawing, three surfaces. */
+      directionsHref: d.mapsHref,
+      directionsMark: contact.directionsMark(),
     };
   }
   return chromeContactCache;

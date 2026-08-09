@@ -169,6 +169,41 @@
   outline-offset: 4px;
 }
 
+/* THE DOOR UNDER THE ADDRESS (Session XXXVII). 08-contact §7 wrote its
+   shape before X14 cleared: when the gate clears, Get Directions "returns
+   as a facts-row plus a PLAIN LINK, not a photo band". So it is a link
+   beneath the two address lines, in the caption register — smaller than
+   the value it belongs to, because it is a route to the value rather than
+   a second value.
+
+   It takes the page's link idiom (ruled underneath, thickening on hover
+   and focus) rather than a colour, exactly as .ct-facts__link does, and
+   for the same recorded reason: currentcolor is ink at 18.88:1 where
+   --color-hairline is 1.45:1 and cannot carry a distinction. */
+.ct-facts__way {
+  margin-block-start: var(--gap-inline);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-caption);
+  letter-spacing: var(--ls-caption);
+  color: var(--color-ink);
+}
+
+.ct-facts__way span {
+  border-block-end: 1px solid currentcolor;
+  padding-block-end: 2px;
+  transition: border-block-end-width var(--dur-fast) var(--ease-out);
+}
+
+.ct-facts__way:hover span,
+.ct-facts__way:focus-visible span {
+  border-block-end-width: 2px;
+}
+
+.ct-facts__way:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 4px;
+}
+
 /* -----------------------------------------------------------
    3 · What happens after you write (§5)
    ----------------------------------------------------------- */

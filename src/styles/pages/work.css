@@ -265,6 +265,38 @@
   margin-block-start: var(--gap-component);
 }
 
+/* -----------------------------------------------------------
+   THE FOUND SET (Session XXXVII) — a band with no heading above it
+
+   `[data-found]` carries no heading, because no heading is TRUE
+   of a free-text set: `al jurf` reaches seven records across two
+   rooms and the mosque.
+
+   🔴 IT IS NOT A `.wk-room` AND MUST NOT BORROW THE CLASS. It
+   did, for the arrival spacing, and that made it a fifth room to
+   every selector that counts them — p27's delta, `sweep.js`'s
+   split, three x-probes. It restates the one gap instead.
+
+   🔴 Measured, not guessed. A room's first INK is its verb,
+   which sits directly after the section's 200px — 200 from the
+   control. The found band's first ink is a PHOTOGRAPH, which
+   arrives after the section's 200 AND the set's own 64, so the
+   reader met 264px of white where a room gives 200 and the band
+   read as detached from the control that produced it.
+
+   The rule is the one already on the page rather than a new
+   number: the found band's first ink sits where a room's first
+   ink sits. That is the set's lead removed, not a value invented
+   — the section already holds the arrival gap.
+   ----------------------------------------------------------- */
+.wk-found {
+  padding-block-start: var(--gap-section);
+}
+
+.wk-found .wk-set {
+  margin-block-start: 0;
+}
+
 .wk-set__row {
   display: flex;
   gap: var(--gap-block);

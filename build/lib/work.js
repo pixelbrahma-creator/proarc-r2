@@ -583,6 +583,13 @@ function arrivalViewData(prefix) {
   const rooms = ROOMS.map((room) => {
     const set = sectorSet(db.projects, room.key);
     return {
+      /* 🔴 THE ROOM CARRIES ITS OWN KEY (Session XXXVII). The filtered state
+         has to find the room a sector word names, and the alternative is
+         counting siblings — an index into a NodeList, which is the `mks[0]`
+         shape this project spent Session XXXVI removing. The key is the same
+         string the search index's `sector` field carries, from the same
+         `room.key`, so the two halves cannot disagree about what a room is. */
+      roomKey: room.key,
       roomVerb: room.verb,
       roomHref: room.href ? prefix + room.href : '',
       // the engine has {{#if}} only, so the heading-not-a-link case (works,
@@ -625,6 +632,27 @@ function arrivalViewData(prefix) {
        outweighs a room. */
     mosqueBandHtml: bandHtml(sectorSet(db.projects, 'mosque'), manifest, prefix),
     searchIndexJson: searchIndexJson(db, prefix),
+    /* 🔴 THE BAND'S RULE LEAVES THIS FILE AS DATA (Session XXXVII), and that
+       is the whole reason it is here rather than retyped in `js/work.js`.
+       A free-text result set is a set NOTHING has composed — no room holds
+       it — so the browser has to group it into rows itself, and grouping
+       needs the beat and the clamp. Retyping six numbers into a script is
+       how the build and the page come to disagree about what a row is,
+       silently, at some width nobody photographs.
+
+       The ALGORITHM is still written twice; that cannot be removed without
+       shipping a module system this site does not have. So it is ASSERTED
+       instead: `p27` runs the browser's grouper over a full room and
+       requires the row boundaries to equal the ones this file emitted. A
+       duplication you cannot delete is a duplication you tripwire. */
+    bandRuleJson: JSON.stringify({
+      pattern: BAND_PATTERN,
+      refColumn: BAND_REF_COLUMN,
+      gap: BAND_GAP,
+      maxH: BAND_MAX_H,
+      minH: BAND_MIN_H,
+      maxPerRow: BAND_MAX_PER_ROW,
+    }),
     ogImage: leadImage(sectorSet(db.projects, 'homes')[0], manifest, prefix).src,
   };
 }

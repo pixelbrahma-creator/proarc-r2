@@ -53,7 +53,42 @@
     "founded": "2006"
   },
 
-  "street": null,
+  "_street_note": [
+    "🔴 RULED IN BY MAHESH, 9 Aug 2026 (Session XXXVII). X14 closes here.",
+    "",
+    "This value was null BY DECISION for six days and the readme above still states the rule it",
+    "broke: a third-party directory's account of ProArc is a CANDIDATE. It ships now because Mahesh",
+    "ruled it in, not because the rule changed — and the ruling was the one letter item 6 asked for:",
+    "\"say the word if you would rather the street address were published\".",
+    "",
+    "WHAT IS CORROBORATED BY PROARC'S OWN DATA, and what is not. proarc.ae/js/scripts.js publishes",
+    "the office pin — latLng [25.392760, 55.436931], \"Our office - Ajman\" — which is ProArc's own",
+    "statement about where ProArc is, and therefore confirmed data under 08-contact-data §1 rather",
+    "than a directory's claim. Against OpenStreetMap that point sits 96m from R Holding Tower and",
+    "139m from Sheikh Khalifa Bin Zayed Street, so THE BUILDING AND THE STREET ARE CORROBORATED.",
+    "",
+    "⚠️ \"3rd Floor, Office 310\" IS NOT. It comes from the FOB listing alone, and 2GIS disagrees with",
+    "the rest of that listing outright — it reads \"R Holding, 87, Sheikh Khalifa Bin Zayed road\" and",
+    "places the firm in Rashideya 3, ~1.1km from ProArc's own pin. The floor and office number are",
+    "the one fragment here that nothing ProArc publishes supports. Told to Mahesh before it shipped."
+  ],
+  "street": "R Holding Building, 3rd Floor, Office 310, Sheikh Khalifa Bin Zayed Road",
+
+  "_coords_note": [
+    "ProArc's own published location, read off proarc.ae/js/scripts.js:312 on 9 Aug 2026.",
+    "",
+    "The DIRECTIONS link is keyed on this and never on the street string, and the difference is the",
+    "whole point: v1's Get Directions asks Google Maps for \"13003, Ajman, United Arab Emirates\" —",
+    "the PO BOX, as though it were an address — and lands the reader on whatever Google guesses.",
+    "08-contact §7: \"Broken by construction, not by a bad URL.\" A coordinate cannot be guessed at.",
+    "",
+    "It is also why the link survives if the floor number above turns out to be wrong: the pin is",
+    "ProArc's, the street string is a caption on it."
+  ],
+  "coords": {
+    "lat": "25.392760",
+    "lng": "55.436931"
+  },
 
   "hours": {
     "times": "9:00–18:00",

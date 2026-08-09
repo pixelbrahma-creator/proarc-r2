@@ -484,11 +484,26 @@ own `pageScript`.
 > reports a *total* failure count — which cannot tell a mutation that landed
 > from one that missed. Two crest mutations carried a draw delay in their
 > literal and both went stale the moment the choreography was slowed; the run
-> would still have said "the sweep can fail". **Every mutation in
-> `sweep-home.js` now goes through `mutate()`, which exits 1 with `TRIPWIRE
-> INERT` when its target is gone.** Aim a mutation at what the family is
-> actually about — the class, the geometry — never at an incidental attribute
-> that rides alongside it.
+> would still have said "the sweep can fail". Aim a mutation at what the
+> family is actually about — the class, the geometry — never at an incidental
+> attribute that rides alongside it.
+>
+> 🔴 **ALL NINE SWEEPS ARE GUARDED NOW, AND THE MODE IS ON THE BOARD**
+> (9 Aug, XXXVII). Four of them — `sweep-about`, `sweep-careers`,
+> `sweep-contact`, `sweep-seo` — were bare `.replace()` chains carrying **78
+> families that had never been proved to land**, under the verdict
+> `failures ? 'Tripwire OK — the sweep can fail.'`: a claim about the whole
+> SET, proved by one member firing. **`npm run check` now runs
+> `tripwire-chain.js`**, which runs every sweep's mutations to completion and
+> requires 9/9. It costs **0.25s** — they are all static, so they run at once.
+>
+> 🔴 **AND IT IS A CHAIN, NOT A LIST.** Each sweep exits on the FIRST inert
+> family, so a dead one behind it is invisible until the one in front is
+> fixed: fix, re-run, repeat. Walking it found a second dead family —
+> `sweep-seo`'s "no two routes share a description", **dead since `298be40`,
+> the same commit that killed `sweep-home`'s E12**. One commit, two files, and
+> the board could see neither. Both were literals typed out of the page;
+> the seo one is **derived** now, from /about's own description.
 
 > **A BRANCH KEYED ON A FILENAME DIES SILENTLY WHEN THE FILE IS RENAMED, AND
 > AN UNBUILT BRANCH HAS NOTHING TO GUARD.** `build/lib/home.js` carried the
@@ -612,9 +627,10 @@ sum — **62s wall for 334s of work at 43 checks**, which is *faster* than the
 
 Run through this list and state the result:
 
-1. `npm run check` passes — **49/49**. (`npx stylelint "src/**/*.css"` alone is
-   assertion 1 of 49.) 🔴 **This line read 48 while the board ran 49** — the
-   exact decay it warns about two paragraphs down, found 8 Aug (XXXIII).
+1. `npm run check` passes — **50/50**. (`npx stylelint "src/**/*.css"` alone is
+   assertion 1 of 50.) 🔴 **This line read 48 while the board ran 49** — the
+   exact decay it warns about two paragraphs down, found 8 Aug (XXXIII). It
+   moved to 50 on 9 Aug (XXXVII) when **`tripwire chain`** registered.
    The number moves when a probe is added; it was 45
    before the menu re-cut registered `p29-menu` three times (8 Aug), 43
    before /about's re-cut registered `p16-about-rtl` and added

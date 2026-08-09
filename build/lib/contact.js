@@ -111,6 +111,8 @@ function load() {
   const days = clean(db.hours && db.hours.days, 'hours.days');
   const action = clean(db.form && db.form.action, 'form.action');
   const method = clean(db.form && db.form.method, 'form.method');
+  const lat = clean(db.coords && db.coords.lat, 'coords.lat');
+  const lng = clean(db.coords && db.coords.lng, 'coords.lng');
 
   if (!poBox || !phone || !email) {
     throw new Error('contact: poBox, phone and email are ProArc\'s own published values (08-contact-data.md §1) and none of them is optional.');
@@ -128,7 +130,73 @@ function load() {
     throw new Error(`contact: "${email}" is not an email address; the mailto: href is derived from it.`);
   }
 
-  return { poBox, phone, dial, email, street, times, days, action, method };
+  /* ------------------------------------------------------------------ *
+   * DIRECTIONS (Session XXXVII) — a link keyed on a POINT, never on prose
+   *
+   * 🔴 THE TARGET IS THE ONE THING THIS LINK CAN GET WRONG, and v1 gets it
+   * wrong. proarc.ae ships a "Get Directions" button asking Google Maps for
+   * `13003, Ajman, United Arab Emirates` — THE PO BOX, handed over as though
+   * it were a street address — so the reader is delivered to whatever Google
+   * guesses that means. 08-contact §7: "Broken by construction, not by a bad
+   * URL." A PO Box cannot be navigated to; that is the whole of X14.
+   *
+   * So it is keyed on ProArc's OWN PUBLISHED PIN — `proarc.ae/js/scripts.js`
+   * carries `latLng: [25.392760, 55.436931]`, "Our office - Ajman" — which is
+   * confirmed data under 08-contact-data §1 (what ProArc publishes about
+   * itself) rather than a directory's account of ProArc. A coordinate cannot
+   * be misresolved, and it stays right even if the street STRING is wrong:
+   * the pin is the location, the address is its caption.
+   *
+   * 🔴 IT IS DERIVED, NOT AUTHORED, for the same reason `tel:` is: a URL
+   * typed beside a number is a second copy of the number, and the two drift.
+   * ------------------------------------------------------------------ */
+  if (!/^-?\d{1,3}\.\d{4,}$/.test(lat) || !/^-?\d{1,3}\.\d{4,}$/.test(lng)) {
+    throw new Error(`contact: coords must be decimal degrees at 4+ places (got "${lat}", "${lng}"); the directions href is derived from them.`);
+  }
+  const mapsHref = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(lat + ',' + lng);
+
+  /* 🔴 THE PO BOX MAY NEVER REACH THE MAP. This is v1's exact fault written
+     as a guard rather than as a warning: the day somebody "simplifies" the
+     href to use the address, the build stops instead of shipping a button
+     that sends clients to the wrong place. */
+  if (mapsHref.indexOf(poBox.replace(/\D/g, '').slice(0, 5)) > -1) {
+    throw new Error('contact: the directions link resolves the PO Box. That is v1\'s fault (08-contact §7) — it is keyed on coords, never on the postal string.');
+  }
+
+  return { poBox, phone, dial, email, street, times, days, action, method, lat, lng, mapsHref };
+}
+
+/* ------------------------------------------------------------------ *
+ * THE DIRECTIONS MARK — drawn once, used on three surfaces
+ *
+ * 🔴 IT IS NOT A GOOGLE GLYPH, AND IT CANNOT BE. §1.5a rule 1 bars
+ * redrawing a third-party mark and rule 3 bars any third-party mark from
+ * `--color-surface-dark` — and two of this link's three homes, the footer
+ * and the overlay, are black. A branded pin was barred in both before it
+ * was drawn. What is imported by a Google-shaped glyph is exactly what
+ * 09-menu §11 refuses an embedded map for: "someone else's typography,
+ * colour, controls" inside a monochrome page.
+ *
+ * 🔴 AND IT NEVER SHIPS ALONE. The site's only other icon is About's ISO
+ * ring-seal (07-about §13.5.4), and its record settles this: "not text rows"
+ * was resolved as ICONS-PLUS-TEXT, because "a bare icon row would have lost
+ * the gate's readable claim". The footer's own socials are the WORDS
+ * Facebook and Instagram, where an icon is the universal convention. So this
+ * is a mark BESIDE a word, in the site's own hairline register, and the word
+ * is what carries the link's meaning to a screen reader — the drawing is
+ * `aria-hidden`, as the ring-seals are.
+ *
+ * The geometry is the ring the ISO seals already established, set on a stem:
+ * a location reduced to a hairline. `currentColor` is what lets one drawing
+ * serve paper and black without a second asset or a filter.
+ * ------------------------------------------------------------------ */
+const DIRECTIONS_MARK =
+  '<svg class="wayfind__mark" width="12" height="16" viewBox="0 0 12 16" ' +
+  'fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true" focusable="false">' +
+  '<circle cx="6" cy="6" r="4.5"/><path d="M6 10.5V15.5"/></svg>';
+
+function directionsMark() {
+  return DIRECTIONS_MARK;
 }
 
 /* ------------------------------------------------------------------ *
@@ -156,6 +224,16 @@ function factRows(d) {
       isolate: true,
       value: '',
       lines: [d.street, d.poBox].map(escapeText),
+      /* 🔴 THE LINK RIDES ON THE ADDRESS ROW AND NOWHERE ELSE ON THIS PAGE.
+         08-contact §7 wrote the shape before the gate cleared — when X14
+         clears "it returns as A FACTS-ROW PLUS A PLAIN LINK, not a photo
+         band" — and this is that sentence built. It is also why /contact
+         does not get a second directions link of its own further down: S-2
+         refuses repeating the footer's row one viewport above the footer,
+         and a door printed twice on one page is that fault exactly. */
+      way: true,
+      wayHref: escapeAttr(d.mapsHref),
+      wayMark: DIRECTIONS_MARK,
     });
   } else {
     rows.push({
@@ -165,6 +243,9 @@ function factRows(d) {
       isolate: true,
       value: '',
       lines: [escapeText(d.poBox)],
+      way: '',
+      wayHref: '',
+      wayMark: '',
     });
   }
 
@@ -175,6 +256,9 @@ function factRows(d) {
     isolate: true,
     value: escapeText(d.phone),
     lines: [],
+    way: '',
+    wayHref: '',
+    wayMark: '',
   });
 
   rows.push({
@@ -184,6 +268,9 @@ function factRows(d) {
     isolate: true,
     value: escapeText(d.email),
     lines: [],
+    way: '',
+    wayHref: '',
+    wayMark: '',
   });
 
   if (d.days) {
@@ -194,6 +281,9 @@ function factRows(d) {
       isolate: '',
       value: '',
       lines: [escapeText(`${d.days}, ${d.times}`)],
+      way: '',
+      wayHref: '',
+      wayMark: '',
     });
   }
 
@@ -203,6 +293,27 @@ function factRows(d) {
       throw new Error('contact: a PO Box under the label "Address" is the X14 fault itself. The label is Post until a street arrives.');
     }
   });
+
+  /* 🔴 EVERY ROW CARRIES EVERY KEY, AND THAT IS NOW ASSERTED RATHER THAN
+     WRITTEN IN A DOCSTRING. `{{#each}}` merges the item over the page data,
+     so a key MISSING from one row does not render empty — it inherits
+     whatever the outer scope holds under that name. Three keys arrived this
+     session and had to be spelled onto four rows that do not use them; the
+     docstring above has said so since §4 was built, and a sentence is not a
+     guard. */
+  const KEYS = ['label', 'href', 'plain', 'isolate', 'value', 'lines', 'way', 'wayHref', 'wayMark'];
+  rows.forEach((r) => {
+    const missing = KEYS.filter((k) => !(k in r));
+    if (missing.length) {
+      throw new Error(`contact: the "${r.label}" row is missing ${missing.join(', ')} — an absent key inherits the page scope's value under that name, it does not render empty.`);
+    }
+  });
+
+  /* Exactly one row may carry the door. */
+  const doors = rows.filter((r) => r.way).length;
+  if (doors > 1) {
+    throw new Error(`contact: ${doors} facts rows carry the directions link; §7 puts it on the address and S-2 refuses the repeat.`);
+  }
 
   return rows;
 }
@@ -276,4 +387,4 @@ function hasViewData(srcName) {
   return srcName === 'contact';
 }
 
-module.exports = { hasViewData, viewData, load, factRows };
+module.exports = { hasViewData, viewData, load, factRows, directionsMark };

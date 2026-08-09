@@ -161,6 +161,208 @@
     var sectorRow = document.querySelector('[data-sectors]');
     var sectorBtns = sectorRow ? sectorRow.querySelectorAll('[data-sector]') : [];
 
+    /* ---------------------------------------------------------------- *
+     * THE FILTERED BODY (Session XXXVII) — the page answers the control
+     *
+     * 🔴 THIS REVERSES A WRITTEN DECISION, and it is recorded here because
+     * the next reader will find the old one. 03-work §4.4 said "the rooms
+     * do not move while results show, and that is a decision, not an
+     * omission ... put to Mahesh 6 Aug and left as it stands". Mahesh
+     * re-ruled it on 9 Aug off the rendered page: pressing Schools gave a
+     * fifteen-name LIST and then the whole forty-six-photograph index
+     * underneath it, malls and homes included, and the page got LONGER —
+     * 7,825px at rest to 8,587 filtered. "have the images come first and
+     * then the list ... all the category pages."
+     *
+     * THE SHAPE IS ONE SPINE: photographs, then the count, then the list.
+     * What varies is only whether a TRUE heading can ride above it.
+     *
+     *   a sector word -> the filtered page IS the room. Its own heading
+     *     (still the door to its sector page), its own opener, its own
+     *     band — the set this page has ALREADY composed. The other three
+     *     rooms and the mosque leave. No new markup and no arithmetic.
+     *
+     *   free text -> nothing has composed that set. `2016` reaches 5
+     *     records across two rooms; `al jurf` reaches 7 across two rooms
+     *     AND the mosque. No heading is true of it and no opener describes
+     *     it, so it gets the band alone, recomposed into [data-found].
+     *
+     * 🔴 NOTHING is hidden when the query finds NOTHING. One mistyped
+     * character must not empty the page: at zero hits the index stays
+     * whole and the tally says so. The index leaves only when something
+     * replaces it.
+     *
+     * 🔴 AND THE ROOM IS FOUND BY ITS OWN KEY, never by position. An index
+     * into a NodeList is the `mks[0]` shape Session XXXVI spent its length
+     * removing — `[data-room]` carries the same string the search index's
+     * `sector` field does, both from `room.key` in build/lib/work.js.
+     * ---------------------------------------------------------------- */
+    var roomEls = document.querySelectorAll('[data-room]');
+    var mosqueEl = document.querySelector('[data-mosque]');
+    var foundEl = document.querySelector('[data-found]');
+
+    /* Where the tally and the list live at rest. They are MOVED rather than
+       duplicated — a second list built somewhere else is two sources for one
+       count — so the page has to remember the slot they came out of. A
+       comment node is the only anchor that cannot itself be styled, hidden
+       or measured by mistake. */
+    var reportHome = document.createComment(' tally + results at rest ');
+    if (arrivalTally && arrivalTally.parentNode) {
+      arrivalTally.parentNode.insertBefore(reportHome, arrivalTally);
+    }
+
+    function report(host) {
+      if (host) {
+        host.appendChild(arrivalTally);
+        host.appendChild(results);
+        return;
+      }
+      var at = reportHome.parentNode;
+      at.insertBefore(arrivalTally, reportHome.nextSibling);
+      at.insertBefore(results, arrivalTally.nextSibling);
+    }
+
+    /* Every tile already on the page, addressed by the href its link
+       carries — which is the same string the search index's `href` field
+       carries, because build/lib/work.js writes both from the same slug and
+       the same prefix. Cloning an existing tile is what keeps the found
+       band's photographs, srcsets and captions identical to the room's
+       without a second renderer. */
+    var TILES = {};
+    var tileCount = 0;
+    [].forEach.call(document.querySelectorAll('.wk-tile'), function (li) {
+      var a = li.querySelector('.wk-tile__link');
+      if (!a) return;
+      TILES[a.getAttribute('href')] = li;
+      tileCount++;
+    });
+
+    /* ---------------------------------------------------------------- *
+     * THE BAND'S RULE, READ FROM THE BUILD (§ THE BAND in build/lib/work.js)
+     *
+     * The six numbers are EMITTED, not retyped, because a beat and a clamp
+     * written twice drift apart silently at some width nobody photographs.
+     * The arithmetic below is still a second copy of `bandGroups()` and
+     * that cannot be removed without a module system this site does not
+     * ship — so `p27` asserts the two agree: it runs this grouper over a
+     * full room and requires the row boundaries to equal the ones the build
+     * emitted into the markup. A duplication you cannot delete is one you
+     * tripwire.
+     * ---------------------------------------------------------------- */
+    var bandRuleEl = document.getElementById('wk-band-rule');
+    var RULE = null;
+    if (bandRuleEl) {
+      try {
+        RULE = JSON.parse(bandRuleEl.textContent);
+      } catch (err) {
+        RULE = null;
+      }
+    }
+
+    function rowHeight(aspects) {
+      var sum = 0;
+      for (var i = 0; i < aspects.length; i++) sum += aspects[i];
+      return (RULE.refColumn - RULE.gap * (aspects.length - 1)) / sum;
+    }
+
+    function bandGroups(aspects) {
+      var rows = [];
+      var i = 0;
+      var beat = 0;
+      while (i < aspects.length) {
+        var remaining = aspects.length - i;
+        var n = Math.min(RULE.pattern[beat % RULE.pattern.length], remaining);
+        while (n < Math.min(RULE.maxPerRow, remaining) && rowHeight(aspects.slice(i, i + n)) > RULE.maxH) n++;
+        while (n > 2 && rowHeight(aspects.slice(i, i + n)) < RULE.minH) n--;
+        rows.push([i, i + n]);
+        i += n;
+        beat++;
+      }
+      /* A trailing row of one fills the column on its own, so its height is
+         the column divided by its aspect and nothing else — 640px for an
+         ordinary landscape frame. Merged backwards, exactly as the build
+         does it, for exactly the same reason. */
+      if (rows.length > 1 && rows[rows.length - 1][1] - rows[rows.length - 1][0] === 1) {
+        var tail = rows.pop();
+        rows[rows.length - 1][1] = tail[1];
+      }
+      return rows;
+    }
+
+    /* 🔴 THE BAND IS BUILT FROM THE HITS' ORDER, NOT THE DOM'S, and that is
+       the fault the first render of this had. Collected by walking the page,
+       the tiles come out in the ROOMS' order (all schools, then all shops)
+       while the list beneath them is in the index's — so `?q=2016` showed
+       the same five records in two different orders on one screen. Both
+       halves now read `hits`, so they cannot disagree. */
+    function composeFound(hits) {
+      if (!RULE) return false;
+      var aspects = [];
+      for (var i = 0; i < hits.length; i++) {
+        var li = TILES[hits[i].href];
+        if (!li) return false;
+        var a = parseFloat(li.style.getPropertyValue('--a'));
+        if (!(a > 0)) return false;
+        aspects.push(a);
+      }
+      var set = document.createElement('div');
+      set.className = 'wk-set';
+      var rows = bandGroups(aspects);
+      for (var r = 0; r < rows.length; r++) {
+        var ul = document.createElement('ul');
+        /* A set of one is a different object — it is capped rather than
+           justified, which is the mosque's own rule and the only reason a
+           lone tile does not render 1,440px tall. */
+        ul.className = 'wk-set__row' + (hits.length === 1 ? ' wk-set__row--solo' : '');
+        ul.setAttribute('role', 'list');
+        for (var k = rows[r][0]; k < rows[r][1]; k++) {
+          ul.appendChild(TILES[hits[k].href].cloneNode(true));
+        }
+        set.appendChild(ul);
+      }
+      foundEl.textContent = '';
+      foundEl.appendChild(set);
+      return true;
+    }
+
+    /** The whole index, exactly as the page shipped it. */
+    function showIndex() {
+      for (var i = 0; i < roomEls.length; i++) roomEls[i].hidden = false;
+      if (mosqueEl) mosqueEl.hidden = false;
+      if (foundEl) {
+        foundEl.hidden = true;
+        foundEl.textContent = '';
+      }
+      report(null);
+    }
+
+    /** One room's set, with the report beneath it. */
+    function showRoom(key) {
+      var host = null;
+      for (var i = 0; i < roomEls.length; i++) {
+        var on = roomEls[i].getAttribute('data-room') === key;
+        roomEls[i].hidden = !on;
+        if (on) host = roomEls[i];
+      }
+      if (mosqueEl) mosqueEl.hidden = true;
+      if (foundEl) {
+        foundEl.hidden = true;
+        foundEl.textContent = '';
+      }
+      report(host);
+      return host;
+    }
+
+    /** A set nothing composed: photographs, then the report. */
+    function showFound(hits) {
+      if (!foundEl || !composeFound(hits)) return false;
+      for (var i = 0; i < roomEls.length; i++) roomEls[i].hidden = true;
+      if (mosqueEl) mosqueEl.hidden = true;
+      foundEl.hidden = false;
+      report(foundEl);
+      return true;
+    }
+
     /* Pressed reflects the QUERY, which is the single source of truth.
        "All" is pressed only at rest; a query that is neither empty nor a
        sector word — a name, a district, a year — presses nothing, because
@@ -187,6 +389,7 @@
         // 🔴 EMPTY AT REST. This read `total + ' projects'` until 6 Aug
         // (Mahesh: "we are not giving number anywhere").
         if (arrivalTally) arrivalTally.textContent = '';
+        showIndex();
         return;
       }
 
@@ -194,6 +397,31 @@
         if (asSector) return r.sector === asSector;
         return asNoun ? r.noun === asNoun : matches(r.text, searchTerms);
       });
+
+      /* 🔴 A QUERY THAT FINDS NOTHING LEAVES THE INDEX ALONE. Hiding the
+         rooms here would let one mistyped character empty the page — the
+         reader would be looking at a blank surface holding a portfolio.
+         The index leaves only when something replaces it. */
+      if (!hits.length) {
+        results.hidden = true;
+        results.textContent = '';
+        if (arrivalTally) arrivalTally.textContent = '0 results';
+        showIndex();
+        return;
+      }
+
+      /* The body answers the control. A sector word names a set the page
+         has already composed, so the filtered page IS that room; anything
+         else is a set nothing composed, and it is recomposed. If the
+         recomposition cannot be done — no rule island, a tile the index
+         names and the page does not — the whole index stays rather than
+         half a page shipping: the list below is still correct, and this is
+         an enhancement over a page that was already complete. */
+      if (asSector) {
+        showRoom(asSector);
+      } else if (!showFound(hits)) {
+        showIndex();
+      }
 
       results.textContent = '';
       hits.forEach(function (r) {

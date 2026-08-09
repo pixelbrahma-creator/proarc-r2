@@ -108,8 +108,35 @@
     <ul class="wk-results" data-results hidden></ul>
   </header>
 
+  <!-- 🔴 THE FOUND SET (Session XXXVII) — where a FREE-TEXT query's
+       photographs are composed.
+
+       A sector word needs nothing here: the page has already composed that
+       set, and the filtered view simply IS the room. A free-text query is
+       the other case — `2016` reaches 5 records across two rooms, `al jurf`
+       reaches 7 across two rooms AND the mosque, and no room on this page
+       holds that answer. So the hits are recomposed into one band, in the
+       INDEX's order rather than the rooms' (which is what keeps the band and
+       the list beneath it in the same order — they disagreed in the first
+       render of this and that is two orders of one set on one screen).
+
+       It ships EMPTY and `hidden`, and js/work.js fills it. A reader whose
+       script never arrives meets the whole index, exactly as before: this
+       element is the only thing that would be empty, and it is not shown.
+
+       🔴 IT IS NOT A `.wk-room`, AND IT WAS ONE FOR TEN MINUTES. Borrowing
+       the class gave it the room's arrival spacing for free — and made it a
+       fifth room to every selector on the site that counts them. FIVE files
+       ask for `.wk-room`: p27 reads the four rooms' populations to compute
+       its delta, `sweep.js` SPLITS the arrival's HTML on the string, and
+       three x-probes count them. An empty phantom room would have shifted
+       p27's room index by one and broken the 15/12/3/16 pin. A set is not a
+       room: it has no heading, no opener and no door. It carries its own
+       class and restates the one gap it needs. -->
+  <section class="wk-found container" data-found hidden></section>
+
   {{#each rooms}}
-  <section class="wk-room container">
+  <section class="wk-room container" data-room="{{roomKey}}">
     <!-- 🔴 THE HEADING COMES FIRST NOW, and the reason is not symmetry. The
          plate sat ABOVE the room's name because it was ONE photograph
          introducing a room. Fifteen photographs above the name is a different
@@ -155,7 +182,7 @@
   <!-- The mosque line — the page's only Ajman and only formula (03-work §4.1.3).
        One sentence on paper; the name links to the record; no photograph, no
        heading, no set. -->
-  <div class="container">
+  <div class="container" data-mosque>
     <p class="wk-mosque">Where Ajman prays. <a class="wk-also__link" href="{{mosqueHref}}">Al Ghala Mosque</a>, for the Ministry of Awqaf and Islamic Affairs.</p>
     <!-- 🔴 THE PHOTOGRAPH IS NEW AND §4.1.3 IS AMENDED, not ignored. That
          clause said "no photograph, no heading, no set", and it was a
@@ -179,6 +206,10 @@
 </main>
 
 <script type="application/json" id="wk-search-index">{{searchIndexJson}}</script>
+<!-- The band's beat and clamp, emitted by build/lib/work.js so the browser's
+     grouper and the build's cannot drift apart on the numbers. p27 asserts
+     they do not drift apart on the ARITHMETIC either. -->
+<script type="application/json" id="wk-band-rule">{{bandRuleJson}}</script>
 
 <!-- @include footer -->
 <!-- @include scripts -->
