@@ -78,18 +78,65 @@
 
   var observer = null;
   var inBand = new Set();
+  var bandHeight = 0;                      /* set by arm() */
+
+  /* The plate's RESTING box. Horizontal extent is read live — it is correct
+     in both directions and needs no left/right of our own — but the vertical
+     is the band rather than the measured rect, because the retreat is a
+     translateY and a retired plate would otherwise report itself as standing
+     over nothing and latch the wrong ground for its own return. */
+  function plateBox() {
+    var r = plate.getBoundingClientRect();
+    return { left: r.left, right: r.right, top: 0, bottom: bandHeight || r.height };
+  }
+
+  function overlaps(el, box) {
+    var q = el.getBoundingClientRect();
+    return q.width > 0 && q.height > 0 &&
+           q.left < box.right && q.right > box.left &&
+           q.top < box.bottom && q.bottom > box.top;
+  }
 
   function decide() {
-    var darkBands = 0;
-    inBand.forEach(function (el) {
-      if (el.matches(DARK_BAND)) darkBands++;
-    });
-    /* chrome-ink — the trigger: nothing but paper under the band.
-       plate-ink  — the plate: no DECLARED dark band under it, media
-       included in "paper" by the ruling above. plate-ink is therefore
-       always armed wherever chrome-ink is, and sometimes where it is not. */
+    /* chrome-ink — the TRIGGER: nothing but paper anywhere in the band. */
     root.classList.toggle('chrome-ink', inBand.size === 0);
-    root.classList.toggle('plate-ink', darkBands === 0);
+
+    /* 🔴 THE PLATE ASKS ABOUT ITS OWN BOX, AND A PHOTOGRAPH BEATS THE BAND
+       IT SITS IN (Mahesh, 20 Aug, second report: "still black box?").
+
+       The first cut of this counted declared dark bands anywhere in the
+       chrome's strip. On Home that is `section.hm-open` — which is dark AND
+       carries five full-bleed frames, so from y≈400 to y≈675 the plate stood
+       on a PHOTOGRAPH inside a declared dark section and kept its field. The
+       ruling is that a photograph takes the black master bare; a photograph
+       laid over a black section is still a photograph, and the section
+       underneath it is not what the reader sees.
+
+       🔴 AND "MEDIA BEATS THE BAND" WAS BUILT, MEASURED AND REFUSED — the
+       refusal is the finding, so it is recorded here rather than deleted.
+       Letting a photograph override its dark section put the BLACK master
+       bare on Home's frames and `p32` measured it at **1.32:1**, worst case,
+       97% covered: invisible, on the most-visited page on the site. The
+       median was 3.77:1, so a check reading averages would have passed it.
+       **§8's field over photography is not decoration and this is what it
+       was protecting.** The white master on its field is the only one of the
+       three renderings that survives all five of Home's frames.
+
+       So the distinction that matters is NOT paper-vs-photograph, it is
+       WHOSE FAULT THE BOX IS: a black box on white paper was ProArc's
+       complaint and is gone; a black box on a photograph is §8 doing its
+       job. Only a DECLARED dark band under the plate summons the field, and
+       a photograph inside one keeps it.
+
+       Geometry, but not a physical side: the plate's own rect flips with the
+       document in RTL, which is exactly what a hardcoded left/right could not
+       do and why the band was watched full-width in the first place. */
+    var box = plateBox();
+    var darkUnder = false;
+    inBand.forEach(function (el) {
+      if (el.matches(DARK_BAND) && overlaps(el, box)) darkUnder = true;
+    });
+    root.classList.toggle('plate-ink', !darkUnder);
   }
 
   function onEntries(entries) {
@@ -145,6 +192,10 @@
      its box — see the note in arm(). Nothing else keys off this. */
   function onPlateArrival(entries) {
     root.classList.toggle('plate-away', !entries[entries.length - 1].isIntersecting);
+    /* Recompute the ground on the way back. The ground observer fires on
+       band crossings, and the plate returning is not one of them — without
+       this the plate can come back wearing the answer it left with. */
+    decide();
   }
 
   function arm() {
@@ -179,6 +230,7 @@
     var band = arrivalMark > 0 && ratio > 0
       ? Math.ceil(arrivalMark * ratio + pad)
       : Math.ceil(plate.getBoundingClientRect().height) || 112;
+    bandHeight = band;                     /* decide() reads this */
     var below = Math.max(0, window.innerHeight - band);
     var opts = {
       root: null,
