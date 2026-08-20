@@ -418,12 +418,21 @@ artwork misses it, the map degrades to a picture and the list carries the intera
    because three bare CSS strokes are illegible on any picture whatever their colour. The mark is
    artwork with its own mass and reads where the strokes do not — measured, not assumed:
    `p32-mark-on-media.js` shoots each surface twice and takes the ink to be the pixels that
-   differ, so the contrast is the COMPOSITED figure. The three sector pages measure 11.14:1,
-   14.47:1 and **3.12:1** against a 3.0 floor.
+   differ, so the contrast is the COMPOSITED figure. On 20 Aug the three sector pages measured
+   11.14:1, 14.47:1 and **3.12:1** against a 3.0 floor.
 
-   ⚠️ **That safety is a property of three photographs, not of this clause.** `/projects/malls`
-   sits 0.12 above the floor. A sector whose lead record becomes a night shot takes the mark to
-   invisible, which is why the measurement is on the board rather than in this paragraph.
+   ✅ **AND THE CASE STOPPED OCCURRING THE SAME DAY.** E13.2a's retreat was corrected hours
+   later — the plate now leaves one band earlier (`plate-away`, see the clause) so it is never
+   on screen while a ground boundary crosses its box — and the side effect is that **the mark
+   now reaches no photograph anywhere on the site.** All three sector pages report *"never lands
+   on media"*. The clause above still governs, because it is what stops a photograph elsewhere
+   in the chrome's band from fielding the plate; it simply has no surface left where the mark
+   itself stands on a picture.
+
+   ⚠️ **The numbers above are therefore HISTORICAL, and `p32` is now a guard rather than a
+   measurement.** It is kept because the contrast assertion re-arms by itself the moment a
+   layout change puts the mark back over a frame. **Do not read 3.12:1 as a live figure**, and
+   do not retire the check because it currently measures nothing.
 3. Print, PDF and tender artefacts are paper. The company profile PDF is specified on white.
 4. The mark is never mirrored, flipped, rotated or recoloured. In RTL its **position** moves;
    the artwork does not. The device pointing against the reading direction in Arabic remains an
@@ -700,6 +709,22 @@ amends only its *permanence*, and only in the block axis.
   construction rather than by promise.
 - **The arrival is not a guessed pixel threshold.** The retreat is gated on the state
   the arrival observer already computes from the page's own first band.
+- 🔴 **CORRECTED 20 August 2026 (Mahesh, on the live page: *"i am seeing box when i
+  scroll"*): THE PLATE AND THE TRIGGER LEAVE ON DIFFERENT EDGES.** The trigger keeps
+  `chrome-quiet`, which fires when the arrival band has left the chrome's band
+  entirely. The **plate** leaves one band earlier, on `plate-away` — the arrival band
+  stops reaching *below* the chrome. The reason is E8.2: once the plate's field became
+  conditional, `chrome-quiet`'s last band of travel swept the arrival's bottom edge up
+  **through the plate's own box**, and the lower part of a solid field hung over paper
+  — 6px growing to **96px** on Home, in both scroll directions. **A field is a
+  rectangle and cannot be half-black, so no threshold answers this**; flipping to the
+  paper state early is worse still, because it sets the black master's ink on the black
+  that is yet to leave. The plate simply must not be on screen while a ground boundary
+  crosses it. **The plate stands only while its own box is wholly on the arrival's
+  ground**, which is what this clause meant by "at the page's opening band" all along.
+  ⚠️ Re-keying `chrome-quiet` itself was tried first and broke `p14-services-motion`,
+  which takes the first non-empty `document.getAnimations()` reading as its subject's
+  choreography and got the chrome's transform instead.
 - 🔴 **The trigger is PERMANENT below 780px.** Decided against the measurement, and
   knowingly: the trigger buries most at exactly the widths where it stays. The reason
   is that the overlay is the only navigation surface (E13.1) and a narrow reader

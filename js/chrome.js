@@ -120,6 +120,7 @@
      markup and a third page adopted the same class for a different reason.
      ----------------------------------------------------------------- */
   var arrivalObserver = null;
+  var plateObserver = null;
 
   function arrivalTarget() {
     var main = document.querySelector('main');
@@ -139,9 +140,17 @@
     applyRetreat();
   }
 
+  /* The plate's own half of the arrival, one band earlier than chrome-quiet
+     so the plate is never on screen while the arrival's bottom edge crosses
+     its box — see the note in arm(). Nothing else keys off this. */
+  function onPlateArrival(entries) {
+    root.classList.toggle('plate-away', !entries[entries.length - 1].isIntersecting);
+  }
+
   function arm() {
     if (observer) observer.disconnect();
     if (arrivalObserver) arrivalObserver.disconnect();
+    if (plateObserver) plateObserver.disconnect();
     inBand.clear();
 
     /* The band is the plate's RENDERED height — measure the box, never
@@ -177,11 +186,57 @@
       threshold: 0,
     };
 
+    /* 🔴 THE PLATE LEAVES ON ITS OWN STATE, NOT ON `chrome-quiet`, AND THIS
+       IS THE FAULT MAHESH FOUND ON THE LIVE PAGE (20 Aug): "i am seeing box
+       when i scroll".
+
+       `chrome-quiet` arms when the arrival band leaves the chrome's band
+       ENTIRELY — region [0, band], bottom edge past 0. So for the last
+       `band` pixels of the arrival, that edge sweeps UP THROUGH THE PLATE'S
+       OWN BOX. The ground question kept answering "dark", correctly — dark
+       was still in there — while the lower part of the plate's solid field
+       hung over paper. On Home the overhang grew 6px → 96px across ten
+       positions, in both scroll directions.
+
+       🔴 NO THRESHOLD FIXES IT, AND THE REASON IS WORTH KEEPING. A field is
+       a rectangle and cannot be half-black; every yes/no answer leaves an
+       artefact at the crossing, and flipping to the paper state early is
+       WORSE — it puts the black master's ink on the black still behind it.
+       The only clean answer is for the plate not to be on screen while the
+       boundary crosses it.
+
+       🔴 AND IT GETS ITS OWN CLASS RATHER THAN RE-KEYING `chrome-quiet`,
+       WHICH I TRIED FIRST AND WHICH BROKE p14. Moving chrome-quiet's
+       threshold moved WHEN THE CHROME'S OWN TRANSITIONS RUN, and
+       `p14-services-motion` samples `document.getAnimations()` — the whole
+       document — so the chrome's transform landed inside its measurement
+       window and it reported the Services drawing as animating four things
+       instead of sixty-four. Nothing in Services references a chrome class;
+       the coupling was the global animation list and the clock. **A state
+       nothing reads can still be read by a probe that asks the document.**
+
+       So `chrome-quiet` is untouched — it still gates the TRIGGER's retreat
+       and the mark's size step — and the plate travels on `plate-away`,
+       which arms one band earlier: the arrival stops reaching BELOW the
+       chrome, region [band, viewport bottom]. The plate stands only while
+       its own box is wholly on the arrival's ground. Because chrome-quiet
+       implies plate-away, the mark's size step now always happens while the
+       plate is already hidden, so it is never seen to resize. */
+    var arrivalOpts = {
+      root: null,
+      rootMargin: '-' + band + 'px 0px 0px 0px',
+      threshold: 0,
+    };
+
     observer = new IntersectionObserver(onEntries, opts);
     arrivalObserver = new IntersectionObserver(onArrival, opts);
+    plateObserver = new IntersectionObserver(onPlateArrival, arrivalOpts);
 
     var entry = arrivalTarget();
-    if (entry) arrivalObserver.observe(entry);
+    if (entry) {
+      arrivalObserver.observe(entry);
+      plateObserver.observe(entry);
+    }
 
     var targets = document.querySelectorAll(NOT_PAPER);
     if (targets.length === 0) {

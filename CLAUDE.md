@@ -219,11 +219,16 @@ inline-start rule.
   ships inverted and vanishes on both grounds while every structural check
   passes. The repo copies are named for their INK, and `p31` §4 samples the
   rendered pixel rather than trusting either name.
-  ⚠️ **A photograph takes the BLACK mark, and that is safe on the strength of
-  three photographs rather than of the rule.** The sector pages measure
-  11.14:1, 14.47:1 and **3.12:1** against a 3.0 floor. `p32-mark-on-media.js`
-  holds it, shooting each page twice and taking the ink to be the pixels that
-  DIFFER, so the figure is composited rather than derived.
+  ⚠️ **A photograph takes the BLACK mark. On 20 Aug that was safe on the
+  strength of three photographs rather than of the rule** — the sector pages
+  measured 11.14:1, 14.47:1 and 3.12:1 against a 3.0 floor. **Those figures
+  are HISTORICAL:** the straddle fix later the same day took the plate off
+  screen one band earlier, and the mark now reaches **no photograph on any
+  route**. `p32-mark-on-media.js` is therefore a GUARD, not a measurement —
+  it reports *"never lands on media"* and re-arms its contrast assertion by
+  itself if a layout change puts the mark back over a frame. Do not quote
+  3.12:1 as live, and do not retire p32 because it currently measures
+  nothing.
   ⚠️ **The mark's proportion is read off the mark.** `js/chrome.js` derives
   the observation band from the img's authored `width`/`height`; it used to
   type `117 / 330`, the first asset's canvas, which the new masters would
@@ -259,7 +264,24 @@ inline-start rule.
   straight over /ajman's ledger (*"Habitat Schoo"*, cut mid-word), and it
   covers **146px of a 339px ledger column — 43%** — so the text cannot be
   moved clear instead. Identity is made once per page. The plate's half needs
-  **no scroll listener**; `chrome-quiet` already knew. It travels by
+  **no scroll listener**; the arrival observer already knew.
+  🔴 **THE PLATE TRAVELS ON `plate-away`, NOT ON `chrome-quiet`** (20 Aug,
+  Mahesh on the live page: *"i am seeing box when i scroll"*). chrome-quiet
+  fires when the arrival has left the chrome's band ENTIRELY, so its last
+  band of travel sweeps the arrival's bottom edge up through the plate's own
+  box — and the lower part of the plate's solid field then hangs over paper,
+  6px growing to **96px** on Home, in both scroll directions. **A field is a
+  rectangle and cannot be half-black, so no threshold fixes it**; flipping to
+  the paper state early is worse, because it puts the black master's ink on
+  the black still behind it. `plate-away` arms one band earlier, so the plate
+  is never on screen while the boundary crosses it. ⚠️ **Re-keying
+  chrome-quiet itself was tried first and BROKE p14** — see that file. And
+  because chrome-quiet implies plate-away, the mark's size step now always
+  happens while the plate is hidden, so it is never seen to resize.
+  ⚠️ **A helper that forces this state must name EVERY class it is made of**
+  — `p24`'s `present()` went stale against `plate-away` exactly as it had
+  against `chrome-quiet` in XXXVIII, and reported the plate at ty −98.75 in a
+  state called "present". It travels by
   `transform`, never `display` or
   `visibility`, so a retired trigger stays focusable and `focusin` returns
   it. No RTL restatement (the block axis does not flip) and no

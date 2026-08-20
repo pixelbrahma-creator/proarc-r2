@@ -240,7 +240,20 @@ html.chrome-quiet .chrome-plate__mark { inline-size: var(--mark-size-quiet); }
    observer this file already owned before E13.2a — so of the two halves of
    the retreat, only the TRIGGER's costs a listener. The plate's half is the
    cheaper thing that was measurable all along. */
-html.chrome-quiet .chrome-plate {
+/* 🔴 `plate-away`, NOT `chrome-quiet` — the plate leaves one band earlier
+   (Mahesh, 20 Aug, on the live page: "i am seeing box when i scroll").
+   chrome-quiet fires when the arrival has left the chrome's band entirely,
+   so its last band of travel sweeps the arrival's bottom edge up through
+   the plate's own box and the lower part of the field hangs over paper —
+   6px growing to 96px on Home, in both directions. A field is a rectangle
+   and cannot be half-black, so no threshold fixes it; the plate simply must
+   not be on screen while the boundary crosses it.
+
+   Re-keying chrome-quiet itself was tried first and BROKE p14: it moved when
+   the chrome's own transitions run, and p14 samples document.getAnimations(),
+   so the chrome's transform landed inside its window. chrome-quiet is left
+   exactly as it was. See js/chrome.js. */
+html.plate-away .chrome-plate {
   transform: translateY(-100%);
 }
 
