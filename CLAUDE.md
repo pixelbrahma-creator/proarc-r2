@@ -188,12 +188,47 @@ inline-start rule.
 - **Rendered size is decided (Board 17): 160px desktop / 128 at ≤1024 / 96 at
   ≤780, clear space 25px at 160 and 24px below** — via the `--logo-size-*`
   tokens, never restated locally.
-- **The chrome is ground-aware (trigger only).** The page ships FIELDED — the
-  safe state — and `js/chrome.js` arms `html.chrome-ink` on clean paper. The
-  PLATE keeps its permanent black field until the E8 ink master is supplied;
-  do not derive an inverted mark with a filter, ever. The open overlay forces
-  the black state by CSS source order in `components.css` — keep those rules
-  AFTER the `chrome-ink` ones.
+- **The chrome is ground-aware, and since 20 Aug 2026 BOTH halves are.** The
+  page ships FIELDED — the safe state — and `js/chrome.js` arms the ink
+  states. The open overlay forces the black state by CSS source order in
+  `components.css` — keep those rules AFTER the ink ones.
+  🔴 **THE TWO HALVES ANSWER DIFFERENT QUESTIONS AND THE CLASSES ARE NOT
+  INTERCHANGEABLE.** `chrome-ink` (the TRIGGER) means nothing but paper is
+  under the band — media returns its field, because three bare CSS strokes
+  are illegible on any photograph. `plate-ink` (the PLATE) means no
+  **declared** dark band is under it, and counts a photograph as paper: on
+  media the mark takes its BLACK master, bare. That is Mahesh's ruling of
+  20 Aug, not a derivation. `plate-ink` is armed wherever `chrome-ink` is and
+  in strictly more places; keying the plate on `chrome-ink` re-creates the
+  fault below.
+  🔴 **WHY THEY HAD TO SPLIT: THE RECORD PAGES.** Their hero runs down the
+  LEFT of the arrival while the plate sits on the white spec table at the
+  RIGHT. One shared answer fielded the plate over white on all 47 of them —
+  ProArc's own complaint, surviving the change made to answer it. Because
+  media no longer reaches the plate's question, the corners can differ
+  without either measuring geometry, so nothing needs a physical left/right
+  that would flip in RTL.
+- **E8 IS CLOSED — both masters are supplied, and neither is derived.**
+  `images/ui/logo-mark-white.webp` and `-black.webp`, 640×195, pixel-
+  registered, 100% pure ink. **Never derive one from the other** with a
+  filter, a mask or a blend mode; E8.1's prohibition outlived its open
+  action. Two `<img>` in one grid cell, CSS chooses — the white one first and
+  unconditional, so a page whose script never runs is still legible.
+  🔴 **ProArc's originals are named for the GROUND, not the ink:** `…BL.png`
+  holds WHITE artwork, `…WT.png` holds BLACK. Wired up by filename the pair
+  ships inverted and vanishes on both grounds while every structural check
+  passes. The repo copies are named for their INK, and `p31` §4 samples the
+  rendered pixel rather than trusting either name.
+  ⚠️ **A photograph takes the BLACK mark, and that is safe on the strength of
+  three photographs rather than of the rule.** The sector pages measure
+  11.14:1, 14.47:1 and **3.12:1** against a 3.0 floor. `p32-mark-on-media.js`
+  holds it, shooting each page twice and taking the ink to be the pixels that
+  DIFFER, so the figure is composited rather than derived.
+  ⚠️ **The mark's proportion is read off the mark.** `js/chrome.js` derives
+  the observation band from the img's authored `width`/`height`; it used to
+  type `117 / 330`, the first asset's canvas, which the new masters would
+  have silently invalidated — a stale ratio throws nothing, it just flips the
+  ground and arrival states at the wrong scroll position on all 58 pages.
 - **The chrome's INK sits on the content axis** (container edge + gutter,
   the `--chrome-axis` calc) and moves on the LAYOUT's breakpoints (1024/780).
   Never reintroduce a bare-gutter offset or a 1023/767 chrome breakpoint.
@@ -589,7 +624,7 @@ blind. The cost is moved out of the loop, not gathered up inside it.
 npm run serve            # 127.0.0.1:8765 — every probe needs an HTTP origin
 npm run check:fast       # the 8 static checks, ~1s. Run this constantly.
 npm run check:changed    # + the probes your diff implicates
-npm run check            # everything, in parallel. ~62s. Before every commit.
+npm run check            # everything, in parallel. ~78s. Before every commit.
 ```
 
 **The cost was never the checking, it was Chrome starting.** Measured: the
@@ -597,7 +632,8 @@ twelve static checks total **~3s**; the browser probes total **~330s** and were
 run one after another for no reason but that a shell loop is written that way.
 They are independent, so `board.js` runs them concurrently on assigned ports and
 the board's floor is now its slowest single check (p21, ~58s) rather than the
-sum — **62s wall for 334s of work at 43 checks**, which is *faster* than the
+sum — **78s wall for 445s of work at 58 checks** (62s/334s/43 when this was
+written), which is *faster* than the
 32-check board it replaced.
 
 > 🔴 **DO NOT JUDGE THE BOARD'S RUNTIME FROM ONE RUN.** Session XXVII's first
@@ -662,8 +698,14 @@ sum — **62s wall for 334s of work at 43 checks**, which is *faster* than the
 
 Run through this list and state the result:
 
-1. `npm run check` passes — **52/52**. (`npx stylelint "src/**/*.css"` alone is
-   assertion 1 of 52.) 🔴 **This line read 48 while the board ran 49** — the
+1. `npm run check` passes — **58/58**. (`npx stylelint "src/**/*.css"` alone is
+   assertion 1 of 58.) It moved 52 → 58 on 20 Aug (E8's close) when
+   **`p31 plate ground`** registered on five routes — paper, a declared black
+   band and a record page, because the answer differs by ground — and
+   **`p32 mark on media`** on one. p32 is `browser: true` though it is not a
+   probe.js child: it spawns Chrome six times and must count against the
+   concurrency cap. It runs 31.9s inside p21's 59.3s floor, so it costs no
+   wall time. 🔴 **This line read 48 while the board ran 49** — the
    exact decay it warns about two paragraphs down, found 8 Aug (XXXIII). It
    moved to 50 on 9 Aug (XXXVII) when **`tripwire chain`** registered, and to 51
    the same day (XXXVIII) when **`sweep-footer`** did — the footer had been

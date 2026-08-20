@@ -41,14 +41,14 @@
      exist. Structured data is not a loophole in a copy rule. -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","@id":"https://proarc.ae/projects/seasidehills#project","name":"Seaside Hills Residence","url":"https://proarc.ae/projects/seasidehills","creator":{"@id":"https://proarc.ae/#practice"},"isPartOf":{"@id":"https://proarc.ae/#site"},"description":"Seaside Hills Residence is a project located in the beachfront district of Al Zorah, which is part of the Emirate of Ajman.","image":"https://proarc.ae/images/projects/seasidehills/hero-md.webp","locationCreated":{"@type":"Place","name":"Al Zorah, Ajman"}}</script>
 
-<link rel="stylesheet" href="../src/styles/tokens.css?v=c4639d56">
+<link rel="stylesheet" href="../src/styles/tokens.css?v=80ad2e55">
 <link rel="preload" href="../assets/fonts/general-sans/GeneralSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/fonts/general-sans/GeneralSans-Semibold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../src/styles/fonts.css?v=f75b0f4d">
 <link rel="stylesheet" href="../src/styles/tokens-layout.css?v=61d79e4b">
 <link rel="stylesheet" href="../src/styles/base.css?v=c1bb4db1">
 <link rel="stylesheet" href="../src/styles/layout.css?v=575f374f">
-<link rel="stylesheet" href="../src/styles/components.css?v=d695541e">
+<link rel="stylesheet" href="../src/styles/components.css?v=f2b180cd">
 <link rel="stylesheet" href="../src/styles/pages/project.css?v=219bfb72">
 
 </head>
@@ -68,12 +68,21 @@
   lands), the end corner is the identity, the mark alone. The chrome is NOT
   duplicated inside the overlay: it is one set of elements painted above it.
 
-  The field is now two rules, not one (E13.2 as amended). The PLATE keeps a
-  permanent #000000 field until the E8 ink master exists — the mark is
-  artwork, and §8 bars deriving the inverted master with a filter. The
-  TRIGGER ships fielded and js/chrome.js removes the field while the band
-  holds clean paper; on black the two states are identical, and photography
-  returns the field (§8).
+  The field is ONE rule again, and the plate has joined the trigger on it
+  (E8.2 as amended 20 Aug 2026 — ProArc supplied both masters). Both halves
+  of the chrome now ship FIELDED, the safe state, and js/chrome.js removes
+  the field while the band under it holds nothing but paper. On black the
+  two states are identical; photography returns the field (§8).
+
+  🔴 THE PLATE CARRIES TWO IMG ELEMENTS AND CSS CHOOSES, BECAUSE §8 BARS
+  DERIVING ONE FROM THE OTHER. A filter, a mask or a mix-blend-mode would
+  recolour supplied artwork, which E8.4 forbids outright — so both masters
+  are in the document and the ground decides which is painted. The white
+  one is FIRST and unconditional: it is the shipped state, correct on the
+  field, so a page whose script never runs is still legible.
+
+  Only the white one carries the alt text. Two described images in one
+  link makes a screen reader announce the destination twice.
 -->
 
 <button class="chrome-trigger" type="button"
@@ -92,10 +101,14 @@
 -->
 
 <a class="chrome-plate" href="../index.html">
-  <img class="chrome-plate__mark"
-       src="../images/ui/logo-mark.webp"
+  <img class="chrome-plate__mark chrome-plate__mark--on-dark"
+       src="../images/ui/logo-mark-white.webp"
        alt="Proarc — home"
-       width="330" height="117" decoding="async">
+       width="640" height="195" decoding="async">
+  <img class="chrome-plate__mark chrome-plate__mark--on-paper"
+       src="../images/ui/logo-mark-black.webp"
+       alt="" aria-hidden="true"
+       width="640" height="195" decoding="async">
 </a>
 
 <!-- The nib: the white hairline that leads the wipe. Decoration, and it

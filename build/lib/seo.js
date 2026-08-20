@@ -214,7 +214,11 @@ function practiceJsonLd() {
     '@id': PRACTICE_ID,
     name: 'Proarc',
     url: ORIGIN + '/',
-    logo: `${ORIGIN}/images/ui/logo-mark.webp`,
+    /* The BLACK master, and that is a correction rather than a rename.
+       A consumer of this field — a search result, a knowledge panel, a
+       link-preview card — composes it on ITS ground, and every one of
+       them is white. The white master was invisible on all of them. */
+    logo: `${ORIGIN}/images/ui/logo-mark-black.webp`,
     email: pub.email,
     telephone: pub.phone.replace(/[^\d+]/g, ''),
     address: {

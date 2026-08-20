@@ -7,11 +7,18 @@
    this script arms html.chrome-ink only while the band under the chrome
    holds nothing but paper. Three grounds, one direction of failure:
 
-     paper       no field, ink strokes          — this script's one job
+     paper       no field, ink strokes,         — this script's one job
+                 and the plate's BLACK master
      black       the field dissolves            — fielded and ink-free look
                                                   identical, so stay fielded
      photograph  the field returns              — §8 bars identity chrome
                                                   on bare photography
+
+   The plate joined the trigger on this class on 20 Aug 2026, when ProArc
+   supplied the second master and E8.1's open action was discharged. The
+   swap is CSS: two img elements in one grid cell, because §8 bars deriving
+   one master from the other. This script's contract is unchanged — it
+   answers "is the band under the chrome clean paper", and nothing else.
 
    The strip is the chrome's own band: an IntersectionObserver whose root
    margin clips the viewport to the plate's measured height, so there is
@@ -46,15 +53,51 @@
     'main img, main video, main canvas, main .overlay-panel, ' +
     '.surface-dark, .section--dark, .site-footer';
 
+  /* 🔴 THE TWO HALVES OF THE CHROME NO LONGER ASK THE SAME QUESTION, AND
+     THAT IS A RULING (Mahesh, 20 Aug 2026) RATHER THAN AN OPTIMISATION.
+
+     The TRIGGER is three CSS strokes. Bare strokes on a photograph are
+     illegible whatever their colour, so §8's field has to return over
+     media — its set is NOT_PAPER, unchanged since H1-b.
+
+     The PLATE is supplied artwork in two inks, and the ruling is that the
+     white master belongs to a DECLARED BLACK BAND and nothing else. A
+     photograph therefore does not summon its field: on media the plate
+     takes the same black master it takes on paper. So its set is the dark
+     grounds alone, media removed.
+
+     Why this is the whole fix for the record pages: their hero runs down
+     the LEFT of the arrival while the plate sits on the white spec table
+     at the right. Under one shared question that photograph fielded the
+     plate too — ProArc's complaint, surviving the change that was made to
+     answer it. Media no longer reaches the plate's question at all, so the
+     two corners can differ without either of them measuring geometry, and
+     nothing here needs a physical left/right that would flip in RTL. */
+  var DARK_BAND =
+    'main .overlay-panel, .surface-dark, .section--dark, .site-footer';
+
   var observer = null;
   var inBand = new Set();
+
+  function decide() {
+    var darkBands = 0;
+    inBand.forEach(function (el) {
+      if (el.matches(DARK_BAND)) darkBands++;
+    });
+    /* chrome-ink — the trigger: nothing but paper under the band.
+       plate-ink  — the plate: no DECLARED dark band under it, media
+       included in "paper" by the ruling above. plate-ink is therefore
+       always armed wherever chrome-ink is, and sometimes where it is not. */
+    root.classList.toggle('chrome-ink', inBand.size === 0);
+    root.classList.toggle('plate-ink', darkBands === 0);
+  }
 
   function onEntries(entries) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) inBand.add(entry.target);
       else inBand.delete(entry.target);
     });
-    root.classList.toggle('chrome-ink', inBand.size === 0);
+    decide();
   }
 
   /* -----------------------------------------------------------------
@@ -110,8 +153,22 @@
       getComputedStyle(plate).getPropertyValue('--mark-size')
     );
     var pad = 2 * parseFloat(getComputedStyle(plate).paddingBlockStart);
-    var band = arrivalMark > 0
-      ? Math.ceil(arrivalMark * (117 / 330) + pad)
+
+    /* 🔴 THE MARK'S PROPORTION IS READ OFF THE MARK, NEVER TYPED. This was
+       `117 / 330` — the first asset's canvas — and it was already wrong the
+       moment ProArc supplied masters at a different ratio, silently, because
+       nothing here would have thrown: a stale ratio just returns a band of
+       the wrong height, and the ground and arrival states then flip at the
+       wrong scroll position on all 58 pages. getAttribute rather than .width
+       or naturalWidth: both of those answer the LOADED image, and this runs
+       before the mark has decoded. */
+    var mark = plate.querySelector('.chrome-plate__mark');
+    var markW = mark ? parseFloat(mark.getAttribute('width')) : 0;
+    var markH = mark ? parseFloat(mark.getAttribute('height')) : 0;
+    var ratio = markW > 0 && markH > 0 ? markH / markW : 0;
+
+    var band = arrivalMark > 0 && ratio > 0
+      ? Math.ceil(arrivalMark * ratio + pad)
       : Math.ceil(plate.getBoundingClientRect().height) || 112;
     var below = Math.max(0, window.innerHeight - band);
     var opts = {
@@ -128,8 +185,11 @@
 
     var targets = document.querySelectorAll(NOT_PAPER);
     if (targets.length === 0) {
-      /* A page of pure paper: nothing will ever fire, so decide now. */
+      /* A page of pure paper: nothing will ever fire, so decide now — and
+         decide BOTH, or the plate is left in its shipped field on a page
+         that has no dark ground anywhere. */
       root.classList.add('chrome-ink');
+      root.classList.add('plate-ink');
       return;
     }
     Array.prototype.forEach.call(targets, function (el) {

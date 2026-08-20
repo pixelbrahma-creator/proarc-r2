@@ -57,14 +57,20 @@
    resolves against the viewport, which is also what centres .container.
 
    The field (ground-aware — the E13.2 permanent field is now the plate's
-   rule alone): the TRIGGER ships fielded — the safe state, correct on
+   rule alone): BOTH HALVES ship fielded — the safe state, correct on
    every ground — and js/chrome.js removes the field only while the band
    under the chrome is clean paper. Three grounds: paper (no field, ink
-   strokes), black (field dissolves — identical either way), photograph
-   (the field returns; §8 bars identity on bare photography). The PLATE
-   keeps its permanent field until the E8 ink master exists: the pill's
-   strokes are CSS and can turn to ink today; the mark is artwork, and §8
-   bars deriving the inverted master with a filter.
+   strokes and the black master), black (field dissolves — identical either
+   way), photograph (the field returns; §8 bars identity on bare
+   photography).
+
+   🔴 THE PLATE JOINED THE TRIGGER ON 20 AUG 2026 — E8.1's OPEN ACTION IS
+   DISCHARGED. It kept a permanent field for as long as there was only one
+   master: the pill's strokes are CSS and could turn to ink any day, but
+   the mark is artwork and §8 bars deriving the inverted master with a
+   filter. ProArc supplied both masters, so the derivation is not needed
+   and the field can go. E8.2's "on #FFFFFF the plate is a visible black
+   rectangle" is amended with them — see the guideline.
    ------------------------------------------------------------------------- */
 
 .chrome-trigger,
@@ -134,10 +140,15 @@
    home, which is why the nav lock needs no Home item. */
 .chrome-plate {
   inset-inline-end: var(--chrome-axis);
-  display: block;
+
+  /* GRID, so the two masters share one cell. The plate's box is therefore
+     one mark's box whichever is painted, and the ground swap can never
+     move the layout or resize the field. */
+  display: grid;
 }
 
 .chrome-plate__mark {
+  grid-area: 1 / 1;
   inline-size: var(--mark-size);
   block-size: auto;
 
@@ -145,6 +156,17 @@
      at every size), so the box follows the img and nothing else moves. */
   transition: inline-size var(--dur-fast) var(--ease-out);
 }
+
+/* The paper master is the one the script ARMS, so it ships hidden: a page
+   whose script never runs shows the white mark on its field, which is
+   legible on all three grounds. Same doctrine as chrome-ink, chrome-quiet
+   and the retreat — the shipped state is the safe one.
+
+   `visibility`, not `display` or `opacity`. `display: none` would drop the
+   element from the grid and let a missing file resize the cell; opacity
+   would leave the hidden master in the accessibility tree and paint it
+   over the visible one at every intermediate value during a transition. */
+.chrome-plate__mark--on-paper { visibility: hidden; }
 
 /* The page SHIPS in the arrival state — the complete page — and the
    script only arms the reading state, same doctrine as chrome-ink. */
@@ -340,9 +362,38 @@ html.chrome-ink .chrome-trigger { background: transparent; }
 html.chrome-ink .chrome-trigger__bars i { background: var(--color-ink); }
 html.chrome-ink .chrome-trigger:focus-visible { outline-color: var(--color-ink); }
 
+/* 🔴 THE PLATE IS KEYED ON `plate-ink`, NOT ON `chrome-ink`, AND THE TWO
+   ARE DIFFERENT QUESTIONS (Mahesh, 20 Aug 2026). chrome-ink asks whether
+   the band is nothing but paper; plate-ink asks only whether a DECLARED
+   dark band is under it, counting a photograph as paper. The white master
+   belongs to a black ground and not to media — see js/chrome.js.
+
+   The record pages are why: their hero photograph runs down the left of
+   the arrival while the plate sits on the white spec table at the right,
+   so a shared answer fielded the plate over white on all 47 of them.
+
+   plate-ink is armed wherever chrome-ink is, so the paper case is not
+   weakened; it is armed in strictly more places. The two masters swap
+   rather than recolour — nothing here touches ink. */
+html.plate-ink .chrome-plate { background: transparent; }
+html.plate-ink .chrome-plate__mark--on-dark { visibility: hidden; }
+html.plate-ink .chrome-plate__mark--on-paper { visibility: visible; }
+html.plate-ink .chrome-plate:focus-visible { outline-color: var(--color-ink); }
+
 html.is-menu-open .chrome-trigger { background: transparent; }
 html.is-menu-open .chrome-trigger__bars i { background: var(--color-on-dark); }
 html.is-menu-open .chrome-trigger:focus-visible { outline-color: var(--color-on-dark); }
+
+/* The open overlay is black, so the plate returns to the dark master and
+   its field — which then dissolves into the overlay, which is what makes
+   the letterforms the way home. Settled HERE by source order rather than
+   by the script, exactly as the trigger's pair above: chrome-ink may well
+   be armed on the page underneath, and one direction of override means
+   there is nothing to desync. */
+html.is-menu-open .chrome-plate { background: var(--color-surface-dark); }
+html.is-menu-open .chrome-plate__mark--on-dark { visibility: visible; }
+html.is-menu-open .chrome-plate__mark--on-paper { visibility: hidden; }
+html.is-menu-open .chrome-plate:focus-visible { outline-color: var(--color-on-dark); }
 
 
 /* -------------------------------------------------------------------------

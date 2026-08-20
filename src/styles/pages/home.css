@@ -54,14 +54,30 @@
    logo").
 
    WEIGHT 600, and the mark is the reason it is not lighter. The wordmark's
-   own letterforms were measured off `images/ui/logo-mark.webp` — de-sheared
-   by its 12.5° slant, thresholded at >50% alpha — and they are HEAVIER than
-   this line ever was: stem ÷ x-height 0.368 against General Sans Bold's
-   0.321, ink coverage 70.8% against Bold's 62.6%. So "match the logo" cannot
-   licence a lighter line; 600 (54.0%) is a decided step BELOW the mark,
-   taken because 700 closed the counters up around the commas. 500 (43.0%)
-   and 400 (32.0%) were rendered and refused — they stop reading as an
-   opening claim.
+   own letterforms were measured off `389a3e9:images/ui/logo-mark.webp` —
+   de-sheared by its 12.5° slant, thresholded at >50% alpha — and they are
+   HEAVIER than this line ever was: stem ÷ x-height 0.368 against General
+   Sans Bold's 0.321, ink coverage 70.8% against Bold's 62.6%. So "match the
+   logo" cannot licence a lighter line; 600 (54.0%) is a decided step BELOW
+   the mark, taken because 700 closed the counters up around the commas. 500
+   (43.0%) and 400 (32.0%) were rendered and refused — they stop reading as
+   an opening claim.
+
+   ⏳ THE FILE THAT SENTENCE MEASURED IS SUPERSEDED, AND THE MARGIN IT
+   QUOTES HAS NARROWED. ProArc supplied the authoritative masters on 20 Aug
+   2026 and they are not a recolour of what was here: the word is flatter
+   (aspect 4.91 against 4.18) and lighter (raw ink coverage 47.6% against
+   53.3%). Carried through the same de-shear that produced 70.8, the new
+   mark lands near 63% — against General Sans Bold's 62.6%, where the old
+   one stood at 70.8%.
+
+   🔴 THE DECISION SURVIVES AND ITS REASON DOES NOT. 600 is still below the
+   mark, so the value does not move. But "the mark is markedly heavier than
+   Bold" was the argument, and the mark is now level with Bold — so the next
+   session that reaches for this reasoning must re-measure rather than quote
+   it. Re-measuring is not free: it re-opens a rendered decision of Mahesh's
+   (Session XIV), so it is flagged here and taken separately, never as a
+   rider on an asset swap. The superseded file is at the git ref above.
 
    TRACKING IS UNCHANGED and that is a finding, not an omission. Matching the
    mark's setting exactly — it sets six letters in 0.921 x-heights, its

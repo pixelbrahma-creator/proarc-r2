@@ -390,12 +390,40 @@ artwork misses it, the map degrades to a picture and the list carries the intera
 
 ## E8 · Two grounds for the identity
 
-1. **Confirm the inverted wordmark master exists** as a supplied asset. **Never derive it with a
-   CSS filter.** This is an open action carried from v1.2 §8 and it is now blocking, because the
-   site ships on two grounds.
-2. On `#000000` the mark's field matches the page and shows no seam — the plate becomes
-   invisible and the mark stands alone. On `#FFFFFF` the plate is a visible black rectangle.
-   **Both are the same asset in the same orientation.** Nothing is recoloured.
+1. ✅ **CLOSED 20 August 2026.** ProArc supplied both masters. **Never derive one from the other
+   with a CSS filter, a mask or a blend mode** — that half of the clause is permanent and is why
+   the plate wore a black field for seven weeks rather than inverting the one master it had.
+   🔴 **The supplied files are named for the GROUND they serve, not for their ink:**
+   `…for web BL.png` is the file for **BL**ack grounds and contains **WHITE** artwork; `…WT.png`
+   is for **WhiTe** grounds and contains **BLACK**. Wired up by filename the pair ships inverted
+   and the mark disappears on both grounds, passing every structural check. In this repository
+   they are renamed for their INK — `logo-mark-white.webp`, `logo-mark-black.webp` — and
+   `p31-plate-ground.js` §4 samples the rendered pixel rather than trusting either name.
+
+2. **AMENDED 20 August 2026 (Mahesh), the second amendment to a signed clause after E13.2a.**
+   The clause as signed read: *"On `#000000` the mark's field matches the page and shows no seam
+   — the plate becomes invisible and the mark stands alone. On `#FFFFFF` the plate is a visible
+   black rectangle."* That described the one-master workaround, and it is the sentence ProArc
+   objected to. It is replaced by:
+
+   > **The plate is ground-aware and carries no field of its own.** On a declared black band the
+   > WHITE master paints and the field is present, so it dissolves into the page and the mark
+   > stands alone. On anything else — paper *and photography* — the **BLACK** master paints and
+   > there is no field. **Both are the same artwork in the same orientation at the same size.**
+   > Nothing is recoloured, and neither master is ever placed on the other's ground.
+
+   🔴 **A PHOTOGRAPH TAKES THE BLACK MASTER, AND THAT IS THE RULING RATHER THAN A CONSEQUENCE.**
+   The white master belongs to a black ground and not to media. This is the one place E8 now
+   parts company with §8's treatment of the TRIGGER, which keeps its field over photography
+   because three bare CSS strokes are illegible on any picture whatever their colour. The mark is
+   artwork with its own mass and reads where the strokes do not — measured, not assumed:
+   `p32-mark-on-media.js` shoots each surface twice and takes the ink to be the pixels that
+   differ, so the contrast is the COMPOSITED figure. The three sector pages measure 11.14:1,
+   14.47:1 and **3.12:1** against a 3.0 floor.
+
+   ⚠️ **That safety is a property of three photographs, not of this clause.** `/projects/malls`
+   sits 0.12 above the floor. A sector whose lead record becomes a night shot takes the mark to
+   invisible, which is why the measurement is on the board rather than in this paragraph.
 3. Print, PDF and tender artefacts are paper. The company profile PDF is specified on white.
 4. The mark is never mirrored, flipped, rotated or recoloured. In RTL its **position** moves;
    the artwork does not. The device pointing against the reading direction in Arabic remains an
@@ -738,7 +766,7 @@ open/close choreography and its two build traps are specified in `09-menu.md` §
 | **E7.1–E7.5 the map's five new clauses** | **Added 30 Jul from Screen 05 — needs sign-off with E7.** The three-layer split · no mark by inference · a mark carries no date · Option B as the data fallback, with its interaction cost named · the 44px minimum polygon. **E7.2 is the one that decides whether Option A can ship**, and E7.3 reaches back into `01-home.md` §6.1 |
 | **E1.2b** | **Drafted and deliberately not written** — no page needs it once /ajman's client wall moves to About. The reasoning is recorded under E1.3 for the screen that may need it later |
 | **E10.2b the ground is the subject on /ajman** | **Added 30 Jul from Screen 05 — needs sign-off with E10.** A scoped exception in the same pattern as E10.2a, bounded by the unspent formula cap |
-| E8 identity on two grounds | **Action open** — confirm the inverted master exists |
+| E8 identity on two grounds | ✅ **CLOSED 20 Aug 2026** — ProArc supplied both masters, and E8.2 was amended with them: the plate is ground-aware and carries no field of its own. Held by `p31-plate-ground.js` (5 routes) and `p32-mark-on-media.js`. **The never-derive half of E8.1 stands permanently** |
 | **E1.2a band owns the switch on a paper page** | **Added 30 Jul from Screen 04 — needs sign-off with E1.** Screen 04's foot is built on it, and it is why prev/next was removed |
 | **E3.6 the lead photograph of a set with varying proportions** | **Added 30 Jul from Screen 04 — needs sign-off with E3.** It *retires* an asset gate (no per-record crops commissioned) rather than opening one |
 | **E9 image provenance** | **Added 30 Jul from Screen 03 — needs sign-off.** Action open: ProArc confirms the eleven unbuilt-work images (E9.4). **Read against the files 30 Jul:** the two construction photographs are **Sealine** and **Gateway**; seven of the nine visualisations identified; **two renders outside Homes unidentified** — no label ships from our reading |
@@ -757,11 +785,14 @@ open/close choreography and its two build traps are specified in `09-menu.md` §
 
 **SIGNED OFF — Mahesh, 31 July 2026, consolidation session.** Every "needs sign-off" row above
 is signed with the document. The three open actions survive sign-off as actions, not blockers:
-**E5** (the Arabic-on-black test — priority raised, see the clause) · **E8** (the inverted
-master — letter item) · **E9.4** (genre confirmation — letter item).
+**E5** (the Arabic-on-black test — priority raised, see the clause) · ~~**E8** (the inverted
+master — letter item)~~ **CLOSED 20 Aug 2026, ProArc supplied both masters** · **E9.4** (genre
+confirmation — letter item).
 
-**Three open actions ride through sign-off** — E5 blocks the bilingual build's dark pages (its
-old free deferral died with the black Services — see the clause), E8 and E9.4 are on the letter.
+**Three open actions rode through sign-off and TWO remain** — E5 blocks the bilingual build's
+dark pages (its old free deferral died with the black Services — see the clause), and E9.4 is on
+the letter. **E8 closed 20 Aug 2026** when ProArc supplied the two masters; it is the only one of
+the three that was ever going to be answered by an attachment rather than by a test or a reading.
 Everything else is decided.
 
 ---
