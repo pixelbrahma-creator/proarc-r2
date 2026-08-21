@@ -60,14 +60,32 @@
   --fs-h1:       3.25rem;  /* 52px */
   --fs-mega:     5.25rem;  /* 84px */
 
-  /* The menu overlay's nav list — 52px at EVERY width, which is why it
-     cannot borrow --fs-h1 (that collapses to 40px at 1023 and 34px at 767).
-     v1.3 E13 and 09-menu.md §5 decide the value on measured metrics rather
-     than taste: the four labels were rendered in real General Sans and
-     CONTACT, not SERVICES, is the widest at 266.3px bold. 375px carries the
-     full scale — 266px of label against 327px of column — so there is no
-     mobile collapse to design and none is wanted. */
-  --fs-menu-nav: 3.25rem;  /* 52px, fixed across breakpoints */
+  /* The menu overlay's nav list. It cannot borrow --fs-h1 (that collapses to
+     40px at 1023 and 34px at 767). v1.3 E13 and 09-menu.md §5 decide the
+     value on measured metrics rather than taste: the four labels were
+     rendered in real General Sans and CONTACT, not SERVICES, is the widest
+     at 266.3px bold.
+
+     🔴 IT IS NO LONGER FIXED ACROSS BREAKPOINTS — 21 Aug 2026 (XLI, Mahesh
+     on his phone: the doors read crowded). It takes 44px at ≤1024. The old
+     note said "375px carries the full scale — 266px of label against 327px
+     of column — so there is no mobile collapse to design and none is
+     wanted", and that was a claim about whether the labels FIT. They did fit
+     and they still would: what was never asked is what 52px caps do to the
+     air around them once the rows share the overlay's height. The reason the
+     token was pinned is intact — the nav must not follow --fs-h1's collapse,
+     and 44px is its own value, not H1's 34.
+
+     🔴 IT STEPS AT 1024, WHICH IS THE LAYOUT PAIR AND NOT THE TYPE PAIR, AND
+     THAT IS DELIBERATE. This project's two breakpoint pairs are 1024/780
+     (layout and chrome) and 1023/767 (the type scale). This token belongs to
+     the MENU COMPONENT, whose whole arrangement switches at 1025 —
+     `.menu-overlay__regions` and `.menu-centre` are both keyed there. Keyed
+     at 1023 instead, the single pixel at 1024 would put the overlay in its
+     mobile arrangement wearing desktop's type, which is exactly the
+     one-pixel sliver H4-c spent a session repairing. Choosing between the
+     two existing pairs is not introducing a third. */
+  --fs-menu-nav: 3.25rem;  /* 52px desktop; 44px at ≤1024, see below */
 
   /* ---------------------------------------------------------------------
      Line-height — Latin
@@ -248,6 +266,20 @@ html:lang(ar) *,
 }
 
 /* =========================================================================
+   The menu's own step — 1024, not 1023, and it is the ONLY token here that
+   moves on the layout pair. See --fs-menu-nav's note above: the overlay's
+   whole arrangement switches at 1025, so its type has to switch with the
+   arrangement rather than with the type scale, or the single pixel at 1024
+   renders the mobile overlay in desktop's type.
+   ========================================================================= */
+
+@media (max-width: 1024px) {
+  :root {
+    --fs-menu-nav: 2.75rem;  /* 44px */
+  }
+}
+
+/* =========================================================================
    Tablet — 768 to 1023px
    ========================================================================= */
 
@@ -280,7 +312,32 @@ html:lang(ar) *,
     --fs-h3:        1.25rem;  /* 20px — collapses with Body Large      */
 
     --lh-mega:      1.15;
-    --lh-hero:      1.15;
+
+    /* 🔴 THE HERO OPENS TO 1.25 — 21 Aug 2026 (XLI, Mahesh on his phone:
+       the opening reads crowded). Measured in INK rather than in leading,
+       which is the only way this is legible: the caps are 24.5px tall at
+       34px, and 1.15 leaves 14.6px between one cap bottom and the next cap
+       top — 60% of a cap height, under a five-line block of uppercase 600
+       running the full measure with negative tracking. At 1.25 the ink gap
+       is 18.0px, 74% of a cap, and the block costs 18px more of the first
+       screen.
+
+       📌 IT IS A TOKEN THAT REACHES EXACTLY ONE ELEMENT ON THE SITE, and
+       that was checked rather than assumed: --lh-hero is read by `h1` in
+       base.css and by `.t-hero`, and every one of the site's 58 h1s carries
+       a register class — 47 `.pd-name t-editorial`, four `.wk-verb`, and one
+       each for services/contact/careers/ajman/about. `.t-hero` is used by
+       one page. So the blast radius of this line is Home's opening sentence,
+       and nothing else moves.
+
+       ⚠️ --lh-mega stays 1.15 and that is now a VISIBLE difference rather
+       than a shared value: --fs-mega and --fs-h1 both collapse to 34 here,
+       so Home's opening and its section markers are the same size in
+       different leadings. The markers run one or two lines where the opening
+       runs five, which is the whole reason the leading matters at all. If
+       they ever read as inconsistent, that is a question about `.t-marker`,
+       not a reason to put this back. */
+    --lh-hero:      1.25;
     --lh-editorial: 1.25;
     --lh-h2:        1.25;
 
