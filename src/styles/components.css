@@ -661,9 +661,33 @@ html.is-menu-open .chrome-plate:focus-visible { outline-color: var(--color-on-da
 .menu-overlay.is-open .menu-nav__row:nth-child(3)::after { transition-delay: 560ms; }
 .menu-overlay.is-open .menu-nav__row:nth-child(4)::after { transition-delay: 640ms; }
 
+/* 🔴 THE ROWS SHARE THE COLUMN'S HEIGHT AT EVERY WIDTH — hoisted out of
+   `min-width: 1025px` on 21 Aug (XLI). It was desktop-only, and below 1024
+   the doors hugged their type while the overlay's spare height collected
+   into a single void between the nav and the identifiers. The mechanism was
+   already written and already approved; it simply never reached the width
+   where the reader's thumb is. It is stated ONCE rather than restated in a
+   mobile block, because two copies of one rule is how two widths start
+   disagreeing about a surface.
+
+   The 76px floor is what makes this safe to share: a viewport too short to
+   give the rows anything degrades to exactly the layout this replaced.
+   `position: relative` stays for the rail, which is still desktop's alone —
+   the stage it belongs to is `display: none` below 1024. */
+.menu-nav__list {
+  position: relative;
+  display: grid;
+  grid-auto-rows: minmax(76px, 1fr);
+  block-size: 100%;
+}
+
+/* The word STANDS ON its rule. Centred in a tall row the hairline floats
+   free of the word and stops reading as list furniture. */
 .menu-nav__item {
-  display: block;
-  padding-block: var(--gap-inline);
+  display: flex;
+  align-items: flex-end;
+  block-size: 100%;
+  padding-block: 0 var(--gap-inline);
   font-size: var(--fs-menu-nav);
   font-weight: var(--fw-light);
   line-height: var(--lh-nav);
@@ -728,25 +752,11 @@ html:lang(ar) .menu-nav__item {
   .menu-contact { grid-column: 1; grid-row: 2; align-self: end; }
   .menu-centre  { grid-column: 2; grid-row: 1 / span 2; align-self: stretch; }
 
-  /* The rows share the column's height rather than hugging their type, and
-     never fall below the 76px they had — a short viewport degrades instead
-     of crushing. The nav stays at --fs-menu-nav at every width, so §5's
-     measured 267px reserve is untouched. */
-  .menu-nav__list {
-    position: relative;
-    display: grid;
-    grid-auto-rows: minmax(76px, 1fr);
-    block-size: 100%;
-  }
-
-  /* The word STANDS ON its rule. Centred in a tall row the hairline floats
-     free of the word and stops reading as list furniture. */
-  .menu-nav__item {
-    display: flex;
-    align-items: flex-end;
-    block-size: 100%;
-    padding-block: 0 var(--gap-inline);
-  }
+  /* 📌 `.menu-nav__list` and `.menu-nav__item` stood HERE until 21 Aug
+     (XLI). They now sit unconditionally beside the nav's other rules —
+     nothing about desktop changed, and the nav still stays at
+     --fs-menu-nav at every width, so §5's measured 267px reserve is
+     untouched. */
 
   /* THE RAIL — the one thing that moves between sections.
 
@@ -1018,15 +1028,36 @@ html.is-menu-open { overflow: hidden; }
     block-size: 13.5px;
   }
 
+  /* 🔴 THE SPARE HEIGHT GOES INTO THE DOORS, NOT INTO ONE VOID — 21 Aug
+     2026 (XLI, Mahesh, on his own phone). The identifiers still take the
+     floor; what changed is where the slack lands.
+
+     This row read `auto auto` + `align-content: space-between`, which is a
+     distribution the rendered 768/375 frames were approved on. Measured on
+     a real 393x852 phone it puts the four doors at their 76px minimum
+     between 96 and 400 and the contact block at 708 — **a 308px void, 36%
+     of the screen**, sitting in the middle of the one surface that is the
+     site's only navigation (E13.1).
+
+     📌 THE NUMBER THAT APPROVED IT WAS TRUE AND MEASURED THE WRONG THING.
+     The note below this one recorded dead space going 21.1% -> 3.3% at a
+     true 375 — dead space at the FOOT, which space-between does drive to
+     nothing because the content ends exactly on the screen's edge. Nothing
+     measured the gap it opens BETWEEN the two blocks. The register's own
+     recorded failure mode, in a stylesheet: a correct number that is not
+     the number the question turns on.
+
+     The nav row takes the free space (`minmax(0, 1fr)`) and stretches, so
+     `.menu-nav__list`'s `minmax(76px, 1fr)` rows share it — the identical
+     mechanism the desktop arrangement has always used, now reaching the
+     width where the reader's thumb is. The 76px floor still holds, so a
+     short viewport degrades to exactly the layout this replaced rather than
+     crushing. */
   .menu-overlay__regions {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto auto;
+    grid-template-rows: minmax(0, 1fr) auto;
     gap: var(--gap-heading);
-
-    /* The identifiers take the floor rather than trailing the nav. Content
-       is unchanged — this is the same four items and two identifiers Mahesh
-       approved on the rendered frames, distributed instead of stacked. */
-    align-content: space-between;
+    align-items: stretch;
     padding-block: 104px var(--gutter-tablet);
     padding-inline: var(--gutter-tablet);
   }
@@ -1251,7 +1282,24 @@ main:has(> .surface-dark:last-child) ~ .site-footer .site-footer__inner::before 
 
 @media (max-width: 780px) {
   .site-footer__inner { padding-inline: var(--gutter-mobile); }
-  .site-footer__list { gap: var(--gap-tight); }
+
+  /* 🔴 FOUR AND THREE, NOT SIX AND ONE — 21 Aug (XLI, Mahesh, on his phone).
+     Seven labels total 309px against 353px of column, so a single row is
+     impossible at any permitted spacing (309 + six --gap-tight is 405). The
+     flex rag therefore fitted six and orphaned Careers on a line of its own.
+
+     📌 THE WRAP IS STRUCTURAL AND THE RAG WAS THE ONLY THING IN QUESTION.
+     Stated as a four-column grid the break is DECIDED rather than left to
+     whatever the labels happen to measure — which matters here because the
+     labels are route names: renaming one, or adding an eighth door, moves a
+     rag silently and cannot move this. Columns are max-content, so the row
+     keeps the natural spacing of a list rather than becoming a table. */
+  .site-footer__list {
+    display: grid;
+    grid-template-columns: repeat(4, max-content);
+    justify-content: start;
+    gap: var(--gap-tight);
+  }
 
   /* The row stacks rather than shrinking further: at 375 the column is 335px
      and a 132px mark beside a caption leaves neither enough room to sit on

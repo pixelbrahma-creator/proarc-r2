@@ -783,8 +783,23 @@
 
   /* Sixteen names at 32px is most of a phone screen. The names step to the
      large-body register, which at ≤767 is 20px and is the same step the
-     rest of the site takes here. */
+     rest of the site takes here.
+
+     🔴 AND THE LEADING STEPS WITH IT — 21 Aug, XLI, on Mahesh's phone
+     screenshots. The size moved register here and the line-height did not:
+     it went on reading `--lh-editorial`, which is a DISPLAY leading (1.25 at
+     this width) sitting under body-sized type, so fifteen names ran at
+     20/25 and the wall closed up into a block. --lh-body-lg is the leading
+     that belongs to the register the size now names — 20/30.
+
+     📌 This is the CLAUDE.md rule about arrival clearance in a smaller
+     place: a rule made of two tokens has to move BOTH when it changes
+     register, and the half that is left behind goes on being correct about
+     a size the element no longer has. It renders as rhythm, which is why no
+     assertion on the board could see it and a photograph of the page
+     could. */
   .ha-room__names {
     font-size: var(--fs-body-lg);
+    line-height: var(--lh-body-lg);
   }
 }
