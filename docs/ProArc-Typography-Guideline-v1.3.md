@@ -412,27 +412,53 @@ artwork misses it, the map degrades to a picture and the list carries the intera
    > there is no field. **Both are the same artwork in the same orientation at the same size.**
    > Nothing is recoloured, and neither master is ever placed on the other's ground.
 
-   🔴 **A PHOTOGRAPH TAKES THE BLACK MASTER, AND THAT IS THE RULING RATHER THAN A CONSEQUENCE.**
-   The white master belongs to a black ground and not to media. This is the one place E8 now
-   parts company with §8's treatment of the TRIGGER, which keeps its field over photography
-   because three bare CSS strokes are illegible on any picture whatever their colour. The mark is
-   artwork with its own mass and reads where the strokes do not — measured, not assumed:
-   `p32-mark-on-media.js` shoots each surface twice and takes the ink to be the pixels that
-   differ, so the contrast is the COMPOSITED figure. On 20 Aug the three sector pages measured
-   11.14:1, 14.47:1 and **3.12:1** against a 3.0 floor.
+   ⚠️ **The 20 August text above is SUPERSEDED by E8.3 below and is kept as the record of a
+   position that lasted one day.** Its "on paper *and photography* the BLACK master paints" is
+   no longer the rule: over photography nothing paints. Its cited figures — 11.14:1, 14.47:1 and
+   3.12:1 on the sector pages — are historical.
 
-   ✅ **AND THE CASE STOPPED OCCURRING THE SAME DAY.** E13.2a's retreat was corrected hours
-   later — the plate now leaves one band earlier (`plate-away`, see the clause) so it is never
-   on screen while a ground boundary crosses its box — and the side effect is that **the mark
-   now reaches no photograph anywhere on the site.** All three sector pages report *"never lands
-   on media"*. The clause above still governs, because it is what stops a photograph elsewhere
-   in the chrome's band from fielding the plate; it simply has no surface left where the mark
-   itself stands on a picture.
+3. **E8.3 — THE FIELD IS GONE FROM BOTH HALVES OF THE CHROME. Amended 21 August 2026 (Mahesh),
+   the third amendment to a signed clause and the second to this one in two days.**
 
-   ⚠️ **The numbers above are therefore HISTORICAL, and `p32` is now a guard rather than a
-   measurement.** It is kept because the contrast assertion re-arms by itself the moment a
-   layout change puts the mark back over a frame. **Do not read 3.12:1 as a live figure**, and
-   do not retire the check because it currently measures nothing.
+   > *"i think we can make the black box removed everywere .. even above photogrpahs anywhere
+   > ....., blackbox can even be removed from behind the hamburger."*
+
+   > **Neither the plate nor the trigger carries a field on any declared ground.** The chrome
+   > wears one of two inks and nothing else: under a declared black band the WHITE master and
+   > white strokes; under paper the **BLACK** master and ink strokes. Each half answers for its
+   > OWN ink — the mark's box and the bars' box — and answers by MAJORITY, so the flip lands at
+   > the midpoint of a crossing rather than at either edge of it.
+   >
+   > **Over a photograph the two halves part company, and the line is E13.2a's:**
+   > **the plate is identity and is ABSENT; the trigger is navigation and keeps a field.**
+
+   🔴 **THE PARTING IS A MEASUREMENT, NOT A PREFERENCE, AND THE LITERAL RULING WAS BUILT FIRST.**
+   The chrome was shipped bare on every ground and measured by `p33-bare-chrome.js`, which walks
+   every scroll position on four routes, shoots each twice, takes the ink to be the pixels that
+   DIFFER, and reports the worst pixel rather than the median. Bare ink over photography:
+
+   | route | half | worst composited contrast |
+   |---|---|---|
+   | `/index` | the bars over Home's five frames | **1.28 · 1.34 · 1.64 · 2.44** |
+   | `/projects` | the mark over the 46-photograph grid | **1.22 · 1.26 · 1.34 · 1.78** |
+   | `/projects/homes` | the bars over the sector grid | **1.90 · 2.65** |
+   | `/projects/blacksquare` | the bars over the gallery | **1.57 · 1.68** |
+
+   Against a 3.0 floor. **The medians at those same positions ran 3–15:1**, so an average — or a
+   sample taken anywhere but the worst patch — would have passed every one. The failures are
+   architecture against sky: both ends of the range inside one 210×99 box, which no single ink
+   survives, so **choosing the master per photograph does not reach it either** and was refused
+   on that ground rather than left untried.
+
+   📌 **This is the third time §8's field over photography has been removed and measured back.**
+   It is not decoration and it never was; what changed is which half of the chrome can afford to
+   answer it by leaving. **ProArc's complaint is answered in full for the wordmark** — there is
+   now no black rectangle behind the mark on any ground, anywhere on the site — and the one field
+   left on the site is a 73×67 pill behind three strokes, over photography only.
+
+   ⚠️ **`p32` is unchanged and still a guard**; `p33` is the measurement. Do not read any figure
+   in this clause as live without re-running p33 — and do not retire p32 because it currently
+   measures almost nothing.
 3. Print, PDF and tender artefacts are paper. The company profile PDF is specified on white.
 4. The mark is never mirrored, flipped, rotated or recoloured. In RTL its **position** moves;
    the artwork does not. The device pointing against the reading direction in Arabic remains an
@@ -730,20 +756,48 @@ amends only its *permanence*, and only in the block axis.
   is that the overlay is the only navigation surface (E13.1) and a narrow reader
   scrolls most. 780 is the chrome's own breakpoint — a rule made of a token inherits
   that token's breakpoint.
-- 🔴 **THE TWO HALVES ARE GOVERNED DIFFERENTLY, AND THE PLATE IS KEYED ON THE ARRIVAL
-  RATHER THAN ON A DIRECTION** *(amended within the day, on the built page)*. The
-  first form returned the plate on any upward scroll, and back it came over /ajman's
-  ledger — *"Habitat Schoo"*, cut mid-word. The plate covers **146px of a 339px
-  ledger column, 43% of it**, so moving the TEXT clear is not a gap but a redesign,
-  and the building names would wrap. **So the wordmark is present at each page's
-  opening band and absent through its body, returning when the reader returns to the
-  top.** Identity is made once per page and does not reintroduce itself over the
-  argument. The TRIGGER cannot be treated this way and is not: it is the only way
-  into the menu, so it may retreat from a reader scrolling away and must return to
-  one scrolling back. 📌 **The plate's half needs no scroll listener at all** —
-  `chrome-quiet` was already computed by the arrival observer.
+- ⚠️ **THE TWO BULLETS ABOVE THIS ONE ARE SUPERSEDED BY E13.2b.** `plate-away` is
+  deleted and the plate is no longer keyed on the arrival. Both are kept as the record
+  of why, because the reasons expired rather than being overruled.
+- 🔴 **THE PLATE WAS KEYED ON THE ARRIVAL RATHER THAN ON A DIRECTION** *(4 Aug, amended
+  within the day, on the built page — SUPERSEDED 21 Aug)*. The first form returned the
+  plate on any upward scroll, and back it came over /ajman's ledger — *"Habitat Schoo"*,
+  cut mid-word. The plate covered **146px of a 339px ledger column, 43% of it**, so
+  moving the TEXT clear was not a gap but a redesign. **That measurement was of a black
+  rectangle**, and E8.3 removed it; see E13.2b.
 - **No reduced-motion branch.** The global clamp makes the travel instant; the retreat
   is function, and a reader who asked for less motion still wants the words.
+
+**E13.2b — Both halves travel together, and the travel is asymmetric.** *Amendment to
+E13.2a, decided 21 August 2026 (Mahesh), in the same ruling as E8.3:* **"keep the logo
+and hamburger longer when scrolling (and vice versa appear sooner when scrolling back)."**
+
+> **The plate joins the trigger on `chrome-retired`.** Past the page's own arrival, a
+> downward travel of **200px** (`--gap-section`) retires both; an upward travel of
+> **24px** (`--gap-block`) returns both, as do focus and the open overlay. The plate
+> retires at every width; the trigger stays permanent below 780. **Over a photograph the
+> plate does not return at all** — E8.3.
+
+🔴 **REMOVING THE FIELD IS WHAT MADE THIS AFFORDABLE, AND THE TWO HALVES OF THE RULING
+ARE NOT INDEPENDENT.** Every reason the plate was confined to the arrival was a reason
+about a **rectangle**: the ledger it covered, and the boundary it could not be half of.
+What returns now is a wordmark at the reading size with nothing behind it, so the ledger
+measurement no longer describes the object it was taken of. 📌 **This is the register's
+own recorded failure mode — a refusal whose reason expires — caught by re-reading the
+refusal rather than by tripping over it.**
+
+🔴 **THE ASYMMETRY IS THE CLAUSE, NOT THE THRESHOLD.** One hysteresis of 24px both ways
+was chosen to reject jitter, and a value that size cannot also mean "the reader has moved
+on" — it made the chrome leave on the smallest deliberate scroll. Both new values are the
+site's own spacing tokens rather than invented: a section's distance to go, a block's
+distance to come back. **Leaving is expensive; returning is cheap.** The direction is read
+from the furthest point reached in the current direction, not from the previous frame — a
+200px threshold measured frame-to-frame is unreachable on a trackpad, and anchoring on the
+extreme needs no second tolerance to absorb jitter.
+
+📌 **The plate's half now costs a scroll listener**, which E13.2a's last bullet said it did
+not. That was true of an arrival-keyed plate and is the price of this amendment; it is one
+listener, already present for the trigger, and the ground question rides on the same frame.
 
 *Supersedes* the note in `components.css` declining Dewan-style hide-on-scroll
 ("the trigger is the site's only navigation control and never retreats"). **Half of
@@ -791,7 +845,7 @@ open/close choreography and its two build traps are specified in `09-menu.md` §
 | **E7.1–E7.5 the map's five new clauses** | **Added 30 Jul from Screen 05 — needs sign-off with E7.** The three-layer split · no mark by inference · a mark carries no date · Option B as the data fallback, with its interaction cost named · the 44px minimum polygon. **E7.2 is the one that decides whether Option A can ship**, and E7.3 reaches back into `01-home.md` §6.1 |
 | **E1.2b** | **Drafted and deliberately not written** — no page needs it once /ajman's client wall moves to About. The reasoning is recorded under E1.3 for the screen that may need it later |
 | **E10.2b the ground is the subject on /ajman** | **Added 30 Jul from Screen 05 — needs sign-off with E10.** A scoped exception in the same pattern as E10.2a, bounded by the unspent formula cap |
-| E8 identity on two grounds | ✅ **CLOSED 20 Aug 2026** — ProArc supplied both masters, and E8.2 was amended with them: the plate is ground-aware and carries no field of its own. Held by `p31-plate-ground.js` (5 routes) and `p32-mark-on-media.js`. **The never-derive half of E8.1 stands permanently** |
+| E8 identity on two grounds | ✅ **CLOSED 20 Aug 2026** — ProArc supplied both masters, and E8.2 was amended with them. 🔴 **AMENDED AGAIN 21 Aug as E8.3: the field is gone from BOTH halves of the chrome.** Over photography the plate is ABSENT and the trigger alone keeps a field — measured, after the literal ruling was built and came back at 1.22–2.65:1 against a 3.0 floor. Held by `p31-plate-ground.js` (5 routes, 26 each), `p32-mark-on-media.js` and **`p33-bare-chrome.js`**, which is the check that decided it. **The never-derive half of E8.1 stands permanently** |
 | **E1.2a band owns the switch on a paper page** | **Added 30 Jul from Screen 04 — needs sign-off with E1.** Screen 04's foot is built on it, and it is why prev/next was removed |
 | **E3.6 the lead photograph of a set with varying proportions** | **Added 30 Jul from Screen 04 — needs sign-off with E3.** It *retires* an asset gate (no per-record crops commissioned) rather than opening one |
 | **E9 image provenance** | **Added 30 Jul from Screen 03 — needs sign-off.** Action open: ProArc confirms the eleven unbuilt-work images (E9.4). **Read against the files 30 Jul:** the two construction photographs are **Sealine** and **Gateway**; seven of the nine visualisations identified; **two renders outside Homes unidentified** — no label ships from our reading |
@@ -807,6 +861,7 @@ open/close choreography and its two build traps are specified in `09-menu.md` §
 | **E13.1–E13.4 — the §4.7 amendment set (Screen 09)** | **DECIDED 31 Jul (Mahesh, board 16 revs 1–2).** Bars-only trigger · the identity-chrome field rule · the swap · the sub-desktop form. `09-menu.md` is built on all four *(table fragment merged at consolidation)* |
 | **W1 reaffirmation** | **DECIDED 31 Jul** — the chrome reach-back opened and closed the same day on rendered frames (C-1 kept; C-2/C-3 declined). Recorded here so consolidation sees the challenge happened |
 | **E13.2a — the retreat** | **DECIDED 4 Aug 2026 (Mahesh), AFTER SIGN-OFF, and the first amendment to a signed clause.** E13.2's permanence was covering the page's own words — measured over ink, the trigger buries 4.53% of visible lines at 1440 and 8.00% at 375, the plate 2.89% and 4.89%, and /ajman's authority sentence was cut mid-word at display size. The field rule is untouched; only permanence is amended, and only in the block axis. 🔴 **The trigger stays permanent below 780 — decided against the measurement**, on the grounds that the overlay is the only navigation surface and a narrow reader scrolls most. Clause text above; held by `p24-chrome-retreat.js` |
+| **E13.2b — both halves travel, asymmetrically** | **DECIDED 21 Aug 2026 (Mahesh), the second amendment to E13.2a and the fourth to a signed clause.** *"keep the logo and hamburger longer when scrolling (and vice versa appear sooner when scrolling back)."* The plate joins `chrome-retired`: 200px of downward travel to go, 24px of upward travel to return, `plate-away` deleted. 🔴 **It is affordable only because E8.3 removed the field** — every reason the plate was confined to the arrival was a reason about a rectangle, including the 146px ledger measurement, and the object those reasons described no longer exists. Clause text above; held by `p24-chrome-retreat.js` (38 per route) |
 
 **SIGNED OFF — Mahesh, 31 July 2026, consolidation session.** Every "needs sign-off" row above
 is signed with the document. The three open actions survive sign-off as actions, not blockers:

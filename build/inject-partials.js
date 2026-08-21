@@ -37,13 +37,47 @@ function defaultAssetPrefix(outFile) {
   return '../'.repeat(outFile.split('/').length - 1);
 }
 
+/**
+ * 🔴 THE CHROME'S SHIPPED INK, DERIVED FROM THE ROUTE CONTRACT (21 Aug 2026).
+ *
+ * Until the field was removed the chrome had a SAFE state — fielded, legible
+ * on every ground — so a page whose script never ran was still correct and
+ * the build had nothing to say about it. There is no safe state between two
+ * inks. So the answer at the page's opening comes from the one place that
+ * already knows it: `ground`, declared per route in meta.json under E1, and
+ * declared `paper` for all 47 records by generate-projects.
+ *
+ * The plate is at the page's opening band at load, which is exactly what
+ * `ground` describes, so the two line up without a second declaration.
+ *
+ * It THROWS on an unrecognised ground rather than defaulting. A default here
+ * is a silently invisible wordmark on whichever page mistypes the field, and
+ * every structural check would pass — the same class of fault as the masters
+ * named for their ground rather than their ink. Same doctrine as services.js
+ * throwing on an unrecognised level.
+ */
+function groundClass(ground, srcName) {
+  if (ground === 'paper') return 'chrome-ink plate-ink';
+  if (ground === 'black') return '';
+  throw new Error(
+    `"${srcName}": ground is "${ground}" — must be "paper" or "black". ` +
+    'The chrome ships its ink from this field; there is no safe default.'
+  );
+}
+
 function main() {
   const meta = JSON.parse(fs.readFileSync(META_PATH, 'utf8'));
   let count = 0;
 
   Object.keys(meta).forEach((srcName) => {
     if (srcName.startsWith('_')) return; // documentation keys, not routes
-    const pageData = Object.assign({ assetPrefix: defaultAssetPrefix(meta[srcName].outFile) }, meta[srcName]);
+    const pageData = Object.assign(
+      {
+        assetPrefix: defaultAssetPrefix(meta[srcName].outFile),
+        groundClass: groundClass(meta[srcName].ground, srcName),
+      },
+      meta[srcName]
+    );
 
     // `template` names a shared source (pages-src/_sector.html serves three
     // routes); its data varies per route, its structure must not — one

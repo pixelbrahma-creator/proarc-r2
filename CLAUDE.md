@@ -192,22 +192,48 @@ inline-start rule.
   page ships FIELDED — the safe state — and `js/chrome.js` arms the ink
   states. The open overlay forces the black state by CSS source order in
   `components.css` — keep those rules AFTER the ink ones.
-  🔴 **THE TWO HALVES ANSWER DIFFERENT QUESTIONS AND THE CLASSES ARE NOT
-  INTERCHANGEABLE.** `chrome-ink` (the TRIGGER) means nothing but paper is
-  under the band — media returns its field, because three bare CSS strokes
-  are illegible on any photograph. `plate-ink` (the PLATE) means no
-  **declared** dark band is under it, and counts a photograph as paper: on
-  media the mark takes its BLACK master, bare. That is Mahesh's ruling of
-  20 Aug, not a derivation. `plate-ink` is armed wherever `chrome-ink` is and
-  in strictly more places; keying the plate on `chrome-ink` re-creates the
-  fault below.
-  🔴 **WHY THEY HAD TO SPLIT: THE RECORD PAGES.** Their hero runs down the
-  LEFT of the arrival while the plate sits on the white spec table at the
-  RIGHT. One shared answer fielded the plate over white on all 47 of them —
-  ProArc's own complaint, surviving the change made to answer it. Because
-  media no longer reaches the plate's question, the corners can differ
-  without either measuring geometry, so nothing needs a physical left/right
-  that would flip in RTL.
+  🔴 **THERE IS NO FIELD ANY MORE — E8.3, 21 Aug 2026 (Mahesh):** *"we can
+  make the black box removed everywhere .. even above photographs anywhere
+  ..... blackbox can even be removed from behind the hamburger."* The chrome
+  wears one of TWO INKS and nothing else. `chrome-ink` and `plate-ink` keep
+  exactly their old meaning — the ink state, black strokes and the black
+  master — so nothing downstream was renamed; what went is the fielded state
+  they used to be the exception to.
+  🔴 **EACH HALF ASKS ABOUT ITS OWN INK, BY MAJORITY.** The trigger asks what
+  is under the BARS' box, the plate what is under the MARK's box — Session
+  XXXV's "the axis is the bars' INK, not the button's box" arriving at the
+  question of ground as well as of position. **This closed the trigger's 67px
+  straddle**, which was a band-wide answer applied to a corner. The answer is
+  a MAJORITY of the ink's own box, so the flip lands at the midpoint of a
+  ground crossing rather than at either edge: ink can be wrong over part of
+  itself, which a rectangle could not be, and the midpoint is where that
+  costs least. A live rect flips with the document, so nothing needs a
+  physical left/right — that was only ever true of a test written in
+  left/right.
+  🔴 **OVER A PHOTOGRAPH THE TWO HALVES PART COMPANY, AND IT IS MEASURED.**
+  The literal ruling was built — bare on every ground — and `p33` came back
+  at **1.22–2.65:1 against a 3.0 floor** on all four routes that put a
+  photograph under the chrome (medians 3–15:1 at the same positions, so an
+  average would have shipped it). Both ends of the range sit inside one
+  210×99 box, which no single ink survives, **so per-image ink selection does
+  not reach it either**. The split is E13.2a's own line: **the PLATE is
+  identity and is ABSENT over media (`plate-on-media`); the TRIGGER is
+  navigation and keeps a field there (`chrome-fielded`) — the only field left
+  on the site.**
+  🔴 **THE BUILD SHIPS THE INK, because there is no safe neutral state
+  between two of them.** `pages-src/meta.json` already declares each route's
+  ground under E1, and `inject-partials` writes `class="chrome-ink
+  plate-ink"` onto `<html>` for the paper ones (`generate-projects` states it
+  for all 47 records). **It THROWS on an unrecognised ground** — a default
+  there is a silently invisible wordmark that passes every structural check.
+  A page whose script never runs is correct at its opening, which is where
+  the plate is at load.
+  🔴 **AND THE MARK'S INK IS ON THE AXIS NOW**, pulled out by its own padding
+  exactly as the trigger was in XXXV. The offset was always there; a black
+  rectangle sitting on the axis is what hid it. Measured at 1440/1024/780/375:
+  `markRight === axisEnd` and `barsLeft === axisStart` at every width, and the
+  4px the plate's transparent box bleeds past the edge at ≤780 creates no
+  horizontal overflow.
 - **E8 IS CLOSED — both masters are supplied, and neither is derived.**
   `images/ui/logo-mark-white.webp` and `-black.webp`, 640×195, pixel-
   registered, 100% pure ink. **Never derive one from the other** with a
@@ -219,16 +245,16 @@ inline-start rule.
   ships inverted and vanishes on both grounds while every structural check
   passes. The repo copies are named for their INK, and `p31` §4 samples the
   rendered pixel rather than trusting either name.
-  ⚠️ **A photograph takes the BLACK mark. On 20 Aug that was safe on the
-  strength of three photographs rather than of the rule** — the sector pages
-  measured 11.14:1, 14.47:1 and 3.12:1 against a 3.0 floor. **Those figures
-  are HISTORICAL:** the straddle fix later the same day took the plate off
-  screen one band earlier, and the mark now reaches **no photograph on any
-  route**. `p32-mark-on-media.js` is therefore a GUARD, not a measurement —
-  it reports *"never lands on media"* and re-arms its contrast assertion by
-  itself if a layout change puts the mark back over a frame. Do not quote
-  3.12:1 as live, and do not retire p32 because it currently measures
-  nothing.
+  ⚠️ **Every contrast figure ever written for the mark on a photograph is
+  now HISTORICAL** — 11.14 / 14.47 / 3.12:1 (20 Aug, the sector pages) and
+  1.32:1 (Home's frames). The mark does not stand on a photograph at all
+  since E8.3. `p32-mark-on-media.js` is a GUARD, not a measurement: it
+  reports *"never lands on media"* on most routes and re-arms by itself.
+  **`p33-bare-chrome.js` is the measurement** — it walks every scroll
+  position on four routes, forces the chrome present (any upward scroll
+  returns it, so every position is reachable), shoots twice, and takes the
+  WORST pixel rather than the median. Do not retire either because one
+  currently measures little.
   ⚠️ **The mark's proportion is read off the mark.** `js/chrome.js` derives
   the observation band from the img's authored `width`/`height`; it used to
   type `117 / 330`, the first asset's canvas, which the new masters would
@@ -257,31 +283,43 @@ inline-start rule.
   boxes at 1440 and **8.00%** at 375 (trigger), 2.89% and 4.89% (plate), and
   /ajman's authority sentence was severed mid-word at display size. 🔴 **The
   TRIGGER is permanent below 780 — decided against that measurement**, on the
-  grounds that the overlay is the only navigation surface. 🔴 **And the two
-  halves are keyed differently: the PLATE is keyed on the ARRIVAL, not on a
-  direction** — present at each page's opening band, absent through its body,
-  back when the reader returns to the top. Returning it on scroll-up put it
-  straight over /ajman's ledger (*"Habitat Schoo"*, cut mid-word), and it
-  covers **146px of a 339px ledger column — 43%** — so the text cannot be
-  moved clear instead. Identity is made once per page. The plate's half needs
-  **no scroll listener**; the arrival observer already knew.
-  🔴 **THE PLATE TRAVELS ON `plate-away`, NOT ON `chrome-quiet`** (20 Aug,
-  Mahesh on the live page: *"i am seeing box when i scroll"*). chrome-quiet
-  fires when the arrival has left the chrome's band ENTIRELY, so its last
-  band of travel sweeps the arrival's bottom edge up through the plate's own
-  box — and the lower part of the plate's solid field then hangs over paper,
-  6px growing to **96px** on Home, in both scroll directions. **A field is a
-  rectangle and cannot be half-black, so no threshold fixes it**; flipping to
-  the paper state early is worse, because it puts the black master's ink on
-  the black still behind it. `plate-away` arms one band earlier, so the plate
-  is never on screen while the boundary crosses it. ⚠️ **Re-keying
-  chrome-quiet itself was tried first and BROKE p14** — see that file. And
-  because chrome-quiet implies plate-away, the mark's size step now always
-  happens while the plate is hidden, so it is never seen to resize.
+  grounds that the overlay is the only navigation surface.
+  🔴 **E13.2b, 21 Aug — BOTH HALVES TRAVEL TOGETHER AND THE TRAVEL IS
+  ASYMMETRIC** (Mahesh: *"keep the logo and hamburger longer when scrolling
+  (and vice versa appear sooner when scrolling back)"*). The plate joins
+  `chrome-retired`; **`plate-away` is DELETED** and the plate is no longer
+  keyed on the arrival. **200px of downward travel (`--gap-section`) to
+  retire, 24px of upward travel (`--gap-block`) to return** — leaving is
+  expensive, returning is cheap. Both are the site's own tokens; the single
+  24px hysteresis they replace was sized to reject jitter and could not also
+  mean "the reader has moved on". **The direction is read from the furthest
+  point reached in the current direction, never from the previous frame** — a
+  200px threshold measured frame-to-frame is unreachable on a trackpad, and
+  anchoring on the extreme needs no second tolerance.
+  🔴 **REMOVING THE FIELD IS WHAT MADE THIS AFFORDABLE — the two halves of
+  the 21 Aug ruling are not independent.** Every reason the plate was
+  confined to the arrival was a reason about a RECTANGLE: the 146px of a
+  339px ledger column on /ajman (*"Habitat Schoo"*, cut mid-word), and the
+  boundary a field could not be half of (`plate-away`'s 6px→96px straddle on
+  Home). What returns now is a wordmark at the reading size with nothing
+  behind it, and over a photograph it does not return at all. **The refusals
+  did not get overruled; their reasons expired with the object they
+  described** — the register's own recorded failure mode, caught this time by
+  re-reading a refusal rather than by tripping over it.
+  ⚠️ **`chrome-quiet` ITSELF IS STILL UNTOUCHED, AND THAT IS DELIBERATE** —
+  it gates the retreat and steps the mark 160→96. Re-keying it on 20 Aug
+  BROKE p14, which samples `document.getAnimations()`; p14 is scoped now but
+  the coupling is a property of any probe that asks the document. ⚠️ Because
+  the plate is present through the body again, **the mark's size step is
+  visible on screen once more** — that is the designed behaviour (identity
+  loudest at arrival, settling to the reading size), not a regression.
   ⚠️ **A helper that forces this state must name EVERY class it is made of**
   — `p24`'s `present()` went stale against `plate-away` exactly as it had
   against `chrome-quiet` in XXXVIII, and reported the plate at ty −98.75 in a
-  state called "present". It travels by
+  state called "present". 🔴 **It is written as a POST-CONDITION now, not as
+  a list** (21 Aug, after the vocabulary moved a third time): it forces the
+  classes and then asserts nothing is off its rest position, naming whatever
+  is. A list can go stale in silence; a post-condition cannot. It travels by
   `transform`, never `display` or
   `visibility`, so a retired trigger stays focusable and `focusin` returns
   it. No RTL restatement (the block axis does not flip) and no
@@ -646,15 +684,16 @@ blind. The cost is moved out of the loop, not gathered up inside it.
 npm run serve            # 127.0.0.1:8765 — every probe needs an HTTP origin
 npm run check:fast       # the 8 static checks, ~1s. Run this constantly.
 npm run check:changed    # + the probes your diff implicates
-npm run check            # everything, in parallel. ~78s. Before every commit.
+npm run check            # everything, in parallel. ~97s. Before every commit.
 ```
 
 **The cost was never the checking, it was Chrome starting.** Measured: the
 twelve static checks total **~3s**; the browser probes total **~330s** and were
 run one after another for no reason but that a shell loop is written that way.
 They are independent, so `board.js` runs them concurrently on assigned ports and
-the board's floor is now its slowest single check (p21, ~58s) rather than the
-sum — **78s wall for 445s of work at 58 checks** (62s/334s/43 when this was
+the board's floor is now its slowest single check (**p33, ~76s** since 21 Aug;
+p21's ~59s until then) rather than the
+sum — **97s wall for 498s of work at 59 checks** (62s/334s/43 when this was
 written), which is *faster* than the
 32-check board it replaced.
 
@@ -720,8 +759,18 @@ written), which is *faster* than the
 
 Run through this list and state the result:
 
-1. `npm run check` passes — **58/58**. (`npx stylelint "src/**/*.css"` alone is
-   assertion 1 of 58.) It moved 52 → 58 on 20 Aug (E8's close) when
+1. `npm run check` passes — **59/59 in ~97s**. (`npx stylelint "src/**/*.css"`
+   alone is assertion 1 of 59.) It moved 58 → 59 on 21 Aug (E8.3) when
+   **`p33 bare chrome`** registered — **the check that decided the design**,
+   and now the board's FLOOR at ~76s against p21's ~59s, so it sets the wall
+   time. p31 moved 22 → 26 per route (the field assertions inverted, plus the
+   plate's absence over media), p24 39 → 38, p32's pin 6 → 9.
+   🔴 **p33's arity is FIXED BY CONSTRUCTION and that was a repair**: its
+   first two board runs printed 150 and 151, because the count came from a
+   live walk. It now emits exactly nine assertions per position, eight
+   positions per route, padding the sample if the risk list is short — a line
+   whose arity drifts cannot be pinned in either direction.
+   It moved 52 → 58 on 20 Aug (E8's close) when
    **`p31 plate ground`** registered on five routes — paper, a declared black
    band and a record page, because the answer differs by ground — and
    **`p32 mark on media`** on one. p32 is `browser: true` though it is not a

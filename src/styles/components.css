@@ -101,15 +101,16 @@
   --mark-size: var(--logo-size-desktop);
   --mark-size-quiet: var(--logo-size-mobile);
 
-  /* The field's inset, named once so the offset below and the breakpoints
-     stay derived rather than hand-tuned in two places (H4-h's shape). */
+  /* The inset, named once so both offsets below and the breakpoints stay
+     derived rather than hand-tuned in two places (H4-h's shape). It was the
+     FIELD's padding until 21 Aug; it is now §8's clear space doing the only
+     job it ever really had — holding the page's ink off the mark's. */
   --chrome-pad: var(--logo-clear-space-desktop);
 
   position: fixed;
   inset-block-start: 0;
   z-index: var(--z-nav);
   padding: var(--chrome-pad);
-  background: var(--color-surface-dark);
 }
 
 /* C-1: the three lines on one side... */
@@ -139,11 +140,26 @@
    open overlay its field has dissolved and the letterforms are the way
    home, which is why the nav lock needs no Home item. */
 .chrome-plate {
-  inset-inline-end: var(--chrome-axis);
+  /* 🔴 THE AXIS IS THE MARK'S INK, NOT THE PLATE'S BOX — Session XXXV's
+     ruling arriving at the other corner, and it only became visible when
+     the field went (21 Aug).
+
+     The trigger was pulled out by its own padding in XXXV because Mahesh
+     read the page and saw three strokes sitting 25px inside the text edge.
+     The plate had the identical offset and nobody could see it, because a
+     black rectangle WAS on the axis and the reader had no way to know the
+     letterforms were not. Remove the rectangle and the mark is a wordmark
+     floating 25px in from every other right edge on the page.
+
+     Same fix, same shape, same logical property — --chrome-axis carries the
+     RTL flip alone and this needs no second rule. §8's clear space is not
+     spent by it: the padding still holds, it is simply no longer measured
+     from the wrong edge. */
+  inset-inline-end: calc(var(--chrome-axis) - var(--chrome-pad));
 
   /* GRID, so the two masters share one cell. The plate's box is therefore
      one mark's box whichever is painted, and the ground swap can never
-     move the layout or resize the field. */
+     move the layout. */
   display: grid;
 }
 
@@ -240,20 +256,48 @@ html.chrome-quiet .chrome-plate__mark { inline-size: var(--mark-size-quiet); }
    observer this file already owned before E13.2a — so of the two halves of
    the retreat, only the TRIGGER's costs a listener. The plate's half is the
    cheaper thing that was measurable all along. */
-/* 🔴 `plate-away`, NOT `chrome-quiet` — the plate leaves one band earlier
-   (Mahesh, 20 Aug, on the live page: "i am seeing box when i scroll").
-   chrome-quiet fires when the arrival has left the chrome's band entirely,
-   so its last band of travel sweeps the arrival's bottom edge up through
-   the plate's own box and the lower part of the field hangs over paper —
-   6px growing to 96px on Home, in both directions. A field is a rectangle
-   and cannot be half-black, so no threshold fixes it; the plate simply must
-   not be on screen while the boundary crosses it.
+/* 🔴 THE PLATE TRAVELS WITH THE TRIGGER NOW (Mahesh, 21 Aug): "keep the
+   logo and hamburger longer when scrolling (and vice versa appear sooner
+   when scrolling back)."
 
-   Re-keying chrome-quiet itself was tried first and BROKE p14: it moved when
-   the chrome's own transitions run, and p14 samples document.getAnimations(),
-   so the chrome's transform landed inside its window. chrome-quiet is left
-   exactly as it was. See js/chrome.js. */
-html.plate-away .chrome-plate {
+   That reverses the note above, and the thing that makes it affordable is
+   the field's removal in the same ruling. The plate was keyed on the
+   ARRIVAL because bringing it back on scroll-up brought a BLACK RECTANGLE
+   back over the ledger — 146px of a 339px column on /ajman, "Habitat Schoo"
+   cut mid-word. What returns now is a wordmark with nothing behind it,
+   sized to the reading state, and the measurement that closed the door was
+   a measurement of the rectangle.
+
+   `plate-away` is deleted with it. It existed only because a field is a
+   rectangle and cannot be half-black while a ground boundary crosses it, so
+   the plate had to leave a band early; ink can flip at the midpoint instead.
+   See js/chrome.js.
+
+   At ALL widths, unlike the trigger below: the plate is identity and can
+   simply be absent, the trigger is navigation and is permanent under 780. */
+html.chrome-retired .chrome-plate {
+  transform: translateY(-100%);
+}
+
+/* 🔴 THE PLATE IS ABSENT OVER A PHOTOGRAPH, AND THIS IS WHAT "NO BOX
+   ANYWHERE" TURNED INTO WHEN IT WAS MEASURED (21 Aug).
+
+   Built bare exactly as ruled, the mark came back at 1.22–1.78:1 over
+   /projects' photo grid — invisible, on the surface that carries 46 of the
+   site's photographs. The failures are architecture against sky: both ends
+   of the range inside one 210×99 box, which no single ink survives, so
+   choosing the master per image does not reach it either.
+
+   The choice over a photograph is therefore a box or nothing, and E13.2a
+   already says which one identity takes: "the plate is identity and can
+   simply be absent, the trigger is navigation and cannot." So the plate
+   leaves and the trigger fields — see the rule further down. ProArc's
+   complaint is answered in full for the WORDMARK, which is what they wrote
+   about: there is now no black rectangle behind it on any ground.
+
+   Same travel as the retreat, so the two compose rather than fight: a plate
+   that is both retired and over media is simply away, once. */
+html.plate-on-media .chrome-plate {
   transform: translateY(-100%);
 }
 
@@ -371,9 +415,21 @@ html.is-menu-open .chrome-trigger {
    so is-menu-open wins while both classes are on the root.
    ------------------------------------------------------------------------- */
 
-html.chrome-ink .chrome-trigger { background: transparent; }
 html.chrome-ink .chrome-trigger__bars i { background: var(--color-ink); }
 html.chrome-ink .chrome-trigger:focus-visible { outline-color: var(--color-ink); }
+
+/* 🔴 THE ONE FIELD LEFT ON THE SITE, AND IT IS THE TRIGGER'S OVER MEDIA
+   ONLY (21 Aug). Three CSS strokes are 1.5px tall: measured bare over
+   photographs they ran 1.28–2.65:1 on four routes, and unlike the plate the
+   trigger cannot answer that by leaving — it is the only way into the site's
+   only navigation surface (E13.1). So §8's field returns for exactly the
+   case §8 was written about, and for no other.
+
+   It sits after chrome-ink deliberately: on a paper page with a photograph
+   under the trigger both are candidates, and the field must win. */
+html.chrome-fielded .chrome-trigger { background: var(--color-surface-dark); }
+html.chrome-fielded .chrome-trigger__bars i { background: var(--color-on-dark); }
+html.chrome-fielded .chrome-trigger:focus-visible { outline-color: var(--color-on-dark); }
 
 /* 🔴 THE PLATE IS KEYED ON `plate-ink`, NOT ON `chrome-ink`, AND THE TWO
    ARE DIFFERENT QUESTIONS (Mahesh, 20 Aug 2026). chrome-ink asks whether
@@ -385,25 +441,27 @@ html.chrome-ink .chrome-trigger:focus-visible { outline-color: var(--color-ink);
    the arrival while the plate sits on the white spec table at the right,
    so a shared answer fielded the plate over white on all 47 of them.
 
-   plate-ink is armed wherever chrome-ink is, so the paper case is not
-   weakened; it is armed in strictly more places. The two masters swap
-   rather than recolour — nothing here touches ink. */
-html.plate-ink .chrome-plate { background: transparent; }
+   The two masters swap rather than recolour — nothing here touches ink. */
 html.plate-ink .chrome-plate__mark--on-dark { visibility: hidden; }
 html.plate-ink .chrome-plate__mark--on-paper { visibility: visible; }
 html.plate-ink .chrome-plate:focus-visible { outline-color: var(--color-ink); }
 
+/* The overlay covers the page, so whatever the trigger was standing on is
+   no longer visible — but `chrome-fielded` is computed from geometry rather
+   than from what can be seen, so it is still armed underneath. Cleared here
+   by source order, exactly as the ground rules are: one direction of
+   override, nothing to desync. */
 html.is-menu-open .chrome-trigger { background: transparent; }
 html.is-menu-open .chrome-trigger__bars i { background: var(--color-on-dark); }
 html.is-menu-open .chrome-trigger:focus-visible { outline-color: var(--color-on-dark); }
 
-/* The open overlay is black, so the plate returns to the dark master and
-   its field — which then dissolves into the overlay, which is what makes
-   the letterforms the way home. Settled HERE by source order rather than
-   by the script, exactly as the trigger's pair above: chrome-ink may well
-   be armed on the page underneath, and one direction of override means
+/* The open overlay is black, so the plate returns to the white master —
+   which is now the whole of it, the field having been the thing that used
+   to "dissolve into the overlay" and make the letterforms the way home.
+   They are the way home directly now. Settled HERE by source order rather
+   than by the script, exactly as the trigger's pair above: chrome-ink may
+   well be armed on the page underneath, and one direction of override means
    there is nothing to desync. */
-html.is-menu-open .chrome-plate { background: var(--color-surface-dark); }
 html.is-menu-open .chrome-plate__mark--on-dark { visibility: visible; }
 html.is-menu-open .chrome-plate__mark--on-paper { visibility: hidden; }
 html.is-menu-open .chrome-plate:focus-visible { outline-color: var(--color-on-dark); }

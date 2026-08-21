@@ -1,42 +1,67 @@
 /* =========================================================================
-   The ground-aware trigger — the observation strip.
+   The ground-aware chrome — the observation strip.
 
-   Spec: Board 17 (Session K, H1-b) · v1.2 §8 · v1.3 E13.2 as amended
+   Spec: Board 17 (Session K, H1-b) · v1.2 §8 · v1.3 E13.2a · E8.3
 
-   The page SHIPS fielded — the safe state, correct on every ground — and
-   this script arms html.chrome-ink only while the band under the chrome
-   holds nothing but paper. Three grounds, one direction of failure:
+   🔴 THERE IS NO FIELD ANY MORE, ANYWHERE (Mahesh, 21 Aug 2026): "we can
+   make the black box removed everywhere .. even above photographs anywhere
+   ..... blackbox can even be removed from behind the hamburger."
 
-     paper       no field, ink strokes,         — this script's one job
-                 and the plate's BLACK master
-     black       the field dissolves            — fielded and ink-free look
-                                                  identical, so stay fielded
-     photograph  the field returns              — §8 bars identity chrome
-                                                  on bare photography
+   That retires the three-ground table this file was built on. There is no
+   longer a fielded state and an ink state; there are TWO INKS, and the only
+   question either half of the chrome asks is which of them to wear:
 
-   The plate joined the trigger on this class on 20 Aug 2026, when ProArc
-   supplied the second master and E8.1's open action was discharged. The
-   swap is CSS: two img elements in one grid cell, because §8 bars deriving
-   one master from the other. This script's contract is unchanged — it
-   answers "is the band under the chrome clean paper", and nothing else.
+     under mostly black   →  the WHITE master / white strokes
+     under mostly paper   →  the BLACK master / ink strokes
 
-   The strip is the chrome's own band: an IntersectionObserver whose root
-   margin clips the viewport to the plate's measured height, so there is
-   no scroll threshold to guess and no scroll listener at all. What counts
-   as "not paper" is derived from the stylesheets, not guessed: the only
+   Everything else follows from that one change, and three long-standing
+   problems fall out with it:
+
+   1. THE SHIPPED STATE IS NOW THE ROUTE CONTRACT'S. The field used to be
+      the safe default — legible on every ground, so a page whose script
+      never ran was still correct. With no field there is no neutral state,
+      so the BUILD ships the answer: `pages-src/meta.json` already declares
+      each page's opening ground (E1), and `inject-partials` writes
+      `class="chrome-ink plate-ink"` onto <html> for the paper ones. The
+      script then only maintains what the build already got right. Same
+      doctrine, different source of truth — and the classes keep exactly
+      the meaning they had, so nothing downstream is renamed.
+
+   2. EACH HALF ASKS ABOUT ITS OWN INK, AND THE STRADDLE GOES WITH IT.
+      The band used to be watched FULL-WIDTH because a corner test needs a
+      physical left/right that flips in RTL. That was true of a test written
+      in left/right; it is not true of one written against an element's own
+      live rect, which flips with the document for free. So the trigger asks
+      about the BARS' box and the plate about the MARK's box — Session
+      XXXV's ruling ("the axis is the bars' INK, not the button's box")
+      arriving at the question of ground as well as of position. The
+      trigger's 67px straddle, open since 20 Aug, is closed by this: it was
+      a band-wide answer applied to a corner.
+
+   3. THE ANSWER IS A MAJORITY, NOT AN ANY-OVERLAP. A field was a rectangle
+      and could not be half-black, which is why no threshold could fix the
+      straddle. INK can be neither, but it can be wrong over part of itself
+      while a boundary crosses — so the flip is put where it costs least, at
+      the midpoint. See decide().
+
+   The strip is still the chrome's own band: an IntersectionObserver whose
+   root margin clips the viewport to the plate's measured height. What
+   counts as dark is derived from the stylesheets, not guessed — the only
    dark-ground classes in the system are .surface-dark (tokens.css) and
    .section--dark (layout.css), plus the always-black .site-footer and the
-   .overlay-panel; photography is the media elements. Anything doubtful
-   counts as not-paper — the conservative failure is a visible field,
-   never invisible strokes.
+   .overlay-panel.
 
-   The band is watched FULL-WIDTH rather than trigger-corner-only: a
-   corner test would need a physical left/right that flips in RTL, and the
-   plate at the other end wants the same answer anyway.
+   🔴 AND A PHOTOGRAPH IS THE ONE GROUND THE RULING COULD NOT REACH. It was
+   built with no field at all, measured by `p33-bare-chrome.js`, and bare ink
+   came back at 1.22–2.65:1 against a 3.0 floor on every route that has a
+   photograph under the chrome. So over media — and nowhere else — the two
+   halves part company on the line E13.2a already draws: the PLATE is
+   identity and is simply absent, the TRIGGER is navigation and keeps a
+   field. The full numbers and the reasoning are at MEDIA below.
 
-   What this file deliberately does NOT own: the open overlay's black
-   state. components.css settles that by source order (is-menu-open rules
-   sit after the chrome-ink ones), so the two can never desync.
+   What this file deliberately does NOT own: the open overlay's state.
+   components.css settles that by source order (is-menu-open rules sit
+   after the ink ones), so the two can never desync.
    ========================================================================= */
 
 (function () {
@@ -46,97 +71,161 @@
   var plate = document.querySelector('.chrome-plate');
   var trigger = document.querySelector('[data-menu-trigger]');
 
-  /* No chrome, or no observer support: the safe state is already on. */
+  /* The INK of each half, which is what the ground question is asked about
+     — see inkBox(). Both fall back to their padded box if the inner element
+     is ever absent, so a markup change degrades to the old, coarser answer
+     rather than throwing. */
+  var mark = plate && plate.querySelector('.chrome-plate__mark');
+  var bars = trigger && trigger.querySelector('.chrome-trigger__bars');
+
+  /* No chrome, or no observer support: the build has already shipped the
+     route contract's own ground on <html>, so doing nothing leaves the page
+     correct at its opening — which is where the chrome is at load. */
   if (!plate || !trigger || !('IntersectionObserver' in window)) return;
 
-  var NOT_PAPER =
-    'main img, main video, main canvas, main .overlay-panel, ' +
-    '.surface-dark, .section--dark, .site-footer';
-
-  /* 🔴 THE TWO HALVES OF THE CHROME NO LONGER ASK THE SAME QUESTION, AND
-     THAT IS A RULING (Mahesh, 20 Aug 2026) RATHER THAN AN OPTIMISATION.
-
-     The TRIGGER is three CSS strokes. Bare strokes on a photograph are
-     illegible whatever their colour, so §8's field has to return over
-     media — its set is NOT_PAPER, unchanged since H1-b.
-
-     The PLATE is supplied artwork in two inks, and the ruling is that the
-     white master belongs to a DECLARED BLACK BAND and nothing else. A
-     photograph therefore does not summon its field: on media the plate
-     takes the same black master it takes on paper. So its set is the dark
-     grounds alone, media removed.
-
-     Why this is the whole fix for the record pages: their hero runs down
-     the LEFT of the arrival while the plate sits on the white spec table
-     at the right. Under one shared question that photograph fielded the
-     plate too — ProArc's complaint, surviving the change that was made to
-     answer it. Media no longer reaches the plate's question at all, so the
-     two corners can differ without either of them measuring geometry, and
-     nothing here needs a physical left/right that would flip in RTL. */
+  /* THE DECLARED GROUNDS. One set for both halves now: from 20 Aug they
+     carried two different selectors because the trigger's bare strokes
+     needed §8's field back over a photograph while the plate's supplied
+     artwork did not. Media is asked about separately below, so this is
+     purely "what ground does the design DECLARE here", and both halves ask
+     it with the same rule against different boxes. */
   var DARK_BAND =
     'main .overlay-panel, .surface-dark, .section--dark, .site-footer';
+
+  /* 🔴 MEDIA IS BACK IN THE OBSERVATION SET, AND THE REASON IS A NUMBER.
+
+     "No box anywhere" was built exactly as ruled and then MEASURED, by
+     p33, which shoots the chrome against what it actually stands on. Bare
+     ink over a photograph does not clear 3:1 anywhere it was tried:
+
+       /index      the bars over Home's frames    1.28 · 1.34 · 1.64 · 2.44
+       /projects   the mark over the photo grid   1.22 · 1.26 · 1.34 · 1.78
+       /homes      the bars over the sector grid  1.90 · 2.65
+       /blacksquare the bars over the gallery     1.57 · 1.68
+
+     Medians ran 3–15:1 at the same positions, so an average — or a sample
+     taken anywhere but the worst patch — would have passed every one of
+     them. The failures are architecture against sky: a photograph with both
+     ends of the range inside one 210×99 box, which NO single ink survives.
+     Per-image ink selection was considered and does not reach it for the
+     same reason.
+
+     So the ruling is delivered where it can be and the two halves part
+     company again — on the line E13.2a already draws between them:
+
+       THE PLATE IS IDENTITY AND MAY BE ABSENT. Over a photograph it shows
+       no box and no mark. Identity is made on the grounds the design
+       declares, and a page's photographs are not one of them.
+
+       THE TRIGGER IS NAVIGATION AND MAY NOT. It is the only way into the
+       site's only navigation surface (E13.1), so it cannot answer a
+       legibility problem by leaving. Over a photograph — and ONLY there —
+       its field returns.
+
+     Media is watched with ANY overlap rather than a majority, unlike the
+     ground question below. A majority would blink the plate in and out at
+     every gutter of a 46-photograph grid; any-overlap gives one clean
+     transition at each edge of a run of pictures. */
+  var MEDIA = 'main img, main video, main canvas';
+  var WATCHED = DARK_BAND + ', ' + MEDIA;
 
   var observer = null;
   var inBand = new Set();
   var bandHeight = 0;                      /* set by arm() */
 
-  /* The plate's RESTING box. Horizontal extent is read live — it is correct
-     in both directions and needs no left/right of our own — but the vertical
-     is the band rather than the measured rect, because the retreat is a
-     translateY and a retired plate would otherwise report itself as standing
-     over nothing and latch the wrong ground for its own return. */
-  function plateBox() {
-    var r = plate.getBoundingClientRect();
-    return { left: r.left, right: r.right, top: 0, bottom: bandHeight || r.height };
+  /* THE TWO BOXES ARE THE INK'S, NOT THE PADDED BUTTON'S.
+
+     Session XXXV ruled the axis off the bars rather than off the trigger's
+     box, on Mahesh reading the page: the box sat on the text edge and the
+     three strokes sat 25px inside it. The same distinction decides GROUND,
+     and it matters more here than it did there — the plate's padded box is
+     50px wider and 50px taller than the mark inside it, so a boundary
+     entering the box changes the answer a full clear-space before it
+     reaches any ink the reader can see.
+
+     Horizontal extent is read live off the element, so RTL is carried for
+     free — that is what a hardcoded left/right could not do, and the reason
+     the band was originally watched full-width instead of per-corner.
+
+     The VERTICAL is clipped to the band rather than taken from the rect,
+     because the retreat is a translateY: a retired chrome would otherwise
+     report itself as standing over nothing and latch the wrong ink for its
+     own return. */
+  function inkBox(el) {
+    var r = el.getBoundingClientRect();
+    var top = Math.max(0, Math.min(r.top, bandHeight || r.height));
+    var bottom = Math.min(bandHeight || r.height, Math.max(r.bottom, 0));
+    if (bottom <= top) { top = 0; bottom = Math.min(r.height, bandHeight || r.height); }
+    return { left: r.left, right: r.right, top: top, bottom: bottom };
   }
 
-  function overlaps(el, box) {
+  function overlapArea(el, box) {
     var q = el.getBoundingClientRect();
-    return q.width > 0 && q.height > 0 &&
-           q.left < box.right && q.right > box.left &&
-           q.top < box.bottom && q.bottom > box.top;
+    if (!(q.width > 0 && q.height > 0)) return 0;
+    var w = Math.min(q.right, box.right) - Math.max(q.left, box.left);
+    var h = Math.min(q.bottom, box.bottom) - Math.max(q.top, box.top);
+    return w > 0 && h > 0 ? w * h : 0;
+  }
+
+  /* 🔴 THE ANSWER IS A MAJORITY OF THE INK'S OWN BOX, AND THE THRESHOLD IS
+     THE POINT OF THE WHOLE THING.
+
+     While a ground boundary crosses the mark, part of the mark is over black
+     and part over paper, and NO single ink is right for both. A field could
+     not be half-black at all, which is why 20 Aug's straddle had no fix
+     except taking the plate off screen early. Ink can be wrong over part of
+     itself — briefly — so the question stops being "can this be avoided" and
+     becomes "where does the flip cost least".
+
+     At the midpoint. Flip on first contact and the ink is wrong over almost
+     the whole mark for the whole crossing; flip on last contact and it is
+     wrong over almost the whole mark in the other direction. At 0.5 the
+     worst case is half the mark for half the crossing, and it is symmetric
+     in both scroll directions — which matters now that the chrome comes
+     back on the way up.
+
+     Areas are summed and clamped: two declared dark bands do not overlap
+     each other in this system, but a clamp costs nothing and an unclamped
+     sum would flip early if one ever did. */
+  function groundIsDark(el) {
+    var box = inkBox(el);
+    var area = (box.right - box.left) * (box.bottom - box.top);
+    if (!(area > 0)) return false;
+    var dark = 0;
+    inBand.forEach(function (node) {
+      if (node.matches(DARK_BAND)) dark += overlapArea(node, box);
+    });
+    return Math.min(dark, area) / area > 0.5;
+  }
+
+  function mediaUnder(el) {
+    var box = inkBox(el);
+    var hit = false;
+    inBand.forEach(function (node) {
+      if (!hit && node.matches(MEDIA) && overlapArea(node, box) > 0) hit = true;
+    });
+    return hit;
   }
 
   function decide() {
-    /* chrome-ink — the TRIGGER: nothing but paper anywhere in the band. */
-    root.classList.toggle('chrome-ink', inBand.size === 0);
+    var markMedia = mediaUnder(mark || plate);
+    var barsMedia = mediaUnder(bars || trigger);
 
-    /* 🔴 THE PLATE ASKS ABOUT ITS OWN BOX, AND A PHOTOGRAPH BEATS THE BAND
-       IT SITS IN (Mahesh, 20 Aug, second report: "still black box?").
+    /* Each half, its own ink, the same rule. `chrome-ink` and `plate-ink`
+       keep exactly the meaning they have always had — the ink state, black
+       strokes and the black master — so nothing downstream is renamed by
+       the field's removal.
 
-       The first cut of this counted declared dark bands anywhere in the
-       chrome's strip. On Home that is `section.hm-open` — which is dark AND
-       carries five full-bleed frames, so from y≈400 to y≈675 the plate stood
-       on a PHOTOGRAPH inside a declared dark section and kept its field. The
-       ruling is that a photograph takes the black master bare; a photograph
-       laid over a black section is still a photograph, and the section
-       underneath it is not what the reader sees.
+       Over media the ink question is moot for the plate (it is not painted)
+       and settled for the trigger (a field is behind it, so its strokes are
+       white). Answering it anyway keeps the state single-valued rather than
+       undefined, which is what a probe reads. */
+    root.classList.toggle('chrome-ink', !barsMedia && !groundIsDark(bars || trigger));
+    root.classList.toggle('plate-ink', !groundIsDark(mark || plate));
 
-       🔴 AND "MEDIA BEATS THE BAND" WAS BUILT, MEASURED AND REFUSED — the
-       refusal is the finding, so it is recorded here rather than deleted.
-       Letting a photograph override its dark section put the BLACK master
-       bare on Home's frames and `p32` measured it at **1.32:1**, worst case,
-       97% covered: invisible, on the most-visited page on the site. The
-       median was 3.77:1, so a check reading averages would have passed it.
-       **§8's field over photography is not decoration and this is what it
-       was protecting.** The white master on its field is the only one of the
-       three renderings that survives all five of Home's frames.
-
-       So the distinction that matters is NOT paper-vs-photograph, it is
-       WHOSE FAULT THE BOX IS: a black box on white paper was ProArc's
-       complaint and is gone; a black box on a photograph is §8 doing its
-       job. Only a DECLARED dark band under the plate summons the field, and
-       a photograph inside one keeps it.
-
-       Geometry, but not a physical side: the plate's own rect flips with the
-       document in RTL, which is exactly what a hardcoded left/right could not
-       do and why the band was watched full-width in the first place. */
-    var box = plateBox();
-    var darkUnder = false;
-    inBand.forEach(function (el) {
-      if (el.matches(DARK_BAND) && overlaps(el, box)) darkUnder = true;
-    });
-    root.classList.toggle('plate-ink', !darkUnder);
+    /* The plate leaves; the trigger fields. See the note at MEDIA. */
+    root.classList.toggle('plate-on-media', markMedia);
+    root.classList.toggle('chrome-fielded', barsMedia);
   }
 
   function onEntries(entries) {
@@ -167,7 +256,6 @@
      markup and a third page adopted the same class for a different reason.
      ----------------------------------------------------------------- */
   var arrivalObserver = null;
-  var plateObserver = null;
 
   function arrivalTarget() {
     var main = document.querySelector('main');
@@ -187,21 +275,9 @@
     applyRetreat();
   }
 
-  /* The plate's own half of the arrival, one band earlier than chrome-quiet
-     so the plate is never on screen while the arrival's bottom edge crosses
-     its box — see the note in arm(). Nothing else keys off this. */
-  function onPlateArrival(entries) {
-    root.classList.toggle('plate-away', !entries[entries.length - 1].isIntersecting);
-    /* Recompute the ground on the way back. The ground observer fires on
-       band crossings, and the plate returning is not one of them — without
-       this the plate can come back wearing the answer it left with. */
-    decide();
-  }
-
   function arm() {
     if (observer) observer.disconnect();
     if (arrivalObserver) arrivalObserver.disconnect();
-    if (plateObserver) plateObserver.disconnect();
     inBand.clear();
 
     /* The band is the plate's RENDERED height — measure the box, never
@@ -222,7 +298,6 @@
        wrong scroll position on all 58 pages. getAttribute rather than .width
        or naturalWidth: both of those answer the LOADED image, and this runs
        before the mark has decoded. */
-    var mark = plate.querySelector('.chrome-plate__mark');
     var markW = mark ? parseFloat(mark.getAttribute('width')) : 0;
     var markH = mark ? parseFloat(mark.getAttribute('height')) : 0;
     var ratio = markW > 0 && markH > 0 ? markH / markW : 0;
@@ -238,63 +313,41 @@
       threshold: 0,
     };
 
-    /* 🔴 THE PLATE LEAVES ON ITS OWN STATE, NOT ON `chrome-quiet`, AND THIS
-       IS THE FAULT MAHESH FOUND ON THE LIVE PAGE (20 Aug): "i am seeing box
-       when i scroll".
+    /* 🔴 `plate-away` IS GONE, AND THE REASON IT EXISTED WENT WITH THE FIELD.
 
-       `chrome-quiet` arms when the arrival band leaves the chrome's band
-       ENTIRELY — region [0, band], bottom edge past 0. So for the last
-       `band` pixels of the arrival, that edge sweeps UP THROUGH THE PLATE'S
-       OWN BOX. The ground question kept answering "dark", correctly — dark
-       was still in there — while the lower part of the plate's solid field
-       hung over paper. On Home the overhang grew 6px → 96px across ten
-       positions, in both scroll directions.
+       It was added on 20 Aug to answer "i am seeing box when i scroll":
+       `chrome-quiet` arms only once the arrival has left the chrome's band
+       ENTIRELY, so for the last `band` pixels of the arrival that edge swept
+       up through the plate's own box and the lower part of a SOLID FIELD
+       hung over paper — 6px growing to 96px on Home. A field is a rectangle
+       and cannot be half-black, so no threshold could fix it and the only
+       answer was to take the plate off screen a band early.
 
-       🔴 NO THRESHOLD FIXES IT, AND THE REASON IS WORTH KEEPING. A field is
-       a rectangle and cannot be half-black; every yes/no answer leaves an
-       artefact at the crossing, and flipping to the paper state early is
-       WORSE — it puts the black master's ink on the black still behind it.
-       The only clean answer is for the plate not to be on screen while the
-       boundary crosses it.
+       There is no rectangle now. The boundary still crosses the mark, but
+       what crosses it is ink, and decide() puts the flip at the midpoint
+       where it costs least. So the plate no longer has to hide from its own
+       page, which is precisely what made Mahesh's second ask affordable:
+       **removing the box is what lets the plate stay longer and come back
+       sooner.** It travels on `chrome-retired` with the trigger now.
 
-       🔴 AND IT GETS ITS OWN CLASS RATHER THAN RE-KEYING `chrome-quiet`,
-       WHICH I TRIED FIRST AND WHICH BROKE p14. Moving chrome-quiet's
-       threshold moved WHEN THE CHROME'S OWN TRANSITIONS RUN, and
-       `p14-services-motion` samples `document.getAnimations()` — the whole
-       document — so the chrome's transform landed inside its measurement
-       window and it reported the Services drawing as animating four things
-       instead of sixty-four. Nothing in Services references a chrome class;
-       the coupling was the global animation list and the clock. **A state
-       nothing reads can still be read by a probe that asks the document.**
-
-       So `chrome-quiet` is untouched — it still gates the TRIGGER's retreat
-       and the mark's size step — and the plate travels on `plate-away`,
-       which arms one band earlier: the arrival stops reaching BELOW the
-       chrome, region [band, viewport bottom]. The plate stands only while
-       its own box is wholly on the arrival's ground. Because chrome-quiet
-       implies plate-away, the mark's size step now always happens while the
-       plate is already hidden, so it is never seen to resize. */
-    var arrivalOpts = {
-      root: null,
-      rootMargin: '-' + band + 'px 0px 0px 0px',
-      threshold: 0,
-    };
-
+       📌 p14 IS STILL THE REASON `chrome-quiet` ITSELF IS UNTOUCHED. Moving
+       it moves when the chrome's transitions run, and `p14-services-motion`
+       samples `document.getAnimations()` — the whole document — so the
+       chrome's transform lands inside its measurement window. p14 is scoped
+       now, but the coupling is a property of any probe that asks the
+       document, so chrome-quiet keeps its meaning: the mark's SIZE step,
+       and the gate on the retreat. */
     observer = new IntersectionObserver(onEntries, opts);
     arrivalObserver = new IntersectionObserver(onArrival, opts);
-    plateObserver = new IntersectionObserver(onPlateArrival, arrivalOpts);
 
     var entry = arrivalTarget();
-    if (entry) {
-      arrivalObserver.observe(entry);
-      plateObserver.observe(entry);
-    }
+    if (entry) arrivalObserver.observe(entry);
 
-    var targets = document.querySelectorAll(NOT_PAPER);
+    var targets = document.querySelectorAll(WATCHED);
     if (targets.length === 0) {
-      /* A page of pure paper: nothing will ever fire, so decide now — and
-         decide BOTH, or the plate is left in its shipped field on a page
-         that has no dark ground anywhere. */
+      /* A page with no dark ground anywhere: nothing will ever fire, so
+         decide now — and decide BOTH, or a half is left wearing whatever
+         the build shipped on a page that can never correct it. */
       root.classList.add('chrome-ink');
       root.classList.add('plate-ink');
       return;
@@ -323,18 +376,37 @@
      observer above — already answers that question from the page's own first
      band. So the threshold this file refused to guess is still not guessed.
 
-     THE ONE INVENTED VALUE IS THE HYSTERESIS, AND IT IS NAMED HERE.
-     A direction read off consecutive scroll events flips on sub-pixel jitter,
-     on rubber-band overscroll, and on the layout shift a lazily-decoded image
-     causes — and a chrome that flickers is worse than one that covers. 24px
-     is the site's own --gap-block and, more to the point, the plate's clear
-     space rounded up: below one clear space of travel the reader has not
-     changed their mind about direction. Nothing else in the system supplies
-     a "smallest deliberate scroll", so this is invented rather than derived
-     and says so, exactly as districts.js names its two invented values.
+     🔴 THE TRAVEL IS ASYMMETRIC NOW, AND THAT IS THE SECOND HALF OF MAHESH'S
+     21 AUG RULING: "keep the logo and hamburger longer when scrolling (and
+     vice versa appear sooner when scrolling back)."
+
+     One hysteresis of 24px both ways made the chrome leave on the smallest
+     deliberate scroll — it was written to stop the state CHATTERING, and a
+     value chosen to reject jitter is far too small to describe a reader who
+     has decided to move on. Two values, and both are the site's own rather
+     than invented:
+
+       RETIRE_TRAVEL  200  --gap-section. The distance the design puts
+                           between two sections: the reader has left the
+                           thing they were reading, not shifted a line.
+       RETURN_TRAVEL   24  --gap-block, the old hysteresis unchanged. It was
+                           always the right size for "did they mean it"; it
+                           was only ever the wrong size for "have they gone".
+
+     So the chrome now holds through a reading scroll and retires on a
+     travelling one, and comes back on the first deliberate scroll up.
+     The asymmetry is the point: leaving is expensive, returning is cheap.
+
+     🔴 AND THE ANCHOR IS THE EXTREME, NOT THE LAST POSITION. Measuring
+     travel from the previous frame makes a 200px threshold unreachable —
+     one pixel of jitter against the direction resets the count, and a
+     trackpad supplies plenty. The anchor tracks the furthest point reached
+     in the current direction and the flip is measured BACK from it, which
+     is jitter-proof by construction and needs no second invented tolerance.
      ----------------------------------------------------------------- */
-  var HYSTERESIS = 24;
-  var lastY = window.pageYOffset || 0;
+  var RETIRE_TRAVEL = 200;                 /* --gap-section */
+  var RETURN_TRAVEL = 24;                  /* --gap-block */
+  var anchorY = window.pageYOffset || 0;
   var goingDown = false;
   var ticking = false;
 
@@ -366,16 +438,29 @@
     var y = window.pageYOffset || 0;
 
     /* Overscroll at either end reports positions outside the document on
-       some browsers. Clamping rather than returning keeps lastY honest —
-       an unclamped bounce leaves a phantom delta behind it. */
+       some browsers. Clamping rather than returning keeps the anchor honest
+       — an unclamped bounce leaves a phantom travel behind it. */
     if (y < 0) y = 0;
 
-    var delta = y - lastY;
-    if (Math.abs(delta) >= HYSTERESIS) {
-      goingDown = delta > 0;
-      lastY = y;
+    if (goingDown) {
+      if (y > anchorY) anchorY = y;                    /* extend the extreme */
+      if (anchorY - y >= RETURN_TRAVEL) { goingDown = false; anchorY = y; }
+    } else {
+      if (y < anchorY) anchorY = y;
+      if (y - anchorY >= RETIRE_TRAVEL) { goingDown = true; anchorY = y; }
     }
+
     applyRetreat();
+
+    /* 🔴 THE GROUND IS RE-READ EVERY FRAME NOW, AND IT HAS TO BE. The
+       observer fires when a band ENTERS or LEAVES the chrome's strip, which
+       was enough while the answer was any-overlap. It is not enough for a
+       majority: a band can sit in the strip for hundreds of pixels of scroll
+       while its edge crosses the mark, and no observer event fires in that
+       window — that is the straddle, seen from the other side. The cost is
+       one rect per element currently in the strip, typically nought to two,
+       inside a rAF that is already reading layout. */
+    decide();
   }
 
   window.addEventListener('scroll', function () {
@@ -397,7 +482,7 @@
          observer firing once would take the chrome away from a reader who is
          holding it. The direction is what has to be reset. */
       goingDown = false;
-      lastY = window.pageYOffset || 0;
+      anchorY = window.pageYOffset || 0;
       applyRetreat();
     }
   });

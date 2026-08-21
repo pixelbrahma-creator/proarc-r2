@@ -161,6 +161,11 @@ function main() {
       // opts into, per scripts.html — the finished marker ships in the HTML.
       pageScript: 'project',
       ground: 'paper',
+      // The chrome ships its ink from the ground (21 Aug) — the record's
+      // arrival puts the plate on the white spec table, not on the hero.
+      // Stated rather than derived here because all 47 share one template
+      // and one ground; inject-partials derives it for the authored routes.
+      groundClass: 'chrome-ink plate-ink',
       // The whole project block lights WORK; only an exact match takes
       // aria-current, and a record is not the page that link leads to.
       navLit: 'work',
