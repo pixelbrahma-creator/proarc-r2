@@ -745,7 +745,7 @@ blind. The cost is moved out of the loop, not gathered up inside it.
 npm run serve            # 127.0.0.1:8765 — every probe needs an HTTP origin
 npm run check:fast       # the 8 static checks, ~1s. Run this constantly.
 npm run check:changed    # + the probes your diff implicates
-npm run check            # everything, in parallel. ~97s. Before every commit.
+npm run check            # everything, in parallel. ~105s. Before every commit.
 ```
 
 **The cost was never the checking, it was Chrome starting.** Measured: the
@@ -754,7 +754,7 @@ run one after another for no reason but that a shell loop is written that way.
 They are independent, so `board.js` runs them concurrently on assigned ports and
 the board's floor is now its slowest single check (**p33, ~76s** since 21 Aug;
 p21's ~59s until then) rather than the
-sum — **97s wall for 498s of work at 59 checks** (62s/334s/43 when this was
+sum — **105s wall for 540s of work at 60 checks** (62s/334s/43 when this was
 written), which is *faster* than the
 32-check board it replaced.
 
@@ -820,8 +820,22 @@ written), which is *faster* than the
 
 Run through this list and state the result:
 
-1. `npm run check` passes — **59/59 in ~97s**. (`npx stylelint "src/**/*.css"`
-   alone is assertion 1 of 59.) It moved 58 → 59 on 21 Aug (E8.3) when
+1. `npm run check` passes — **60/60 in ~105s**. (`npx stylelint "src/**/*.css"`
+   alone is assertion 1 of 60.) It moved 59 → 60 on 21 Aug (XLI) when **`p4
+   mobile`** registered — **the site's only dedicated MOBILE probe, and it had
+   never once been on the board.** It threw from `6d8e968` (7 Aug) onward and
+   `00u` carried it as *"a null-guard — repair before pinning"* for thirteen
+   sessions. 🔴 **It was not a null-guard: four selectors died in that one
+   commit** (`[data-frame]`, `.wk-row__thumb`, `.wk-room__table`,
+   `.wk-table__row`) and line 25 was merely the first the interpreter reached.
+   **A throw names the first dead selector and nothing about how many stand
+   behind it** — so a throwing probe's repair cost cannot be read off its stack
+   trace. Two assertions were **deleted rather than re-aimed** (the standing
+   frame and its thumbnail stopped existing), and the old *"rows fall to one
+   column"* would have **asserted a fault as the rule**, since the set goes
+   deliberately two-up below 767. 16 → 20 assertions, all four payoffs inverted
+   independently before pinning; it runs inside p33's floor and costs no wall
+   time. It moved 58 → 59 on 21 Aug (E8.3) when
    **`p33 bare chrome`** registered — **the check that decided the design**,
    and now the board's FLOOR at ~76s against p21's ~59s, so it sets the wall
    time. p31 moved 22 → 26 per route (the field assertions inverted, plus the
