@@ -41,14 +41,14 @@
      exist. Structured data is not a loophole in a copy rule. -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","@id":"https://proarc.ae/projects/frontlineschool#project","name":"Frontline International School","url":"https://proarc.ae/projects/frontlineschool","creator":{"@id":"https://proarc.ae/#practice"},"isPartOf":{"@id":"https://proarc.ae/#site"},"description":"Frontline School is in Al-Tallah, Ajman adjacent to Ajman Academy, this British Curriculum school accommodates students from KG1 to 13th Grade.","image":"https://proarc.ae/images/projects/frontlineschool/hero-md.webp","locationCreated":{"@type":"Place","name":"Al Tallah, Ajman"},"dateCreated":"2016"}</script>
 
-<link rel="stylesheet" href="../src/styles/tokens.css?v=ac4af351">
+<link rel="stylesheet" href="../src/styles/tokens.css?v=1e4225ed">
 <link rel="preload" href="../assets/fonts/general-sans/GeneralSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/fonts/general-sans/GeneralSans-Semibold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../src/styles/fonts.css?v=f75b0f4d">
 <link rel="stylesheet" href="../src/styles/tokens-layout.css?v=61d79e4b">
 <link rel="stylesheet" href="../src/styles/base.css?v=c1bb4db1">
 <link rel="stylesheet" href="../src/styles/layout.css?v=575f374f">
-<link rel="stylesheet" href="../src/styles/components.css?v=29932f68">
+<link rel="stylesheet" href="../src/styles/components.css?v=5391927b">
 <link rel="stylesheet" href="../src/styles/pages/project.css?v=219bfb72">
 
 </head>
@@ -447,13 +447,27 @@
       own axis, so the footer closes the way the chrome opens it: apparatus at
       the inline-start, identity at the inline-end.
 
-      🔴 IT IS NOT A LINK, AND THAT IS DELIBERATE. The plate is the Home door
-      and this footer already carries Home as the first item of its nav — a
-      third route to index.html from one band is noise, and a linked wordmark
-      here would read as the chrome's plate having followed the reader down
-      the page, which is the one thing E13.2a does forbid. So it is a mark,
-      not a control: alt="" and aria-hidden, with the practice's name already
-      spoken by the legal line beside it.
+      🔴 IT IS A LINK HOME (Mahesh, 21 Aug — reversing the call made hours
+      earlier in this same file, which is recorded rather than overwritten
+      because the reasoning was mine and it was wrong on the reader).
+
+      I argued it should be a bare mark: the plate is the Home door, this
+      band already carries Home first, and a third route to index.html from
+      one band is noise. That is an argument about the LINK GRAPH, and the
+      graph was never the question. A wordmark is the one element on a page
+      that every reader has already been taught to click — so an unclickable
+      one is not restraint, it is a dead control, and the cost of the
+      "duplicate" is a second href in a band that already carries seven.
+
+      📌 It also settles a door this project has counted twice: at the foot
+      of a long page the plate is retired and the nav's "Home" is a 14px
+      label. There are now two doors home from the closing band, one of them
+      at identity scale.
+
+      So it takes a real accessible name rather than alt="" — and the name is
+      the practice, not "Home", because the mark IS the practice and a screen
+      reader announcing "Home, link" over the wordmark describes the
+      destination while losing the object.
 
       🔴 THE WHITE MASTER, UNCONDITIONALLY. This footer is #000000 on every
       route (E1), so there is no ground question to ask and no script involved
@@ -462,9 +476,11 @@
     -->
     <div class="site-footer__close">
       <p class="site-footer__legal">&copy; 2026 Proarc</p>
-      <img class="site-footer__mark"
-           src="../images/ui/logo-mark-white.webp"
-           alt="" aria-hidden="true" width="640" height="195" decoding="async" loading="lazy">
+      <a class="site-footer__marklink" href="../index.html">
+        <img class="site-footer__mark"
+             src="../images/ui/logo-mark-white.webp"
+             alt="Proarc — home" width="640" height="195" decoding="async" loading="lazy">
+      </a>
     </div>
 
   </div>

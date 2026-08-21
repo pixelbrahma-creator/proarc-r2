@@ -306,6 +306,10 @@
       ? Math.ceil(arrivalMark * ratio + pad)
       : Math.ceil(plate.getBoundingClientRect().height) || 112;
     bandHeight = band;                     /* decide() reads this */
+    /* The retire threshold is a screen, so it belongs to the viewport rather
+       than to the stylesheet — re-read here because arm() is what runs on
+       resize. Declared below and hoisted. */
+    RETIRE_TRAVEL = window.innerHeight;
     var below = Math.max(0, window.innerHeight - band);
     var opts = {
       root: null,
@@ -386,16 +390,28 @@
      has decided to move on. Two values, and both are the site's own rather
      than invented:
 
-       RETIRE_TRAVEL  200  --gap-section. The distance the design puts
-                           between two sections: the reader has left the
-                           thing they were reading, not shifted a line.
+       RETIRE_TRAVEL       one VIEWPORT HEIGHT. 🔴 RAISED FROM 200px on
+                           21 Aug — Mahesh, having lived with it: "Still
+                           increase the scroll distance for logo retire ...
+                           may be after full screen height?" 200 was
+                           --gap-section, the distance between two sections,
+                           and it turned out to describe a gesture rather
+                           than a departure. A full screen is the only
+                           threshold on this axis that is not arbitrary: the
+                           reader has replaced everything they could see.
        RETURN_TRAVEL   24  --gap-block, the old hysteresis unchanged. It was
                            always the right size for "did they mean it"; it
                            was only ever the wrong size for "have they gone".
 
-     So the chrome now holds through a reading scroll and retires on a
-     travelling one, and comes back on the first deliberate scroll up.
-     The asymmetry is the point: leaving is expensive, returning is cheap.
+     So the chrome now holds through a whole screen of reading and retires
+     only on a travelling scroll, and comes back on the first deliberate
+     scroll up. The asymmetry is the point: leaving is expensive, returning
+     is cheap — and it is now roughly 37:1 rather than 8:1.
+
+     🔴 IT IS A LIVE READ, NOT A CONSTANT. innerHeight changes on rotate, on
+     a resize, and on mobile browsers when the URL bar collapses — and a
+     threshold captured once would then describe a viewport that is no longer
+     there. arm() re-reads it, and arm() already runs on resize.
 
      🔴 AND THE ANCHOR IS THE EXTREME, NOT THE LAST POSITION. Measuring
      travel from the previous frame makes a 200px threshold unreachable —
@@ -404,7 +420,7 @@
      in the current direction and the flip is measured BACK from it, which
      is jitter-proof by construction and needs no second invented tolerance.
      ----------------------------------------------------------------- */
-  var RETIRE_TRAVEL = 200;                 /* --gap-section */
+  var RETIRE_TRAVEL = window.innerHeight;  /* one screen — re-read by arm() */
   var RETURN_TRAVEL = 24;                  /* --gap-block */
   var anchorY = window.pageYOffset || 0;
   var goingDown = false;

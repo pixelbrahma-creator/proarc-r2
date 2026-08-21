@@ -453,8 +453,29 @@ artwork misses it, the map degrades to a picture and the list carries the intera
    📌 **This is the third time §8's field over photography has been removed and measured back.**
    It is not decoration and it never was; what changed is which half of the chrome can afford to
    answer it by leaving. **ProArc's complaint is answered in full for the wordmark** — there is
-   now no black rectangle behind the mark on any ground, anywhere on the site — and the one field
-   left on the site is a 73×67 pill behind three strokes, over photography only.
+   now no black rectangle behind the mark on any ground, anywhere on the site.
+
+   🔴 **E8.3a — THE TRIGGER'S FIELD IS THE INK'S CHIP, NOT THE BUTTON'S BOX.** *Corrected the
+   same day, on Mahesh reading the page: "the box still appears when we scroll back."* The field
+   shipped as the BUTTON's background, and the button is 73×67 because it carries §8's clear
+   space as padding — **four times the area three 1.5px strokes need**, which on a photograph
+   reads as a slab rather than as a control. It is painted on the bars' own box now, inset 8px:
+   **39×33, a 73% reduction**, with the bars unmoved and §4.7's hit target still the full button.
+
+   ⚠️ **THREE BOX-FREE DEVICES WERE BUILT AND MEASURED BEFORE SETTLING FOR A SMALLER BOX**, and
+   the numbers are recorded so none of them is re-proposed on intuition:
+
+   | device | worst composited contrast |
+   |---|---|
+   | bare strokes | 1.28 – 2.65:1 |
+   | white strokes + a drop-shadow | **1.02 – 2.81:1** |
+   | `mix-blend-mode: difference` | 1.28 – 2.11:1 |
+
+   The shadow fails because a 1.5px stroke's halo falls **outside** the stroke, so it barely
+   darkens the ground the ink actually stands on. The blend fails because difference against
+   mid-grey returns mid-grey, and a photograph is full of mid-grey. Both are *worse* than bare in
+   places. **A scrim is also not available**: hard rule 8 requires ≥60% black across the whole
+   box plus 24px bleed and names a gradient that fades behind the ink as a bug.
 
    ⚠️ **`p32` is unchanged and still a guard**; `p33` is the measurement. Do not read any figure
    in this clause as live without re-running p33 — and do not retire p32 because it currently
@@ -773,10 +794,33 @@ E13.2a, decided 21 August 2026 (Mahesh), in the same ruling as E8.3:* **"keep th
 and hamburger longer when scrolling (and vice versa appear sooner when scrolling back)."**
 
 > **The plate joins the trigger on `chrome-retired`.** Past the page's own arrival, a
-> downward travel of **200px** (`--gap-section`) retires both; an upward travel of
-> **24px** (`--gap-block`) returns both, as do focus and the open overlay. The plate
-> retires at every width; the trigger stays permanent below 780. **Over a photograph the
-> plate does not return at all** — E8.3.
+> downward travel of **one viewport height** retires both; an upward travel of **24px**
+> (`--gap-block`) returns both, as do focus and the open overlay. The plate retires at
+> every width; the trigger stays permanent below 780. **Over a photograph the plate does
+> not return at all** — E8.3.
+
+🔴 **THE RETIRE THRESHOLD WAS 200px FOR HALF A DAY AND IS NOW A SCREEN.** *"Still increase
+the scroll distance for logo retire ... may be after full screen height?"* — Mahesh, having
+lived with it. `--gap-section` is the distance the design puts between two sections, and it
+turned out to describe **a gesture rather than a departure**. A screen is the only threshold
+on this axis that is not arbitrary: the reader has replaced everything they could see. The
+asymmetry is now about **34:1** rather than 8:1. ⚠️ It is a LIVE read of `innerHeight`,
+re-taken whenever the observers are re-armed — a captured constant describes a viewport that
+is gone after a rotate or a collapsing URL bar.
+
+🔴 **AND THE MARK'S SIZE STEP IS RETIRED WITH IT (E13.2c).** *"After practically seeing, can
+we avoid logo resize? anyway it is a disappearing after sometime and it is making it look odd
+now."* The two-state mark — 160 at arrival, 96 past it — was decided on 2 August. 📌 **It
+survived three weeks on the strength of being invisible:** from 4 August the plate was keyed
+on the arrival, so it left the screen before the step and returned after it, and `plate-away`
+then guaranteed that ordering. E13.2b put the plate back on screen through the body and the
+step was **rendered for the first time**. A mark that resizes on its way to disappearing is
+fidgeting, not hierarchy. **One size per breakpoint: 160 / 128 / 96.** `chrome-quiet` survives
+and still gates the retreat; only the size rule it carried is gone.
+
+📌 **A DECISION CAN SURVIVE BECAUSE NOTHING EVER RENDERED IT.** This is the register's
+expiry lesson in a third form: not a number that went stale, not a scope that was too wide,
+but a rule that was never once seen in the state it described.
 
 🔴 **REMOVING THE FIELD IS WHAT MADE THIS AFFORDABLE, AND THE TWO HALVES OF THE RULING
 ARE NOT INDEPENDENT.** Every reason the plate was confined to the arrival was a reason

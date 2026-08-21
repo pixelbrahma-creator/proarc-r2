@@ -210,6 +210,19 @@ inline-start rule.
   costs least. A live rect flips with the document, so nothing needs a
   physical left/right — that was only ever true of a test written in
   left/right.
+  🔴 **THE TRIGGER'S FIELD OVER MEDIA IS THE INK'S CHIP, NOT THE BUTTON'S
+  BOX** (21 Aug, on the live page: *"the box still appears when we scroll
+  back"*). The button is 73×67 because it carries §8's clear space as
+  padding — four times what three strokes need, reading as a slab on a
+  photograph. The chip is painted on `.chrome-trigger__bars::before` at
+  `inset: -8px`, so it is 39×33 (**73% less area**), the bars do not move and
+  the hit target is still the button. 🔴 **THREE BOX-FREE DEVICES WERE BUILT
+  AND MEASURED FIRST AND ALL THREE FAILED:** bare 1.28–2.65:1, white strokes
+  + drop-shadow **1.02–2.81:1**, `mix-blend-mode: difference` **1.28–2.11:1**.
+  The shadow fails because a 1.5px stroke's halo falls OUTSIDE the stroke, so
+  it barely darkens the ground the ink stands on; the blend fails because
+  difference against mid-grey returns mid-grey, and photographs are full of
+  it. **Do not re-propose any of the three without a number.**
   🔴 **OVER A PHOTOGRAPH THE TWO HALVES PART COMPANY, AND IT IS MEASURED.**
   The literal ruling was built — bare on every ground — and `p33` came back
   at **1.22–2.65:1 against a 3.0 floor** on all four routes that put a
@@ -274,8 +287,17 @@ inline-start rule.
   argument while it is being read** — measured on the plate cutting /ajman's
   ledger. A mark in the closing apparatus is after the argument, not over it.
   A refusal can be exactly right about its object and wrong about its scope.
+  🔴 **AND IT IS A LINK HOME — reversed the same day** (Mahesh, 21 Aug:
+  *"redice the size of footer logo and lonkto home page"*), along with the
+  size, 220 → **160/128/96**. My argument for a bare mark was about the LINK
+  GRAPH (the band already carries Home; a third route to index.html is
+  noise), and the graph was never the question: **a wordmark is the one
+  element every reader has been taught to click, so an unclickable one is a
+  dead control, not restraint.** It takes a real accessible name — *"Proarc —
+  home"*, the practice rather than the destination, because the mark IS the
+  practice.
   ⚠️ **`sweep-footer` went 6 → 8** for it: present on every route, the WHITE
-  master, the route's own prefix, and not wrapped in a link. 🔴 **The
+  master, the route's own prefix, and a genuine door home. 🔴 **The
   black-master tripwire needed the CLASS in its needle** — `src="…-white.webp"`
   alone matched the CHROME's on-dark master first, so the mutation landed on
   the header, which this sweep never reads, and reported neither a failure nor
@@ -309,14 +331,20 @@ inline-start rule.
   ASYMMETRIC** (Mahesh: *"keep the logo and hamburger longer when scrolling
   (and vice versa appear sooner when scrolling back)"*). The plate joins
   `chrome-retired`; **`plate-away` is DELETED** and the plate is no longer
-  keyed on the arrival. **200px of downward travel (`--gap-section`) to
-  retire, 24px of upward travel (`--gap-block`) to return** — leaving is
-  expensive, returning is cheap. Both are the site's own tokens; the single
-  24px hysteresis they replace was sized to reject jitter and could not also
-  mean "the reader has moved on". **The direction is read from the furthest
-  point reached in the current direction, never from the previous frame** — a
-  200px threshold measured frame-to-frame is unreachable on a trackpad, and
-  anchoring on the extreme needs no second tolerance.
+  keyed on the arrival. **ONE VIEWPORT HEIGHT of downward travel to retire,
+  24px of upward travel (`--gap-block`) to return** — leaving is expensive,
+  returning is cheap, and the ratio is now about 34:1. 🔴 **Raised from 200px
+  (`--gap-section`) on 21 Aug** — *"may be after full screen height?"* — after
+  living with it: a section's gap describes a gesture, not a departure. **A
+  screen is the only non-arbitrary threshold on this axis**: the reader has
+  replaced everything they could see. It is a **LIVE read of `innerHeight`,
+  re-taken by `arm()` on every resize**, because a captured constant
+  describes a viewport that is gone after a rotate or a collapsing URL bar.
+  **The direction is read from the furthest point reached, never from the
+  previous frame** — a screen-sized threshold measured frame-to-frame is
+  unreachable on a trackpad, and anchoring on the extreme needs no second
+  tolerance. *Verified on the page: half a screen down keeps it, past a
+  screen retires it, 50px up returns it.*
   🔴 **REMOVING THE FIELD IS WHAT MADE THIS AFFORDABLE — the two halves of
   the 21 Aug ruling are not independent.** Every reason the plate was
   confined to the arrival was a reason about a RECTANGLE: the 146px of a
@@ -328,12 +356,19 @@ inline-start rule.
   described** — the register's own recorded failure mode, caught this time by
   re-reading a refusal rather than by tripping over it.
   ⚠️ **`chrome-quiet` ITSELF IS STILL UNTOUCHED, AND THAT IS DELIBERATE** —
-  it gates the retreat and steps the mark 160→96. Re-keying it on 20 Aug
-  BROKE p14, which samples `document.getAnimations()`; p14 is scoped now but
-  the coupling is a property of any probe that asks the document. ⚠️ Because
-  the plate is present through the body again, **the mark's size step is
-  visible on screen once more** — that is the designed behaviour (identity
-  loudest at arrival, settling to the reading size), not a regression.
+  it gates the retreat. Re-keying it on 20 Aug BROKE p14, which samples
+  `document.getAnimations()`; p14 is scoped now but the coupling is a
+  property of any probe that asks the document.
+  🔴 **THE MARK'S SIZE STEP IS GONE, 21 Aug** (Mahesh, on the rendered page:
+  *"can we avoid logo resize? anyway it is a disappearing after sometime and
+  it is making it look odd now"*). It was 160 at arrival stepping to 96 past
+  it, decided 2 Aug. 📌 **THAT DECISION SURVIVED THREE WEEKS ON THE STRENGTH
+  OF BEING INVISIBLE:** from 4 Aug the plate was keyed on the arrival, so it
+  left the screen before the step and came back after it, and `plate-away`
+  then guaranteed the ordering. E13.2b put the plate back on screen through
+  the body and the step was rendered for the first time. **One size per
+  breakpoint now (160/128/96); `--mark-size-quiet` is deleted.** `chrome-quiet`
+  keeps its other job.
   ⚠️ **A helper that forces this state must name EVERY class it is made of**
   — `p24`'s `present()` went stale against `plate-away` exactly as it had
   against `chrome-quiet` in XXXVIII, and reported the plate at ty −98.75 in a

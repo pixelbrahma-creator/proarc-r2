@@ -77,7 +77,11 @@
 .chrome-plate {
   --chrome-axis: calc(max(0px, (100% - var(--container-max)) / 2) + var(--gutter-desktop));
 
-  /* The mark's two states (2 Aug follow-up, decided live): identity is
+  /* ⚠️ THE MARK HAS ONE SIZE PER BREAKPOINT SINCE 21 Aug — the two-state
+     step is retired; see the note further down. The paragraph below is the
+     record of the decision it replaced.
+
+     The mark's two states (2 Aug follow-up, decided live): identity is
      loudest at ARRIVAL — 160 while the page's opening band is under the
      chrome — and steps to the reading size once it has scrolled past.
      The reading size is 96, §8's own desktop floor (tuned down from a
@@ -99,7 +103,6 @@
      trigger returns on any upward scroll, on focus, and whenever the overlay
      opens, so it is never more than one gesture away. */
   --mark-size: var(--logo-size-desktop);
-  --mark-size-quiet: var(--logo-size-mobile);
 
   /* The inset, named once so both offsets below and the breakpoints stay
      derived rather than hand-tuned in two places (H4-h's shape). It was the
@@ -184,9 +187,25 @@
    over the visible one at every intermediate value during a transition. */
 .chrome-plate__mark--on-paper { visibility: hidden; }
 
-/* The page SHIPS in the arrival state — the complete page — and the
-   script only arms the reading state, same doctrine as chrome-ink. */
-html.chrome-quiet .chrome-plate__mark { inline-size: var(--mark-size-quiet); }
+/* 🔴 THE MARK NO LONGER STEPS DOWN, AND THAT IS A RULING ON THE RENDERED
+   PAGE (Mahesh, 21 Aug): "After practically seeing, can we avoid logo
+   resize? anyway it is a disappearing after sometime and it is making it
+   look odd now."
+
+   The two-state mark was decided on 2 Aug — 160 at ARRIVAL, stepping to 96
+   once the page had scrolled past its opening band. It survived three weeks
+   because NOBODY EVER SAW IT HAPPEN: from 4 Aug the plate was keyed on the
+   arrival, so it left the screen before the step and came back after it,
+   and from 20 Aug `plate-away` guaranteed that ordering. E13.2b put the
+   plate back on screen through the body and the step became visible for the
+   first time — and a mark that resizes on its way to disappearing is
+   fidgeting, not hierarchy.
+
+   📌 A DECISION CAN SURVIVE ON THE STRENGTH OF BEING INVISIBLE. This one was
+   never wrong on the page it was tuned against; it was simply never rendered
+   in the state it described. The identity size is now one value per
+   breakpoint (160 / 128 / 96) and `--mark-size-quiet` is deleted with the
+   rule that read it. */
 
 /* -------------------------------------------------------------------------
    THE RETREAT — E13.2a (4 Aug 2026, Mahesh). The chrome uncovers the page.
@@ -427,7 +446,33 @@ html.chrome-ink .chrome-trigger:focus-visible { outline-color: var(--color-ink);
 
    It sits after chrome-ink deliberately: on a paper page with a photograph
    under the trigger both are candidates, and the field must win. */
-html.chrome-fielded .chrome-trigger { background: var(--color-surface-dark); }
+/* 🔴 THE FIELD IS THE INK'S CHIP, NOT THE BUTTON'S BOX (Mahesh, 21 Aug, on
+   the live page: "the box still appears when we scroll back").
+
+   The first form of this painted the BUTTON, which is 73×67 because it
+   carries §8's clear space as padding — four times the area its three
+   strokes need, reading as a slab dropped on a photograph. The hit target is
+   still the button and is untouched (§4.7); what shrinks is only the paint,
+   so the bars do not move and the axis is unaffected.
+
+   🔴 THREE BOX-FREE DEVICES WERE BUILT AND MEASURED BEFORE SETTLING FOR A
+   SMALLER BOX, and all three failed on the same instrument (p33):
+     bare strokes                      1.28 – 2.65:1
+     white strokes + a drop-shadow     1.02 – 2.81:1
+     mix-blend-mode: difference        1.28 – 2.11:1
+   The shadow fails because a 1.5px stroke's halo falls OUTSIDE the stroke,
+   so it barely darkens the ground the ink actually stands on. The blend
+   fails because difference against mid-grey returns mid-grey, and a
+   photograph is full of it. Against a 3.0 floor, none of them is a
+   candidate; do not re-propose them without a number. */
+html.chrome-fielded .chrome-trigger__bars::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  z-index: -1;
+  background: var(--color-surface-dark);
+}
+
 html.chrome-fielded .chrome-trigger__bars i { background: var(--color-on-dark); }
 html.chrome-fielded .chrome-trigger:focus-visible { outline-color: var(--color-on-dark); }
 
@@ -964,7 +1009,6 @@ html.is-menu-open { overflow: hidden; }
     --chrome-axis: var(--gutter-tablet);
     --chrome-pad: var(--logo-clear-space);
     --mark-size: var(--logo-size-tablet);
-    --mark-size-quiet: var(--logo-size-mobile);
   }
 
   .chrome-trigger__bars {
@@ -1002,7 +1046,6 @@ html.is-menu-open { overflow: hidden; }
   .chrome-plate {
     --chrome-axis: var(--gutter-mobile);
     --mark-size: var(--logo-size-mobile);
-    --mark-size-quiet: var(--logo-size-mobile);
   }
 
   /* 🔴 THE MOBILE GUTTER (20) IS NARROWER THAN THE CLEAR SPACE (24), so
@@ -1124,6 +1167,20 @@ html.is-menu-open { overflow: hidden; }
 /* §8's clear space is not spent by the row's gap alone: --gap-block is 24,
    which IS the minimum, so nothing may be subtracted from it here. The
    footer's own padding-block (--gap-component, 64) covers the bottom. */
+.site-footer__marklink {
+  display: block;
+  /* The mark is the whole target — no padding, so the link's box is the
+     artwork's box and the row's alignment stays the ink's. §4.7's 44px
+     minimum is met by the mark itself at every breakpoint (96px is the
+     smallest it renders). */
+  line-height: 0;
+}
+
+.site-footer__marklink:focus-visible {
+  outline: 2px solid var(--color-on-dark);
+  outline-offset: 4px;
+}
+
 .site-footer__mark {
   display: block;
   inline-size: var(--logo-size-footer);
