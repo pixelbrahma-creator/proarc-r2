@@ -1107,6 +1107,29 @@ html.is-menu-open { overflow: hidden; }
   margin: 0;
 }
 
+/* The closing row — the legal line and the signature, one on each axis
+   (Mahesh, 21 Aug). `flex-end` rather than `center`: the mark's BASELINE and
+   the legal line's should read as one horizontal, and the mark's artwork ends
+   on its own baseline, so aligning the boxes' bottoms aligns the ink. `wrap`
+   because below 780 a 132px mark and a caption do not share a line on a
+   335px column — see the media block. */
+.site-footer__close {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--gap-block);
+}
+
+/* §8's clear space is not spent by the row's gap alone: --gap-block is 24,
+   which IS the minimum, so nothing may be subtracted from it here. The
+   footer's own padding-block (--gap-component, 64) covers the bottom. */
+.site-footer__mark {
+  display: block;
+  inline-size: var(--logo-size-footer);
+  block-size: auto;
+}
+
 .site-footer__legal {
   font-size: var(--fs-caption);
   font-weight: var(--fw-regular);
@@ -1166,11 +1189,24 @@ main:has(> .surface-dark:last-child) ~ .site-footer .site-footer__inner::before 
    same gutters), so it moves on the layout's breakpoints with the chrome. */
 @media (max-width: 1024px) {
   .site-footer__inner { padding-inline: var(--gutter-tablet); }
+  .site-footer__mark { inline-size: var(--logo-size-footer-tablet); }
 }
 
 @media (max-width: 780px) {
   .site-footer__inner { padding-inline: var(--gutter-mobile); }
   .site-footer__list { gap: var(--gap-tight); }
+
+  /* The row stacks rather than shrinking further: at 375 the column is 335px
+     and a 132px mark beside a caption leaves neither enough room to sit on
+     its own axis. The mark takes the inline-start with the rest of the
+     footer, because a lone right-aligned object in a stacked column reads as
+     a mistake rather than as a signature. */
+  .site-footer__mark { inline-size: var(--logo-size-footer-mobile); }
+
+  .site-footer__close {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
 }
 
 

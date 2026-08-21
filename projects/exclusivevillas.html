@@ -41,14 +41,14 @@
      exist. Structured data is not a loophole in a copy rule. -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","@id":"https://proarc.ae/projects/exclusivevillas#project","name":"Exclusive Villas","url":"https://proarc.ae/projects/exclusivevillas","creator":{"@id":"https://proarc.ae/#practice"},"isPartOf":{"@id":"https://proarc.ae/#site"},"description":"Exclusive Villas — Al Zorah, Ajman. Architecture, engineering and project management by Proarc.","image":"https://proarc.ae/images/projects/exclusivevillas/hero-md.webp","locationCreated":{"@type":"Place","name":"Al Zorah, Ajman"}}</script>
 
-<link rel="stylesheet" href="../src/styles/tokens.css?v=80ad2e55">
+<link rel="stylesheet" href="../src/styles/tokens.css?v=ac4af351">
 <link rel="preload" href="../assets/fonts/general-sans/GeneralSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/fonts/general-sans/GeneralSans-Semibold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../src/styles/fonts.css?v=f75b0f4d">
 <link rel="stylesheet" href="../src/styles/tokens-layout.css?v=61d79e4b">
 <link rel="stylesheet" href="../src/styles/base.css?v=c1bb4db1">
 <link rel="stylesheet" href="../src/styles/layout.css?v=575f374f">
-<link rel="stylesheet" href="../src/styles/components.css?v=c7422dd2">
+<link rel="stylesheet" href="../src/styles/components.css?v=29932f68">
 <link rel="stylesheet" href="../src/styles/pages/project.css?v=219bfb72">
 
 </head>
@@ -381,11 +381,24 @@
       one line at 1440, 1024, 780 and 500, and at a true 375 the list already
       wrapped to two with six items and stays at two with seven.
 
-      NOT the wordmark, which was the first form tried and is barred by
+      NOT the wordmark, which was the first form tried and was refused on
       E13.2a's own sentence — "identity is made once per page and does not
-      reintroduce itself over the argument" — the clause that made the plate
-      retreat in the first place. A second mark at the foot of 58 pages is the
-      literal thing it forbids.
+      reintroduce itself over the argument."
+
+      🔴 THAT REFUSAL IS REVERSED, 21 Aug 2026 (Mahesh): "i am also
+      considring adding the logo aesthetically in the footer." Three forms
+      were RENDERED on this footer at 1440 rather than described — 96px at
+      the head, 220px on the legal line's row, 900px as a band — and he took
+      the middle one. See the mark at the foot of this file.
+
+      📌 THE REFUSAL WAS RIGHT ABOUT ITS OBJECT AND WRONG ABOUT ITS SCOPE,
+      which is a fault this project has recorded before. E13.2a's sentence
+      governs the FIXED CHROME reintroducing itself OVER THE ARGUMENT while
+      the reader is reading it — that is what the clause was written to stop,
+      on a measurement of the plate cutting /ajman's ledger mid-word. A mark
+      in the closing apparatus is not over the argument; it is after it, on
+      the band that already carries the nav, the socials and the legal line.
+      The two are not the same object and the clause never reached this one.
     -->
     <nav class="site-footer__nav" aria-label="Footer">
       <ul class="site-footer__list">
@@ -428,7 +441,31 @@
       <a class="site-footer__link site-footer__waylink" href="https://www.google.com/maps/search/?api=1&query=25.392760%2C55.436931" rel="noopener"><svg class="wayfind__mark" width="12" height="16" viewBox="0 0 12 16" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true" focusable="false"><circle cx="6" cy="6" r="4.5"/><path d="M6 10.5V15.5"/></svg><span>Directions</span></a>
     </p>
 
-    <p class="site-footer__legal">&copy; 2026 Proarc</p>
+    <!--
+      THE CLOSING SIGNATURE (Mahesh, 21 Aug 2026 — option B of three rendered).
+      The mark and the legal line share the last row, the mark on the page's
+      own axis, so the footer closes the way the chrome opens it: apparatus at
+      the inline-start, identity at the inline-end.
+
+      🔴 IT IS NOT A LINK, AND THAT IS DELIBERATE. The plate is the Home door
+      and this footer already carries Home as the first item of its nav — a
+      third route to index.html from one band is noise, and a linked wordmark
+      here would read as the chrome's plate having followed the reader down
+      the page, which is the one thing E13.2a does forbid. So it is a mark,
+      not a control: alt="" and aria-hidden, with the practice's name already
+      spoken by the legal line beside it.
+
+      🔴 THE WHITE MASTER, UNCONDITIONALLY. This footer is #000000 on every
+      route (E1), so there is no ground question to ask and no script involved
+      — unlike the chrome, whose two masters are chosen live. §8 bars deriving
+      one master from the other, so this points at the supplied file.
+    -->
+    <div class="site-footer__close">
+      <p class="site-footer__legal">&copy; 2026 Proarc</p>
+      <img class="site-footer__mark"
+           src="../images/ui/logo-mark-white.webp"
+           alt="" aria-hidden="true" width="640" height="195" decoding="async" loading="lazy">
+    </div>
 
   </div>
 </footer>

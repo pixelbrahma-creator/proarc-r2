@@ -185,6 +185,28 @@
   --logo-clear-space:       24px;
   --logo-clear-space-desktop: 25px; /* held — see the note above; the
                                        masters' cap at 160 is 24.33 */
+
+  /* -----------------------------------------------------------------------
+     THE FOOTER SIGNATURE (Mahesh, 21 Aug 2026) — a fourth rendered size, and
+     it is a DECIDED value rather than a derived one, exactly as the Board 17
+     set above was. Three options were rendered on the live footer at 1440 —
+     96 at the head of the footer, 220 on the legal line's row, and 900 as a
+     band — and he chose the middle one. 220 is therefore the answer to "how
+     big", not a calculation; nothing in the system derives it and nothing
+     should try to.
+
+     🔴 IT IS NOT --logo-size-desktop. The chrome's 160 is a size for a mark
+     the reader meets at ARRIVAL, over content, on a fixed layer. This one
+     closes the page from inside the apparatus and shares a row with a 12px
+     legal line; borrowing the chrome's token would tie two decisions that
+     were taken years apart in the record and for opposite reasons.
+
+     The steps down are the layout's own breakpoints, not the type system's,
+     because this mark shares its row with a line that wraps: at 1024 the
+     footer's gutters halve, and by 780 the row stacks. --------------------- */
+  --logo-size-footer:      220px;
+  --logo-size-footer-tablet: 176px;
+  --logo-size-footer-mobile: 132px;
 }
 
 /* =========================================================================

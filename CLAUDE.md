@@ -260,6 +260,27 @@ inline-start rule.
   type `117 / 330`, the first asset's canvas, which the new masters would
   have silently invalidated — a stale ratio throws nothing, it just flips the
   ground and arrival states at the wrong scroll position on all 58 pages.
+- **THE FOOTER CARRIES A CLOSING SIGNATURE** (Mahesh, 21 Aug — option B of
+  three RENDERED on the live footer). The white master at
+  `--logo-size-footer` (220 / 176 / 132), sharing the last row with the legal
+  line, on the page's own axis: the footer closes the way the chrome opens,
+  apparatus inline-start and identity inline-end. **It is NOT a link** — the
+  plate is the Home door and this band already carries Home first, so a third
+  route to index.html from one band is noise; `alt=""`, `aria-hidden`, and the
+  practice's name is already spoken by the legal line beside it.
+  🔴 **THIS REVERSES A REFUSAL IN `partials/footer.html`** written on E13.2a's
+  *"identity is made once per page and does not reintroduce itself over the
+  argument"*. **That clause is about the FIXED CHROME returning OVER the
+  argument while it is being read** — measured on the plate cutting /ajman's
+  ledger. A mark in the closing apparatus is after the argument, not over it.
+  A refusal can be exactly right about its object and wrong about its scope.
+  ⚠️ **`sweep-footer` went 6 → 8** for it: present on every route, the WHITE
+  master, the route's own prefix, and not wrapped in a link. 🔴 **The
+  black-master tripwire needed the CLASS in its needle** — `src="…-white.webp"`
+  alone matched the CHROME's on-dark master first, so the mutation landed on
+  the header, which this sweep never reads, and reported neither a failure nor
+  an inert bite. **A mutation that lands somewhere other than where it was
+  aimed is indistinguishable from one that worked.**
 - **The chrome's INK sits on the content axis** (container edge + gutter,
   the `--chrome-axis` calc) and moves on the LAYOUT's breakpoints (1024/780).
   Never reintroduce a bare-gutter offset or a 1023/767 chrome breakpoint.
