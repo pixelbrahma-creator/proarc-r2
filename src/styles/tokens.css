@@ -275,7 +275,34 @@ html:lang(ar) *,
 
 @media (max-width: 1024px) {
   :root {
-    --fs-menu-nav: 2.75rem;  /* 44px */
+    --fs-menu-nav: 2.75rem;  /* 44px — tablet */
+  }
+}
+
+/* 🔴 AND 32px ON THE PHONE — 21 Aug, chosen by Mahesh from three sizes
+   rendered at 393 x 672, which is his device's REAL viewport rather than its
+   screen. It steps at 780, the chrome's own mobile breakpoint, which the
+   overlay already uses for its padding; tablet keeps 44 because 768 was
+   never put in front of him and his instruction was "only on mobile".
+
+   🔴 THIS INVERTS THE TOKEN'S ORIGINAL REASONING AND THAT SHOULD BE SAID
+   OUT LOUD. --fs-menu-nav was pinned because "--fs-h1 collapses to 40px at
+   1023 and 34px at 767" and the nav must not follow it down. At 32 the nav
+   is now SMALLER than --fs-h1's mobile 34. The old argument was made from
+   label metrics — whether CONTACT's 266px fits a 327px column — and it was
+   right about that and silent about air. What decided this instead was
+   three renders at the viewport the reader actually has, which is the
+   better evidence: the doors share a 102px row each, and 52px caps filled
+   them.
+
+   📌 The nav no longer being the largest type on the site is a real
+   consequence, not an oversight: Home's section markers are 34px here. If
+   that reads wrong, it is a question about the overlay's register, not a
+   reason to restore a size that was chosen against a screen height nobody
+   has. */
+@media (max-width: 780px) {
+  :root {
+    --fs-menu-nav: 2rem;  /* 32px — phone */
   }
 }
 
