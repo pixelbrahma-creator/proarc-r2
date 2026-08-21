@@ -24,8 +24,16 @@ the codebase comes from a token. If a value you need is not a token, **stop
 and ask** — do not invent one.
 
 > Tokens added since v1.3 was signed, each a recorded decision rather than a
-> build-time value: **`--fs-menu-nav`** (52px fixed; 09-menu §5, measured
-> label metrics — `--fs-h1` collapses and the nav must not), and the **Board
+> build-time value: **`--fs-menu-nav`** (09-menu §5, measured label metrics —
+> `--fs-h1` collapses and the nav must not) 🔴 **NO LONGER FIXED ACROSS
+> BREAKPOINTS — 52 desktop / 44 tablet (≤1024) / 32 phone (≤780), 21 Aug
+> 2026, XLI.** Both steps are on the LAYOUT pair, not the type pair, because
+> the overlay's whole arrangement switches at 1025 and its padding at 780;
+> keyed at 1023 the single pixel at 1024 would render the mobile overlay in
+> desktop's type. ⚠️ **At 32 the nav is SMALLER than `--fs-h1`'s mobile 34,
+> which inverts the reason the token was pinned** — that reason was argued
+> from label metrics (does CONTACT's 266px fit a 327px column) and was
+> correct about fit and silent about air. And the **Board
 > 17 brand set** (2 Aug, Mahesh): `--logo-size-desktop/tablet/mobile`
 > (160/128/96 — the rendered decision above §8's 96/80 floors, which stay as
 > the record) and `--logo-clear-space-desktop` (25px — §8's own
@@ -149,6 +157,59 @@ Summarised. The clause text governs; read it.
 
 - Mega Splash ceases to exist and resolves to H1 (both 34px).
 - H3 and Body Large are both 20px, separated by weight (600 vs 300) and space.
+
+### Mobile spacing and type — decided 21 Aug 2026 (XLI), from Mahesh's phone
+
+🔴 **THE INSTRUMENT WAS HIS DEVICE, AND THE DEVICE IS 393 × 672.** Not 375, and
+not 852: his iPhone is 393 × 852 and **Safari's URL bar (96) and toolbar (83)
+take 179 of it**, so the page receives 672. Every mobile number written before
+this session was at 375, and the first half of this session's were taken at
+852 — a frame 27% taller than any he has. **Measure at 672, and where a
+decision is about how a fixed height is DISTRIBUTED, a taller frame proposes a
+distribution nobody receives.**
+
+- **`--lh-hero` 1.15 → 1.25 at ≤767.** Home's opening was crowded in INK, which
+  is the only way the complaint is legible: caps are 24.5px at 34px, and 1.15
+  left **14.6px between one cap bottom and the next cap top — 60% of a cap
+  height** under five full-measure lines of uppercase 600 with negative
+  tracking. Now 18.0px, 74%. 📌 **The token reaches exactly ONE element on the
+  site** — checked, not assumed: `--lh-hero` is read by `h1` in base.css and by
+  `.t-hero`, and all 58 h1s carry a register class, of which only Home's is
+  `.t-hero`. ⚠️ `--lh-mega` stays 1.15, so Home's opening and its section
+  markers are now the same SIZE in different leadings; the markers run one or
+  two lines where the opening runs five, which is the whole reason it matters
+  on one and not the other.
+- **`--fs-menu-nav` 52 / 44 / 32** — see the token note above. Chosen from three
+  sizes rendered at 393 × 672 with nothing written to disk.
+- **The menu's rows share the overlay's height at EVERY width.**
+  `.menu-nav__list`'s `grid-auto-rows: minmax(76px, 1fr)` and
+  `.menu-nav__item`'s flex treatment were hoisted out of `min-width: 1025px`
+  and are now stated once. Below 1024 the doors used to hug their 76px minimum
+  and the spare height collected into **a 308px void, 36% of the screen**,
+  between the nav and the identifiers. 🔴 **The number that approved that
+  distribution measured dead space at the FOOT** (21.1% → 3.3%), which
+  `space-between` does drive to nothing — nothing measured the gap it opens
+  BETWEEN the blocks. A correct number that is not the number the question
+  turns on. The 76px floor still holds, so a short viewport degrades to the
+  layout this replaced rather than crushing.
+- **`.ha-room__names` gets its leading back.** It stepped `--fs-h2` →
+  `--fs-body-lg` at ≤767 and left `line-height` on `--lh-editorial`, a display
+  leading under body-sized type: fifteen proper nouns at 20/25. Now 20/30.
+  **A rule made of two tokens has to move BOTH when it changes register** — the
+  same shape as the arrival-clearance rule, in a smaller place.
+- **The footer nav breaks 4 + 3, by grid, not by rag.** Seven labels total
+  309px against 353px of column, so one row is impossible at any permitted
+  spacing — the wrap is structural and only the rag was in question. Left to
+  flex it orphans a different link at each width (**5 + 2 at 375, 6 + 1 at
+  393**), which is why the break is stated as `repeat(4, max-content)` rather
+  than left to what the labels happen to measure. ⚠️ Columns are sized to their
+  widest label, so the gaps come out 30 / 25 / 16px rather than even — accepted
+  deliberately, determinism over evenness.
+
+**All five are asserted by `p4-mobile`**, which had never been on the board
+before this session. Nothing else on the board can see them: `p29 menu` runs at
+1440 and cannot see a mobile arrangement, and `p21` reads relations at 375 —
+**and a relation is exactly what survives a bad rhythm intact.**
 
 ## Spacing — semantic aliases, never raw values
 
@@ -634,6 +695,19 @@ own `pageScript`.
 > layout and the change looks inert — a 64→128px padding read as unchanged at
 > 1440 while the same edit appeared at 1024 and 768. `Network.setCacheDisabled`
 > now closes the second one; the first is still positional, so count the args.
+>
+> 🔴 **AND A THIRD, FOUND 21 Aug (XLI): THE HEIGHT IS AS MUCH A MEASUREMENT AS
+> THE WIDTH, AND ONLY THE WIDTH IS EVER DEFENDED.** Every narrow check on this
+> project frames the page because headless clamps the viewport at 500px — and
+> then passes a height of 900 or 813 without a second thought. **A phone's
+> screen is not its viewport.** A 393 × 852 iPhone gives the page **672** after
+> Safari's URL bar (96) and toolbar (83). A whole session's mobile decisions
+> were taken against 852, and the menu render that was approved promised 147px
+> door rows where the device delivers 102 — the change shipped correctly and
+> arrived weaker than what was agreed. It matters most wherever a decision is
+> about how a FIXED height gets DISTRIBUTED, because there the frame's height
+> IS the answer. **Assert the height you obtained, or state which browser
+> chrome you subtracted to get it.**
 
 > **A tripwire mutation that no longer matches is invisible in the summary.**
 > `--tripwire` corrupts the built HTML to prove the sweep can fail, and it
@@ -833,9 +907,18 @@ Run through this list and state the result:
    trace. Two assertions were **deleted rather than re-aimed** (the standing
    frame and its thumbnail stopped existing), and the old *"rows fall to one
    column"* would have **asserted a fault as the rule**, since the set goes
-   deliberately two-up below 767. 16 → 20 assertions, all four payoffs inverted
-   independently before pinning; it runs inside p33's floor and costs no wall
-   time. It moved 58 → 59 on 21 Aug (E8.3) when
+   deliberately two-up below 767. **16 → 25 assertions**, every payoff
+   inverted independently before pinning; it runs inside p33's floor and costs
+   no wall time.
+   🔴 **ITS HOME/MENU BLOCK FRAMES AT 393 × 672, AND BOTH NUMBERS ARE
+   MEASUREMENTS.** It framed at 900px tall for one hour and reported 159px
+   menu rows where the device gives 102. Mahesh's iPhone is 393 × 852 and
+   Safari's URL bar (96) and toolbar (83) take 179 of it. **The width was
+   obtained honestly — the iframe exists precisely because headless clamps at
+   500 — and the height was assumed.** Same fault, one axis over, and it made
+   a shipped change arrive weaker than the render he had approved. **Never
+   frame a phone check at a screen height; frame it at what the browser
+   leaves.** It moved 58 → 59 on 21 Aug (E8.3) when
    **`p33 bare chrome`** registered — **the check that decided the design**,
    and now the board's FLOOR at ~76s against p21's ~59s, so it sets the wall
    time. p31 moved 22 → 26 per route (the field assertions inverted, plus the
