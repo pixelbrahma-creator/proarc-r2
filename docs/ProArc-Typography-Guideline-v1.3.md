@@ -794,19 +794,26 @@ E13.2a, decided 21 August 2026 (Mahesh), in the same ruling as E8.3:* **"keep th
 and hamburger longer when scrolling (and vice versa appear sooner when scrolling back)."**
 
 > **The plate joins the trigger on `chrome-retired`.** Past the page's own arrival, a
-> downward travel of **one viewport height** retires both; an upward travel of **24px**
+> downward travel of **one viewport height plus 500px** retires both; an upward travel of **24px**
 > (`--gap-block`) returns both, as do focus and the open overlay. The plate retires at
 > every width; the trigger stays permanent below 780. **Over a photograph the plate does
 > not return at all** — E8.3.
 
-🔴 **THE RETIRE THRESHOLD WAS 200px FOR HALF A DAY AND IS NOW A SCREEN.** *"Still increase
-the scroll distance for logo retire ... may be after full screen height?"* — Mahesh, having
-lived with it. `--gap-section` is the distance the design puts between two sections, and it
-turned out to describe **a gesture rather than a departure**. A screen is the only threshold
-on this axis that is not arbitrary: the reader has replaced everything they could see. The
-asymmetry is now about **34:1** rather than 8:1. ⚠️ It is a LIVE read of `innerHeight`,
-re-taken whenever the observers are re-armed — a captured constant describes a viewport that
-is gone after a rotate or a collapsing URL bar.
+🔴 **THE RETIRE THRESHOLD MOVED TWICE IN ONE DAY, BOTH TIMES ON THE BUILT PAGE.** 200px
+(`--gap-section`) → a full screen → **a full screen plus 500px**. *"Still increase the scroll
+distance for logo retire ... may be after full screen height?"*, then *"we can increase the
+retire distance by another 500 px"* — Mahesh, having lived with each. A section's gap turned
+out to describe **a gesture rather than a departure**; a screen is the only threshold on this
+axis that is not arbitrary, because the reader has replaced everything they could see; the
+500 is the margin asked for on top of it. The asymmetry is now about **55:1** rather than 8:1.
+
+📌 **THE TWO TERMS ARE KEPT SEPARATE IN THE SOURCE BECAUSE ONE IS DERIVED AND ONE IS NOT.**
+`window.innerHeight + RETIRE_MARGIN`, with the 500 named and declared invented — the same
+treatment `HYSTERESIS`'s 24 has carried since E13.2a, and the same discipline `districts.js`
+applies to its two invented values. Folding them into one number would present a judgement as
+an arithmetic. ⚠️ The screen term is a LIVE read, re-taken whenever the observers are
+re-armed: a captured constant describes a viewport that is gone after a rotate or a collapsing
+URL bar.
 
 🔴 **AND THE MARK'S SIZE STEP IS RETIRED WITH IT (E13.2c).** *"After practically seeing, can
 we avoid logo resize? anyway it is a disappearing after sometime and it is making it look odd

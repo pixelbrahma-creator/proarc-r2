@@ -306,10 +306,10 @@
       ? Math.ceil(arrivalMark * ratio + pad)
       : Math.ceil(plate.getBoundingClientRect().height) || 112;
     bandHeight = band;                     /* decide() reads this */
-    /* The retire threshold is a screen, so it belongs to the viewport rather
-       than to the stylesheet — re-read here because arm() is what runs on
-       resize. Declared below and hoisted. */
-    RETIRE_TRAVEL = window.innerHeight;
+    /* The retire threshold is a screen plus a margin, so its larger term
+       belongs to the viewport rather than to the stylesheet — re-read here
+       because arm() is what runs on resize. Declared below and hoisted. */
+    RETIRE_TRAVEL = window.innerHeight + RETIRE_MARGIN;
     var below = Math.max(0, window.innerHeight - band);
     var opts = {
       root: null,
@@ -390,15 +390,23 @@
      has decided to move on. Two values, and both are the site's own rather
      than invented:
 
-       RETIRE_TRAVEL       one VIEWPORT HEIGHT. 🔴 RAISED FROM 200px on
-                           21 Aug — Mahesh, having lived with it: "Still
-                           increase the scroll distance for logo retire ...
-                           may be after full screen height?" 200 was
-                           --gap-section, the distance between two sections,
-                           and it turned out to describe a gesture rather
-                           than a departure. A full screen is the only
-                           threshold on this axis that is not arbitrary: the
-                           reader has replaced everything they could see.
+       RETIRE_TRAVEL       one VIEWPORT HEIGHT + RETIRE_MARGIN. 🔴 RAISED
+                           TWICE ON 21 Aug, both times by Mahesh reading the
+                           built page rather than by a derivation: 200px
+                           (--gap-section) → a full screen → a screen plus
+                           500. 200 described a gesture rather than a
+                           departure; a screen was the first non-arbitrary
+                           threshold on this axis, because the reader has
+                           replaced everything they could see; and the 500
+                           on top of it is the margin he asked for after
+                           living with the screen.
+
+                           📌 THE SCREEN IS DERIVED AND THE 500 IS NOT, and
+                           they are written as two terms so that stays
+                           legible. Nothing in the system supplies a "and
+                           then some" — it is a judgement made on the page,
+                           exactly as HYSTERESIS's 24 was before it, and it
+                           is named here rather than folded into the sum.
        RETURN_TRAVEL   24  --gap-block, the old hysteresis unchanged. It was
                            always the right size for "did they mean it"; it
                            was only ever the wrong size for "have they gone".
@@ -420,7 +428,10 @@
      in the current direction and the flip is measured BACK from it, which
      is jitter-proof by construction and needs no second invented tolerance.
      ----------------------------------------------------------------- */
-  var RETIRE_TRAVEL = window.innerHeight;  /* one screen — re-read by arm() */
+  /* Invented, and it says so — see the note above. A screen alone was still
+     letting the chrome go sooner than Mahesh wanted it to. */
+  var RETIRE_MARGIN = 500;
+  var RETIRE_TRAVEL = window.innerHeight + RETIRE_MARGIN;  /* re-read by arm() */
   var RETURN_TRAVEL = 24;                  /* --gap-block */
   var anchorY = window.pageYOffset || 0;
   var goingDown = false;

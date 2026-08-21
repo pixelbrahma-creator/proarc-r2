@@ -331,15 +331,20 @@ inline-start rule.
   ASYMMETRIC** (Mahesh: *"keep the logo and hamburger longer when scrolling
   (and vice versa appear sooner when scrolling back)"*). The plate joins
   `chrome-retired`; **`plate-away` is DELETED** and the plate is no longer
-  keyed on the arrival. **ONE VIEWPORT HEIGHT of downward travel to retire,
-  24px of upward travel (`--gap-block`) to return** — leaving is expensive,
-  returning is cheap, and the ratio is now about 34:1. 🔴 **Raised from 200px
-  (`--gap-section`) on 21 Aug** — *"may be after full screen height?"* — after
-  living with it: a section's gap describes a gesture, not a departure. **A
-  screen is the only non-arbitrary threshold on this axis**: the reader has
-  replaced everything they could see. It is a **LIVE read of `innerHeight`,
-  re-taken by `arm()` on every resize**, because a captured constant
-  describes a viewport that is gone after a rotate or a collapsing URL bar.
+  keyed on the arrival. **ONE VIEWPORT HEIGHT + 500px of downward travel to
+  retire, 24px of upward travel (`--gap-block`) to return** — leaving is
+  expensive, returning is cheap, and the ratio is now about 55:1. 🔴 **Raised
+  TWICE on 21 Aug, both times by Mahesh reading the built page**: 200px
+  (`--gap-section`) → a screen → a screen + 500. A section's gap described a
+  gesture rather than a departure; **a screen is the only non-arbitrary
+  threshold on this axis** (the reader has replaced everything they could
+  see); the 500 on top is the margin he asked for after living with it.
+  📌 **The screen is derived and the 500 is INVENTED, and they are two terms
+  in the source so that stays legible** — `RETIRE_MARGIN`, named in the file
+  exactly as `HYSTERESIS`'s 24 was. The screen term is a **LIVE read of
+  `innerHeight`, re-taken by `arm()` on every resize**, because a captured
+  constant describes a viewport that is gone after a rotate or a collapsing
+  URL bar.
   **The direction is read from the furthest point reached, never from the
   previous frame** — a screen-sized threshold measured frame-to-frame is
   unreachable on a trackpad, and anchoring on the extreme needs no second
